@@ -31,7 +31,7 @@
 
 
                 <Button
-                    android:id="@+id/login"
+                    android:id="@+id/loginbutton"
                     android:layout_width="278dp"
                     android:layout_height="70dp"
                     android:layout_margin="16dp"
@@ -42,7 +42,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.458"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/checkBox"
+                    app:layout_constraintTop_toBottomOf="@+id/rememberme"
                     tools:ignore="MissingConstraints" />
 
                 <Button
@@ -71,13 +71,13 @@
                     android:text="Forgot Password?"
                     android:textColor="@android:color/black"
                     android:textSize="15sp"
-                    app:layout_constraintBottom_toTopOf="@+id/login"
+                    app:layout_constraintBottom_toTopOf="@+id/loginbutton"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.857" />
 
                 <CheckBox
-                    android:id="@+id/checkBox"
+                    android:id="@+id/rememberme"
                     android:layout_width="156dp"
                     android:layout_height="57dp"
                     android:layout_marginTop="104dp"
@@ -99,7 +99,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.526"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/login"
+                    app:layout_constraintTop_toBottomOf="@+id/loginbutton"
                     tools:ignore="MissingConstraints" />
 
 
@@ -151,7 +151,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPassword3"
+        android:id="@+id/Password"
         android:layout_width="372dp"
         android:layout_height="64dp"
         android:layout_gravity="center_horizontal"
