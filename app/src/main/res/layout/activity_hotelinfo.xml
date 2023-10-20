@@ -55,13 +55,13 @@
         app:layout_constraintHorizontal_bias="0.137"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hotelandrestaurant"
-        app:layout_constraintVertical_bias="0.015" />
+        app:layout_constraintVertical_bias="0.029" />
 
     <TextView
         android:id="@+id/description"
         android:layout_width="391dp"
         android:layout_height="158dp"
-        android:layout_marginBottom="340dp"
+        android:layout_marginBottom="328dp"
         android:text="      The River Palm Hotel and Resort is situated in Bugallon, Pangasinan. A perfect getaway for travelers who wish to relax and unwind away from the city with good scenery surrounding you by trees. Provides accommodation with an outdoor swimming pool, free private parking, a garden and a restaurant. "
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -91,38 +91,42 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gallery">
+        app:layout_constraintTop_toTopOf="@+id/gallery"
+        tools:ignore="SpeakableTextPresentCheck">
 
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/gallery1"
             android:layout_width="15dp"
             android:layout_height="105dp"
             android:layout_gravity="start"
             android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            app:srcCompat="@drawable/gallery_1" />
+            app:srcCompat="@drawable/gallery_1"
+            tools:ignore="SpeakableTextPresentCheck"/>
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/gallery2"
             android:layout_width="20dp"
             android:layout_height="108dp"
             android:layout_gravity="start"
             android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            app:srcCompat="@drawable/gallery_1" />
+            app:srcCompat="@drawable/gallery_1"
+            tools:ignore="SpeakableTextPresentCheck"/>
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/gallery3"
             android:layout_width="8dp"
             android:layout_height="107dp"
             android:layout_gravity="start"
             android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            app:srcCompat="@drawable/gallery_1" />
+            app:srcCompat="@drawable/gallery_1"
+            tools:ignore="SpeakableTextPresentCheck"/>
     </LinearLayout>
 
 
