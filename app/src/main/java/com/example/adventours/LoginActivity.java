@@ -17,8 +17,9 @@ public class LoginActivity extends AppCompatActivity {
         button.setOnClickListener(view -> openlogin());
     }
     private void openlogin() {
-        Intent intent = new Intent(this,HomeActivity.class);
+        Intent intent = new Intent(this, home.class);
         startActivity(intent);
     }
+}
 
-        }
+
