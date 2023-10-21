@@ -158,10 +158,13 @@
         android:layout_marginTop="412dp"
         android:background="@drawable/round_padding"
         android:drawableLeft="@drawable/baseline_password"
+        android:drawableRight="@drawable/baseline_remove_red_eye"
         android:ems="10"
         android:hint=" Enter Password"
         android:inputType="textPassword"
+        android:onClick="@drawable/baseline_remove_red_eye"
         android:paddingStart="15dp"
+        android:paddingRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
