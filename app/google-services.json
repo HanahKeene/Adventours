@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "419913978490",
+    "project_id": "adventours-402501",
+    "storage_bucket": "adventours-402501.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:419913978490:android:efdb2a11d1d851528521c3",
+        "android_client_info": {
+          "package_name": "com.example.adventours"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8I1ytfS7lHgo2xh8NVXPitUILPgBi7qY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
