@@ -13,11 +13,10 @@
         android:theme="@style/Theme.Adventours"
         tools:targetApi="30">
         <activity
-            android:name=".home"
-            android:exported="false"
-            android:label="@string/title_activity_home" />
+            android:name=".VerificationActivity"
+            android:exported="false"/>
         <activity
-            android:name=".LoginActivity"
+            android:name=".start_splashscreen"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
@@ -29,7 +28,7 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".start_splashscreen"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -3,23 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".VerificationActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="470dp"
-        android:layout_height="906dp"
+        android:layout_width="411dp"
+        android:layout_height="890dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.333">
+        app:layout_constraintVertical_bias="0.0">
 
 
+        <TextView
+            android:id="@+id/verification"
+            android:layout_width="273dp"
+            android:layout_height="27dp"
+            android:text="VERIFY OTP"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="MissingConstraints" />
     </LinearLayout>
 
     <TextView
@@ -51,24 +59,9 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/verification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:text="Verification"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.049"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
         android:id="@+id/verificationtext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="152dp"
+        android:layout_height="20dp"
         android:layout_marginTop="76dp"
         android:text="Enter Verification Code"
         android:textSize="15sp"
