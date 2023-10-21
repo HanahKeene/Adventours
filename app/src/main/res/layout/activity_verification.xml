@@ -7,8 +7,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="470dp"
-        android:layout_height="906dp"
+        android:layout_width="398dp"
+        android:layout_height="154dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:orientation="vertical"
@@ -196,10 +196,10 @@
         android:textColor="@android:color/red"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.715"
+        app:layout_constraintHorizontal_bias="0.826"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="417dp" />
+        tools:layout_editor_absoluteY="409dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
