@@ -46,7 +46,7 @@ public class SigninActivity extends AppCompatActivity {
 
     private void openVerifier() {
 
-        Intent intent = new Intent(this, VerificationActivity.class);
+        Intent intent = new Intent(this, registerOTP.class);
         startActivity(intent);
     }
 }
