@@ -3,317 +3,404 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/hotdeals3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:paddingStart="5dp"
-        android:text="Top TouristSpot in Pangasinan"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.265"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="280dp"
         android:text="MUST TRY"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.121"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/texthotel" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemBackground="@color/blue"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu" />
+
+    <ScrollView
+        android:layout_width="476dp"
+        android:layout_height="1670dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="372dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/border"
+        android:elevation="25dp"
+        android:gravity="center"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.172"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck"/>
+
+    <ImageView
+        android:id="@+id/bell"
+        android:layout_width="73dp"
+        android:layout_height="73dp"
+        android:layout_marginTop="28dp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bell"
+        tools:ignore="SpeakableTextPresentCheck"/>
+
+    <ImageView
+        android:id="@+id/hotel"
+        android:layout_width="73dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="144dp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="@+id/restaurant"
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/hotel"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageView
+        android:id="@+id/restaurant"
+        android:layout_width="73dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="140dp"
+        android:clickable="true"
+        android:layout_marginTop="144dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/restaurant"
+        tools:ignore="SpeakableTextPresentCheck"/>
+
+    <ImageView
+        android:id="@+id/maps"
+        android:layout_width="73dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="256dp"
+        android:layout_marginTop="144dp"
+        android:clickable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/map"
+        tools:ignore="SpeakableTextPresentCheck"/>
+
+    <ImageView
+        android:id="@+id/events"
+        android:layout_width="73dp"
+        android:layout_height="73dp"
+        android:layout_marginTop="148dp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.92"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/events"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/texthotel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="80dp"
+        android:text="Hotel"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/hotel" />
+
+    <TextView
+        android:id="@+id/texttourist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Top Tourist Spot in Pangasinan"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.193"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hotdeals3"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textrestaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="80dp"
+        android:text="Restaurants"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/restaurant" />
+
+    <TextView
+        android:id="@+id/textmaps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="276dp"
+        android:layout_marginTop="80dp"
+        android:text="Maps"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/maps" />
+
+    <TextView
+        android:id="@+id/textevents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="380dp"
+        android:layout_marginTop="76dp"
+        android:text="Events"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/events" />
+
+    <TextView
+        android:id="@+id/hotdeals"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="36dp"
+        android:text="HOT DEALS"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/texthotel" />
+
+    <TextView
+        android:id="@+id/hotdeals4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="RECOMMENDATION"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.193"
+        app:layout_constraintHorizontal_bias="0.153"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/patar" />
 
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="292dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="25dp"
+    <ImageView
+        android:id="@+id/hotdeals1"
+        android:layout_width="301dp"
+        android:layout_height="169dp"
+        android:layout_marginTop="80dp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.292"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/texthotel"
+        app:srcCompat="@drawable/hotdeals1"
+        tools:ignore="SpeakableTextPresentCheck"/>
+
+    <ImageView
+        android:id="@+id/patar"
+        android:layout_width="192dp"
+        android:layout_height="158dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/round_padding"
-        android:elevation="40dp"
-        android:hint="Search your favorite in Pangasinan!"
-        android:paddingStart="15dp"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.142"
+        android:clickable="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/texttourist"
+        app:srcCompat="@drawable/musttry1"
+        tools:ignore="SpeakableTextPresentCheck"/>
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="76dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="296dp"
-        android:layout_marginTop="24dp"
+        android:id="@+id/imageView7"
+        android:layout_width="228dp"
+        android:layout_height="165dp"
+        android:layout_marginTop="16dp"
         android:clickable="true"
-        android:hint="Notification"
-        android:src="@drawable/bell"
-        tools:ignore="SpeakableTextPresentCheck"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/searchView"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/hotelButton"
-        android:layout_width="51dp"
-        android:layout_height="58dp"
-        android:layout_margin="10dp"
-        android:clickable="true"
-        android:hint="Hotel"
-        android:src="@drawable/hotel"
-        tools:ignore="SpeakableTextPresentCheck"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.136"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.132" />
-
-    <ImageView
-        android:id="@+id/restaurantButton"
-        android:layout_width="52dp"
-        android:layout_height="61dp"
-        android:layout_margin="10dp"
-        android:clickable="true"
-        android:hint="Restaurant"
-        android:src="@drawable/restaurant"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.392"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.137"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <ImageView
-        android:id="@+id/toursButton"
-        android:layout_width="52dp"
-        android:layout_height="61dp"
-        android:layout_margin="10dp"
-        android:clickable="true"
-        android:hint="tours"
-        android:src="@drawable/tours"
-        tools:ignore="SpeakableTextPresentCheck"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.651"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.137" />
-
-    <ImageView
-        android:id="@+id/eventsButton"
-        android:layout_width="51dp"
-        android:layout_height="59dp"
-        android:layout_margin="10dp"
-        android:clickable="true"
-        android:hint="tours"
-        android:src="@drawable/events"
-        tools:ignore="SpeakableTextPresentCheck"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.869"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.14" />
+        app:layout_constraintHorizontal_bias="0.923"
+        app:layout_constraintStart_toStartOf="@+id/patar"
+        app:layout_constraintTop_toBottomOf="@+id/texttourist"
+        app:srcCompat="@drawable/hundredisland"
+        tools:ignore="SpeakableTextPresentCheck"/>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/viewall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:paddingStart="5dp"
-        android:text="Hotels"
-        app:layout_constraintEnd_toStartOf="@+id/textView4"
-        app:layout_constraintHorizontal_bias="0.709"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hotelButton" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="58dp"
-        android:layout_marginEnd="24dp"
-        android:paddingStart="7dp"
-        android:text="Restaurant"
-        app:layout_constraintEnd_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toTopOf="@+id/restaurantButton" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
-        android:paddingStart="7dp"
-        android:text="Tours"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/toursButton"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="52dp"
-        android:paddingStart="7dp"
-        android:text="Events"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="100dp"
+        android:text="View All"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventsButton"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="116dp"
-        android:text="HOT DEALS"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView10"
+        app:layout_constraintHorizontal_bias="0.903"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/hotdeals1" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/resend"
+        android:layout_width="113dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="16dp"
         android:background="@android:color/transparent"
         android:text="Destination"
         android:textColor="@android:color/black"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/button3"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hotdeals4"
+        tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/resend2"
+        android:layout_width="113dp"
+        android:layout_height="54dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="180dp"
         android:background="@android:color/transparent"
         android:text="Restaurants"
         android:textColor="@android:color/black"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12"
-        app:layout_constraintVertical_bias="0.011" />
-
-
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="436dp"
-        android:layout_height="70dp"
-        android:src="@drawable/login_padding"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/baseline_home"
-        android:layout_width="60dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
-        android:background="@android:color/transparent"
-        android:clickable="true"
-        android:src="@drawable/baseline_home"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.474"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/hotdeals4"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:id="@+id/maps"
-        android:layout_width="55dp"
-        android:layout_height="49dp"
-        android:layout_marginBottom="8dp"
-        android:background="@android:color/transparent"
+        android:id="@+id/collibra"
+        android:layout_width="201dp"
+        android:layout_height="159dp"
+        android:layout_marginTop="16dp"
         android:clickable="true"
-        android:src="@drawable/maps"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/calendar"
-        app:layout_constraintHorizontal_bias="0.525"
-        app:layout_constraintStart_toEndOf="@+id/baseline_home"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <ImageView
-        android:id="@+id/calendar"
-        android:layout_width="69dp"
-        android:layout_height="49dp"
-        android:layout_marginBottom="8dp"
-        android:background="@android:color/transparent"
-        android:clickable="true"
-        android:src="@drawable/calendar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/weather"
-        app:layout_constraintHorizontal_bias="0.859"
-        app:layout_constraintStart_toEndOf="@+id/baseline_home"
-        app:layout_constraintTop_toTopOf="@+id/imageView9"
-        app:layout_constraintVertical_bias="1.0"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <ImageView
-        android:id="@+id/weather"
-        android:layout_width="65dp"
-        android:layout_height="49dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="8dp"
-        android:background="@android:color/transparent"
-        android:clickable="true"
-        android:src="@drawable/weather"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/person"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <ImageView
-        android:id="@+id/person"
-        android:layout_width="52dp"
-        android:layout_height="51dp"
-        android:layout_marginBottom="8dp"
-        android:background="@android:color/transparent"
-        android:clickable="true"
-        android:src="@drawable/person"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintHorizontal_bias="0.136"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resend"
+        app:srcCompat="@drawable/collibraisland"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageView
+        android:id="@+id/collibra2"
+        android:layout_width="201dp"
+        android:layout_height="159dp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.939"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/manoag"
+        app:srcCompat="@drawable/collibraisland"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageView
+        android:id="@+id/collibra3"
+        android:layout_width="201dp"
+        android:layout_height="159dp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.384"
+        app:layout_constraintStart_toEndOf="@+id/manoag2"
+        app:layout_constraintTop_toBottomOf="@+id/collibra2"
+        app:srcCompat="@drawable/collibraisland"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageView
+        android:id="@+id/collibra4"
+        android:layout_width="201dp"
+        android:layout_height="159dp"
+        android:layout_marginTop="11dp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.346"
+        app:layout_constraintStart_toEndOf="@+id/manoag2"
+        app:layout_constraintTop_toBottomOf="@+id/collibra3"
+        app:srcCompat="@drawable/collibraisland"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageView
+        android:id="@+id/collibra5"
+        android:layout_width="201dp"
+        android:layout_height="159dp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.307"
+        app:layout_constraintStart_toEndOf="@+id/manoag2"
+        app:srcCompat="@drawable/collibraisland"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:layout_editor_absoluteY="1541dp" />
+
+    <ImageView
+        android:id="@+id/manoag"
+        android:layout_width="213dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toEndOf="@+id/collibra"
+        app:layout_constraintTop_toBottomOf="@+id/resend2"
+        app:srcCompat="@drawable/minorbasilica" />
+
+    <ImageView
+        android:id="@+id/manoag2"
+        android:layout_width="213dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView10"
+        app:srcCompat="@drawable/minorbasilica" />
+
+    <ImageView
+        android:id="@+id/manoag3"
+        android:layout_width="213dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toStartOf="@+id/collibra5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView11"
+        app:srcCompat="@drawable/minorbasilica" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="216dp"
+        android:layout_height="157dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.143"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/collibra"
+        app:srcCompat="@drawable/sky" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="201dp"
+        android:layout_height="152dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/collibra4"
+        app:layout_constraintTop_toBottomOf="@+id/manoag2"
+        app:srcCompat="@drawable/sky" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
