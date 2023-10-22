@@ -26,11 +26,12 @@
         android:id="@+id/textView2"
         android:layout_width="56dp"
         android:layout_height="24dp"
-        android:layout_marginStart="56dp"
         android:layout_marginTop="36dp"
         android:text="BACK"
         android:textColor="#000000"
         android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.174"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -196,7 +197,7 @@
         android:textColor="@color/red"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.826"
+        app:layout_constraintHorizontal_bias="0.794"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="409dp" />

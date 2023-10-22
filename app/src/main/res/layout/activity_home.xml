@@ -38,6 +38,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
@@ -236,14 +237,14 @@
         android:id="@+id/imageView7"
         android:layout_width="228dp"
         android:layout_height="165dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.923"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/patar"
         app:layout_constraintTop_toBottomOf="@+id/texttourist"
         app:srcCompat="@drawable/hundredisland"
-        tools:ignore="SpeakableTextPresentCheck"/>
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/viewall"
@@ -307,8 +308,7 @@
         android:layout_height="159dp"
         android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.939"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView10"
         app:layout_constraintTop_toBottomOf="@+id/manoag"
         app:srcCompat="@drawable/collibraisland"
         tools:ignore="SpeakableTextPresentCheck" />

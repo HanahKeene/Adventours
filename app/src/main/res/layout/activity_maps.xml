@@ -19,4 +19,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu" />
 
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="419dp"
+        android:layout_height="837dp"
+        android:layout_marginBottom="56dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bottom_nav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck"/>
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="372dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/border"
+        android:elevation="25dp"
+        android:gravity="center"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.589"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

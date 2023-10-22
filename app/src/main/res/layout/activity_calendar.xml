@@ -19,4 +19,46 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu" />
 
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="408dp"
+        android:layout_height="394dp"
+        android:layout_marginTop="96dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="419dp"
+        android:layout_height="68dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/padding_calendar" />
+
+    <SearchView
+        android:id="@+id/searchView2"
+        android:layout_width="39dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="2dp"
+        android:searchIcon="@drawable/search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="57dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toStartOf="@+id/searchView2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_menu_24" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
