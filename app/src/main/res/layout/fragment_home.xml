@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".ui.home.HomeFragment">
 
     <LinearLayout
@@ -44,107 +44,31 @@
             android:src="@drawable/baseline_notifications_24" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout5"
-        android:layout_width="324dp"
-        android:layout_height="98dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.394"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
-
         <LinearLayout
-            android:layout_width="81dp"
-            android:layout_height="match_parent"
+            android:id="@+id/linearLayout5"
+            android:layout_width="412dp"
+            android:layout_height="103dp"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:orientation="vertical"
-            android:paddingTop="12dp"
-            android:paddingBottom="5dp">
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.394"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="36dp"
-                android:layout_height="41dp"
-                android:cropToPadding="false"
-                android:src="@drawable/hotel" />
 
-            <TextView
-                android:id="@+id/textView3"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/category"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Hotel"
-                android:textAlignment="center" />
+                android:layout_height="match_parent" />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="81dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="36dp"
-                android:layout_height="49dp"
-                android:src="@drawable/restaurant" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Restaurant"
-                android:textAlignment="center" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="81dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="57dp"
-                android:layout_height="48dp"
-                android:src="@drawable/map" />
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tours"
-                android:textAlignment="center" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="81dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="32dp"
-                android:layout_height="47dp"
-                android:src="@drawable/events" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Events"
-                android:textAlignment="center" />
-        </LinearLayout>
-    </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout6"
             android:layout_width="411dp"
             android:layout_height="733dp"
             android:orientation="vertical"
-            android:paddingTop="20dp"
+            android:paddingTop="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -218,9 +142,10 @@
                 </LinearLayout>
             </LinearLayout>
 
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="488dp"
+                android:layout_height="147dp"
                 android:orientation="horizontal"
                 android:paddingLeft="20dp"
                 android:paddingTop="20dp"
@@ -235,7 +160,47 @@
                     android:layout_height="match_parent" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/foryouheader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="For You"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/foryou"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
         </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
