@@ -1,12 +1,16 @@
 package com.example.adventours.ui.models;
 
-public class foryouModel {
+public class FYPModel {
 
     String img_url;
     String name;
-    String location;
 
-    public foryouModel() {
+    public FYPModel() {
+    }
+
+    public FYPModel(String img_url, String name) {
+        this.img_url = img_url;
+        this.name = name;
     }
 
     public String getImg_url() {
@@ -25,11 +29,4 @@ public class foryouModel {
         this.name = name;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 }

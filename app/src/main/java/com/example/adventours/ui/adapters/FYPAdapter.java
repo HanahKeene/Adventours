@@ -12,19 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.adventours.R;
-import com.example.adventours.ui.models.CategoryModel;
-import com.example.adventours.ui.models.foryouModel;
+import com.example.adventours.ui.models.FYPModel;
 
 import java.util.List;
 
-public class foryouAdapter extends RecyclerView.Adapter<foryouAdapter.ViewHolder> {
+public class FYPAdapter extends RecyclerView.Adapter<FYPAdapter.ViewHolder> {
 
     private Context context;
-    private List<foryouModel> foryouModelList;
+    private List<FYPModel> fypModelList;
 
-    public foryouAdapter(Context context, List<foryouModel> foryouModelList) {
+    public FYPAdapter(Context context, List<FYPModel> fypModelList) {
         this.context = context;
-        this.foryouModelList = foryouModelList;
+        this.fypModelList = fypModelList;
     }
 
     @NonNull
@@ -36,26 +35,23 @@ public class foryouAdapter extends RecyclerView.Adapter<foryouAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Glide.with(context).load(foryouModelList.get(position).getImg_url()).into(holder.img);
-        holder.name.setText(foryouModelList.get(position).getName());
-        holder.location.setText(foryouModelList.get(position).getLocation());
+        Glide.with(context).load(fypModelList.get(position).getImg_url()).into(holder.img);
+        holder.name.setText(fypModelList.get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        return foryouModelList.size();
+        return fypModelList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView img;
-        TextView name, location;
+        TextView name;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            img = itemView.findViewById(R.id.img);
+            img = itemView.findViewById(R.id.pic);
             name = itemView.findViewById(R.id.place);
-            location = itemView.findViewById(R.id.location);
         }
     }
 }

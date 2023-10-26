@@ -66,7 +66,7 @@
         <LinearLayout
             android:id="@+id/linearLayout6"
             android:layout_width="411dp"
-            android:layout_height="733dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -155,7 +155,7 @@
 
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_touristspot"
+                    android:id="@+id/musttry_recycleview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>
@@ -188,17 +188,10 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="20dp">
-
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/foryou"
+                    android:id="@+id/fyp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
-            </LinearLayout>
         </LinearLayout>
 
 

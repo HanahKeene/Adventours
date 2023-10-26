@@ -101,5 +101,6 @@
     <string name="about_us_button_description">About Us Button</string>
     <string name="help_center_button_description">Help Center Button</string>
     <string name="rate_us_button_description">Rate Us Button</string>
+    <string name="like">like</string>
 
 </resources>
