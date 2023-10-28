@@ -34,8 +34,8 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="406dp"
-        android:layout_height="818dp"
+        android:layout_width="407dp"
+        android:layout_height="789dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="4dp"
@@ -59,5 +59,153 @@
                 android:textSize="25sp"
                 android:textStyle="bold" />
         </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="55sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:paddingLeft="100dp">
+
+            <TextView
+                android:id="@+id/forgottext"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:paddingEnd="10dp"
+                android:text="Time left: "
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextClock
+                android:id="@+id/textClock2"
+                android:layout_width="99dp"
+                android:layout_height="52dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="144dp"
+                android:layout_marginEnd="125dp"
+                android:layout_weight="1"
+                android:background="@drawable/login_padding"
+                android:format12Hour="mm:ss"
+                android:format24Hour="mm:ss"
+                android:gravity="center"
+                android:padding="12dp"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:timeZone="auto" />
+
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="35sp" />
+
+        <TextView
+            android:id="@+id/enterdigittext"
+            android:layout_width="355dp"
+            android:layout_height="33dp"
+            android:paddingStart="55dp"
+            android:text="Enter the 6 digit OTP sent your mobile xxxxxx"
+            android:textAlignment="center"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="397dp"
+            android:layout_height="91dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:paddingStart="25dp"
+            android:paddingEnd="15dp"
+            android:Alignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enterdigittext">
+
+            <EditText
+                android:id="@+id/number1"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/border"
+                android:elevation="20dp"
+                android:gravity="center"
+                android:hint="0"
+                android:inputType="number"
+                android:maxLength="1"
+                android:padding="10dp"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/number2"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/border"
+                android:elevation="20dp"
+                android:gravity="center"
+                android:hint="0"
+                android:inputType="number"
+                android:maxLength="1"
+                android:padding="10dp"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/number3"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/border"
+                android:elevation="20dp"
+                android:gravity="center"
+                android:hint="0"
+                android:inputType="number"
+                android:maxLength="1"
+                android:padding="10dp"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/number4"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/border"
+                android:elevation="20dp"
+                android:gravity="center"
+                android:hint="0"
+                android:inputType="number"
+                android:maxLength="1"
+                android:padding="10dp"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/verifybutton"
+            android:layout_width="303dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="52dp"
+            android:background="@drawable/login_padding"
+            android:padding="12dp"
+            android:layout_marginTop="20dp"
+            android:text="Verify OTP"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="129dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="140dp"
+            android:layout_marginTop="15dp"
+            android:background="@android:color/transparent"
+            android:text="Resend OTP"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="15sp" />
+
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

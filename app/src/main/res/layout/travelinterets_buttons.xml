@@ -40,9 +40,9 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="458dp"
-                android:layout_height="1654dp"
-                android:layout_marginTop="164dp"
+                android:layout_width="477dp"
+                android:layout_height="1775dp"
+                android:layout_marginTop="50dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -142,8 +142,8 @@
                         android:layout_width="141dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:hint="Beaches"
-                        android:background="@drawable/button_highlight" />
+                        android:background="@drawable/button_highlight"
+                        android:hint="Beaches" />
 
                     <LinearLayout
                         android:layout_width="267dp"
@@ -156,8 +156,8 @@
                             android:layout_width="141dp"
                             android:layout_height="50dp"
                             android:layout_weight="1"
-                            android:hint="Mountains"
-                            android:background="@drawable/button_highlight" />
+                            android:background="@drawable/button_highlight"
+                            android:hint="Mountains" />
 
 
                         <LinearLayout
@@ -171,8 +171,8 @@
                                 android:layout_width="141dp"
                                 android:layout_height="50dp"
                                 android:layout_weight="1"
-                                android:hint="Cities"
-                                android:background="@drawable/button_highlight" />
+                                android:background="@drawable/button_highlight"
+                                android:hint="Cities" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -189,8 +189,8 @@
                         android:layout_width="103dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:hint="Countrysides"
-                        android:background="@drawable/button_highlight" />
+                        android:background="@drawable/button_highlight"
+                        android:hint="Countrysides" />
 
 
                     <Space
@@ -227,8 +227,8 @@
                         android:layout_width="228dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:hint="Adventure"
-                        android:background="@drawable/button_highlight" />
+                        android:background="@drawable/button_highlight"
+                        android:hint="Adventure" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -241,8 +241,8 @@
                             android:layout_width="141dp"
                             android:layout_height="50dp"
                             android:layout_weight="1"
-                            android:hint="Family"
-                            android:background="@drawable/button_highlight" />
+                            android:background="@drawable/button_highlight"
+                            android:hint="Family" />
 
 
                         <LinearLayout
@@ -256,8 +256,8 @@
                                 android:layout_width="141dp"
                                 android:layout_height="50dp"
                                 android:layout_weight="1"
-                                android:hint="Solo"
-                                android:background="@drawable/button_highlight" />
+                                android:background="@drawable/button_highlight"
+                                android:hint="Solo" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -273,16 +273,16 @@
                         android:layout_width="141dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:hint="Romance"
-                        android:background="@drawable/button_highlight" />
+                        android:background="@drawable/button_highlight"
+                        android:hint="Romance" />
 
                     <Button
                         android:id="@+id/button9"
                         android:layout_width="141dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:hint="Luxury"
-                        android:background="@drawable/button_highlight" />
+                        android:background="@drawable/button_highlight"
+                        android:hint="Luxury" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -313,8 +313,8 @@
                         android:layout_width="228dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:hint="Outdoor"
-                        android:background="@drawable/button_highlight" />
+                        android:background="@drawable/button_highlight"
+                        android:hint="Outdoor" />
 
 
                     <LinearLayout
@@ -328,8 +328,8 @@
                             android:layout_width="141dp"
                             android:layout_height="50dp"
                             android:layout_weight="1"
-                            android:hint="Water Sports"
-                            android:background="@drawable/button_highlight" />
+                            android:background="@drawable/button_highlight"
+                            android:hint="Water Sports" />
 
 
                         <LinearLayout
@@ -343,8 +343,8 @@
                                 android:layout_width="141dp"
                                 android:layout_height="50dp"
                                 android:layout_weight="1"
-                                android:hint="Food"
-                                android:background="@drawable/button_highlight" />
+                                android:background="@drawable/button_highlight"
+                                android:hint="Food" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -361,8 +361,8 @@
                         android:layout_width="228dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:hint="Educational"
-                        android:background="@drawable/button_highlight" />
+                        android:background="@drawable/button_highlight"
+                        android:hint="Educational" />
 
 
                     <LinearLayout
@@ -376,9 +376,9 @@
                             android:layout_width="141dp"
                             android:layout_height="50dp"
                             android:layout_weight="1"
-                            android:hint="Wellness"
+                            android:background="@drawable/button_highlight"
 
-                        android:background="@drawable/button_highlight" />
+                            android:hint="Wellness" />
 
                         <LinearLayout
                             android:layout_width="147dp"
@@ -391,8 +391,8 @@
                                 android:layout_width="141dp"
                                 android:layout_height="50dp"
                                 android:layout_weight="1"
-                                android:hint="Cultural"
-                                android:background="@drawable/button_highlight" />
+                                android:background="@drawable/button_highlight"
+                                android:hint="Cultural" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -408,16 +408,16 @@
                         android:layout_width="141dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:hint="Workshops and Classes"
-                        android:background="@drawable/button_highlight" />
+                        android:background="@drawable/button_highlight"
+                        android:hint="Workshops and Classes" />
 
                     <Button
                         android:id="@+id/button17"
                         android:layout_width="141dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:hint="Languag Learning"
-                        android:background="@drawable/button_highlight" />
+                        android:background="@drawable/button_highlight"
+                        android:hint="Languag Learning" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -448,8 +448,8 @@
                         android:layout_width="228dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:hint="Budget"
-                        android:background="@drawable/button_highlight" />
+                        android:background="@drawable/button_highlight"
+                        android:hint="Budget" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -462,8 +462,8 @@
                             android:layout_width="141dp"
                             android:layout_height="50dp"
                             android:layout_weight="1"
-                            android:hint="Luxury"
-                            android:background="@drawable/button_highlight" />
+                            android:background="@drawable/button_highlight"
+                            android:hint="Luxury" />
 
 
                         <LinearLayout
@@ -477,8 +477,8 @@
                                 android:layout_width="141dp"
                                 android:layout_height="50dp"
                                 android:layout_weight="1"
-                                android:hint="Hotels"
-                                android:background="@drawable/button_highlight" />
+                                android:background="@drawable/button_highlight"
+                                android:hint="Hotels" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -495,8 +495,8 @@
                         android:layout_width="141dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:hint="Rentals"
-                        android:background="@drawable/button_highlight" />
+                        android:background="@drawable/button_highlight"
+                        android:hint="Rentals" />
 
 
                     <Button
@@ -504,8 +504,8 @@
                         android:layout_width="141dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:hint="Camping"
-                        android:background="@drawable/button_highlight" />
+                        android:background="@drawable/button_highlight"
+                        android:hint="Camping" />
 
                 </LinearLayout>
 
@@ -526,7 +526,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="395dp"
+                    android:layout_width="452dp"
                     android:layout_height="61dp"
                     android:orientation="horizontal"
                     android:paddingStart="15dp">
@@ -536,22 +536,21 @@
                         android:layout_width="141dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:hint="Festivals"
-                        android:background="@drawable/button_highlight" />
-
+                        android:background="@drawable/button_highlight"
+                        android:hint="Festivals" />
 
                     <Button
                         android:id="@+id/button24"
-                        android:layout_width="141dp"
+                        android:layout_width="139dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:hint="Music and Nightlife"
-                        android:background="@drawable/button_highlight" />
+                        android:background="@drawable/button_highlight"
+                        android:hint="Music and Nightlife" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="395dp"
+                    android:layout_width="453dp"
                     android:layout_height="61dp"
                     android:orientation="horizontal"
                     android:paddingStart="15dp">
@@ -561,8 +560,8 @@
                         android:layout_width="141dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:hint="Local Customs"
-                        android:background="@drawable/button_highlight" />
+                        android:background="@drawable/button_highlight"
+                        android:hint="Local Customs" />
 
 
                     <Button
@@ -570,8 +569,8 @@
                         android:layout_width="141dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:hint="Historical"
-                        android:background="@drawable/button_highlight" />
+                        android:background="@drawable/button_highlight"
+                        android:hint="Historical" />
 
                 </LinearLayout>
 
@@ -592,7 +591,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="395dp"
+                    android:layout_width="460dp"
                     android:layout_height="61dp"
                     android:orientation="horizontal"
                     android:paddingStart="15dp">
@@ -602,8 +601,8 @@
                         android:layout_width="141dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:hint="Foodie"
-                        android:background="@drawable/button_highlight" />
+                        android:background="@drawable/button_highlight"
+                        android:hint="Foodie" />
 
 
                     <Button
@@ -611,13 +610,13 @@
                         android:layout_width="141dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:hint="Wine and Brewery"
-                        android:background="@drawable/button_highlight" />
+                        android:background="@drawable/button_highlight"
+                        android:hint="Wine and Brewery" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="395dp"
+                    android:layout_width="460dp"
                     android:layout_height="61dp"
                     android:orientation="horizontal"
                     android:paddingStart="15dp">
@@ -627,8 +626,8 @@
                         android:layout_width="141dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:hint="Fine Dining"
-                        android:background="@drawable/button_highlight" />
+                        android:background="@drawable/button_highlight"
+                        android:hint="Fine Dining" />
 
 
                     <Button
@@ -636,8 +635,8 @@
                         android:layout_width="141dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:hint="Street Food"
-                        android:background="@drawable/button_highlight" />
+                        android:background="@drawable/button_highlight"
+                        android:hint="Street Food" />
                 </LinearLayout>
 
                 <Space
@@ -652,8 +651,8 @@
 
                     <Button
                         android:id="@+id/verifybutton"
-                        android:layout_width="325dp"
-                        android:layout_height="70dp"
+                        android:layout_width="402dp"
+                        android:layout_height="64dp"
                         android:layout_margin="16dp"
                         android:layout_marginStart="60dp"
                         android:layout_marginEnd="70dp"
