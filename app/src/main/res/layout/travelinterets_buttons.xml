@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <?xml version="1.0" encoding="utf-8"?>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="119dp"
+                android:layout_height="62dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.003"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="10dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/baseline_arrow_back_black" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="29dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="8dp"
+                    android:text="Back"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="458dp"
+                android:layout_height="1654dp"
+                android:layout_marginTop="164dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="84dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:layout_weight="1"
+                        android:text="Travel Interests"
+                        android:textSize="40sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="381dp"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:text="Select your travel interest to tailor recommendation
+            to your trip plan."
+                    android:textAlignment="center"
+                    android:textSize="15sp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="35sp" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout4"
+                    android:layout_width="377dp"
+                    android:layout_height="59dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <EditText
+                        android:id="@+id/editTextText"
+                        android:layout_width="377dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/border"
+                        android:drawableRight="@android:drawable/ic_menu_search"
+                        android:elevation="30dp"
+                        android:ems="10"
+                        android:hint="Search"
+                        android:inputType="text"
+                        android:minHeight="48dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="25dp"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/travelstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:layout_weight="1"
+                        android:text="Destinations"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="59dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp">
+
+                    <Button
+                        android:id="@+id/button1"
+                        android:layout_width="141dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="Beaches"
+                        android:background="@drawable/button_highlight" />
+
+                    <LinearLayout
+                        android:layout_width="267dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/button2"
+                            android:layout_width="141dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:hint="Mountains"
+                            android:background="@drawable/button_highlight" />
+
+
+                        <LinearLayout
+                            android:layout_width="147dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/button3"
+                                android:layout_width="141dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:hint="Cities"
+                                android:background="@drawable/button_highlight" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="170dp"
+                    android:layout_height="59dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="15dp">
+
+                    <Button
+                        android:id="@+id/button4"
+                        android:layout_width="103dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="Countrysides"
+                        android:background="@drawable/button_highlight" />
+
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/destinations"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:layout_weight="1"
+                        android:text="Travel Style"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp">
+
+                    <Button
+                        android:id="@+id/button5"
+                        android:layout_width="228dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="Adventure"
+                        android:background="@drawable/button_highlight" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/button6"
+                            android:layout_width="141dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:hint="Family"
+                            android:background="@drawable/button_highlight" />
+
+
+                        <LinearLayout
+                            android:layout_width="147dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/button7"
+                                android:layout_width="141dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:hint="Solo"
+                                android:background="@drawable/button_highlight" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="262dp"
+                    android:layout_height="59dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="15dp">
+
+                    <Button
+                        android:id="@+id/button8"
+                        android:layout_width="141dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="Romance"
+                        android:background="@drawable/button_highlight" />
+
+                    <Button
+                        android:id="@+id/button9"
+                        android:layout_width="141dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="Luxury"
+                        android:background="@drawable/button_highlight" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="63dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/activities"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:layout_weight="1"
+                        android:text="Activities"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp">
+
+                    <Button
+                        android:id="@+id/button10"
+                        android:layout_width="228dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="Outdoor"
+                        android:background="@drawable/button_highlight" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/button11"
+                            android:layout_width="141dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:hint="Water Sports"
+                            android:background="@drawable/button_highlight" />
+
+
+                        <LinearLayout
+                            android:layout_width="147dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/button12"
+                                android:layout_width="141dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:hint="Food"
+                                android:background="@drawable/button_highlight" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp">
+
+                    <Button
+                        android:id="@+id/button13"
+                        android:layout_width="228dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="Educational"
+                        android:background="@drawable/button_highlight" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/button14"
+                            android:layout_width="141dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:hint="Wellness"
+
+                        android:background="@drawable/button_highlight" />
+
+                        <LinearLayout
+                            android:layout_width="147dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/button15"
+                                android:layout_width="141dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:hint="Cultural"
+                                android:background="@drawable/button_highlight" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="262dp"
+                    android:layout_height="59dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="15dp">
+
+                    <Button
+                        android:id="@+id/button16"
+                        android:layout_width="141dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="Workshops and Classes"
+                        android:background="@drawable/button_highlight" />
+
+                    <Button
+                        android:id="@+id/button17"
+                        android:layout_width="141dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="Languag Learning"
+                        android:background="@drawable/button_highlight" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/budget_acomm"
+                        android:layout_width="364dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:layout_weight="1"
+                        android:text="Budget and Accommodation"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp">
+
+                    <Button
+                        android:id="@+id/button18"
+                        android:layout_width="228dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="Budget"
+                        android:background="@drawable/button_highlight" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/button19"
+                            android:layout_width="141dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:hint="Luxury"
+                            android:background="@drawable/button_highlight" />
+
+
+                        <LinearLayout
+                            android:layout_width="147dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/button20"
+                                android:layout_width="141dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:hint="Hotels"
+                                android:background="@drawable/button_highlight" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="262dp"
+                    android:layout_height="59dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="15dp">
+
+                    <Button
+                        android:id="@+id/button21"
+                        android:layout_width="141dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="Rentals"
+                        android:background="@drawable/button_highlight" />
+
+
+                    <Button
+                        android:id="@+id/button22"
+                        android:layout_width="141dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="Camping"
+                        android:background="@drawable/button_highlight" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/culture"
+                        android:layout_width="364dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:layout_weight="1"
+                        android:text="Culture and Events"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="395dp"
+                    android:layout_height="61dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="15dp">
+
+                    <Button
+                        android:id="@+id/button23"
+                        android:layout_width="141dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="Festivals"
+                        android:background="@drawable/button_highlight" />
+
+
+                    <Button
+                        android:id="@+id/button24"
+                        android:layout_width="141dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="Music and Nightlife"
+                        android:background="@drawable/button_highlight" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="395dp"
+                    android:layout_height="61dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="15dp">
+
+                    <Button
+                        android:id="@+id/button25"
+                        android:layout_width="141dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="Local Customs"
+                        android:background="@drawable/button_highlight" />
+
+
+                    <Button
+                        android:id="@+id/button26"
+                        android:layout_width="141dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="Historical"
+                        android:background="@drawable/button_highlight" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/cuisine"
+                        android:layout_width="364dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:layout_weight="1"
+                        android:text="Cuisine and Dining"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="395dp"
+                    android:layout_height="61dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="15dp">
+
+                    <Button
+                        android:id="@+id/button27"
+                        android:layout_width="141dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="Foodie"
+                        android:background="@drawable/button_highlight" />
+
+
+                    <Button
+                        android:id="@+id/button28"
+                        android:layout_width="141dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="Wine and Brewery"
+                        android:background="@drawable/button_highlight" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="395dp"
+                    android:layout_height="61dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="15dp">
+
+                    <Button
+                        android:id="@+id/button29"
+                        android:layout_width="141dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="Fine Dining"
+                        android:background="@drawable/button_highlight" />
+
+
+                    <Button
+                        android:id="@+id/button30"
+                        android:layout_width="141dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="Street Food"
+                        android:background="@drawable/button_highlight" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="50sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="94dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp">
+
+                    <Button
+                        android:id="@+id/verifybutton"
+                        android:layout_width="325dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="16dp"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginEnd="70dp"
+                        android:background="@drawable/login_padding"
+                        android:padding="12dp"
+                        android:text="Continue"
+                        android:textColor="#FFFFFF"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

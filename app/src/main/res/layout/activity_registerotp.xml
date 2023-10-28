@@ -56,10 +56,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.279"
+        app:layout_constraintHorizontal_bias="0.303"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.132"
+        app:layout_constraintVertical_bias="0.109"
         tools:ignore="MissingConstraints" />
 
     <LinearLayout
@@ -166,8 +166,8 @@
         android:layout_width="129dp"
         android:layout_height="52dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="75dp"
+        android:layout_marginTop="144dp"
+        android:layout_marginEnd="80dp"
         android:background="@drawable/login_padding"
         android:format12Hour="mm:ss"
         android:format24Hour="mm:ss"

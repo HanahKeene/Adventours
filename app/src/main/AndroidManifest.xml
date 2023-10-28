@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_DRM_PROPERTIES" />
 
 
     <application
@@ -15,23 +16,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Adventours"
         tools:targetApi="30">
+
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:label="@string/title_activity_main" />
+        <activity
+            android:name=".forgotPassActivity"
+            android:exported="false" />
         <activity
             android:name=".registerOTP"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".VerificationActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".start_splashscreen"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
-            android:exported="false" />
-        <activity
             android:name=".SigninActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
