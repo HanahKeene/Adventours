@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout8"
+            android:layout_width="119dp"
+            android:layout_height="62dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.054"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="1dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/baseline_arrow_back_black" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="29dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="8dp"
+                android:text="HOTELS"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="416dp"
+            android:layout_height="1825dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="113dp" />
+
+            <LinearLayout
+                android:layout_width="388dp"
+                android:layout_height="205dp"
+                android:orientation="vertical"
+                android:paddingStart="20dp">
+
+                <ImageView
+                    android:id="@+id/river"
+                    android:layout_width="363dp"
+                    android:layout_height="198dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/hotels_river" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="381dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/river_range"
+                    android:layout_width="224dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="25dp"
+                    android:text="₱ 5,500 - ₱ 5,500"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/view"
+                    android:layout_width="114dp"
+                    android:layout_height="33dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:text="View details"
+                    android:textSize="19sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="444dp"
+                android:layout_height="221dp"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:id="@+id/star"
+                    android:layout_width="363dp"
+                    android:layout_height="198dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/star_plaza" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="381dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/star_range"
+                    android:layout_width="224dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="25dp"
+                    android:text="₱ 4,500 - ₱ 5,800"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/view2"
+                    android:layout_width="114dp"
+                    android:layout_height="33dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:text="View details"
+                    android:textSize="19sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="223dp"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:id="@+id/razote"
+                    android:layout_width="363dp"
+                    android:layout_height="198dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/razote" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="390dp"
+                android:layout_height="54dp"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/razote_range"
+                    android:layout_width="224dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="25dp"
+                    android:text="₱ 5,500 - ₱ 5,800"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/view3"
+                    android:layout_width="114dp"
+                    android:layout_height="33dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:text="View details"
+                    android:textSize="19sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="385dp"
+                android:layout_height="222dp"
+                android:orientation="horizontal"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:id="@+id/casa"
+                    android:layout_width="363dp"
+                    android:layout_height="198dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/casa" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="385dp"
+                android:layout_height="49dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/casa_range"
+                    android:layout_width="224dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="25dp"
+                    android:text="₱ 5,500 - ₱ 5,500"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/view4"
+                    android:layout_width="114dp"
+                    android:layout_height="33dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:text="View details"
+                    android:textSize="19sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="233dp"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:id="@+id/razote_travel"
+                    android:layout_width="363dp"
+                    android:layout_height="198dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/plaza" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="385dp"
+                android:layout_height="49dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/plaza_range"
+                    android:layout_width="224dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="25dp"
+                    android:text="₱ 5,500 - ₱ 5,800"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/view5"
+                    android:layout_width="114dp"
+                    android:layout_height="33dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:text="View details"
+                    android:textSize="19sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="221dp"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:id="@+id/plaza"
+                    android:layout_width="370dp"
+                    android:layout_height="239dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/razote" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="385dp"
+                android:layout_height="49dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/razotetravel_range"
+                    android:layout_width="224dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="25dp"
+                    android:text="₱ 5,500 - ₱ 5,500"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/view6"
+                    android:layout_width="114dp"
+                    android:layout_height="33dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:text="View details"
+                    android:textSize="19sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+

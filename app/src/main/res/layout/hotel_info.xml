@@ -193,8 +193,8 @@
 
                     <ImageView
                         android:id="@+id/imageView5"
-                        android:layout_width="233dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="201dp"
+                        android:layout_height="159dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/corner_king" />
                 </LinearLayout>
@@ -208,7 +208,7 @@
                     <TextView
                         android:id="@+id/five"
                         android:layout_width="210dp"
-                        android:layout_height="1dp"
+                        android:layout_height="10dp"
                         android:layout_weight="1"
                         android:paddingVertical="10dp"
                         android:paddingStart="25dp"
@@ -311,8 +311,8 @@
 
                     <ImageView
                         android:id="@+id/bed3"
-                        android:layout_width="233dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="163dp"
+                        android:layout_height="149dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/queen" />
                 </LinearLayout>
