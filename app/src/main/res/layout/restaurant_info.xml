@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp">
+
+        <LinearLayout
+            android:layout_width="74dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="13dp"
+            android:elevation="4dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.003"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="70dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/baseline_arrow_back" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="74dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="13dp"
+            android:elevation="4dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageloc"
+                android:layout_width="70dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/baseline_location" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="385dp"
+            android:layout_height="1490dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:layout_gravity="top"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/sungayan"
+                    android:layout_width="153dp"
+                    android:layout_height="528dp"
+                    android:layout_weight="1"
+                    android:paddingBottom="290dp"
+                    app:srcCompat="@drawable/sungayan_info" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="30dp"
+                    android:paddingTop="15dp"
+                    android:text="Sungayan Grill"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="30dp"
+                    android:paddingTop="10dp"
+                    android:text="Balingasay Bolinao, Pangasinan City"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/descrip"
+                    android:layout_width="365dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="30dp"
+                    android:paddingTop="20dp"
+                    android:text="Along a part of the pristine Balingasay River is the Sungayan Grill and Floating Restaurant. It is an open-air establishment fashioned after interconnected bahay kubo where customers can enjoy traditional Filipino cuisine. Its best attraction is a set of floating kubo where customers can option to enjoy their meal while sailing along the Balingasay River. Experience and explore the cleanest river in Luzon while enjoying the best food that Bolinao can offer."
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/gallery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="31dp"
+                    android:paddingTop="20dp"
+                    android:text="GALLERY"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="112dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="15dp">
+
+                <LinearLayout
+                    android:layout_width="115dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/s_1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="132dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView8"
+                        android:layout_width="154dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/s_2" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="126dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/s_3" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="vertical"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/delicacies"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_weight="1"
+                    android:paddingStart="31dp"
+                    android:paddingTop="20dp"
+                    android:text="DELICACIES"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="112dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp">
+
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="345dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/grilled" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+
+                        <ImageView
+                            android:id="@+id/imageView10"
+                            android:layout_width="245dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/kinamayan" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/grilled"
+                    android:layout_width="354dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Serves fresh grilled and steamed dishes"
+                    android:textAlignment="center" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/kamayan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Offers kamayan-style dining "
+                        android:textAlignment="center" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="568dp"
+                android:orientation="vertical"
+                android:paddingTop="20dp">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="31dp"
+                    android:paddingTop="20dp"
+                    android:text="BUNDLE FOOD PRICES"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:paddingStart="31dp"
+                    android:paddingTop="20dp"
+                    android:text="Fiesta Bilao Grill Bundles can cost from ₱ 850 - ₱ 1,650"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/price_bundle"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:paddingStart="31dp"
+                    android:text="Seafood Fiesta Bundle ranges from ₱ 2,500 - 3,800"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/balingasay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="31dp"
+                    android:paddingTop="20dp"
+                    android:text="BALINGASAY RIVER CRUISE RATES "
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/balingasay_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="31dp"
+                    android:paddingTop="20dp"
+                    android:text="Group Maximum of 12 pax – Php. 1,000"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/balingasay_price2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="31dp"
+                    android:paddingTop="2dp"
+                    android:text="Group 13 to 18 pax – Php. 1,500"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/balingasay_price3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="31dp"
+                    android:paddingTop="2dp"
+                    android:text="Group 19 to 30 pax – Php. 2,000"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/submit"
+                    android:layout_width="321dp"
+                    android:layout_height="65dp"
+                    android:layout_below="@+id/phone"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="155dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/login_padding"
+                    android:text="Reserve a Table"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

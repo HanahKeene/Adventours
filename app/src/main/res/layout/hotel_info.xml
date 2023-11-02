@@ -110,7 +110,7 @@
                     android:layout_weight="1"
                     android:paddingStart="31dp"
                     android:paddingTop="20dp"
-                    android:text="Gallery"
+                    android:text="GALLERY"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -790,5 +790,7 @@
 
             </LinearLayout>
 
-
         </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -10,8 +10,8 @@
 
         <LinearLayout
             android:id="@+id/linearLayout8"
-            android:layout_width="119dp"
-            android:layout_height="62dp"
+            android:layout_width="205dp"
+            android:layout_height="55dp"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingTop="8dp"
-                android:text="HOTELS"
+                android:text="RESAURANTS"
                 android:textSize="17sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -47,7 +47,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="113dp" />
+                android:layout_height="148dp" />
 
             <LinearLayout
                 android:layout_width="388dp"
@@ -56,11 +56,11 @@
                 android:paddingStart="20dp">
 
                 <ImageView
-                    android:id="@+id/river"
-                    android:layout_width="363dp"
-                    android:layout_height="198dp"
+                    android:id="@+id/sungayan"
+                    android:layout_width="361dp"
+                    android:layout_height="219dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/hotels_river" />
+                    app:srcCompat="@drawable/sungayan" />
             </LinearLayout>
 
             <LinearLayout
@@ -70,7 +70,7 @@
                 android:paddingTop="10dp">
 
                 <TextView
-                    android:id="@+id/river_range"
+                    android:id="@+id/sungayan_range"
                     android:layout_width="224dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -99,11 +99,11 @@
                 android:paddingTop="10dp">
 
                 <ImageView
-                    android:id="@+id/star"
+                    android:id="@+id/jacobas"
                     android:layout_width="363dp"
                     android:layout_height="198dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/star_plaza" />
+                    app:srcCompat="@drawable/jacobas" />
 
             </LinearLayout>
 
@@ -114,7 +114,7 @@
                 android:paddingTop="10dp">
 
                 <TextView
-                    android:id="@+id/star_range"
+                    android:id="@+id/jacobas_range"
                     android:layout_width="224dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -143,11 +143,11 @@
                 android:paddingTop="10dp">
 
                 <ImageView
-                    android:id="@+id/razote"
+                    android:id="@+id/el"
                     android:layout_width="363dp"
                     android:layout_height="198dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/razote" />
+                    app:srcCompat="@drawable/el_jardin" />
             </LinearLayout>
 
             <LinearLayout
@@ -157,7 +157,7 @@
                 android:paddingTop="10dp">
 
                 <TextView
-                    android:id="@+id/razote_range"
+                    android:id="@+id/el_range"
                     android:layout_width="224dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -187,11 +187,11 @@
                 android:paddingTop="10dp">
 
                 <ImageView
-                    android:id="@+id/casa"
+                    android:id="@+id/hardin"
                     android:layout_width="363dp"
                     android:layout_height="198dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/casa" />
+                    app:srcCompat="@drawable/hardin" />
             </LinearLayout>
 
             <LinearLayout
@@ -200,7 +200,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/casa_range"
+                    android:id="@+id/hardin_range"
                     android:layout_width="224dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -229,11 +229,11 @@
                 android:paddingTop="10dp">
 
                 <ImageView
-                    android:id="@+id/razote_travel"
+                    android:id="@+id/seafood"
                     android:layout_width="363dp"
                     android:layout_height="198dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/plaza" />
+                    app:srcCompat="@drawable/seafood" />
             </LinearLayout>
 
             <LinearLayout
@@ -271,19 +271,20 @@
                 android:paddingTop="10dp">
 
                 <ImageView
-                    android:id="@+id/plaza"
+                    android:id="@+id/ciudad"
                     android:layout_width="370dp"
                     android:layout_height="239dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/razote" />
+                    app:srcCompat="@drawable/ciudad" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="385dp"
                 android:layout_height="49dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/razotetravel_range"
+                    android:id="@+id/ciudad_range"
                     android:layout_width="224dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
