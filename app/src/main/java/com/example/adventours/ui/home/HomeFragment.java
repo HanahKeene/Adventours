@@ -1,5 +1,6 @@
 package com.example.adventours.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.adventours.R;
 import com.example.adventours.databinding.FragmentHomeBinding;
+import com.example.adventours.touristspotinfo;
 import com.example.adventours.ui.adapters.CategoryAdapter;
 import com.example.adventours.ui.adapters.FYPAdapter;
 import com.example.adventours.ui.adapters.MusttryAdapter;
@@ -30,7 +32,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements FYPAdapter.OnFYPItemClickListener {
 
     RecyclerView catRecyclerview, foryouRecyclerview, musttryRecycleview;
     CategoryAdapter categoryAdapter;
@@ -64,9 +66,10 @@ public class HomeFragment extends Fragment {
         catRecyclerview.setAdapter(categoryAdapter);
 
         fypModelList = new ArrayList<>();
-        fypAdapter = new FYPAdapter(getContext(), fypModelList);
+        fypAdapter = new FYPAdapter(getContext(), fypModelList, this);
         foryouRecyclerview.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         foryouRecyclerview.setAdapter(fypAdapter);
+
 
         musttryModelList = new ArrayList<>();
         musttryAdapter = new MusttryAdapter(getContext(), musttryModelList);
@@ -93,7 +96,7 @@ public class HomeFragment extends Fragment {
                 });
 
         // Fetch and set tourist spots
-        db.collection("TouristSpots")
+        db.collection("Tourist Spots")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -102,6 +105,8 @@ public class HomeFragment extends Fragment {
                             fypModelList.clear(); // Clear the list before adding new data
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 FYPModel fypModel= document.toObject(FYPModel.class);
+                                String spot_id = document.getId(); // Retrieve document ID
+                                fypModel.setSpot_id(spot_id); // Set the itemId in your FYPModel object
                                 fypModelList.add(fypModel);
                             }
                             fypAdapter.notifyDataSetChanged(); // Notify adapter after adding new data
@@ -111,7 +116,7 @@ public class HomeFragment extends Fragment {
                     }
                 });
 
-        db.collection("TouristSpots")
+        db.collection("Tourist Spots")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -136,5 +141,14 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onFYPItemClick(String spot_id)
+    {
+        Intent intent = new Intent(getActivity(), touristspotinfo.class);
+        intent.putExtra("spot_id", spot_id);
+        Toast.makeText(getActivity(), "the Spot id = " + spot_id, Toast.LENGTH_SHORT).show();
+        startActivity(intent);
     }
 }
