@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout8"
+            android:layout_width="205dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.054"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="1dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/baseline_arrow_back_black" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="29dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="8dp"
+                android:text="EVENTS"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="416dp"
+            android:layout_height="1825dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="104dp" />
+
+            <LinearLayout
+                android:layout_width="388dp"
+                android:layout_height="205dp"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:paddingStart="20dp">
+
+                <ImageView
+                    android:id="@+id/bamgus"
+                    android:layout_width="361dp"
+                    android:layout_height="219dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/bangus" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="381dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/bangus_range"
+                    android:layout_width="224dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="25dp"
+                    android:text="₱ 570 - ₱ 1,350"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/view"
+                    android:layout_width="114dp"
+                    android:layout_height="33dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:text="View details"
+                    android:textSize="19sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="444dp"
+                android:layout_height="221dp"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp">
+
+
+
+                <ImageView
+                    android:id="@+id/dumayo"
+                    android:layout_width="363dp"
+                    android:layout_height="198dp"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/dumayo" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="381dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/dumayo_range"
+                    android:layout_width="224dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="25dp"
+                    android:text="₱ 570 - ₱ 1,350"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/view2"
+                    android:layout_width="114dp"
+                    android:layout_height="33dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:text="View details"
+                    android:textSize="19sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="223dp"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:id="@+id/mango"
+                    android:layout_width="363dp"
+                    android:layout_height="198dp"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/mango_bamboo" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="390dp"
+                android:layout_height="54dp"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/el_range"
+                    android:layout_width="224dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="25dp"
+                    android:text="₱ 570 - ₱ 1,350"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/view3"
+                    android:layout_width="114dp"
+                    android:layout_height="33dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:text="View details"
+                    android:textSize="19sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="385dp"
+                android:layout_height="222dp"
+                android:orientation="horizontal"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:id="@+id/tayug"
+                    android:layout_width="363dp"
+                    android:layout_height="198dp"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/tayug" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="385dp"
+                android:layout_height="49dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tayug_range"
+                    android:layout_width="224dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="25dp"
+                    android:text="₱ 570 - ₱ 1,350"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/view4"
+                    android:layout_width="114dp"
+                    android:layout_height="33dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:text="View details"
+                    android:textSize="19sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="233dp"
+                android:orientation="vertical"
+
+                android:paddingStart="20dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:id="@+id/talong"
+                    android:layout_width="363dp"
+                    android:layout_height="218dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/talong" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="385dp"
+                android:layout_height="49dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/talong_range"
+                    android:layout_width="224dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="25dp"
+                    android:text="₱ 570 - ₱ 1,350"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/view5"
+                    android:layout_width="114dp"
+                    android:layout_height="33dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:text="View details"
+                    android:textSize="19sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="221dp"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:id="@+id/corn"
+                    android:layout_width="370dp"
+                    android:layout_height="239dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/corn" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="385dp"gitg
+                android:layout_height="49dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/corn_range"
+                    android:layout_width="224dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="25dp"
+                    android:text="₱ 570 - ₱ 1,350"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/view6"
+                    android:layout_width="114dp"
+                    android:layout_height="33dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:text="View details"
+                    android:textSize="19sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
