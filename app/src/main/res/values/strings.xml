@@ -96,11 +96,26 @@
     <string name="title_activity_main">MainActivity</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="back">BACK</string>
     <string name="my_iterinary_description">My Iterinary</string>
     <string name="settings_button_description">Settings Button</string>
     <string name="about_us_button_description">About Us Button</string>
     <string name="help_center_button_description">Help Center Button</string>
     <string name="rate_us_button_description">Rate Us Button</string>
     <string name="like">like</string>
+    <string name="terms_and_condition1">1. Acceptance of Terms - By using AdvenTours, you agree to comply with and be bound by these Terms and Conditions. If you do not agree with these terms, please do not use our app.</string>
+    <string name="terms_and_condition2">2. Scope of Service - AdvenTours  provides a platform for users to book flights, hotels, and access travel information.</string>
+    <string name="terms_and_condition3"> 3. We do not own or operate any travel services.</string>
+    <string name="terms_and_condition4">4. User Registration - You must be at least 18 years old to use our app. You are responsible for maintaining the confidentiality of your account information.</string>
+    <string name="terms_and_condition5"> 5. Cancellation and Refunds - Cancellation policies and refund eligibility vary by service provider. Please review specific booking details for this information.</string>
+    <string name="terms_and_condition6"> 6. Privacy and Data Collection - We collect user data as described in our Privacy Policy. By using our app, you consent to the collection and use of your data.</string>
+    <string name="terms_and_condition7"> 7. Liability and Disclaimers - AdvenTours is not responsible for any issues that may arise during travel, including delays, cancellations, or accidents. We recommend travel insurance.</string>
+    <string name="terms_and_condition8">8. User Conduct - Users must adhere to respectful and lawful conduct within our app. Harassment, fraud, or abusive behavior is strictly prohibited.</string>
+    <string name="terms_and_condition9">9. Termination - We reserve the right to terminate or suspend user accounts for violations of these terms or any unlawful activities.</string>
+    <string name="terms_and_condition10">10. Updates and Changes - We may update these terms from time to time, and users will be notified of any changes. Continued use of the app after changes constitutes acceptance of the revised terms.</string>
+    <string name="terms_and_condition11">11. Jurisdiction and Dispute Resolution These terms are governed by the laws of [Your Jurisdiction]. Any disputes will be resolved through arbitration in accordance with [Arbitration Rules].</string>
+    <string name="terms_and_condition12"> 12. Contact Information - For questions or concerns, please contact us at inquiry@adventours.com.</string>
+    <string name="terms_and_condition13">13. Compliance with Regulations: Adventours complies with all applicable laws and regulations in the provision of its services.</string>
+    <string name="image">photogallery</string>
 
 </resources>

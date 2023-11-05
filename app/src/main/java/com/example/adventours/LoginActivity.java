@@ -62,8 +62,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void openforgotPass() {
 
-        Intent intent = new Intent(this, forgotPassActivity.class);
-        startActivity(intent);
 
     }
 

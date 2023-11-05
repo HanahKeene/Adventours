@@ -38,10 +38,13 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="448dp"
-            android:layout_height="3515dp"
+            android:layout_width="440dp"
+            android:layout_height="3480dp"
+            android:layout_marginTop="84dp"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.09"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -53,6 +56,7 @@
                 android:layout_width="388dp"
                 android:layout_height="205dp"
                 android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
                 android:paddingStart="20dp">
 
                 <ImageView
@@ -94,6 +98,7 @@
             <LinearLayout
                 android:layout_width="444dp"
                 android:layout_height="221dp"
+                android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:paddingStart="20dp"
                 android:paddingTop="10dp">
@@ -138,6 +143,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="223dp"
+                android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:paddingStart="20dp"
                 android:paddingTop="10dp">
@@ -182,6 +188,7 @@
             <LinearLayout
                 android:layout_width="385dp"
                 android:layout_height="222dp"
+                android:gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:paddingStart="20dp"
                 android:paddingTop="10dp">
@@ -224,6 +231,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="233dp"
+                android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:paddingStart="20dp"
                 android:paddingTop="10dp">
@@ -266,6 +274,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="221dp"
+                android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:paddingStart="20dp"
                 android:paddingTop="10dp">
@@ -308,6 +317,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="221dp"
+                android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:paddingStart="20dp"
                 android:paddingTop="10dp">
@@ -350,6 +360,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="221dp"
+                android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:paddingStart="20dp"
                 android:paddingTop="10dp">
@@ -392,6 +403,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="221dp"
+                android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:paddingStart="20dp"
                 android:paddingTop="10dp">
@@ -431,52 +443,13 @@
                     android:textSize="19sp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="221dp"
-                android:orientation="vertical"
-                android:paddingStart="20dp"
-                android:paddingTop="10dp">
 
-                <ImageView
-                    android:id="@+id/patar"
-                    android:layout_width="370dp"
-                    android:layout_height="239dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/patar" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="385dp"
-                android:layout_height="49dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/patar_range"
-                    android:layout_width="224dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="25dp"
-                    android:text="₱ 5,500 - ₱ 5,500"
-                    android:textColor="@color/red"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/view10"
-                    android:layout_width="114dp"
-                    android:layout_height="33dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border"
-                    android:gravity="center"
-                    android:text="View details"
-                    android:textSize="19sp" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="221dp"
                 android:orientation="vertical"
+
                 android:paddingStart="20dp"
                 android:paddingTop="10dp">
 
@@ -485,6 +458,7 @@
                     android:layout_width="370dp"
                     android:layout_height="239dp"
                     android:layout_weight="1"
+                    android:layout_gravity="center_horizontal"
                     app:srcCompat="@drawable/cabangaoan" />
             </LinearLayout>
 
@@ -519,6 +493,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="221dp"
                 android:orientation="vertical"
+                android:gravity="center_horizontal"
                 android:paddingStart="20dp"
                 android:paddingTop="10dp">
 

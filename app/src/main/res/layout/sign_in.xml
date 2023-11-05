@@ -62,16 +62,16 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="205dp"
+            android:layout_height="178dp"
             android:orientation="vertical">
 
             <EditText
                 android:id="@+id/username"
                 android:layout_width="347dp"
-                android:layout_height="56dp"
+                android:layout_height="53dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/round_padding"
                 android:drawableLeft="@drawable/baseline_person"
                 android:ems="10"
@@ -82,7 +82,7 @@
             <EditText
                 android:id="@+id/email"
                 android:layout_width="347dp"
-                android:layout_height="56dp"
+                android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/round_padding"
                 android:drawableLeft="@drawable/baseline_email"
@@ -94,7 +94,7 @@
 
         <LinearLayout
             android:layout_width="353dp"
-            android:layout_height="75dp"
+            android:layout_height="64dp"
             android:orientation="horizontal"
             android:paddingStart="30dp">
 
@@ -102,7 +102,7 @@
             <EditText
                 android:id="@+id/name"
                 android:layout_width="100dp"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/round_padding"
@@ -121,7 +121,7 @@
                 <EditText
                     android:id="@+id/surname"
                     android:layout_width="167dp"
-                    android:layout_height="60dp"
+                    android:layout_height="48dp"
                     android:layout_marginStart="15dp"
                     android:layout_weight="1"
                     android:background="@drawable/round_padding"
@@ -136,14 +136,14 @@
 
         <LinearLayout
             android:layout_width="385dp"
-            android:layout_height="69dp"
+            android:layout_height="61dp"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/ageNumber"
                 android:layout_width="144dp"
-                android:layout_height="59dp"
+                android:layout_height="51dp"
                 android:layout_marginStart="32dp"
                 android:background="@drawable/round_padding"
                 android:ems="10"
@@ -154,7 +154,7 @@
             <EditText
                 android:id="@+id/birthday"
                 android:layout_width="167dp"
-                android:layout_height="60dp"
+                android:layout_height="56dp"
                 android:layout_marginStart="15dp"
                 android:background="@drawable/round_padding"
                 android:drawableRight="@drawable/baseline_calendar_black"
@@ -202,14 +202,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="74dp"
+            android:layout_height="79dp"
             android:orientation="horizontal"
             android:paddingStart="32dp">
 
             <EditText
                 android:id="@+id/city"
                 android:layout_width="323dp"
-                android:layout_height="56dp"
+                android:layout_height="57dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/round_padding"
                 android:ems="10"
@@ -227,7 +227,7 @@
             <EditText
                 android:id="@+id/phone"
                 android:layout_width="219dp"
-                android:layout_height="54dp"
+                android:layout_height="53dp"
                 android:layout_marginStart="34dp"
                 android:layout_marginBottom="10dp"
                 android:layout_toStartOf="@+id/verifyButton"
@@ -241,7 +241,7 @@
             <Button
                 android:id="@+id/verify"
                 android:layout_width="100dp"
-                android:layout_height="54dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/phone"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/login_padding"
@@ -257,8 +257,8 @@
 
             <EditText
                 android:id="@+id/password"
-                android:layout_width="333dp"
-                android:layout_height="56dp"
+                android:layout_width="328dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/round_padding"
                 android:drawableLeft="@drawable/baseline_password"
@@ -272,8 +272,8 @@
             <EditText
                 android:id="@+id/conpassword"
                 android:layout_width="331dp"
-                android:layout_height="56dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="49dp"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/round_padding"
                 android:drawableLeft="@drawable/baseline_password"
                 android:drawableRight="@drawable/baseline_remove_red_eye"
@@ -288,7 +288,7 @@
                 android:layout_width="328dp"
                 android:layout_height="65dp"
                 android:layout_marginStart="2dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/login_padding"
                 android:text="SUBMIT"
