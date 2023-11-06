@@ -11,8 +11,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="424dp"
-        android:layout_height="2065dp"
+        android:layout_width="454dp"
+        android:layout_height="1894dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -691,7 +691,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="420dp"
+            android:layout_height="402dp"
             android:orientation="vertical">
 
             <Space
@@ -702,6 +702,7 @@
                 android:id="@+id/upload"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
+                android:layout_gravity="center_horizontal"
                 android:paddingLeft="50dp"
                 android:paddingTop="12sp"
                 android:text="Upload payment receipt here:"
@@ -710,16 +711,16 @@
 
             <ImageView
                 android:id="@+id/imageView18"
-                android:layout_width="385dp"
+                android:layout_width="361dp"
                 android:layout_height="91dp"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="30dp"
+                android:layout_gravity="center_horizontal"
                 app:srcCompat="@drawable/border" />
 
             <TextView
                 android:id="@+id/note1"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="20dp"
                 android:paddingTop="70dp"
                 android:text="Note:"
@@ -731,7 +732,7 @@
                 android:id="@+id/note2"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_horizontal"
                 android:paddingTop="10dp"
                 android:text="Please be informed that cancellations are complimentary up to 5 days before your reservation date. Should you wish to cancel beyond this period, we kindly request you to contact the hotel for details regarding applicable fees."
                 android:textAlignment="center"
@@ -739,16 +740,17 @@
                 android:textSize="10sp"
                 android:textStyle="bold" />
         </LinearLayout>
+
         <Button
             android:id="@+id/submit"
             android:layout_width="328dp"
             android:layout_height="65dp"
-            android:layout_marginStart="40dp"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/login_padding"
             android:text="Reserve"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
 

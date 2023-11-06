@@ -57,17 +57,36 @@
                 android:paddingStart="20dp">
 
                 <ImageView
-                    android:id="@+id/bamgus"
+                    android:id="@+id/bangus"
                     android:layout_width="361dp"
                     android:layout_height="219dp"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/bangus" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="74dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/bangus_fest"
+                        android:layout_width="224dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:paddingStart="25dp"
+                        android:text="Bangus Festival"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
 
+
             <LinearLayout
-                android:layout_width="381dp"
-                android:layout_height="wrap_content"
+                android:layout_width="364dp"
+                android:layout_height="51dp"
                 android:orientation="horizontal"
+                android:paddingLeft="20dp"
                 android:paddingTop="10dp">
 
                 <TextView
@@ -83,8 +102,8 @@
 
                 <TextView
                     android:id="@+id/view"
-                    android:layout_width="114dp"
-                    android:layout_height="33dp"
+                    android:layout_width="123dp"
+                    android:layout_height="36dp"
                     android:layout_weight="1"
                     android:background="@drawable/border"
                     android:gravity="center"
@@ -99,22 +118,37 @@
                 android:paddingStart="20dp"
                 android:paddingTop="10dp">
 
-
-
                 <ImageView
                     android:id="@+id/dumayo"
-                    android:layout_width="363dp"
-                    android:layout_height="198dp"
-                    android:gravity="center_horizontal"
+                    android:layout_width="368dp"
+                    android:layout_height="221dp"
                     android:layout_weight="1"
+                    android:gravity="center_horizontal"
                     app:srcCompat="@drawable/dumayo" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="74dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/dumayo_fest"
+                        android:layout_width="224dp"
+                        android:layout_height="51dp"
+                        android:layout_weight="1"
+                        android:paddingStart="25dp"
+                        android:text="Dumayo Festival"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="381dp"
-                android:layout_height="wrap_content"
+                android:layout_width="368dp"
+                android:layout_height="52dp"
                 android:orientation="horizontal"
+                android:paddingLeft="20dp"
                 android:paddingTop="10dp">
 
                 <TextView
@@ -153,12 +187,30 @@
                     android:gravity="center_horizontal"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/mango_bamboo" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="62dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/mango_fest"
+                        android:layout_width="365dp"
+                        android:layout_height="199dp"
+                        android:layout_weight="1"
+                        android:paddingStart="25dp"
+                        android:text="Mango-Bamboo Festival"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="390dp"
+                android:layout_width="360dp"
                 android:layout_height="54dp"
                 android:orientation="horizontal"
+                android:paddingLeft="20dp"
                 android:paddingTop="10dp">
 
                 <TextView
@@ -187,7 +239,7 @@
             <LinearLayout
                 android:layout_width="385dp"
                 android:layout_height="222dp"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:paddingStart="20dp"
                 android:paddingTop="10dp">
 
@@ -198,12 +250,31 @@
                     android:gravity="center_horizontal"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/tayug" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="62dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tayug_fest"
+                        android:layout_width="365dp"
+                        android:layout_height="199dp"
+                        android:layout_weight="1"
+                        android:paddingStart="25dp"
+                        android:text="Tayug Sunflower Eco Park"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="385dp"
+                android:layout_width="368dp"
                 android:layout_height="49dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingStart="20dp">
 
                 <TextView
                     android:id="@+id/tayug_range"
@@ -228,29 +299,48 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="233dp"
+                android:layout_width="385dp"
+                android:layout_height="222dp"
                 android:orientation="vertical"
-
                 android:paddingStart="20dp"
                 android:paddingTop="10dp">
 
                 <ImageView
                     android:id="@+id/talong"
-                    android:layout_width="363dp"
-                    android:layout_height="218dp"
+                    android:layout_width="340dp"
+                    android:layout_height="198dp"
                     android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:paddingLeft="25dp"
                     app:srcCompat="@drawable/talong" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="62dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/talong_fest"
+                        android:layout_width="365dp"
+                        android:layout_height="199dp"
+                        android:layout_weight="1"
+                        android:paddingStart="25dp"
+                        android:text="Talong Festival"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="385dp"
-                android:layout_height="49dp"
-                android:orientation="horizontal">
+                android:layout_width="366dp"
+                android:layout_height="58dp"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp">
 
                 <TextView
                     android:id="@+id/talong_range"
-                    android:layout_width="224dp"
+                    android:layout_width="213dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingStart="25dp"
@@ -271,24 +361,44 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="221dp"
+                android:layout_width="385dp"
+                android:layout_height="222dp"
                 android:orientation="vertical"
                 android:paddingStart="20dp"
                 android:paddingTop="10dp">
 
                 <ImageView
                     android:id="@+id/corn"
-                    android:layout_width="370dp"
-                    android:layout_height="239dp"
+                    android:layout_width="342dp"
+                    android:layout_height="198dp"
                     android:layout_weight="1"
+                    android:paddingLeft="25dp"
                     app:srcCompat="@drawable/corn" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="62dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/corn_fest"
+                        android:layout_width="365dp"
+                        android:layout_height="199dp"
+                        android:layout_weight="1"
+                        android:paddingStart="25dp"
+                        android:text="Corn Festival"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="385dp"gitg
+                android:layout_width="364dp"
                 android:layout_height="49dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="20dp">
 
                 <TextView
                     android:id="@+id/corn_range"
