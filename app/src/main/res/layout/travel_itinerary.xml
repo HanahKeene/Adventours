@@ -448,7 +448,6 @@
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>gi
-
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
