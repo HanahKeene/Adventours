@@ -2,23 +2,25 @@
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="165dp"
     android:layout_height="120dp"
     android:layout_margin="10dp"
     app:cardCornerRadius="5dp"
+    android:layout_gravity="center_horizontal"
     android:padding="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
 
         <ImageView
             android:id="@+id/pic"
-            android:layout_width="183dp"
+            android:layout_width="165dp"
             android:layout_height="95dp"
             android:contentDescription="TODO"
             android:scaleType="center"
+            app:layout_constraintBottom_toTopOf="@+id/place"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,6 +33,7 @@
             android:text="Place"
             android:textAlignment="textStart"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

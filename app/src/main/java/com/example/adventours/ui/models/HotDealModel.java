@@ -1,25 +1,29 @@
 package com.example.adventours.ui.models;
 
-public class CategoryModel {
+public class HotDealModel {
 
-    String cat_id;
+    String hotdeal_id;
 
     String img_url;
     String name;
     String type;
 
-    public CategoryModel() {
-    }
-
-    public CategoryModel(String cat_id, String img_url, String name, String type) {
-        this.cat_id = cat_id;
+    public HotDealModel(String hotdeal_id, String img_url, String name, String type) {
+        this.hotdeal_id = hotdeal_id;
         this.img_url = img_url;
         this.name = name;
         this.type = type;
     }
 
-    public void setCat_id(String cat_id) {
-        this.cat_id = cat_id;
+    public HotDealModel() {
+    }
+
+    public String getHotdeal_id() {
+        return hotdeal_id;
+    }
+
+    public void setHotdeal_id(String hotdeal_id) {
+        this.hotdeal_id = hotdeal_id;
     }
 
     public String getImg_url() {
@@ -44,9 +48,5 @@ public class CategoryModel {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getCat_id() {
-        return cat_id;
     }
 }

@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         if (navView != null) {
             AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                     R.id.navigation_home, R.id.navigation_myiterinary, R.id.navigation_weather,
-                    R.id.navigation_profile, R.id.navigation_maps)
+                    R.id.navigation_profile, R.id.navigation_notif)
                     .build();
             NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
             NavigationUI.setupWithNavController(navView, navController);

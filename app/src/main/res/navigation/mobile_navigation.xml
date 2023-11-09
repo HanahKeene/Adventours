@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/navigation_profile">
+    app:startDestination="@id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_home"
@@ -18,18 +18,18 @@
         tools:layout="@layout/fragment_myiterinary" />
 
     <fragment
-        android:id="@+id/navigation_maps"
-        android:name="com.example.adventours.ui.maps.MapsFragment"
-        android:label="Maps"
-        tools:layout="@layout/fragment_maps" />
+        android:id="@+id/navigation_weather"
+        android:name="com.example.adventours.ui.weather.WeatherFragment"
+        android:label="Weather"
+        tools:layout="@layout/fragment_weather" />
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.adventours.ui.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/navigation_weather"
-        android:name="com.example.adventours.ui.weather.WeatherFragment"
-        android:label="Weather"
-        tools:layout="@layout/fragment_weather" />
+        android:id="@+id/navigation_notif"
+        android:name="com.example.adventours.ui.Notifications.NotificationsFragment"
+        android:label="Notification"
+        tools:layout="@layout/fragment_notif" />
 </navigation>

@@ -30,15 +30,15 @@
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.986"
+                app:layout_constraintHorizontal_bias="0.78"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.35" />
+                app:layout_constraintVertical_bias="0.343" />
 
             <ImageButton
                 android:id="@+id/imageButton"
-                android:layout_width="97dp"
-                android:layout_height="101dp"
+                android:layout_width="64dp"
+                android:layout_height="65dp"
                 android:layout_marginStart="28dp"
                 android:contentDescription="Change Profile Button"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -88,7 +88,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="356dp"
+                    android:layout_width="339dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
@@ -99,7 +99,7 @@
 
                     <TextView
                         android:id="@+id/myiterinarylabel"
-                        android:layout_width="324dp"
+                        android:layout_width="153dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="My Iterinary"
@@ -124,7 +124,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="356dp"
+                    android:layout_width="339dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
@@ -135,7 +135,7 @@
 
                     <TextView
                         android:id="@+id/settingslabel"
-                        android:layout_width="324dp"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Settings"
@@ -160,7 +160,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="356dp"
+                    android:layout_width="337dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
@@ -171,7 +171,7 @@
 
                     <TextView
                         android:id="@+id/aboutuslabel"
-                        android:layout_width="324dp"
+                        android:layout_width="149dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="About Us"
@@ -196,7 +196,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="356dp"
+                    android:layout_width="337dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
@@ -207,7 +207,7 @@
 
                     <TextView
                         android:id="@+id/helpcenterlabel"
-                        android:layout_width="324dp"
+                        android:layout_width="155dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Help Center"
@@ -232,7 +232,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="356dp"
+                    android:layout_width="339dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
@@ -243,7 +243,7 @@
 
                     <TextView
                         android:id="@+id/rateuslabel"
-                        android:layout_width="324dp"
+                        android:layout_width="149dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Rate Us"

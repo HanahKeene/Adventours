@@ -1,14 +1,14 @@
-package com.example.adventours.ui.maps;
+package com.example.adventours.ui.Notifications;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class MapsViewModel extends ViewModel {
+public class NotificationsViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public MapsViewModel() {
+    public NotificationsViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is Maps fragment");
     }

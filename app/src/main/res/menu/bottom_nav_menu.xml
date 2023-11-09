@@ -7,9 +7,9 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_maps"
-        android:icon="@drawable/maps"
-        android:title="Maps" />
+        android:id="@+id/navigation_weather"
+        android:icon="@drawable/weather"
+        android:title="Weather" />
 
     <item
         android:id="@+id/navigation_myiterinary"
@@ -17,9 +17,9 @@
         android:title="My Iterinary" />
 
     <item
-        android:id="@+id/navigation_weather"
-        android:icon="@drawable/weather"
-        android:title="Weather" />
+        android:id="@+id/navigation_notif"
+        android:icon="@drawable/outline_notifications_24"
+        android:title="Notification" />
 
     <item
         android:id="@+id/navigation_profile"

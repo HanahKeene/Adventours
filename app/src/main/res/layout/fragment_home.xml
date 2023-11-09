@@ -37,12 +37,6 @@
             android:paddingLeft="25dp"
             android:textSize="16sp" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="45dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/baseline_notifications_24" />
     </LinearLayout>
 
         <LinearLayout
@@ -96,10 +90,10 @@
                 android:layout_height="114dp"
                 android:orientation="horizontal">
 
-
-                <androidx.viewpager2.widget.ViewPager2
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/hotdealsrecyclerview"
                     android:layout_width="match_parent"
-                    android:layout_height="98dp" />
+                    android:layout_height="match_parent" />
             </LinearLayout>
 
             <LinearLayout

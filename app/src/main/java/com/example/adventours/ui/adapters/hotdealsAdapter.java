@@ -13,44 +13,44 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.adventours.R;
-import com.example.adventours.ui.models.CategoryModel;
+import com.example.adventours.ui.models.HotDealModel;
 
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
+public class hotdealsAdapter extends RecyclerView.Adapter<hotdealsAdapter.ViewHolder> {
 
-    private OnCategoryItemClickListener onCategoryItemClickListener;
+    private OnHotDealItemClickListener onHotDealItemClickListener;
 
     private Context context;
-    private List<CategoryModel> list;
+    private List<HotDealModel> hotDealModelList;
 
-    public interface OnCategoryItemClickListener
+    public interface OnHotDealItemClickListener
     {
-        void onCategoryItemClick(String cat_id);
+        void onHotDealsItemClick(String deal_id);
     }
 
-    public CategoryAdapter(Context context, List<CategoryModel> list, OnCategoryItemClickListener listener) {
+    public hotdealsAdapter(Context context, List<HotDealModel> hotDealModelList, OnHotDealItemClickListener listener) {
         this.context = context;
-        this.list = list;
-        this.onCategoryItemClickListener = listener;
+        this.hotDealModelList = hotDealModelList;
+        this.onHotDealItemClickListener = listener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.category_list, parent, false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.hotdeal_list, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Glide.with(context).load(list.get(position).getImg_url()).into(holder.catImg);
-        holder.catName.setText(list.get(position).getName());
+        Glide.with(context).load(hotDealModelList.get(position).getImg_url()).into(holder.catImg);
+        holder.catName.setText(hotDealModelList.get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return hotDealModelList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -67,11 +67,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 public void onClick(View view) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        String cat_id = list.get(position).getCat_id();
+                        String deal_id = hotDealModelList.get(position).getHotdeal_id();
                         // Check if the item ID is null
-                        if (cat_id != null) {
+                        if (deal_id != null) {
                             // You can also call the onFYPItemClickListener method here to perform other actions
-                            onCategoryItemClickListener.onCategoryItemClick(cat_id);
+                            onHotDealItemClickListener.onHotDealsItemClick(deal_id);
                         } else {
                             // If the item ID is null, log an error message
                             Log.e("FYPAdapter", "Item ID is null");

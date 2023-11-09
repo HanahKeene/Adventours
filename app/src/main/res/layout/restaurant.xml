@@ -10,302 +10,57 @@
 
         <LinearLayout
             android:id="@+id/linearLayout8"
-            android:layout_width="205dp"
-            android:layout_height="55dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="410dp"
+            android:layout_height="51dp"
             android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.054"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="1dp"
-                android:layout_height="36dp"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/baseline_arrow_back_black" />
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="29dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingTop="8dp"
-                android:text="RESAURANTS"
-                android:textSize="17sp"
-                android:textStyle="bold" />
+                <ImageButton
+                    android:id="@+id/imageButton6"
+                    android:layout_width="48dp"
+                    android:layout_height="53dp"
+                    android:background="#00FFFFFF"
+                    app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="RESTAURANT" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="416dp"
-            android:layout_height="1825dp"
+            android:id="@+id/linearLayout9"
+            android:layout_width="410dp"
+            android:layout_height="839dp"
             android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
 
-            <Space
+
+            <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="148dp" />
-
-            <LinearLayout
-                android:layout_width="388dp"
-                android:layout_height="205dp"
-                android:orientation="vertical"
-                android:paddingStart="20dp">
-
-                <ImageView
-                    android:id="@+id/sungayan"
-                    android:layout_width="361dp"
-                    android:layout_height="219dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/sungayan" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="381dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="10dp">
-
-                <TextView
-                    android:id="@+id/sungayan_range"
-                    android:layout_width="224dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="25dp"
-                    android:text="₱ 5,500 - ₱ 5,500"
-                    android:textColor="@color/red"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/view"
-                    android:layout_width="114dp"
-                    android:layout_height="33dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border"
-                    android:gravity="center"
-                    android:text="View details"
-                    android:textSize="19sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="444dp"
-                android:layout_height="221dp"
-                android:orientation="vertical"
-                android:paddingStart="20dp"
-                android:paddingTop="10dp">
-
-                <ImageView
-                    android:id="@+id/jacobas"
-                    android:layout_width="363dp"
-                    android:layout_height="198dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/jacobas" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="381dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="10dp">
-
-                <TextView
-                    android:id="@+id/jacobas_range"
-                    android:layout_width="224dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="25dp"
-                    android:text="₱ 4,500 - ₱ 5,800"
-                    android:textColor="@color/red"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/view2"
-                    android:layout_width="114dp"
-                    android:layout_height="33dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border"
-                    android:gravity="center"
-                    android:text="View details"
-                    android:textSize="19sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="223dp"
-                android:orientation="vertical"
-                android:paddingStart="20dp"
-                android:paddingTop="10dp">
-
-                <ImageView
-                    android:id="@+id/el"
-                    android:layout_width="363dp"
-                    android:layout_height="198dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/el_jardin" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="390dp"
-                android:layout_height="54dp"
-                android:orientation="horizontal"
-                android:paddingTop="10dp">
-
-                <TextView
-                    android:id="@+id/el_range"
-                    android:layout_width="224dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="25dp"
-                    android:text="₱ 5,500 - ₱ 5,800"
-                    android:textColor="@color/red"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/view3"
-                    android:layout_width="114dp"
-                    android:layout_height="33dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border"
-                    android:gravity="center"
-                    android:text="View details"
-                    android:textSize="19sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="385dp"
-                android:layout_height="222dp"
-                android:orientation="horizontal"
-                android:paddingStart="20dp"
-                android:paddingTop="10dp">
-
-                <ImageView
-                    android:id="@+id/hardin"
-                    android:layout_width="363dp"
-                    android:layout_height="198dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/hardin" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="385dp"
-                android:layout_height="49dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/hardin_range"
-                    android:layout_width="224dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="25dp"
-                    android:text="₱ 5,500 - ₱ 5,500"
-                    android:textColor="@color/red"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/view4"
-                    android:layout_width="114dp"
-                    android:layout_height="33dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border"
-                    android:gravity="center"
-                    android:text="View details"
-                    android:textSize="19sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="233dp"
-                android:orientation="vertical"
-                android:paddingStart="20dp"
-                android:paddingTop="10dp">
-
-                <ImageView
-                    android:id="@+id/seafood"
-                    android:layout_width="363dp"
-                    android:layout_height="198dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/seafood" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="385dp"
-                android:layout_height="49dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/plaza_range"
-                    android:layout_width="224dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="25dp"
-                    android:text="₱ 5,500 - ₱ 5,800"
-                    android:textColor="@color/red"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/view5"
-                    android:layout_width="114dp"
-                    android:layout_height="33dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border"
-                    android:gravity="center"
-                    android:text="View details"
-                    android:textSize="19sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="221dp"
-                android:orientation="vertical"
-                android:paddingStart="20dp"
-                android:paddingTop="10dp">
-
-                <ImageView
-                    android:id="@+id/ciudad"
-                    android:layout_width="370dp"
-                    android:layout_height="239dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/ciudad" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="385dp"
-                android:layout_height="49dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/ciudad_range"
-                    android:layout_width="224dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="25dp"
-                    android:text="₱ 5,500 - ₱ 5,500"
-                    android:textColor="@color/red"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/view6"
-                    android:layout_width="114dp"
-                    android:layout_height="33dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border"
-                    android:gravity="center"
-                    android:text="View details"
-                    android:textSize="19sp" />
-            </LinearLayout>
-
-
+                android:layout_height="match_parent"
+                android:padding="20dp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

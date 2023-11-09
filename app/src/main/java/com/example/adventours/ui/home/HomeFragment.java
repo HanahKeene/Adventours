@@ -20,8 +20,14 @@ import com.example.adventours.touristspotinfo;
 import com.example.adventours.ui.adapters.CategoryAdapter;
 import com.example.adventours.ui.adapters.FYPAdapter;
 import com.example.adventours.ui.adapters.MusttryAdapter;
+import com.example.adventours.ui.adapters.hotdealsAdapter;
+import com.example.adventours.ui.lists.events_list_activity;
+import com.example.adventours.ui.lists.hotel_lists_Activity;
+import com.example.adventours.ui.lists.restaurant_lists_activity;
+import com.example.adventours.ui.lists.tours_list_activity;
 import com.example.adventours.ui.models.CategoryModel;
 import com.example.adventours.ui.models.FYPModel;
+import com.example.adventours.ui.models.HotDealModel;
 import com.example.adventours.ui.models.MusttryModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,11 +38,15 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements FYPAdapter.OnFYPItemClickListener {
+public class HomeFragment extends Fragment implements FYPAdapter.OnFYPItemClickListener, CategoryAdapter.OnCategoryItemClickListener, hotdealsAdapter.OnHotDealItemClickListener {
 
-    RecyclerView catRecyclerview, foryouRecyclerview, musttryRecycleview;
+    RecyclerView catRecyclerview, foryouRecyclerview, musttryRecycleview, hotdealsrecyclerview;
     CategoryAdapter categoryAdapter;
     List<CategoryModel> categoryModelList;
+
+    hotdealsAdapter hotdealsAdapter;
+    List<HotDealModel> hotDealModelList;
+
     FYPAdapter fypAdapter;
     List<FYPModel> fypModelList;
 
@@ -57,13 +67,19 @@ public class HomeFragment extends Fragment implements FYPAdapter.OnFYPItemClickL
         catRecyclerview = root.findViewById(R.id.category);
         foryouRecyclerview = root.findViewById(R.id.fyp);
         musttryRecycleview = root.findViewById(R.id.musttry_recycleview);
+        hotdealsrecyclerview = root.findViewById(R.id.hotdealsrecyclerview);
         db = FirebaseFirestore.getInstance();
 
         // Initialize your adapters with empty lists
         categoryModelList = new ArrayList<>();
-        categoryAdapter = new CategoryAdapter(getContext(), categoryModelList);
+        categoryAdapter = new CategoryAdapter(getContext(), categoryModelList, this);
         catRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
         catRecyclerview.setAdapter(categoryAdapter);
+
+        hotDealModelList = new ArrayList<>();
+        hotdealsAdapter = new hotdealsAdapter(getContext(), hotDealModelList, this);
+        hotdealsrecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+        hotdealsrecyclerview.setAdapter(hotdealsAdapter);
 
         fypModelList = new ArrayList<>();
         fypAdapter = new FYPAdapter(getContext(), fypModelList, this);
@@ -86,9 +102,31 @@ public class HomeFragment extends Fragment implements FYPAdapter.OnFYPItemClickL
                             categoryModelList.clear(); // Clear the list before adding new data
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 CategoryModel categoryModel = document.toObject(CategoryModel.class);
+                                String cat_id = document.getId(); // Retrieve document ID
+                                categoryModel.setCat_id(cat_id);
                                 categoryModelList.add(categoryModel);
                             }
                             categoryAdapter.notifyDataSetChanged(); // Notify adapter after adding new data
+                        } else {
+                            Toast.makeText(getActivity(), "Error fetching categories: " + task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+        db.collection("Hot Deals")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            hotDealModelList.clear(); // Clear the list before adding new data
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                HotDealModel hotDealModel = document.toObject(HotDealModel.class);
+                                String deal_id = document.getId(); // Retrieve document ID
+                                hotDealModel.setHotdeal_id(deal_id);
+                                hotDealModelList.add(hotDealModel);
+                            }
+                            hotdealsAdapter.notifyDataSetChanged(); // Notify adapter after adding new data
                         } else {
                             Toast.makeText(getActivity(), "Error fetching categories: " + task.getException(), Toast.LENGTH_SHORT).show();
                         }
@@ -150,5 +188,80 @@ public class HomeFragment extends Fragment implements FYPAdapter.OnFYPItemClickL
         intent.putExtra("spot_id", spot_id);
         Toast.makeText(getActivity(), "the Spot id = " + spot_id, Toast.LENGTH_SHORT).show();
         startActivity(intent);
+    }
+
+    @Override
+    public void onCategoryItemClick(String cat_id) {
+
+        switch (cat_id)
+        {
+            //Hotel
+            case "1okvU07VfkhtT5rQ7DC2":
+                Intent intent1 = new Intent(getActivity(), hotel_lists_Activity.class);
+                startActivity(intent1);
+                break;
+
+            //Restaurant
+            case "NPUYV7WGIuCwhTc08A88":
+                Intent intent2 = new Intent(getActivity(), restaurant_lists_activity.class);
+                startActivity(intent2);
+                break;
+
+                //Tours
+            case "ObS7vKz7Ygp3oRTWXoGr":
+
+                Intent intent3 = new Intent(getActivity(), tours_list_activity.class);
+                startActivity(intent3);
+                break;
+
+                //Events
+            case "qS5pvrgnFRTZD8dfNdR6":
+                Intent intent4 = new Intent(getActivity(), events_list_activity.class);
+                startActivity(intent4);
+                break;
+
+            default:
+                Intent intent5 = new Intent(getActivity(), hotel_lists_Activity.class);
+                startActivity(intent5);
+                break;
+
+        }
+    }
+
+    @Override
+    public void onHotDealsItemClick(String deal_id) {
+
+        switch (deal_id) {
+            //Hotel
+            case "1okvU07VfkhtT5rQ7DC2":
+                Intent intent1 = new Intent(getActivity(), hotel_lists_Activity.class);
+                startActivity(intent1);
+                break;
+
+            //Restaurant
+            case "NPUYV7WGIuCwhTc08A88":
+                Intent intent2 = new Intent(getActivity(), restaurant_lists_activity.class);
+                startActivity(intent2);
+                break;
+
+            //Tours
+            case "ObS7vKz7Ygp3oRTWXoGr":
+
+                Intent intent3 = new Intent(getActivity(), tours_list_activity.class);
+                startActivity(intent3);
+                break;
+
+            //Events
+            case "qS5pvrgnFRTZD8dfNdR6":
+                Intent intent4 = new Intent(getActivity(), events_list_activity.class);
+                startActivity(intent4);
+                break;
+
+            default:
+                Intent intent5 = new Intent(getActivity(), hotel_lists_Activity.class);
+                startActivity(intent5);
+                break;
+
+        }
     }
 }
