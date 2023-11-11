@@ -9,10 +9,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.adventours.ui.adapters.activityAdapter;
+import com.example.adventours.ui.adapters.hotelAdapter;
+import com.example.adventours.ui.adapters.interestAdapter;
+import com.example.adventours.ui.adapters.restaurantAdapter;
+import com.example.adventours.ui.models.HotelsModel;
+import com.example.adventours.ui.models.InterestModel;
+import com.example.adventours.ui.models.RestaurantsModel;
 import com.example.adventours.ui.models.activityModel;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.example.adventours.ui.adapters.photogalleryAdapter;
 import com.example.adventours.ui.models.TouristSpotDetails;
@@ -24,13 +32,15 @@ import java.util.List;
 
 public class touristspotinfo extends AppCompatActivity {
 
+    private static final String CATEGORY_FIELD = "location";
+
     private ImageView img_spot;
 
     private TextView placeTextView;
     private TextView locationTextView;
     private TextView descriptionTextView;
 
-    private RecyclerView photogalleryRecyclerView, activitiesRecyclerView;
+    private RecyclerView photogalleryRecyclerView, activitiesRecyclerView, hotelsRecyclerview, restaurantRecyclerview;
 
     private FirebaseFirestore db;
 
@@ -49,6 +59,8 @@ public class touristspotinfo extends AppCompatActivity {
         descriptionTextView = findViewById(R.id.spot_desc);
         photogalleryRecyclerView = findViewById(R.id.galleryRecyclerview);
         activitiesRecyclerView = findViewById(R.id.activitiesrecyclerview);
+        hotelsRecyclerview = findViewById(R.id.hotelsrecyclerview);
+        restaurantRecyclerview = findViewById(R.id.nearbyrestaurecyclerview);
 
 
 
@@ -61,6 +73,50 @@ public class touristspotinfo extends AppCompatActivity {
         // Fetch the other details of the spot from Firebase
         fetchSpotDetailsFromFirebase(spotId);
 
+        DocumentReference spotRef = db.collection("Tourist Spots").document(spotId);
+        spotRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                String location = documentSnapshot.getString("location");
+                fetchHotelListsFromDatabase(location);
+            }
+        });
+
+        spotRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                String location = documentSnapshot.getString("location");
+                fetchRestauListsFromDatabase(location);
+            }
+        });
+
+    }
+
+    private void fetchRestauListsFromDatabase(String location) {
+
+        Query restauRef = db.collection("Restaurants").whereEqualTo("location", location);
+
+        restauRef.get().addOnCompleteListener(task -> {
+            List<RestaurantsModel> restauList = new ArrayList<>();
+
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    RestaurantsModel restauModel = document.toObject(RestaurantsModel.class);
+                    restauList.add(restauModel);
+                }
+            } else {
+                Log.e("HotelAdapter", "Error fetching hotels: " + task.getException());
+                Toast.makeText(touristspotinfo.this, "Error fetching hotels: " + task.getException(), Toast.LENGTH_SHORT).show();
+            }
+
+            // Set up the RecyclerView with the hotelList using an adapter
+            restaurantAdapter adapter = new restaurantAdapter(this, restauList);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            restaurantRecyclerview.setLayoutManager(layoutManager);
+            restaurantRecyclerview.setAdapter(adapter);
+
+            Log.d("HotelAdapter", "Number of resturant fetched: " + restauList.size());
+
+            adapter.notifyDataSetChanged(); // Notify adapter after setting up
+        });
     }
 
     private void fetchSpotDetailsFromFirebase(String spotId) {
@@ -135,4 +191,33 @@ public class touristspotinfo extends AppCompatActivity {
             // Handle errors that occurred while fetching spot details
         });
     }
+
+    private void fetchHotelListsFromDatabase(String location) {
+        Query hotelRef = db.collection("Hotels").whereEqualTo("location", location);
+
+        hotelRef.get().addOnCompleteListener(task -> {
+            List<HotelsModel> hotelList = new ArrayList<>();
+
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    HotelsModel hotelModel = document.toObject(HotelsModel.class);
+                    hotelList.add(hotelModel);
+                }
+            } else {
+                Log.e("HotelAdapter", "Error fetching hotels: " + task.getException());
+                Toast.makeText(touristspotinfo.this, "Error fetching hotels: " + task.getException(), Toast.LENGTH_SHORT).show();
+            }
+
+            // Set up the RecyclerView with the hotelList using an adapter
+            hotelAdapter adapter = new hotelAdapter(this, hotelList);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            hotelsRecyclerview.setLayoutManager(layoutManager);
+            hotelsRecyclerview.setAdapter(adapter);
+
+            Log.d("HotelAdapter", "Number of hotels fetched: " + hotelList.size());
+
+            adapter.notifyDataSetChanged(); // Notify adapter after setting up
+        });
+    }
+
 }
