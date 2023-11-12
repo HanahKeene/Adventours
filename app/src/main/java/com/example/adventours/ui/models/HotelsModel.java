@@ -2,6 +2,8 @@ package com.example.adventours.ui.models;
 
 public class HotelsModel {
 
+    private String hotel_id;
+
     private String img_url;
     private String name;
 
@@ -16,6 +18,7 @@ public class HotelsModel {
     public HotelsModel(String img_url, String name) {
         this.img_url = img_url;
         this.name = name;
+        this.name = hotel_id;
     }
 
     // Getters and setters for existing fields
@@ -50,5 +53,13 @@ public class HotelsModel {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public String getHotel_id() {
+        return hotel_id;
+    }
+
+    public void setHotel_id(String hotel_id) {
+        this.hotel_id = hotel_id;
     }
 }

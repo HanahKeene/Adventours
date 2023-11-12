@@ -1,6 +1,6 @@
 package com.example.adventours.ui.lists;
 
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.adventours.R;
+import com.example.adventours.hotelinfo;
 import com.example.adventours.ui.adapters.hotelListAdapter;
 import com.example.adventours.ui.models.HotelListModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,11 +24,9 @@ import java.util.List;
 
 public class hotel_lists_Activity extends AppCompatActivity {
 
-    RecyclerView HotelRecyclerView;
-
+    RecyclerView hotelRecyclerView;
     hotelListAdapter hotelListAdapter;
     List<HotelListModel> hotelListModelList;
-
     FirebaseFirestore db;
 
     @Override
@@ -35,13 +34,23 @@ public class hotel_lists_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_lists);
 
-        HotelRecyclerView = findViewById(R.id.hotel_list_recyclerview);
+        hotelRecyclerView = findViewById(R.id.hotel_list_recyclerview);
         db = FirebaseFirestore.getInstance();
 
         hotelListModelList = new ArrayList<>();
-        hotelListAdapter = new hotelListAdapter(this, hotelListModelList, null );
-        HotelRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        HotelRecyclerView.setAdapter(hotelListAdapter);
+        hotelListAdapter = new hotelListAdapter(this, hotelListModelList, new hotelListAdapter.OnHotelListItemClickListener() {
+            @Override
+            public void onHotelListItemClick(String hotelId) {
+                // Handle the click event here
+                Toast.makeText(hotel_lists_Activity.this, "Clicked Hotel ID: " + hotelId, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(hotel_lists_Activity.this, hotelinfo.class);
+                intent.putExtra("hotel_id", hotelId);
+                startActivity(intent);
+            }
+        });
+
+        hotelRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        hotelRecyclerView.setAdapter(hotelListAdapter);
 
         db.collection("Hotels")
                 .get()
@@ -56,10 +65,10 @@ public class hotel_lists_Activity extends AppCompatActivity {
                                 hotelListModel.setHotel_id(hotel_id);
                                 hotelListModelList.add(hotelListModel);
                             }
+
                             hotelListAdapter.notifyDataSetChanged(); // Notify adapter after adding new data
                         } else {
                             Toast.makeText(hotel_lists_Activity.this, "Error fetching hotels: " + task.getException(), Toast.LENGTH_SHORT).show();
-//                            Log.e("FirestoreError", "Error fetching hotels", task.getException());
                         }
                     }
                 });

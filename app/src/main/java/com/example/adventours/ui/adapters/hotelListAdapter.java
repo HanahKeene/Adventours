@@ -19,20 +19,20 @@ import java.util.List;
 
 public class hotelListAdapter extends RecyclerView.Adapter<hotelListAdapter.ViewHolder> {
 
-    private OnHotelItemClickListener onHotelItemClickListener;
+    private OnHotelListItemClickListener onHotelListItemClickListener;
 
     private Context context;
     private List<HotelListModel> hotelListModelList;
 
-    public interface OnHotelItemClickListener
+    public interface OnHotelListItemClickListener
     {
-        void onHotelItemClick(String hotel_id);
+        void onHotelListItemClick(String hotel_id);
     }
 
-    public hotelListAdapter(Context context, List<HotelListModel> hotelListModelList, OnHotelItemClickListener listener) {
+    public hotelListAdapter(Context context, List<HotelListModel> hotelListModelList, OnHotelListItemClickListener listener) {
         this.context = context;
         this.hotelListModelList = hotelListModelList;
-        this.onHotelItemClickListener = listener;
+        this.onHotelListItemClickListener = listener;
     }
 
     @NonNull
@@ -71,7 +71,7 @@ public class hotelListAdapter extends RecyclerView.Adapter<hotelListAdapter.View
                         // Check if the item ID is null
                         if (hotel_id != null) {
                             // You can also call the onFYPItemClickListener method here to perform other actions
-                            onHotelItemClickListener.onHotelItemClick(hotel_id);
+                            onHotelListItemClickListener.onHotelListItemClick(hotel_id);
                         } else {
                             // If the item ID is null, log an error message
                             Log.e("FYPAdapter", "Item ID is null");
