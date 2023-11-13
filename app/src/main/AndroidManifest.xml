@@ -16,16 +16,20 @@
         android:theme="@style/Theme.Adventours"
         tools:targetApi="30">
         <activity
+            android:name=".ui.ConfirmationScreen"
+            android:exported="false" />
+        <activity
+            android:name=".ui.RoomDetails"
+            android:exported="false" />
+        <activity
+            android:name=".roomDetails"
+            android:exported="false" />
+        <activity
             android:name=".ui.lists.tours_list_activity"
             android:exported="false" />
         <activity
             android:name=".ui.lists.events_list_activity"
             android:exported="false" />
-        <activity
-            android:name=".ui.lists.tours_lists_activity"
-            android:exported="false"
-            android:label="@string/title_activity_tours_lists"
-            android:theme="@style/Theme.Adventours" />
         <activity
             android:name=".ui.lists.restaurant_lists_activity"
             android:exported="false" />

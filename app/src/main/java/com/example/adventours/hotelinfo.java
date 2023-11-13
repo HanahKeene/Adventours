@@ -8,10 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.adventours.ui.RoomDetails;
 import com.example.adventours.ui.adapters.photogalleryAdapter;
 import com.example.adventours.ui.adapters.roomAdapter;
+import com.example.adventours.ui.lists.hotel_lists_Activity;
 import com.example.adventours.ui.models.roomModel;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,7 +23,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class hotelinfo extends AppCompatActivity {
+public class hotelinfo extends AppCompatActivity implements roomAdapter.OnItemClickListener {
 
     private ImageView img_spot;
 
@@ -31,6 +34,16 @@ public class hotelinfo extends AppCompatActivity {
     private RecyclerView photogalleryRecyclerView, roomsRecyclerview;
 
     private FirebaseFirestore db;
+
+
+    @Override
+    public void onItemClick(String roomId) {
+        Toast.makeText(this, "Room ID: " + roomId, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, RoomDetails.class);
+        intent.putExtra("RoomId", roomId);
+        intent.putExtra("HotelId", getIntent().getStringExtra("hotel_id"));
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +66,6 @@ public class hotelinfo extends AppCompatActivity {
         // Fetch the other details of the spot from Firebase
         fetchHotelDetailsFromFirebase(hotelId);
 
-//        DocumentReference spotRef = db.collection("Tourist Spots").document(spotId);
-//        spotRef.get().addOnSuccessListener(documentSnapshot -> {
-//            if (documentSnapshot.exists()) {
-//                String location = documentSnapshot.getString("location");
-//                fetchHotelListsFromDatabase(location);
-//            }
-//        });
     }
 
     private void fetchHotelDetailsFromFirebase(String hotelId) {
@@ -110,21 +116,19 @@ public class hotelinfo extends AppCompatActivity {
 
                 hotelsRef.collection("Rooms").get().addOnSuccessListener(queryDocumentSnapshots -> {
                     for (QueryDocumentSnapshot documentSnapshot1 : queryDocumentSnapshots) {
-                        // Retrieve room details from Firestore
-                        String amenities = documentSnapshot1.getString("amenities");
-                        String desc1 = documentSnapshot1.getString("desc");
                         String img_url = documentSnapshot1.getString("img_url");
                         String name1 = documentSnapshot1.getString("name");
                         String price = documentSnapshot1.getString("price");
+                        String room_id = documentSnapshot1.getId();
 
                         // Create a Room object
-                        roomModel room = new roomModel(amenities, desc1, img_url, name1, price);
+                        roomModel room = new roomModel(room_id, img_url, name1, price);
 
                         // Add the room to the list
                         roomModelList.add(room);
                     }
 
-                    roomAdapter roomAdapter = new roomAdapter(this, roomModelList);
+                    roomAdapter roomAdapter = new roomAdapter(this, roomModelList, this );
 
                     roomsRecyclerview.setAdapter(roomAdapter);
                     roomsRecyclerview.setLayoutManager(new LinearLayoutManager(this));
@@ -135,4 +139,6 @@ public class hotelinfo extends AppCompatActivity {
             }
         });
     }
+
+
 }

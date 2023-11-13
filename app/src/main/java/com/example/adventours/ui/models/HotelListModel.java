@@ -7,13 +7,19 @@ public class HotelListModel {
 
     private String hotel_id;
 
+    private String location;
+
+    private String desc;
+
     public HotelListModel() {
     }
 
-    public HotelListModel(String img_url, String name, String hotel_id) {
+    public HotelListModel(String img_url, String name, String hotel_id, String location, String desc) {
         this.img_url = img_url;
         this.name = name;
         this.hotel_id = hotel_id;
+        this.location = location;
+        this.desc = desc;
     }
 
     public String getImg_url() {
@@ -38,5 +44,21 @@ public class HotelListModel {
 
     public void setHotel_id(String hotel_id) {
         this.hotel_id = hotel_id;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 }

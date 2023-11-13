@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="454dp"
+        android:layout_width="match_parent"
         android:layout_height="1894dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"

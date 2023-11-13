@@ -40,7 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="10dp"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/room_name"
@@ -56,11 +57,12 @@
                 android:paddingStart="10dp" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/viewdetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:background="@drawable/buttonwborder"
+                android:clickable="true"
                 android:text="View Details" />
         </LinearLayout>
     </LinearLayout>
