@@ -5,8 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +61,12 @@ public class touristspotinfo extends AppCompatActivity {
         hotelsRecyclerview = findViewById(R.id.hotelsrecyclerview);
         restaurantRecyclerview = findViewById(R.id.nearbyrestaurecyclerview);
 
+        locationTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                getGeoLocationFromFirebase();
+            }
+        });
 
 
         db = FirebaseFirestore.getInstance();
@@ -86,6 +94,50 @@ public class touristspotinfo extends AppCompatActivity {
         });
 
     }
+
+//    private void getGeoLocationFromFirebase(){
+//
+//        DocumentReference locationRef = db.collection("yourCollection").document("yourDocumentId");
+//
+//        locationRef.get().addOnSuccessListener(documentSnapshot -> {
+//            if (documentSnapshot.exists()) {
+//                // Retrieve latitude and longitude from Firebase
+//                double latitude = documentSnapshot.getDouble("latitude");
+//                double longitude = documentSnapshot.getDouble("longitude");
+//
+//                // Open Google Maps with the retrieved location
+//                openGoogleMaps(latitude, longitude);
+//            } else {
+//                // Handle the case where the document does not exist
+//                // You can display a message or provide alternative actions
+//            }
+//        }).addOnFailureListener(e -> {
+//            // Handle errors that occurred while fetching the geo-location
+//        });
+//    }
+//
+//    private void openGoogleMaps(double latitude, double longitude) {
+//        String location = "geo:" + latitude + "," + longitude + "?q=" + latitude + "," + longitude + "(label)";
+//
+//        // Create an Intent with the ACTION_VIEW action
+//        Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(location));
+//
+//        // Verify if there's an app to handle this intent
+//        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+//            // Start the activity if there is a suitable app
+//            startActivity(mapIntent);
+//        } else {
+//            // Handle the case where there is no app to handle the intent
+//            // You can display a message or provide alternative actions
+//            // For example, open the location in a web browser
+//            openLocationInBrowser(location);
+//        }
+//    }
+//
+//    private void openLocationInBrowser(String location) {
+//        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(location));
+//        startActivity(browserIntent);
+//    }
 
     private void fetchRestauListsFromDatabase(String location) {
 

@@ -8,32 +8,16 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="410dp"
-        android:layout_height="158dp"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
         android:background="#313F87"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="horizontal"
+        android:padding="30dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/user_fullname"
-                android:layout_width="264dp"
-                android:layout_height="21dp"
-                android:text="Trixie Soriano"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.78"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.343" />
+        <LinearLayout
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/imageButton"
@@ -46,6 +30,26 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.508"
                 tools:src="@tools:sample/avatars" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/user_fullname"
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
+                android:text="Trixie Soriano"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.78"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.343" />
 
             <TextView
                 android:id="@+id/useremail"
@@ -59,17 +63,13 @@
                 app:layout_constraintStart_toEndOf="@+id/imageButton"
                 app:layout_constraintTop_toBottomOf="@+id/user_fullname"
                 app:layout_constraintVertical_bias="0.0" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout7"
         android:layout_width="410dp"
         android:layout_height="735dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,13 +82,14 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/myitinerarybtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="339dp"
+                    android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
@@ -106,7 +107,7 @@
                         android:textSize="16sp" />
 
                     <ImageButton
-                        android:id="@+id/myiterinarybtn"
+                        android:id="@+id/myiterinarybtn2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -118,13 +119,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/settingsbtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="339dp"
+                    android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
@@ -142,7 +144,7 @@
                         android:textSize="16sp" />
 
                     <ImageButton
-                        android:id="@+id/settingsbtn"
+                        android:id="@+id/settingsbtn2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -154,13 +156,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/aboutusbtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="337dp"
+                    android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
@@ -178,7 +181,7 @@
                         android:textSize="16sp" />
 
                     <ImageButton
-                        android:id="@+id/aboutusbtn"
+                        android:id="@+id/aboutusbtn2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -190,13 +193,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/helpcenterbtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="337dp"
+                    android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
@@ -214,7 +218,7 @@
                         android:textSize="16sp" />
 
                     <ImageButton
-                        android:id="@+id/helpcenterbtn"
+                        android:id="@+id/helpcenterbtn2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -226,13 +230,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/rateusbtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="339dp"
+                    android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
@@ -250,7 +255,7 @@
                         android:textSize="16sp" />
 
                     <ImageButton
-                        android:id="@+id/rateusbtn"
+                        android:id="@+id/rateusbtn2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -270,7 +275,7 @@
 
                 <Button
                     android:id="@+id/button3"
-                    android:layout_width="344dp"
+                    android:layout_width="match_parent"
                     android:layout_height="63dp"
                     android:backgroundTint="#313F87"
                     android:text="LOG OUT"

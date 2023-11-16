@@ -1,13 +1,17 @@
 package com.example.adventours.ui;
 
-import static com.google.android.material.internal.ContextUtils.getActivity;
+
+import android.app.DatePickerDialog;
+import android.widget.DatePicker;
+import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,23 +22,26 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.adventours.R;
 import com.example.adventours.ui.adapters.photogalleryAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Locale;
 
 public class RoomDetails extends AppCompatActivity {
+
+    private FirebaseAuth auth;
+    private FirebaseUser user;
 
     RecyclerView galleryRecyclerView;
 
@@ -57,9 +64,13 @@ public class RoomDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_details);
 
+        auth = FirebaseAuth.getInstance();
+
         Intent intent = getIntent();
         String roomId = intent.getStringExtra("RoomId");
         String hotelId = intent.getStringExtra("HotelId");
+
+
 
         Toast.makeText(this, "Hotel ID: " + hotelId + " ROOM ID: " + roomId, Toast.LENGTH_SHORT).show();
 
@@ -73,6 +84,7 @@ public class RoomDetails extends AppCompatActivity {
         descTxtView = findViewById(R.id.desc);
         reservebtn = findViewById(R.id.reserveroombtn);
         galleryRecyclerView = findViewById(R.id.galleryRecyclerview);
+        user = auth.getCurrentUser();
 
         reservebtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,13 +164,73 @@ public class RoomDetails extends AppCompatActivity {
             }
         });
 
-//        reservearoom.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent((Activity) v.getContext(), ConfirmationScreen.class);
-//                startActivity(intent);
-//            }
-//        });
+        reservearoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(RoomDetails.this, ConfirmationScreen.class);
+
+                // Add any data you want to pass to the ConfirmationScreen activity
+                // For example, you can use putExtra to pass room details
+                Intent intent1 = getIntent();
+                String hotelId = intent1.getStringExtra("HotelId");
+                String roomId = intent1.getStringExtra("RoomId");
+
+                intent.putExtra("HotelId", hotelId);
+                intent.putExtra("Room ID", roomId);
+
+                Toast.makeText(RoomDetails.this, "Hotel ID: " + hotelId + " ROOM ID: " + roomId, Toast.LENGTH_SHORT).show();
+
+                intent.putExtra("RoomQuantity", roomNumber.getText().toString());
+                intent.putExtra("RoomName", roomName.getText().toString());
+                intent.putExtra("Price", priceTxtView.getText().toString());
+                intent.putExtra("CheckIn", in_date.getText().toString());
+                intent.putExtra("CheckOut", out_date.getText().toString());
+
+                // Add more data as needed
+
+                startActivity(intent);
+
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                if (currentUser != null) {
+                    String userId = currentUser.getUid();
+
+                    // Fetch user details from Firestore using the obtained userId
+                    DocumentReference userRef = db.collection("Users").document(userId);
+
+                    userRef.get().addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            // Retrieve user details
+                            String firstName = documentSnapshot.getString("firstName");
+                            String lastName = documentSnapshot.getString("lastName");
+                            String city = documentSnapshot.getString("city");
+                            String phone = documentSnapshot.getString("phone");
+
+                            // Pass user details to the ConfirmationScreen activity
+                            intent.putExtra("FirstName", firstName);
+                            intent.putExtra("LastName", lastName);
+                            intent.putExtra("City", city);
+                            intent.putExtra("Phone", phone);
+
+
+                            Toast.makeText(RoomDetails.this, "User:" + userId, Toast.LENGTH_SHORT).show();
+                            // Start the ConfirmationScreen activity
+//                            startActivity(intent);
+                        } else {
+                            // Handle the case where the user document does not exist
+                            Toast.makeText(RoomDetails.this, "User details not found", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(e -> {
+                        // Handle errors that occurred while fetching user details
+                        Toast.makeText(RoomDetails.this, "Error fetching user details", Toast.LENGTH_SHORT).show();
+                    });
+                } else {
+                    // Handle the case where the user is not authenticated
+                    Toast.makeText(RoomDetails.this, "User not authenticated", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
 
         // Set the dialog window attributes to appear at the bottom
@@ -191,15 +263,32 @@ public class RoomDetails extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                // Showing the picked value in the textView
-                dateTextView.setText(String.valueOf(year) + "." + String.valueOf(month) + "." + String.valueOf(day));
+                // Format the date as words (e.g., "June 12, 2023")
+                String formattedDate = formatDateAsWords(year, month, day);
+
+                // Set the formatted date to the TextView
+                dateTextView.setText(formattedDate);
             }
         }, year, month, day);
 
         datePickerDialog.show();
     }
 
+    private String formatDateAsWords(int year, int month, int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+
+        // Create a SimpleDateFormat with the desired format
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault());
+
+        // Format the date and return the result
+        return sdf.format(calendar.getTime());
+    }
+
     private void fetchRoomDetailsFromFirebase(String hotelId, String roomId) {
+
         DocumentReference roomRef = db.collection("Hotels")
                 .document(hotelId)
                 .collection("Rooms")
@@ -255,4 +344,6 @@ public class RoomDetails extends AppCompatActivity {
             // Handle errors that occurred while fetching room details
         });
     }
+
+
 }

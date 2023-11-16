@@ -8,10 +8,11 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="412dp"
-        android:layout_height="741dp"
+        android:layout_width="401dp"
+        android:layout_height="850dp"
         android:layout_marginStart="2dp"
-        android:src="@drawable/animated_logo"
+        android:scaleType="fitCenter"
+        android:src="@drawable/splash"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

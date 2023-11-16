@@ -16,13 +16,22 @@
         android:theme="@style/Theme.Adventours"
         tools:targetApi="30">
         <activity
+            android:name=".HotelReservationReceipt"
+            android:exported="false" />
+        <activity
+            android:name=".HelpCenterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.MyIterinaryActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ConfirmationScreen"
             android:exported="false" />
         <activity
             android:name=".ui.RoomDetails"
-            android:exported="false" />
-        <activity
-            android:name=".roomDetails"
             android:exported="false" />
         <activity
             android:name=".ui.lists.tours_list_activity"
@@ -53,13 +62,13 @@
             android:exported="false"
             android:label="@string/title_activity_main" />
         <activity
-            android:name=".start_splashscreen"
+            android:name=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".SigninActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".start_splashscreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
