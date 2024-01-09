@@ -38,7 +38,7 @@ public class hotelinfo extends AppCompatActivity implements roomAdapter.OnItemCl
 
     @Override
     public void onItemClick(String roomId) {
-        Toast.makeText(this, "Room ID: " + roomId, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Room ID: " + roomId, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, RoomDetails.class);
         intent.putExtra("RoomId", roomId);
         intent.putExtra("HotelId", getIntent().getStringExtra("hotel_id"));

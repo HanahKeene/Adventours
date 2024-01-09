@@ -20,6 +20,7 @@ import com.example.adventours.ui.adapters.restaurantAdapter;
 import com.example.adventours.ui.models.HotelsModel;
 import com.example.adventours.ui.models.RestaurantsModel;
 import com.example.adventours.ui.models.activityModel;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.example.adventours.ui.adapters.photogalleryAdapter;
@@ -43,6 +44,8 @@ public class touristspotinfo extends AppCompatActivity {
 
     private FirebaseFirestore db;
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
 
 
@@ -51,6 +54,12 @@ public class touristspotinfo extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_touristspotinfo);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("fyp_tourist_spot", "Tourist Spot");
+        mFirebaseAnalytics.logEvent("fyp_tourist_spot", bundle);
 
         img_spot = findViewById(R.id.spot_img);
         placeTextView = findViewById(R.id.spot_place);

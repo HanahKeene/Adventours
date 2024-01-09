@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -15,15 +17,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.adventours.ui.home.HomeFragment;
+import com.example.adventours.ui.verify_otp;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.auth.User;
 
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class SigninActivity extends AppCompatActivity {
 
@@ -40,6 +47,8 @@ public class SigninActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -167,6 +176,48 @@ public class SigninActivity extends AppCompatActivity {
     }
 
     private void openVerifier() {
-        // Implement the logic for opening the verifier
+
+        final EditText mobilenumber = findViewById(R.id.number);
+        final ProgressBar progressBar = findViewById(R.id.progressBar);
+
+        if (mobilenumber.getText().toString().trim().isEmpty()) {
+            Toast.makeText(SigninActivity.this, "Enter your mobile number", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        progressBar.setVisibility(View.VISIBLE);
+        verify.setVisibility(View.INVISIBLE);
+
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                "+639" + mobilenumber.getText().toString(),
+                60,
+                TimeUnit.SECONDS,
+                SigninActivity.this,
+                new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                    @Override
+                    public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                        progressBar.setVisibility(View.GONE);
+                        verify.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onVerificationFailed(@NonNull FirebaseException e) {
+                        progressBar.setVisibility(View.GONE);
+                        verify.setVisibility(View.VISIBLE);
+                        Toast.makeText(SigninActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                        progressBar.setVisibility(View.GONE);
+                        verify.setVisibility(View.VISIBLE);
+                        Intent intent = new Intent(SigninActivity.this, verify_otp.class);
+                        intent.putExtra("number", mobilenumber.getText().toString());
+                        intent.putExtra("verificationId", verificationId);
+                        startActivity(intent);
+                    }
+                }
+        );
     }
+
 }

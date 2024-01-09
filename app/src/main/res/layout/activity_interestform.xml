@@ -2,10 +2,10 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="119dp"
@@ -36,8 +36,8 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="410dp"
-            android:layout_height="845dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="1dp"
@@ -64,11 +64,10 @@
 
             <TextView
                 android:id="@+id/textView7"
-                android:layout_width="381dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="10dp"
-                android:text="Select your travel interest to tailor recommendation
-            to your trip plan."
+                android:text="Select your travel interest to tailor recommendation to your trip plan."
                 android:textAlignment="center"
                 android:textSize="15sp" />
 
@@ -78,11 +77,12 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout4"
-                android:layout_width="377dp"
-                android:layout_height="59dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -190,6 +190,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="20dp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button"
+
+                android:text="Continue"
+                android:textColor="@color/white"
+                ></Button>
 
 
         </LinearLayout>

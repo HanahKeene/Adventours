@@ -276,7 +276,7 @@
                 <Button
                     android:id="@+id/button3"
                     android:layout_width="match_parent"
-                    android:layout_height="63dp"
+                    android:layout_height="wrap_content"
                     android:backgroundTint="#313F87"
                     android:text="LOG OUT"
                     android:textColor="#FFFFFF" />

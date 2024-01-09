@@ -17,6 +17,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,13 +29,15 @@ import java.util.Map;
 public class ConfirmationScreen extends AppCompatActivity {
 
     private FirebaseFirestore db;
-    TextView roomtypeName, checkin, checkout, name, add, numbertxtfld, emailtxtfld, hotelnametxtfld, qtytxtfld, expirationtxtfld, reserveNumber;
+    TextView roomtypeName, checkin, checkout, name, add, numbertxtfld, emailtxtfld, hotelnametxtfld, qtytxtfld, expirationtxtfld, reserveNumberm, total, dppayment;
 
     Button submit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmation_screen);
+
+
 
         // Get the current date
         Calendar currentDate = Calendar.getInstance();
@@ -54,6 +58,8 @@ public class ConfirmationScreen extends AppCompatActivity {
         String check_out = intent.getStringExtra("CheckOut");
         String roomquantity = intent.getStringExtra("RoomQuantity");
 
+//        getRoomPriceFromFirebase(hotelid, roomid, roomquantity);
+
         Toast.makeText(this, "Hotel ID" + hotelid, Toast.LENGTH_SHORT).show();
 
         roomtypeName = findViewById(R.id.roomtypeTextView);
@@ -67,7 +73,8 @@ public class ConfirmationScreen extends AppCompatActivity {
         qtytxtfld = findViewById(R.id.qty);
         expirationtxtfld = findViewById(R.id.expiration);
         submit = findViewById(R.id.submit);
-
+        total = findViewById(R.id.totalprice);
+        dppayment = findViewById(R.id.dpprice);
 
         qtytxtfld.setText(roomquantity + " Room/s");
         roomtypeName.setText(roomtype);
@@ -141,11 +148,48 @@ public class ConfirmationScreen extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    String reservationId = generateReservationId();
-                    String status = "Pending";
+                        generateReservationIdAndAddToFirestore();
+                }
 
+                private void generateReservationIdAndAddToFirestore() {
+                    // Access Firestore and get the latest reservation ID
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    CollectionReference reservationsRef = db.collection("Hotel Reservation");
+
+                    reservationsRef
+                            .orderBy("reservationId", Query.Direction.DESCENDING)
+                            .limit(1)
+                            .get()
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    QuerySnapshot querySnapshot = task.getResult();
+                                    if (querySnapshot != null && !querySnapshot.isEmpty()) {
+                                        // Retrieve the latest reservation ID
+                                        String latestReservationId = querySnapshot.getDocuments().get(0).getString("reservationId");
+
+                                        // Increment the latest reservation ID
+                                        int nextReservationNumber = Integer.parseInt(latestReservationId) + 1;
+                                        String newReservationId = String.format(Locale.getDefault(), "%010d", nextReservationNumber);
+
+                                        // Now, you can use the newReservationId for the current reservation
+                                        addReservationToFirestore(newReservationId);
+                                    } else {
+                                        // No existing reservations, start from 1
+                                        addReservationToFirestore("0000000001");
+                                    }
+                                } else {
+                                    // Error getting reservation IDs
+                                    Toast.makeText(ConfirmationScreen.this, "Error getting reservation IDs: " + task.getException(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+
+                private void addReservationToFirestore(String reservationId) {
                     // Create a Map with reservation details
                     Map<String, Object> reservationData = new HashMap<>();
+                    String status = "Pending";
+                    reservationData.put("status", status);
+                    reservationData.put("reservationId", reservationId);
                     reservationData.put("CustomerName", name.getText().toString());
                     reservationData.put("Address", add.getText().toString());
                     reservationData.put("Number", numbertxtfld.getText().toString());
@@ -155,7 +199,6 @@ public class ConfirmationScreen extends AppCompatActivity {
                     reservationData.put("CheckIn", checkin.getText().toString());
                     reservationData.put("CheckOut", checkout.getText().toString());
                     reservationData.put("Expiration", expirationtxtfld.getText().toString());
-                    reservationData.put("Status", status);
 
                     // Add the reservation to the "Hotel Reservation" collection with the generated ID
                     db.collection("Hotel Reservation").document(reservationId).set(reservationData)
@@ -168,14 +211,16 @@ public class ConfirmationScreen extends AppCompatActivity {
                                 Toast.makeText(ConfirmationScreen.this, "Error adding reservation: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             });
 
+                    // Start the HotelReservationReceipt activity
                     Intent intent = new Intent(ConfirmationScreen.this, HotelReservationReceipt.class);
+                    intent.putExtra("Hotel ID", hotelid);
 
                     Intent intent1 = getIntent();
                     String hotelid = intent1.getStringExtra("HotelId");
 
                     intent.putExtra("Hotel ID", hotelid);
 
-
+                    intent.putExtra("ReservatioNumber", reservationId);
                     intent.putExtra("CustomerName", name.getText().toString());
                     intent.putExtra("Address", add.getText().toString());
                     intent.putExtra("Number", numbertxtfld.getText().toString());
@@ -187,21 +232,43 @@ public class ConfirmationScreen extends AppCompatActivity {
                     intent.putExtra("CheckOut", checkout.getText().toString());
                     intent.putExtra("Expiration", expirationtxtfld.getText().toString());
 
+                    // Add more intent extras if needed
                     startActivity(intent);
                 }
 
-                private String generateReservationId() {
-                    // Logic to generate a reservation ID in the format "0000000001"
-                    // You may want to query the database to find the latest reservation ID and increment it.
-                    // For simplicity, let's assume you always start from 1.
-
-                    int nextReservationNumber = 1;
-                    return String.format(Locale.getDefault(), "%010d", nextReservationNumber);
-                }
             });
 
 
         }
     }
+
+//    private void getRoomPriceFromFirebase(String hotelid, String roomid, String roomquantity) {
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        DocumentReference roomRef = db.collection("Hotels").document(hotelid)
+//                .collection("Rooms").document(roomid);
+//
+//        roomRef.get().addOnCompleteListener(task -> {
+//            if (task.isSuccessful()) {
+//                DocumentSnapshot document = task.getResult();
+//                if (document.exists()) {
+//                    double roomPrice = document.getDouble("price");
+//                    double totalCost = roomPrice * Integer.parseInt(qtytxtfld.toString());
+//
+//                    // Set the total cost in the TextView
+//                    total.setText(String.valueOf(totalCost));
+//
+//                    double downpaymentAmount = 0.2 * totalCost;
+//                    dppayment.setText(String.valueOf(downpaymentAmount));
+//                } else {
+//                    // Document does not exist
+//                    Toast.makeText(ConfirmationScreen.this, "Room document does not exist", Toast.LENGTH_SHORT).show();
+//                }
+//            } else {
+//                // Error getting document
+//                Toast.makeText(ConfirmationScreen.this, "Error getting room document: " + task.getException(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
+
 
 }

@@ -16,6 +16,12 @@
         android:theme="@style/Theme.Adventours"
         tools:targetApi="30">
         <activity
+            android:name=".ui.verify_otp"
+            android:exported="false" />
+        <activity
+            android:name=".ui.MapsTutorial"
+            android:exported="false" />
+        <activity
             android:name=".HotelReservationReceipt"
             android:exported="false" />
         <activity

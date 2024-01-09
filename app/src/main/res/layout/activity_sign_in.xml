@@ -276,15 +276,28 @@
             android:padding="10dp"
             android:paddingEnd="60dp">
 
-            <Button
-                android:id="@+id/verifybtn"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/login_padding"
-                android:minHeight="48dp"
-                android:text="Verify"
-                android:textColor="#FFFFFF"
-                tools:ignore="TouchTargetSizeCheck" />
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/verifybtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/login_padding"
+                    android:minHeight="48dp"
+                    android:text="Verify"
+                    android:textColor="#FFFFFF"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
+            </FrameLayout>
+
         </LinearLayout>
     </LinearLayout>
 

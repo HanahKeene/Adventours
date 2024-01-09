@@ -48,10 +48,12 @@ public class HotelReservationReceipt extends AppCompatActivity {
         back = findViewById(R.id.back);
 
 
-        generateAndDisplayReservationNumber();
+//        generateAndDisplayReservationNumber();
 
         Intent intent = getIntent();
         Intent intent1 = getIntent();
+
+        String reservationID = intent.getStringExtra("ReservatioNumber");
 
         String hotelId = intent1.getStringExtra("HotelId");
         String roomId = intent1.getStringExtra("RoomId");
@@ -61,6 +63,9 @@ public class HotelReservationReceipt extends AppCompatActivity {
         String num = intent.getStringExtra("Number");
         String email = intent.getStringExtra("Email");
 
+//        intent.putExtra("No.ofRooms", qtytxtfld.getText().toString());
+//        intent.putExtra("Downpayment", dppayment.getText().toString());
+//        intent.putExtra("Total Cost", total.getText().toString());
         String hotelname = intent.getStringExtra("HotelName");
         String roomname = intent.getStringExtra("RoomName");
         String checkin = intent.getStringExtra("CheckIn");
@@ -79,11 +84,11 @@ public class HotelReservationReceipt extends AppCompatActivity {
         checkoutfield.setText(checkout);
         expirationfield.setText(expiration);
 
+        reserveIdNumbertxtfld.setText(reservationID);
+
         Toast.makeText(HotelReservationReceipt.this, "Hotel Id:" + hotelId + "Room Id" + roomId , Toast.LENGTH_SHORT).show();
 
         backtohomepage.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View v) {
 
@@ -111,47 +116,47 @@ public class HotelReservationReceipt extends AppCompatActivity {
 
     }
 
-    private void generateAndDisplayReservationNumber() {
+//    private void generateAndDisplayReservationNumber() {
+//
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        db = FirebaseFirestore.getInstance();
+//
+//        // Reference to the "Hotel Reservation" collection
+//        CollectionReference reservationCollectionRef = db.collection("Hotel Reservations");
+//
+//        // Placeholder for the reservation number
+//        String reservationNumber = null;
+//
+//        // Loop to find the first available reservation number
+//        for (int i = 1; i <= 1000000000; i++) {
+//            // Format the count as a reservation number (e.g., 0000000001)
+//            reservationNumber = String.format("%010d", i);
+//
+//            // Check if the reservation number already exists
+//            DocumentReference reservationRef = reservationCollectionRef.document(reservationNumber);
+//
+//            boolean reservationExists = checkReservationExists(reservationRef);
+//
+//            if (!reservationExists) {
+//                // Reservation number does not exist, break out of the loop
+//                break;
+//            }
+//        }
+//
+//        // Display the reservation number
+//        reserveIdNumbertxtfld.setText(reservationNumber);
+//    }
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db = FirebaseFirestore.getInstance();
-
-        // Reference to the "Hotel Reservation" collection
-        CollectionReference reservationCollectionRef = db.collection("Hotel Reservations");
-
-        // Placeholder for the reservation number
-        String reservationNumber = null;
-
-        // Loop to find the first available reservation number
-        for (int i = 1; i <= 1000000000; i++) {
-            // Format the count as a reservation number (e.g., 0000000001)
-            reservationNumber = String.format("%010d", i);
-
-            // Check if the reservation number already exists
-            DocumentReference reservationRef = reservationCollectionRef.document(reservationNumber);
-
-            boolean reservationExists = checkReservationExists(reservationRef);
-
-            if (!reservationExists) {
-                // Reservation number does not exist, break out of the loop
-                break;
-            }
-        }
-
-        // Display the reservation number
-        reserveIdNumbertxtfld.setText(reservationNumber);
-    }
-
-    private boolean checkReservationExists(DocumentReference reservationRef) {
-        // Check if the reservation document exists
-        try {
-            DocumentSnapshot document = reservationRef.get().getResult();
-            return document.exists();
-        } catch (Exception e) {
-            // Handle exceptions
-            return false;
-        }
-    }
+//    private boolean checkReservationExists(DocumentReference reservationRef) {
+//        // Check if the reservation document exists
+//        try {
+//            DocumentSnapshot document = reservationRef.get().getResult();
+//            return document.exists();
+//        } catch (Exception e) {
+//            // Handle exceptions
+//            return false;
+//        }
+//    }
 
 
 }

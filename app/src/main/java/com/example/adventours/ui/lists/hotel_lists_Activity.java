@@ -42,7 +42,7 @@ public class hotel_lists_Activity extends AppCompatActivity {
             @Override
             public void onHotelListItemClick(String hotelId) {
                 // Handle the click event here
-                Toast.makeText(hotel_lists_Activity.this, "Clicked Hotel ID: " + hotelId, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(hotel_lists_Activity.this, "Clicked Hotel ID: " + hotelId, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(hotel_lists_Activity.this, hotelinfo.class);
                 intent.putExtra("hotel_id", hotelId);
                 startActivity(intent);
