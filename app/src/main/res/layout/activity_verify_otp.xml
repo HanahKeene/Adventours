@@ -94,8 +94,10 @@
         android:id="@+id/textView45"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
         android:text="Enter the 6 digit OTP sent to your mobile number"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout26"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.702"
         app:layout_constraintStart_toStartOf="parent"
@@ -224,7 +226,7 @@
 
         <Button
             android:id="@+id/verify"
-            android:layout_width="316dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="47dp"
             android:layout_marginTop="82dp"

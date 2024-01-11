@@ -16,6 +16,15 @@
         android:theme="@style/Theme.Adventours"
         tools:targetApi="30">
         <activity
+            android:name=".ui.tutorial"
+            android:exported="false" />
+        <activity
+            android:name=".ui.new_password"
+            android:exported="false" />
+        <activity
+            android:name=".ui.forgot_password"
+            android:exported="false" />
+        <activity
             android:name=".ui.verify_otp"
             android:exported="false" />
         <activity

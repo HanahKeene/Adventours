@@ -20,6 +20,7 @@ import com.example.adventours.ui.adapters.restaurantAdapter;
 import com.example.adventours.ui.models.HotelsModel;
 import com.example.adventours.ui.models.RestaurantsModel;
 import com.example.adventours.ui.models.activityModel;
+import com.example.adventours.ui.tutorial;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -73,7 +74,8 @@ public class touristspotinfo extends AppCompatActivity {
         locationTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                getGeoLocationFromFirebase();
+                    Intent intent = new Intent(touristspotinfo.this, tutorial.class);
+                    startActivity(intent);
             }
         });
 

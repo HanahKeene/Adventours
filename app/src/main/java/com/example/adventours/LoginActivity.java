@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.adventours.ui.forgot_password;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -62,7 +63,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void openforgotPass() {
 
-
+        Intent intent = new Intent(this, forgot_password.class);
+        startActivity(intent);
     }
 
     private void openHome()
