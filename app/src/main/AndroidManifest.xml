@@ -16,6 +16,18 @@
         android:theme="@style/Theme.Adventours"
         tools:targetApi="30">
         <activity
+            android:name=".ui.notification_systemupdate"
+            android:exported="false" />
+        <activity
+            android:name=".ui.notification_traveladvisory"
+            android:exported="false" />
+        <activity
+            android:name=".ui.notification_activities"
+            android:exported="false" />
+        <activity
+            android:name=".ui.notification_promotions"
+            android:exported="false" />
+        <activity
             android:name=".ui.tutorial"
             android:exported="false" />
         <activity

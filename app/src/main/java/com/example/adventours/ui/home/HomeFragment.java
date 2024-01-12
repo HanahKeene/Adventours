@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment implements FYPAdapter.OnFYPItemClickL
         // Initialize your adapters with empty lists
         categoryModelList = new ArrayList<>();
         categoryAdapter = new CategoryAdapter(getContext(), categoryModelList, this);
-        catRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+        catRecyclerview.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         catRecyclerview.setAdapter(categoryAdapter);
 
         fypModelList = new ArrayList<>();

@@ -31,11 +31,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/round_padding"
-            android:ems="10"
+            android:drawableLeft="@drawable/search"
+            android:drawableTint="#BCB7B7"
             android:hint="Search"
             android:inputType="text"
             android:minHeight="48dp"
-            android:paddingLeft="25dp"
+            android:paddingStart="10dp"
             android:paddingRight="25dp"
             android:textSize="16sp" />
 
@@ -46,6 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.394"
@@ -67,7 +70,7 @@
 
         <LinearLayout
             android:id="@+id/linearLayout6"
-            android:layout_width="411dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingTop="5dp"
@@ -80,10 +83,12 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="93dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp">
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
 
                 <LinearLayout
                     android:layout_width="244dp"
@@ -124,8 +129,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="138dp"
-                android:orientation="horizontal"
-                android:paddingStart="20dp">
+                android:paddingLeft="20dp"
+                android:orientation="horizontal">
 
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -139,10 +144,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingLeft="20dp"
-                android:paddingTop="20dp"
-                android:paddingEnd="20dp"
                 android:paddingRight="20dp"
-                android:paddingBottom="20dp">
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
