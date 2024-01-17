@@ -45,7 +45,6 @@ public class HotelReservationReceipt extends AppCompatActivity {
         expirationfield = findViewById(R.id.expiration);
 
         backtohomepage = findViewById(R.id.backtohomepage);
-        back = findViewById(R.id.back);
 
 
 //        generateAndDisplayReservationNumber();
@@ -92,27 +91,10 @@ public class HotelReservationReceipt extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(HotelReservationReceipt.this, HomeFragment.class);
+                Intent intent = new Intent(HotelReservationReceipt.this, MainActivity.class);
                 startActivity(intent);
-
-
             }
         });
-
-        back.setOnClickListener(new View.OnClickListener() {
-
-
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(HotelReservationReceipt.this, ConfirmationScreen.class);
-                startActivity(intent);
-
-
-            }
-        });
-
-
 
     }
 

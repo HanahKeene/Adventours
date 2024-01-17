@@ -16,6 +16,18 @@
         android:theme="@style/Theme.Adventours"
         tools:targetApi="30">
         <activity
+            android:name=".ui.verify_email"
+            android:exported="false" />
+        <activity
+            android:name=".ui.check_reservation"
+            android:exported="false" />
+        <activity
+            android:name=".ui.customize_iterinary"
+            android:exported="false" />
+        <activity
+            android:name=".ui.iterinary_details"
+            android:exported="false" />
+        <activity
             android:name=".ui.notification_systemupdate"
             android:exported="false" />
         <activity

@@ -3,8 +3,10 @@ package com.example.adventours.ui;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -25,6 +27,9 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 public class verify_otp extends AppCompatActivity {
 
+    private CountDownTimer countDownTimer;
+    private long otpExpirationTime;
+    private long timeLeftInMillis;
     EditText otp1, otp2, otp3, otp4, otp5, otp6;
     Button verify;
 
@@ -43,14 +48,20 @@ public class verify_otp extends AppCompatActivity {
         otp4 = findViewById(R.id.otp4);
         otp5 = findViewById(R.id.otp5);
         otp6 = findViewById(R.id.otp6);
-
+        progressBar = findViewById(R.id.progressBar);
         verify = findViewById(R.id.verify);
+        
+        otpExpirationTime = getIntent().getLongExtra("otpExpirationTime", 0);
 
         setupOTP();
-
-        progressBar = findViewById(R.id.progressBar);
+//        startCountDownTimer(otpExpirationTime - System.currentTimeMillis());
 
         String verificationid = getIntent().getStringExtra("verificationId");
+
+        Intent intent = getIntent();
+        otpExpirationTime = intent.getLongExtra("otpExpirationTime", 0);
+
+
 
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,11 +98,11 @@ public class verify_otp extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     progressBar.setVisibility(View.GONE);
                                     verify.setVisibility(View.VISIBLE);
-                                    if(task.isSuccessful())
-                                    {
-                                        Intent intent = new Intent(getApplicationContext(), SigninActivity.class);
-                                        intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(intent);
+                                    if (task.isSuccessful()) {
+                                        Intent resultIntent = new Intent(verify_otp.this, SigninActivity.class);
+                                        resultIntent.putExtra("verificationStatus", "Verified");
+                                        setResult(Activity.RESULT_OK, resultIntent);
+                                        finish();
                                     }
                                     else
                                     {
@@ -104,6 +115,35 @@ public class verify_otp extends AppCompatActivity {
             }
         });
     }
+
+//    private void startCountDownTimer(long l) {
+//        countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
+//            @Override
+//            public void onTick(long millisUntilFinished) {
+//                timeLeftInMillis = millisUntilFinished;
+//                updateCountdownText();
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                // Handle what happens when the countdown finishes
+//                // For example, show a message or take appropriate action
+//                // This could include setting a flag to indicate that the time has expired
+//                // and preventing further verification attempts
+//                Toast.makeText(verify_otp.this, "OTP has expired", Toast.LENGTH_SHORT).show();
+//                finish(); // Finish the activity when the OTP expires
+//            }
+//        }.start();
+//    }
+
+//    private void updateCountdownText() {
+//
+//        TextView countdownTextView = findViewById(R.id.countdown);
+//        long minutes = (timeLeftInMillis / 1000) / 60;
+//        long seconds = (timeLeftInMillis / 1000) % 60;
+//        String timeLeftFormatted = String.format("%02d:%02d", minutes, seconds);
+//        countdownTextView.setText(timeLeftFormatted);
+//    }
 
     private void setupOTP()
     {
@@ -216,4 +256,12 @@ public class verify_otp extends AppCompatActivity {
             }
         });
     }
+
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        if (countDownTimer != null) {
+//            countDownTimer.cancel();
+//        }
+//    }
 }

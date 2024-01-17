@@ -25,7 +25,7 @@ public class forgot_password extends AppCompatActivity {
 
     private void sendotp() {
 
-        Intent intent = new Intent(this, verify_otp.class);
+        Intent intent = new Intent(this, verify_email.class);
         startActivity(intent);
     }
 

@@ -1,8 +1,10 @@
 package com.example.adventours;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -30,6 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.auth.User;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class SigninActivity extends AppCompatActivity {
@@ -38,10 +41,12 @@ public class SigninActivity extends AppCompatActivity {
     RadioGroup gendergroup;
     Button verify, submit, terms;
 
-    ImageButton bdaybtn;
+    ImageButton bdaybtn, showpassbtn, showconfirmpassbtn;
 
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
+
+    private static final int REQUEST_CODE_VERIFY_OTP = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +77,52 @@ public class SigninActivity extends AppCompatActivity {
         confirmpasstxtfld = findViewById(R.id.confirmpassword);
         gendergroup = findViewById(R.id.gender);
         bdaybtn = findViewById(R.id.bday);
+        showpassbtn =findViewById(R.id.showpassword);
+        showconfirmpassbtn = findViewById(R.id.showconfirmpassword);
+
 
         bdaybtn.setOnClickListener(view -> openCalendar());
+
+        passwordtxtfld.setTransformationMethod(new PasswordTransformationMethod());
+        confirmpasstxtfld.setTransformationMethod(new PasswordTransformationMethod());
+
+        showpassbtn.setOnClickListener(new View.OnClickListener() {
+            boolean isPasswordVisible = false;
+
+            @Override
+            public void onClick(View v) {
+                isPasswordVisible = !isPasswordVisible;
+
+                // Change transformation method based on visibility state
+                passwordtxtfld.setTransformationMethod(
+                        isPasswordVisible ? null : new PasswordTransformationMethod()
+                );
+
+                // Move the cursor to the end of the text to ensure it's always visible
+                passwordtxtfld.setSelection(passwordtxtfld.getText().length());
+                int imageResource = isPasswordVisible ? R.drawable.eye_slash_solid : R.drawable.eye_solid;
+                showpassbtn.setImageResource(imageResource);
+            }
+        });
+
+        showconfirmpassbtn.setOnClickListener(new View.OnClickListener() {
+            boolean isPasswordVisible = false;
+
+            @Override
+            public void onClick(View v) {
+                isPasswordVisible = !isPasswordVisible;
+
+                // Change transformation method based on visibility state
+                confirmpasstxtfld.setTransformationMethod(
+                        isPasswordVisible ? null : new PasswordTransformationMethod()
+                );
+
+                // Move the cursor to the end of the text to ensure it's always visible
+                confirmpasstxtfld.setSelection(confirmpasstxtfld.getText().length());
+                int imageResource = isPasswordVisible ? R.drawable.eye_slash_solid : R.drawable.eye_solid;
+                showconfirmpassbtn.setImageResource(imageResource);
+            }
+        });
 
         verify = findViewById(R.id.verifybtn);
         verify.setOnClickListener(view -> openVerifier());
@@ -143,9 +192,25 @@ public class SigninActivity extends AppCompatActivity {
                                         .document(user.getUid())
                                         .set(newUser)
                                         .addOnCompleteListener(aVoid -> {
-                                            Toast.makeText(this, "User registered successfully!", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(getApplicationContext(), interestform.class));
-                                            finish();
+                                            // User registered successfully, now add empty subcollection
+                                            db.collection("users")
+                                                    .document(user.getUid())
+                                                    .collection("Itinerary")
+                                                    .get()
+                                                    .addOnCompleteListener(subcollectionTask -> {
+                                                        if (subcollectionTask.isSuccessful()) {
+                                                            if (subcollectionTask.getResult().isEmpty()) {
+                                                                // Subcollection doesn't exist, you can perform any necessary actions here
+                                                                Toast.makeText(this, "User registered successfully!", Toast.LENGTH_SHORT).show();
+                                                                startActivity(new Intent(getApplicationContext(), interestform.class));
+                                                                finish();
+                                                            } else {
+                                                                Toast.makeText(this, "Subcollection creation failed. Please try again.", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        } else {
+                                                            Toast.makeText(this, "Subcollection creation failed. Please try again.", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
                                         })
                                         .addOnFailureListener(e -> {
                                             Toast.makeText(this, "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
@@ -156,6 +221,7 @@ public class SigninActivity extends AppCompatActivity {
                             Toast.makeText(this, "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
                         }
                     });
+
         }
     }
 
@@ -192,32 +258,42 @@ public class SigninActivity extends AppCompatActivity {
                 "+639" + mobilenumber.getText().toString(),
                 60,
                 TimeUnit.SECONDS,
-                SigninActivity.this,
+                this,
                 new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                     @Override
                     public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
                         progressBar.setVisibility(View.GONE);
-                        verify.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
                         progressBar.setVisibility(View.GONE);
-                        verify.setVisibility(View.VISIBLE);
                         Toast.makeText(SigninActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                         progressBar.setVisibility(View.GONE);
-                        verify.setVisibility(View.VISIBLE);
                         Intent intent = new Intent(SigninActivity.this, verify_otp.class);
                         intent.putExtra("number", mobilenumber.getText().toString());
                         intent.putExtra("verificationId", verificationId);
-                        startActivity(intent);
+                        startActivityForResult(intent, REQUEST_CODE_VERIFY_OTP);
                     }
                 }
         );
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_VERIFY_OTP && resultCode == Activity.RESULT_OK) {
+            String verificationStatus = data.getStringExtra("verificationStatus");
+            if ("Verified".equals(verificationStatus)) {
+                findViewById(R.id.verify).setEnabled(false);
+            }
+        }
+    }
+
 
 }
