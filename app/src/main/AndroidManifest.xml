@@ -16,6 +16,21 @@
         android:theme="@style/Theme.Adventours"
         tools:targetApi="30">
         <activity
+            android:name=".musttry_activity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.EditProfile"
+            android:exported="false" />
+        <activity
+            android:name=".ui.rate_us"
+            android:exported="false" />
+        <activity
+            android:name=".ui.about_us"
+            android:exported="false" />
+        <activity
+            android:name=".ui.faqs_activity"
+            android:exported="false" />
+        <activity
             android:name=".ui.verify_email"
             android:exported="false" />
         <activity

@@ -13,6 +13,7 @@
         android:background="@color/cyan"
         android:orientation="horizontal"
         android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout22"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,6 +26,42 @@
             android:text="Help Center"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout22"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout17"
+        tools:layout_editor_absoluteX="1dp">
+
+        <TextView
+            android:id="@+id/check_reservationbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:padding="20dp"
+            android:text="Check Reservation" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#8E8B8C" />
+
+        <TextView
+            android:id="@+id/faqsbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:padding="20dp"
+            android:text="FAQs" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#8E8B8C" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
