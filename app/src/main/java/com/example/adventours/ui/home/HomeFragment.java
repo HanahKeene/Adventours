@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.adventours.R;
 import com.example.adventours.databinding.FragmentHomeBinding;
+import com.example.adventours.musttry_activity;
 import com.example.adventours.touristspotinfo;
 import com.example.adventours.ui.adapters.CategoryAdapter;
 import com.example.adventours.ui.adapters.FYPAdapter;
@@ -52,6 +54,8 @@ public class HomeFragment extends Fragment implements FYPAdapter.OnFYPItemClickL
     List<MusttryModel> musttryModelList;
 
     FirebaseFirestore db;
+
+    LinearLayout seeallbtn;
     private FragmentHomeBinding binding;
     private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -70,6 +74,7 @@ public class HomeFragment extends Fragment implements FYPAdapter.OnFYPItemClickL
         foryouRecyclerview = root.findViewById(R.id.fyp);
         musttryRecycleview = root.findViewById(R.id.musttry_recycleview);
         db = FirebaseFirestore.getInstance();
+        seeallbtn = root.findViewById(R.id.seeallbtn);
 
         // Initialize your adapters with empty lists
         categoryModelList = new ArrayList<>();
@@ -87,6 +92,14 @@ public class HomeFragment extends Fragment implements FYPAdapter.OnFYPItemClickL
         musttryAdapter = new MusttryAdapter(getContext(), musttryModelList);
         musttryRecycleview.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
         musttryRecycleview.setAdapter(musttryAdapter);
+
+        seeallbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), musttry_activity.class);
+                startActivity(intent);
+            }
+        });
 
         // Fetch and set categories
         db.collection("Category")
