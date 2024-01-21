@@ -3,12 +3,19 @@ package com.example.adventours;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +31,10 @@ public class LoginActivity extends AppCompatActivity {
 
     TextInputEditText email_txtfld, password_txtfld;
 
-    TextView forgotpass;
+    TextView forgotpass, fingerprint;
     Button signupbtn, loginbtn;
+
+    ImageButton showpass;
 
     FirebaseAuth mAuth;
 
@@ -59,7 +68,45 @@ public class LoginActivity extends AppCompatActivity {
 
         signupbtn = findViewById(R.id.signupbutton);
         signupbtn.setOnClickListener(view -> openRegister());
+
+        showpass = findViewById(R.id.showpassword);
+        showpass.setOnClickListener(new View.OnClickListener() {
+            boolean isPasswordVisible = false;
+
+            @Override
+            public void onClick(View v) {
+                isPasswordVisible = !isPasswordVisible;
+
+                // Change transformation method based on visibility state
+                password_txtfld.setTransformationMethod(
+                        isPasswordVisible ? null : new PasswordTransformationMethod()
+                );
+
+                // Move the cursor to the end of the text to ensure it's always visible
+                password_txtfld.setSelection(password_txtfld.getText().length());
+                int imageResource = isPasswordVisible ? R.drawable.eye_slash_solid : R.drawable.eye_solid;
+                showpass.setImageResource(imageResource);
+            }
+        });
+
+        fingerprint = findViewById(R.id.fingerprint);
+        fingerprint.setOnClickListener(view -> showfingerprintscanner());
+
+        showfingerprintscanner();
     }
+
+    private void showfingerprintscanner() {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.biometrics_screen);
+        dialog.show();
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.copyFrom(dialog.getWindow().getAttributes());
+        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        dialog.getWindow().setAttributes(layoutParams);
+    }
+
+
 
     private void openforgotPass() {
 

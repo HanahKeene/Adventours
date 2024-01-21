@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout20"
-        android:layout_width="390dp"
+        android:layout_width="match_parent"
         android:layout_height="53dp"
         android:layout_marginBottom="1dp"
         android:orientation="horizontal"

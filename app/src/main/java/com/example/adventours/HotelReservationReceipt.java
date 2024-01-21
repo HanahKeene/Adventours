@@ -18,7 +18,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class HotelReservationReceipt extends AppCompatActivity {
+public class
+HotelReservationReceipt extends AppCompatActivity {
 
     TextView namefield, addfield, numberfield, emailfield, hotelnamefield, reserveIdNumbertxtfld, roomtypefield, numberofPeoplefield, checkinfield, checkoutfield, expirationfield;
 
