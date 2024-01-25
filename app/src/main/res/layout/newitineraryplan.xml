@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.newitineraryplan">
+
+    <LinearLayout
+        android:id="@+id/linearLayout17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cyan"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/myTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/baseline_arrow_back"
+            android:text="Customize Itinerary"
+            android:textColor="#FFFFFF"
+            android:padding="10dp"
+            android:paddingStart="5dp"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/edit_plan_cover"
+        android:layout_width="match_parent"
+        android:layout_height="410dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginRight="45dp"
+        android:background="@drawable/home_background"
+        android:scaleType="centerInside"
+        android:text="Add Itinerary Cover"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout17" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/itineraryName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Itinerary Name"
+        android:inputType="text"
+        android:layout_marginRight="45dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="45dp"
+        android:padding="10dp"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="45dp"
+        android:layout_marginLeft="45dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/startdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Start Date (MM/DD/YYYY)"
+            android:inputType="date"
+            android:padding="10dp"
+            tools:ignore="TouchTargetSizeCheck"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/startdatebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="46dp"
+            android:backgroundTint="#00FFFFFF"
+            app:srcCompat="@drawable/calendar"
+            app:tint="@color/dark_blue"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="45dp"
+        android:layout_marginLeft="45dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/enddate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="End Date (MM/DD/YYYY)"
+            android:inputType="date"
+            android:padding="10dp"
+            tools:ignore="TouchTargetSizeCheck"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/enddatebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="46dp"
+            android:backgroundTint="#00FFFFFF"
+            app:srcCompat="@drawable/calendar"
+            app:tint="@color/dark_blue"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:drawableRight="@drawable/baseline_navigate_next_24"
+        android:drawableTint="#000000"
+        android:text="NEXT"
+        android:textColor="@color/black" />
+
+</LinearLayout>

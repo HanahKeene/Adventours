@@ -2,6 +2,7 @@ package com.example.adventours.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +35,9 @@ public class MyIterinaryActivity extends AppCompatActivity {
 
         // Firebase data fetching and visibility control
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = currentUser.getUid();
+
         CollectionReference itinerariesRef = db.collection("users").document(userId).collection("itineraries");
         itinerariesRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -53,7 +57,8 @@ public class MyIterinaryActivity extends AppCompatActivity {
 
         // Add button click listener and navigation
         addButton.setOnClickListener(v -> {
-            // Intent to start activity for creating itinerary
+           Intent intent = new Intent(this, newitineraryplan.class);
+           startActivity(intent);
         });
 
     }
