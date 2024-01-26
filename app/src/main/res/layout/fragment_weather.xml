@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible">
+    </RelativeLayout>
     <ImageView
         android:id="@+id/IdIVBack"
         android:layout_width="match_parent"
@@ -24,270 +25,227 @@
         android:scaleType="centerCrop"
         android:src="@drawable/home_background" />
 
-    <LinearLayout
-        android:id="@+id/idCityNameAndFlag"
-        android:layout_width="match_parent"
-        android:layout_height="107dp"
-        android:layout_marginTop="30dp"
-        android:gravity="center">
 
-        <TextView
-            android:id="@+id/idTVCityName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Check Your Internet"
-            android:padding="28dp"
-            android:gravity="end"
-            android:textAlignment="viewEnd"
-            android:textColor="@color/white"
-            android:textSize="30dp" />
-
-
-        <ImageView
-            android:id="@+id/idIVFlag"
-            android:layout_width="101dp"
-            android:layout_height="wrap_content"
-
-
-            />
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/idLLEdt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/idCityNameAndFlag"
+        android:background="@color/peach"
         android:orientation="horizontal"
-        android:weightSum="5">
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/idTILCity"
-            android:layout_width="0dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="4.5"
-            app:boxBackgroundColor="#39000000"
-            app:boxStrokeColor="@color/white"
-            app:hintTextColor="@color/white">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/idETCity"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:hint="Enter City Name"
-                android:inputType="text"
-                android:padding="20dp"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="20dp"
+            android:text="Locating..."
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
 
         <ImageView
             android:id="@+id/idTVSearch"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight=".5"
             android:background="@color/transparent"
             android:src="@drawable/search"
-            app:tint="@color/white" />
+            app:tint="#9AFFFFFF" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/idTVTemperature"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/idLLEdt"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center_horizontal"
-        android:padding="5dp"
-        android:text="N/A"
-        android:textColor="@color/white"
-        android:textSize="70dp" />
-
-    <ImageView
-        android:id="@+id/idIVIcon"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_below="@id/idTVTemperature"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-
-        />
-
-    <TextView
-        android:id="@+id/idTVCondition"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/idIVIcon"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:text="Condition"
-        android:textAlignment="center"
-        android:textColor="@color/white" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/idRVWeather"
-        android:layout_below="@id/idTVCondition"
-        android:layout_marginTop="10px"
-        android:gravity="center"
-        android:layout_marginBottom="5dp">
-
-        <GridLayout
-            android:layout_width="115dp"
+        <TableLayout
+            android:id="@+id/currentforcast"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="3dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/cancel_btn"
+            android:stretchColumns="0,1"
+            android:layout_below="@id/idLLEdt"
+            android:padding="20dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/login_padding">
 
-            >
+            <TableRow>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Today"
+                        android:padding="10dp"
+                        android:textStyle="bold"
+                        android:textSize="16dp"
+                        android:elevation="5dp"
+                        android:textAlignment="center"
+                        android:background="@drawable/calendar_padding2"
+                        android:backgroundTint="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/currentdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="January 1, 2024"
+                        android:textAlignment="center"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/idTVTemperature"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center_horizontal"
+                        android:padding="5dp"
+                        android:text="N/A"
+                        android:textColor="@color/white"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/idIVIcon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/idTVCondition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Condition"
+                        android:textAlignment="center"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </TableRow>
+        </TableLayout>
+
+    <TableLayout
+        android:id="@+id/otherdetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/currentforcast"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/round_padding"
+        android:padding="20dp"
+        android:stretchColumns="0,1,2">
+
+        <TableRow>
 
             <TextView
-                android:id="@+id/idTVWindText"
-                android:layout_width="136dp"
-                android:layout_height="31dp"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:gravity="center_horizontal"
-                android:text="WINDSPEED"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Wind"
                 android:textAlignment="center"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Humidity"
+                android:textAlignment="center"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rain"
+                android:textAlignment="center"
+                android:textColor="@color/black" />
+
+        </TableRow>
+
+        <TableRow>
 
             <TextView
                 android:id="@+id/idTVWindTextMetric"
                 android:layout_width="match_parent"
-                android:layout_height="31dp"
-                android:layout_row="2"
-                android:layout_column="0"
-                android:layout_below="@id/idTVWindText"
-                android:gravity="center_horizontal"
-                android:text="N/A"
-                android:textSize="20dp"
+                android:layout_height="wrap_content"
+                android:text="Wind"
                 android:textAlignment="center"
-                android:textColor="@color/white" />
-
-        </GridLayout>
-
-        <GridLayout
-            android:layout_width="115dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="3dp"
-            android:layout_margin="8dp"
-            >
-
-            <TextView
-                android:id="@+id/idTVCloudText"
-                android:layout_width="match_parent"
-                android:layout_height="31dp"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:gravity="center_horizontal"
-                android:text="CLOUD"
-                android:textAlignment="center"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:id="@+id/idTVCloudTextMetric"
-                android:layout_width="match_parent"
-                android:layout_height="31dp"
-                android:layout_row="2"
-                android:layout_column="0"
-
-                android:layout_below="@id/idTVCloudText"
-                android:gravity="center_horizontal"
-                android:text="N/A"
-                android:textAlignment="center"
-                android:textSize="20dp"
-                android:textColor="@color/white" />
-        </GridLayout>
-
-        <GridLayout
-            android:layout_width="115dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="3dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/cancel_btn">
-
-            <TextView
-                android:id="@+id/idTVHumidText"
-                android:layout_width="136dp"
-                android:layout_height="31dp"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:gravity="center_horizontal"
-                android:text="HUMIDITY"
-                android:textAlignment="center"
-                android:textColor="@color/white" />
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/idTVCHumidTextMetric"
                 android:layout_width="match_parent"
-
-                android:layout_height="53dp"
-
-                android:layout_row="2"
-                android:layout_column="0"
-
-                android:layout_below="@id/idTVHumidText"
-                android:gravity="center_horizontal"
-                android:text="N/A"
+                android:layout_height="wrap_content"
+                android:text="Humidity"
                 android:textAlignment="center"
-                android:textSize="20dp"
-                android:textColor="@color/white" />
-        </GridLayout>
-    </LinearLayout>
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
-    <androidx.recyclerview.widget.RecyclerView
+            <TextView
+                android:id="@+id/idTVCloudTextMetric"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rain"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+        </TableRow>
+    </TableLayout>
+
+    <View
+        android:id="@+id/firstdivider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/white"
+        android:layout_below="@id/otherdetails"/>
+
+    <LinearLayout
+        android:id="@+id/hourlyupdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/idRVWeather"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        />
+        android:layout_below="@id/firstdivider">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hourlyupdateforcast"
+            android:layout_width="match_parent"
+            android:layout_height="25dp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/seconddivider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/white"
+        android:layout_below="@id/hourlyupdate"/>
 
     <TextView
-        android:layout_width="403dp"
+        android:id="@+id/thisweek"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Current Weather condition"
+        android:text="This Week"
+        android:layout_below="@id/seconddivider"
+        android:textSize="16sp"
         android:textColor="@color/white"
-        android:layout_below="@id/idTVCondition"
-        android:textStyle="bold"
-        android:layout_marginLeft="18dp" />
-</RelativeLayout>
+        android:gravity="center"
+        android:textStyle="bold"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/everydayupdateforcast"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_below="@+id/thisweek"/>
+
 </RelativeLayout>
