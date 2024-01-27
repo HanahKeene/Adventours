@@ -1,11 +1,16 @@
 package com.example.adventours.ui;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
@@ -17,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,6 +36,9 @@ public class newitineraryplan extends AppCompatActivity {
     
     ImageButton startbtn, endbtn;
     Button create;
+
+    private static final int IMAGE_PICK_CODE = 100; // You can choose any unique integer value
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +54,34 @@ public class newitineraryplan extends AppCompatActivity {
         startbtn = findViewById(R.id.startdatebtn);
         endbtn = findViewById(R.id.enddatebtn);
         create = findViewById(R.id.createbtn);
-        
+
+        cover.setOnClickListener(View -> openGallery());
         startbtn.setOnClickListener(View -> opencalendarstart());
         endbtn.setOnClickListener(View -> opencalendarend());
         create.setOnClickListener(View -> createitinerary());
 
     }
+
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, IMAGE_PICK_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == IMAGE_PICK_CODE && resultCode == RESULT_OK && data != null) {
+            Uri imageUri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                cover.setBackground(new BitmapDrawable(getResources(), bitmap)); // Set as background
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     private void opencalendarstart() {
         showDatePicker(startdate);
