@@ -28,7 +28,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.adventours.R;
+import com.example.adventours.touristspotinfo;
 import com.example.adventours.ui.adapters.photogalleryAdapter;
+import com.example.adventours.ui.home.HomeFragment;
+import com.example.adventours.ui.lists.hotel_lists_Activity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -43,6 +46,7 @@ public class RoomDetails extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseUser user;
 
+    ImageButton back;
     RecyclerView galleryRecyclerView;
 
     ImageView room_img;
@@ -69,6 +73,16 @@ public class RoomDetails extends AppCompatActivity {
         Intent intent = getIntent();
         String roomId = intent.getStringExtra("RoomId");
         String hotelId = intent.getStringExtra("HotelId");
+
+        back = findViewById(R.id.backbtn);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RoomDetails.this, touristspotinfo.class);
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -108,8 +122,6 @@ public class RoomDetails extends AppCompatActivity {
         roomnumin = findViewById(R.id.roomnumin);
         roomnumdec = findViewById(R.id.roomnumdec);
         reservearoom = findViewById(R.id.reservearoom);
-
-
 
 
         // Find ImageButtons within the dialog's layout

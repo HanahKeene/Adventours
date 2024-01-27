@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -27,10 +26,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.example.adventours.databinding.FragmentWeatherBinding;
-import com.google.android.material.textfield.TextInputEditText;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -58,7 +54,6 @@ public class WeatherFragment extends Fragment {
     private RelativeLayout homeRL;
     private ProgressBar loadingPB;
     private TextView cityNameTv, temperatureTV, conditionTV, windTV, cloudTV, humidityTV, currentdate;
-//    private TextInputEditText CityEdit;
     private ImageView backIV, iconIV, searchIv, countryFlag;
     private LocationManager locationManager;
     private int PERMISSION_CODE = 1;
@@ -73,13 +68,13 @@ public class WeatherFragment extends Fragment {
         binding = FragmentWeatherBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+//        RequestQueue requestQueue = Volley.newRequestQueue(getContext(), new TLS12HurlStack());
+
         initUIComponents(root);
         checkAndRequestLocationPermission();
         getCurrentLocationAndWeather();
         getCurrentDate();
-
-
-
+        Picasso.get();
 
         return root;
     }
@@ -167,7 +162,6 @@ public class WeatherFragment extends Fragment {
         }
     }
 
-
     private String getCityName(double longitude, double latitude) {
         String cityName = "Not Found";
         Geocoder gcd = new Geocoder(requireContext(), Locale.getDefault());
@@ -218,6 +212,7 @@ public class WeatherFragment extends Fragment {
 
             String iconCode = weatherObject.getString("icon");
             String iconUrl = "https://openweathermap.org/img/w/" + iconCode + ".png";
+            Log.d("WeatherLog", "iconUrl: " + iconUrl);
             Picasso.get().load(iconUrl).into(iconIV);
             int dayImage = R.drawable.day;
             int sunny = R.drawable.sunny;

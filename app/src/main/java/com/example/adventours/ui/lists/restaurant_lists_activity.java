@@ -1,7 +1,11 @@
 package com.example.adventours.ui.lists;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -9,9 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.adventours.MainActivity;
 import com.example.adventours.R;
 import com.example.adventours.ui.adapters.hotelListAdapter;
 import com.example.adventours.ui.adapters.restaurantListAdapter;
+import com.example.adventours.ui.home.HomeFragment;
 import com.example.adventours.ui.models.HotelListModel;
 import com.example.adventours.ui.models.RestaurantListModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +33,7 @@ public class restaurant_lists_activity extends AppCompatActivity {
 
     RecyclerView ResaurantRecyclerView;
 
+    ImageButton back;
     restaurantListAdapter restaurantListAdapter;
     List<RestaurantListModel> restaurantListModelList;
 
@@ -39,6 +46,16 @@ public class restaurant_lists_activity extends AppCompatActivity {
 
         ResaurantRecyclerView = findViewById(R.id.restaurant_list_recyclerview);
         db = FirebaseFirestore.getInstance();
+
+        back = findViewById(R.id.backbtn);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(restaurant_lists_activity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         restaurantListModelList = new ArrayList<>();
         restaurantListAdapter = new restaurantListAdapter(this, restaurantListModelList, null );

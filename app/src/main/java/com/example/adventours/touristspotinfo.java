@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,9 +18,11 @@ import com.bumptech.glide.Glide;
 import com.example.adventours.ui.adapters.activityAdapter;
 import com.example.adventours.ui.adapters.hotelAdapter;
 import com.example.adventours.ui.adapters.restaurantAdapter;
+import com.example.adventours.ui.home.HomeFragment;
 import com.example.adventours.ui.models.HotelsModel;
 import com.example.adventours.ui.models.RestaurantsModel;
 import com.example.adventours.ui.models.activityModel;
+import com.example.adventours.ui.select_itinerary;
 import com.example.adventours.ui.tutorial;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.firestore.Query;
@@ -41,6 +44,9 @@ public class touristspotinfo extends AppCompatActivity {
     private TextView locationTextView;
     private TextView descriptionTextView;
 
+    private Button addtoitinerary;
+
+    ImageView back;
     private RecyclerView photogalleryRecyclerView, activitiesRecyclerView, hotelsRecyclerview, restaurantRecyclerview;
 
     private FirebaseFirestore db;
@@ -70,6 +76,24 @@ public class touristspotinfo extends AppCompatActivity {
         activitiesRecyclerView = findViewById(R.id.roomsrecyclerview);
         hotelsRecyclerview = findViewById(R.id.hotelsrecyclerview);
         restaurantRecyclerview = findViewById(R.id.nearbyrestaurecyclerview);
+        addtoitinerary = findViewById(R.id.addtoitinerary);
+        back = findViewById(R.id.backbtn);
+
+        addtoitinerary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(touristspotinfo.this, select_itinerary.class);
+                startActivity(intent);
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(touristspotinfo.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         locationTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +173,8 @@ public class touristspotinfo extends AppCompatActivity {
 //        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(location));
 //        startActivity(browserIntent);
 //    }
+
+
 
     private void fetchRestauListsFromDatabase(String location) {
 

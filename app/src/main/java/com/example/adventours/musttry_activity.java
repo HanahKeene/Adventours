@@ -1,15 +1,22 @@
 package com.example.adventours;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.adventours.ui.adapters.VPAdapter;
+import com.example.adventours.ui.home.HomeFragment;
+import com.example.adventours.ui.lists.hotel_lists_Activity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class musttry_activity extends AppCompatActivity {
+
+    TextView back;
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
@@ -18,6 +25,16 @@ public class musttry_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_musttry);
+
+        back = findViewById(R.id.back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(musttry_activity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewpage);
