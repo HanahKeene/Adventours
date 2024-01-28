@@ -52,8 +52,7 @@ public class restaurant_lists_activity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(restaurant_lists_activity.this, MainActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 

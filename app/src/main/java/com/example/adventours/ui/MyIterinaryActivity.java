@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.adventours.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,6 +17,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class MyIterinaryActivity extends AppCompatActivity {
+
+    TextView back;
 
     private FirebaseAuth auth;
     private FirebaseUser user;
@@ -32,6 +35,9 @@ public class MyIterinaryActivity extends AppCompatActivity {
 
         pictureView = findViewById(R.id.pictureView);
         addButton = findViewById(R.id.addButton);
+
+        back = findViewById(R.id.back);
+        back.setOnClickListener(View -> finish());
 
         // Firebase data fetching and visibility control
         FirebaseFirestore db = FirebaseFirestore.getInstance();

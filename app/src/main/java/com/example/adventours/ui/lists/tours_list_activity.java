@@ -26,8 +26,7 @@ public class tours_list_activity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(tours_list_activity.this, MainActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
     }

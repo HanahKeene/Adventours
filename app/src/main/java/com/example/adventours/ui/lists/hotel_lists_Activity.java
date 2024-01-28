@@ -50,8 +50,7 @@ public class hotel_lists_Activity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(hotel_lists_Activity.this, MainActivity.class);
-                startActivity(intent);
+               finish();
             }
         });
 

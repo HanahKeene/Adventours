@@ -11,6 +11,8 @@ import com.example.adventours.ui.faqs_activity;
 
 public class HelpCenterActivity extends AppCompatActivity {
 
+    TextView back;
+
     TextView checkreservebtn, faqs;
 
     @Override
@@ -23,6 +25,8 @@ public class HelpCenterActivity extends AppCompatActivity {
 
         checkreservebtn.setOnClickListener(View -> checkreserve());
         faqs.setOnClickListener(View -> faq());
+        back = findViewById(R.id.back);
+        back.setOnClickListener(View -> finish());
     }
 
     private void faq() {
