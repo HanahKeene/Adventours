@@ -1,6 +1,8 @@
 package com.example.adventours.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,15 +12,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.adventours.R;
+import com.example.adventours.ui.adapters.ItineraryAdapter;
+import com.example.adventours.ui.models.ItineraryModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.List;
+
 public class MyIterinaryActivity extends AppCompatActivity {
 
     TextView back;
+    
+    RecyclerView recyclerView;
 
     private FirebaseAuth auth;
     private FirebaseUser user;
@@ -48,19 +56,19 @@ public class MyIterinaryActivity extends AppCompatActivity {
         itinerariesRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 QuerySnapshot querySnapshot = task.getResult();
-                if (querySnapshot.isEmpty()) {
-                    pictureView.setVisibility(View.GONE);
-                    addButton.setVisibility(View.VISIBLE);
-                } else {
-                    pictureView.setVisibility(View.VISIBLE);
-                    addButton.setVisibility(View.VISIBLE);
-                    // Load picture using retrieved data and chosen library
+                if (!querySnapshot.isEmpty()) {
+                    List<ItineraryModel> itineraryList = querySnapshot.toObjects(ItineraryModel.class);
+
+                    // Set up RecyclerView and adapter
+                    recyclerView = findViewById(R.id.existingitinerary);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                    ItineraryAdapter ItineraryAdapter = new ItineraryAdapter(itineraryList);
+                    recyclerView.setAdapter(ItineraryAdapter);
                 }
             } else {
                 // Handle errors
             }
         });
-
         // Add button click listener and navigation
         addButton.setOnClickListener(v -> {
            Intent intent = new Intent(this, newitineraryplan.class);
