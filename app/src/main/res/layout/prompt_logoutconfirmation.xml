@@ -26,7 +26,7 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/logoutbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button"

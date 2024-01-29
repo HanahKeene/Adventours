@@ -1,5 +1,6 @@
 package com.example.adventours.ui.profile;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,10 +33,10 @@ public class ProfileFragment extends Fragment {
 
     private FirebaseAuth auth;
     private FirebaseUser user;
-    private Button button;
+    private Button logoutbtn;
     private TextView textView;
 
-    LinearLayout myitinerarybtn, settingsbtn, helpcenterbtn, aboutusbtn, rateusbtn;
+    TextView myitinerarybtn, settingsbtn, helpcenterbtn, aboutusbtn, rateusbtn;
 
     ImageButton editprofile;
 
@@ -48,13 +49,13 @@ public class ProfileFragment extends Fragment {
         View root = binding.getRoot();
 
         auth = FirebaseAuth.getInstance();
-        button = root.findViewById(R.id.button3);
+        logoutbtn = root.findViewById(R.id.logout);
         textView = root.findViewById(R.id.user_fullname);
-        myitinerarybtn = root.findViewById(R.id.myitinerarybtn);
-        settingsbtn = root.findViewById(R.id.settingsbtn);
-        helpcenterbtn = root.findViewById(R.id.helpcenterbtn);
-        aboutusbtn = root.findViewById(R.id.aboutusbtn);
-        rateusbtn = root.findViewById(R.id.rateusbtn);
+        myitinerarybtn = root.findViewById(R.id.myitirinary);
+        settingsbtn = root.findViewById(R.id.settings);
+        helpcenterbtn = root.findViewById(R.id.helpcenter);
+        aboutusbtn = root.findViewById(R.id.aboutus);
+        rateusbtn = root.findViewById(R.id.rateus);
         editprofile = root.findViewById(R.id.displaypicture);
 
         user = auth.getCurrentUser();
@@ -102,10 +103,29 @@ public class ProfileFragment extends Fragment {
         rateusbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), rate_us.class);
-                startActivity(intent);
+
+                Dialog firstDialog = new Dialog(getActivity());
+                firstDialog.setContentView(R.layout.activity_rate_us);
+                firstDialog.show();
+
+                Button insideDialogBtn = firstDialog.findViewById(R.id.submitrate);
+                insideDialogBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        firstDialog.dismiss();
+                        Dialog secondDialog = new Dialog(getActivity());
+                        secondDialog.setContentView(R.layout.prompt_thanksfortherate);
+                        secondDialog.show();
+
+                        Button welcomebtn = secondDialog.findViewById(R.id.welcomebtn);
+                        welcomebtn.setOnClickListener(View -> secondDialog.dismiss());
+                    }
+                });
+
+
             }
         });
+
 
 
         helpcenterbtn.setOnClickListener(new View.OnClickListener() {
@@ -117,13 +137,26 @@ public class ProfileFragment extends Fragment {
         });
 
 
-        button.setOnClickListener(new View.OnClickListener() {
+        logoutbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-//                getActivity().finish();
+
+                Dialog firstDialog = new Dialog(getActivity());
+                firstDialog.setContentView(R.layout.prompt_logoutconfirmation);
+                firstDialog.show();
+
+                Button insideDialogBtn = firstDialog.findViewById(R.id.logoutbtn);
+                insideDialogBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                });
+
+
             }
         });
 

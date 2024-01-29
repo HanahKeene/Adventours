@@ -36,42 +36,29 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
-    <string name="lorem_ipsum">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
-        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
-        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
-        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
-        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
-        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
-        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
-        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
-        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
-        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
-        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
-        bibendum, vel congue leo egestas.\n\n
-        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
-        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
-        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
-        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
-        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
-        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
-        est.\n\n
-        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh.
-        Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui
-        non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In
-        eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc,
-        quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra
-        ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a
-        placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus
-        convallis.\n\n
-        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et
-        malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa
-        gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper,
-        libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper
-        sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
-        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
-        vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
-    </string>
-
+    <string name="aboutus1">Welcome to AdvenTours, your buddy to adventures. We are your map in exploring the beauty of Pangasinan. Here\'s a glimpse of who we are:</string>
+    <string name="aboutus2">Our Story - AdvenTours started as our Capstone project founded in 2023 with a simple goal: to empower travelers like you to explore Pangasinan with ease. Most of the members of our team love to explore different places and most of the members wish to travel to Pangasinan. So we decided to create a travel application that helps tourists who want to explore Pangasinan like us.</string>
+    <string name="aboutus3">Meet the Team - Our dedicated team of travel enthusiasts works tirelessly to bring you the best experiences. Get to know the members of the project behind the scenes who make it all happen.</string>
+    <string name="aboutus4">Daguiso, Justine D.\nGonzales, Jhenzen Anne I.\nParan, John Angelo C.\nSoriano, Trixie L.\nVibiesca, Hanah Keene M.</string>
+    <string name="aboutus5">Contact Us - We are here to assist you. If you have questions, suggestions, or need support, please dont hesitate to get in touch with us:</string>
+    <string name="aboutus6">Email: [inquiry@adventour.com]</string>
+    <string name="aboutus7">Privacy and Security - We take your privacy and security seriously. Learn more about our commitment to protecting your data.</string>
+    <string name="aboutus8">Terms and Conditions - Read our terms of use to understand our policies and guidelines when using AdvenTours.</string>
+    <string name="aboutus9">App Version - 1\nCurrent Version: 1</string>
+    <string name="aboutus10">Vision for the Future - We are dedicated to enhancing your travel experiences. Stay tuned for exciting updates and new features as we continue to grow and evolve.Thank you for choosing AdvenTours for your adventures. Happy travels!</string>
+    <string name="aboutus11">POLICIES AND GUIDELINES</string>
+    <string name="aboutus12">Privacy Policy: At AdvenTours, we respect your privacy. By using our app, you agree to the outlined terms and conditions.</string>
+    <string name="aboutus13">Terms of Service: When using our app, you agree to follow these terms of service. They include guidelines on user conduct, account termination, and disclaimers. Violating these terms may result in the suspension of your account.</string>
+    <string name="aboutus14">Booking Policy:\n• Cancellation and refund policies vary by service provider. Please review them before making a booking.\n• Booking fees may apply, and these will be clearly displayed before you confirm your reservation.</string>
+    <string name="aboutus15">Content Posting Guidelines: \n• You can post reviews, photos, and comments about your travel experiences.\n• Be respectful and avoid offensive or harmful content.\n• We reserve the right to remove or moderate content that violates our guidelines.</string>
+    <string name="aboutus16">Security Measures:\n• We employ encryption and other security measures to protect your data.\n• Keep your login credentials secure, and report any suspicious activity immediately.</string>
+    <string name="aboutus17">Review and Rating Guidelines:\n• Honest and constructive reviews are encouraged.\n• Fake or malicious reviews are not allowed and will be removed.\n• Ratings should reflect your genuine experience with the service.</string>
+    <string name="aboutus18">Community Standards:\n• Treat fellow travelers and service providers with respect.\n• Harassment, discrimination, or any form of offensive behavior will not be tolerated.</string>
+    <string name="aboutus19">Booking and Reservation Guidelines:\n• Carefully review booking details, including dates, times, and locations.\n• Follow the specific instructions provided by the service provider.\n• Contact the service provider directly for any changes or special requests.</string>
+    <string name="aboutus20">Cancellation and Change Policies:\n• Each service provider has its cancellation and change policies. Review them before making a reservation.\n• Cancellation fees may apply and will be clearly stated during the booking process.</string>
+    <string name="aboutus21">Safety Tips:\n• Prioritize your safety during your travels, including following health guidelines and local customs.\n• Emergency contact information is available within the app.</string>
+    <string name="aboutus22">Customer Support Contact:\n• Our customer support team is available to assist you. Contact us through the app for prompt assistance.</string>
+    <string name="aboutus23">By using our app, you acknowledge and agree to abide by these policies and guidelines. We aim to provide a safe and enjoyable travel experience for all our users.</string>
+    
+    
 </resources>
