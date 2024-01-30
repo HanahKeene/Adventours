@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -31,8 +32,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.auth.User;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class SigninActivity extends AppCompatActivity {
@@ -152,7 +157,23 @@ public class SigninActivity extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                bdaytxtfld.setText(String.valueOf(year) + "/" + String.valueOf(month) + "/" + String.valueOf(day));
+                // Format the date as words (e.g., "June 12, 2023")
+                String formattedDate = formatDateAsWords(year, month, day);
+
+                // Set the formatted date to the TextView
+                bdaytxtfld.setText(formattedDate);
+            }
+            private String formatDateAsWords(int year, int month, int day) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, day);
+
+                // Create a SimpleDateFormat with the desired format
+                SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault());
+
+                // Format the date and return the result
+                return sdf.format(calendar.getTime());
             }
         }, year, month, day);
 
@@ -171,12 +192,30 @@ public class SigninActivity extends AppCompatActivity {
         String phone = phonetxtfld.getText().toString();
         String password = passwordtxtfld.getText().toString();
         String confirmpassword = confirmpasstxtfld.getText().toString();
+        CheckBox termsCheckBox = findViewById(R.id.checkterms);
+        ProgressBar progressBarlogin = findViewById(R.id.progressBarlogin);
+
+
+        int requiredage = 18;
+        int userAge = Integer.parseInt(age);
+
+
 
         if (uname.isEmpty() || email.isEmpty() || gname.isEmpty() || lname.isEmpty() || password.isEmpty() || confirmpassword.isEmpty()) {
             Toast.makeText(this, "Please fill all the fields.", Toast.LENGTH_SHORT).show();
+        } else if (!isAgeValid(age, bday)){
+            Toast.makeText(this, "The entered age does not match the birthdate.", Toast.LENGTH_SHORT).show();
+        }
+        else if (userAge < requiredage) {
+            Toast.makeText(this, "You must be at least 18 years old to register.", Toast.LENGTH_SHORT).show();
         } else if (!password.equals(confirmpassword)) {
             Toast.makeText(this, "Passwords didn't match.", Toast.LENGTH_SHORT).show();
+        } else if(!termsCheckBox.isChecked()){
+            Toast.makeText(this, "Please accept the terms and conditions.", Toast.LENGTH_SHORT).show();
         } else {
+
+            progressBarlogin.setVisibility(View.VISIBLE);
+            submit.setVisibility(View.INVISIBLE);
             // Proceed with Firebase registration and database update
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, task -> {
@@ -268,6 +307,7 @@ public class SigninActivity extends AppCompatActivity {
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
                         progressBar.setVisibility(View.GONE);
+                        verify.setVisibility(View.VISIBLE);
                         Toast.makeText(SigninActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
@@ -275,6 +315,14 @@ public class SigninActivity extends AppCompatActivity {
                     public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                         progressBar.setVisibility(View.GONE);
                         Intent intent = new Intent(SigninActivity.this, verify_otp.class);
+                        intent.putExtra("uname", untxtfld.getText().toString());
+                        intent.putExtra("email", emailtxtfld.getText().toString());
+                        intent.putExtra("gname", nametxtfld.getText().toString());
+                        intent.putExtra("lname", surnametxtfld.getText().toString());
+                        intent.putExtra("gender", getSelectedGender());
+                        intent.putExtra("age", agetxtfld.getText().toString());
+                        intent.putExtra("bday", bdaytxtfld.getText().toString());
+                        intent.putExtra("city", citytxtfld.getText().toString());
                         intent.putExtra("number", mobilenumber.getText().toString());
                         intent.putExtra("verificationId", verificationId);
                         startActivityForResult(intent, REQUEST_CODE_VERIFY_OTP);
@@ -289,11 +337,43 @@ public class SigninActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_CODE_VERIFY_OTP && resultCode == Activity.RESULT_OK) {
             String verificationStatus = data.getStringExtra("verificationStatus");
-            if ("Verified".equals(verificationStatus)) {
-                findViewById(R.id.verify).setEnabled(false);
+            Button verifyButton = findViewById(R.id.verify);
+
+            if ("Verified".equals(verificationStatus) && verifyButton != null) {
+                verifyButton.setText("Verified");
+                verifyButton.setEnabled(false);
             }
         }
     }
+
+
+    private boolean isAgeValid(String age, String birthdate) {
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault());
+
+        try {
+            Date birthdateDate = sdf.parse(birthdate);
+
+            Calendar birthdateCalendar = Calendar.getInstance();
+            birthdateCalendar.setTime(birthdateDate);
+
+            Calendar currentCalendar = Calendar.getInstance();
+
+            int calculatedAge = currentCalendar.get(Calendar.YEAR) - birthdateCalendar.get(Calendar.YEAR);
+
+            if (currentCalendar.get(Calendar.MONTH) < birthdateCalendar.get(Calendar.MONTH)
+                    || (currentCalendar.get(Calendar.MONTH) == birthdateCalendar.get(Calendar.MONTH)
+                    && currentCalendar.get(Calendar.DAY_OF_MONTH) < birthdateCalendar.get(Calendar.DAY_OF_MONTH))) {
+                calculatedAge--;
+            }
+
+            return Integer.parseInt(age) == calculatedAge;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false; // Return false in case of parsing error
+        }
+    }
+
+
 
 
 }

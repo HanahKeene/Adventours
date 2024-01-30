@@ -1,6 +1,7 @@
 package com.example.adventours.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -61,12 +62,14 @@ public class MyIterinaryActivity extends AppCompatActivity {
 
                     // Set up RecyclerView and adapter
                     recyclerView = findViewById(R.id.existingitinerary);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                    recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
                     ItineraryAdapter ItineraryAdapter = new ItineraryAdapter(itineraryList);
                     recyclerView.setAdapter(ItineraryAdapter);
+
+                    addButton.setVisibility(View.VISIBLE);
                 }
             } else {
-                // Handle errors
+                addButton.setVisibility(View.VISIBLE);
             }
         });
         // Add button click listener and navigation

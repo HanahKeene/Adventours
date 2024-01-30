@@ -35,7 +35,12 @@ public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.Itin
 
         ItineraryModel itinerary = itineraryList.get(position);
         holder.nameTextView.setText(itinerary.getName());
-        Glide.with(holder.itemView.getContext()).load(itinerary.getImageUrl()).into(holder.imageView);
+        Glide.with(holder.itemView.getContext())
+                .load(itinerary.getImageUrl())
+                .placeholder(R.drawable.bluelogo)
+                .error(R.drawable.bluelogo)
+                .into(holder.imageView);
+
     }
 
     @Override

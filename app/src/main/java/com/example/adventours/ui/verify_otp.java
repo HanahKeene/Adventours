@@ -210,7 +210,7 @@ public class verify_otp extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int count, int after) {
                 if(!s.toString().trim().isEmpty()){
-                    otp1.requestFocus();
+                    otp5.requestFocus();
                 }
             }
 
