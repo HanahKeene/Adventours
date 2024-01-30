@@ -200,19 +200,19 @@ public class SigninActivity extends AppCompatActivity {
         int userAge = Integer.parseInt(age);
 
 
-
         if (uname.isEmpty() || email.isEmpty() || gname.isEmpty() || lname.isEmpty() || password.isEmpty() || confirmpassword.isEmpty()) {
             Toast.makeText(this, "Please fill all the fields.", Toast.LENGTH_SHORT).show();
-        } else if (!isAgeValid(age, bday)){
+        } else if (!isAgeValid(age, bday)) {
             Toast.makeText(this, "The entered age does not match the birthdate.", Toast.LENGTH_SHORT).show();
-        }
-        else if (userAge < requiredage) {
+        } else if (userAge < requiredage) {
             Toast.makeText(this, "You must be at least 18 years old to register.", Toast.LENGTH_SHORT).show();
         } else if (!password.equals(confirmpassword)) {
             Toast.makeText(this, "Passwords didn't match.", Toast.LENGTH_SHORT).show();
-        } else if(!termsCheckBox.isChecked()){
+        } else if (!termsCheckBox.isChecked()) {
             Toast.makeText(this, "Please accept the terms and conditions.", Toast.LENGTH_SHORT).show();
-        } else {
+        }else if (!isPhoneNumberVerified()){
+
+        }else {
 
             progressBarlogin.setVisibility(View.VISIBLE);
             submit.setVisibility(View.INVISIBLE);
@@ -262,6 +262,15 @@ public class SigninActivity extends AppCompatActivity {
                     });
 
         }
+    }
+
+    private boolean isPhoneNumberVerified() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Check if the phone number is linked to the user account
+            return user.getPhoneNumber() != null && !user.getPhoneNumber().isEmpty();
+        }
+        return false;
     }
 
     private String getSelectedGender() {
@@ -340,8 +349,43 @@ public class SigninActivity extends AppCompatActivity {
             Button verifyButton = findViewById(R.id.verify);
 
             if ("Verified".equals(verificationStatus) && verifyButton != null) {
+
+                String username = data.getStringExtra("username");
+                String email = data.getStringExtra("email");
+                String gname = data.getStringExtra("gname");
+                String lname = data.getStringExtra("lname");
+                String gender = data.getStringExtra("gender");
+                String age = data.getStringExtra("age");
+                String bday = data.getStringExtra("bday");
+                String city = data.getStringExtra("city");
+                String number = data.getStringExtra("number");
+
+                untxtfld.setText(username);
+                emailtxtfld.setText(email);
+                nametxtfld.setText(gname);
+                surnametxtfld.setText(lname);
+                setGenderSelection(gender);
+                agetxtfld.setText(age);
+                bdaytxtfld.setText(bday);
+                citytxtfld.setText(city);
+                phonetxtfld.setText(number);
+
                 verifyButton.setText("Verified");
                 verifyButton.setEnabled(false);
+            }
+        }
+    }
+
+    private void setGenderSelection(String gender) {
+        int childCount = gendergroup.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View view = gendergroup.getChildAt(i);
+            if (view instanceof RadioButton) {
+                RadioButton radioButton = (RadioButton) view;
+                if (radioButton.getText().toString().equals(gender)) {
+                    radioButton.setChecked(true);
+                    return;
+                }
             }
         }
     }

@@ -5,16 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +25,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import androidx.biometric.BiometricPrompt;
+
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 public class LoginActivity extends AppCompatActivity {
 
     TextInputEditText email_txtfld, password_txtfld;
@@ -37,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     ImageButton showpass;
 
     FirebaseAuth mAuth;
+
 
     @Override
     public void onStart() {
@@ -90,20 +95,41 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         fingerprint = findViewById(R.id.fingerprint);
-        fingerprint.setOnClickListener(view -> showfingerprintscanner());
+        fingerprint.setOnClickListener(view -> showFingerprintScanner());
 
-        showfingerprintscanner();
+        showFingerprintScanner();
     }
 
-    private void showfingerprintscanner() {
+    private void showFingerprintScanner() {
+        View biometricsView = LayoutInflater.from(this).inflate(R.layout.biometrics_screen, null);
+
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.biometrics_screen);
+        dialog.setContentView(biometricsView);
         dialog.show();
         dialog.getWindow().setGravity(Gravity.BOTTOM);
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
         layoutParams.copyFrom(dialog.getWindow().getAttributes());
         layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
         dialog.getWindow().setAttributes(layoutParams);
+
+        Executor executor = Executors.newSingleThreadExecutor();
+        BiometricPrompt biometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+                // Biometric authentication succeeded
+                openHome();
+                dialog.dismiss();
+            }
+        });
+
+        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Biometric Authentication")
+                .setSubtitle("Place your finger on the sensor")
+                .setNegativeButtonText("Cancel")
+                .build();
+
+        biometricPrompt.authenticate(promptInfo);
     }
 
 

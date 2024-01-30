@@ -42,6 +42,19 @@ public class verify_otp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_otp);
 
+        Intent intent1 = getIntent();
+        String username = intent1.getStringExtra("uname");
+        String email = intent1.getStringExtra("email");
+        String gname = intent1.getStringExtra("gname");
+        String lname = intent1.getStringExtra("lname");
+        String gender = intent1.getStringExtra("gender");
+        String age = intent1.getStringExtra("age");
+        String bday = intent1.getStringExtra("bday");
+        String city = intent1.getStringExtra("city");
+        String number = intent1.getStringExtra("number");
+
+
+
         otp1 = findViewById(R.id.otp1);
         otp2 = findViewById(R.id.otp2);
         otp3 = findViewById(R.id.otp3);
@@ -49,6 +62,7 @@ public class verify_otp extends AppCompatActivity {
         otp5 = findViewById(R.id.otp5);
         otp6 = findViewById(R.id.otp6);
         progressBar = findViewById(R.id.progressBar);
+
         verify = findViewById(R.id.verify);
         
         otpExpirationTime = getIntent().getLongExtra("otpExpirationTime", 0);
@@ -101,6 +115,15 @@ public class verify_otp extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         Intent resultIntent = new Intent(verify_otp.this, SigninActivity.class);
                                         resultIntent.putExtra("verificationStatus", "Verified");
+                                        resultIntent.putExtra("username", username);
+                                        resultIntent.putExtra("email", email);
+                                        resultIntent.putExtra("gname", gname);
+                                        resultIntent.putExtra("lname", lname);
+                                        resultIntent.putExtra("gender", gender);
+                                        resultIntent.putExtra("age", age);
+                                        resultIntent.putExtra("bday", bday);
+                                        resultIntent.putExtra("city", city);
+                                        resultIntent.putExtra("number", number);
                                         setResult(Activity.RESULT_OK, resultIntent);
                                         finish();
                                     }
