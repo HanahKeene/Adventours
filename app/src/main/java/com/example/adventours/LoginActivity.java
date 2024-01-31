@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
@@ -17,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.adventours.ui.enrollfingerprint;
 import com.example.adventours.ui.forgot_password;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -41,6 +44,9 @@ public class LoginActivity extends AppCompatActivity {
     ImageButton showpass;
 
     FirebaseAuth mAuth;
+
+    private final Executor executor = Executors.newSingleThreadExecutor();
+
 
 
     @Override
@@ -101,6 +107,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void showFingerprintScanner() {
+
         View biometricsView = LayoutInflater.from(this).inflate(R.layout.biometrics_screen, null);
 
         Dialog dialog = new Dialog(this);
@@ -112,24 +119,40 @@ public class LoginActivity extends AppCompatActivity {
         layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
         dialog.getWindow().setAttributes(layoutParams);
 
-        Executor executor = Executors.newSingleThreadExecutor();
-        BiometricPrompt biometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
-            @Override
-            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-                super.onAuthenticationSucceeded(result);
-                // Biometric authentication succeeded
-                openHome();
-                dialog.dismiss();
-            }
-        });
-
-        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Biometric Authentication")
-                .setSubtitle("Place your finger on the sensor")
-                .setNegativeButtonText("Cancel")
-                .build();
-
-        biometricPrompt.authenticate(promptInfo);
+//        BiometricPrompt biometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
+//            @Override
+//            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+//                super.onAuthenticationError(errorCode, errString);
+//                Toast.makeText(LoginActivity.this, "Authentication error: " + errString, Toast.LENGTH_SHORT).show();
+//                dialog.dismiss(); // Close the dialog on error
+//            }
+//
+//            @Override
+//            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+//                super.onAuthenticationSucceeded(result);
+//                Toast.makeText(LoginActivity.this, "Authentication succeeded!", Toast.LENGTH_SHORT).show();
+//
+//                // Proceed with successful login actions here
+//                // For example, call your openHome() method
+//                openHome();
+//
+//                dialog.dismiss(); // Close the dialog on success
+//            }
+//
+//            @Override
+//            public void onAuthenticationFailed() {
+//                super.onAuthenticationFailed();
+//                Toast.makeText(LoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+//                .setTitle("Fingerprint Authentication")
+//                .setSubtitle("Login using your fingerprint")
+//                .setNegativeButtonText("Cancel")
+//                .build();
+//
+//        biometricPrompt.authenticate(promptInfo);
     }
 
 

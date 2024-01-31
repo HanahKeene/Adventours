@@ -23,6 +23,9 @@
         android:theme="@style/Theme.Adventours"
         tools:targetApi="30">
         <activity
+            android:name=".ui.enrollfingerprint"
+            android:exported="false" />
+        <activity
             android:name=".ui.EnableBiometrics"
             android:exported="false" />
         <activity
