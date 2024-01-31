@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +33,7 @@ import com.example.adventours.ui.models.CategoryModel;
 import com.example.adventours.ui.models.FYPModel;
 import com.example.adventours.ui.models.HotDealModel;
 import com.example.adventours.ui.models.MusttryModel;
+import com.example.adventours.ui.search_screen;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -43,6 +46,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment implements FYPAdapter.OnFYPItemClickListener, CategoryAdapter.OnCategoryItemClickListener {
 
+    TextView search;
     RecyclerView catRecyclerview, foryouRecyclerview, musttryRecycleview;
     CategoryAdapter categoryAdapter;
     List<CategoryModel> categoryModelList;
@@ -67,14 +71,19 @@ public class HomeFragment extends Fragment implements FYPAdapter.OnFYPItemClickL
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+
+
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
 
+        search = root.findViewById(R.id.searchbar);
+        search.setOnClickListener(View -> openSearch());
 
         catRecyclerview = root.findViewById(R.id.category);
         foryouRecyclerview = root.findViewById(R.id.fyp);
         musttryRecycleview = root.findViewById(R.id.musttry_recycleview);
         db = FirebaseFirestore.getInstance();
         seeallbtn = root.findViewById(R.id.seeallbtn);
+
 
         // Initialize your adapters with empty lists
         categoryModelList = new ArrayList<>();
@@ -162,6 +171,12 @@ public class HomeFragment extends Fragment implements FYPAdapter.OnFYPItemClickL
                 });
 
         return root;
+    }
+
+    private void openSearch() {
+
+        Intent intent = new Intent(getActivity(), search_screen.class);
+        startActivity(intent);
     }
 
     @Override

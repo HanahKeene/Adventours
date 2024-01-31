@@ -91,7 +91,7 @@
 
 
                 <EditText
-                    android:id="@+id/editTextText"
+                    android:id="@+id/seachbar"
                     android:layout_width="377dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
