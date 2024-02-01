@@ -2,15 +2,26 @@ package com.example.adventours.ui.models;
 
 public class ItineraryModel {
 
+    private String id;
+
     private String name;
     private String imageUrl;
 
-    public ItineraryModel(String name, String imageUrl) {
+    public ItineraryModel(String id, String name, String imageUrl) {
+        this.id = id;
         this.name = name;
         this.imageUrl = imageUrl;
     }
 
     public ItineraryModel() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

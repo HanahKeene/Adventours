@@ -3,6 +3,7 @@ package com.example.adventours.ui;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -10,6 +11,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Button;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import com.example.adventours.R;
 
@@ -17,7 +21,7 @@ import java.io.IOException;
 
 public class EditProfile extends AppCompatActivity {
 
-    Button dp;
+    Button dp, updatebtn;
 
     private static final int IMAGE_PICK_CODE = 100;
 
@@ -27,8 +31,24 @@ public class EditProfile extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
         dp = findViewById(R.id.dp);
+        updatebtn = findViewById(R.id.updatebtn);
 
         dp.setOnClickListener(View -> setdp());
+        updatebtn.setOnClickListener(View -> loadingscreen());
+    }
+
+    private void loadingscreen() {
+        Dialog loadingDialog = new Dialog(this);
+        loadingDialog.setContentView(R.layout.loading_screen);
+
+        ImageView loadingGif = loadingDialog.findViewById(R.id.loading);
+
+
+        Glide.with(this)
+                .load(R.drawable.loading) // Replace with your GIF resource
+                .into(loadingGif);
+
+        loadingDialog.show();
     }
 
     private void setdp() {
