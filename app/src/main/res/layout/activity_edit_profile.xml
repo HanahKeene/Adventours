@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.EditProfile">
+    tools:context=".ui.EditProfile"
+    tools:ignore="MissingDefaultResource">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -48,27 +49,85 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginEnd="24dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11">
 
         <TextView
-            android:id="@+id/textView15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="First Name" />
+
+        <EditText
+            android:id="@+id/fname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:ems="10"
+            android:enabled="false"
+            android:inputType="text"
+            android:text="First Name" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Last Name" />
+
+        <EditText
+            android:id="@+id/lname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="Last Name"
+            android:editable="false"
+            android:enabled="false"
+            android:inputType="text" />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Username" />
 
         <EditText
-            android:id="@+id/editTextText6"
+            android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:text="Username"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Birthday" />
+
+        <EditText
+            android:id="@+id/bday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="January 1, 2024"
             android:inputType="text"
-            android:hint="Username" />
+            android:enabled="false"/>
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="City" />
+
+        <EditText
+            android:id="@+id/city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="City"
+            android:inputType="text" />
+
 
         <TextView
             android:id="@+id/textView23"
@@ -76,13 +135,15 @@
             android:layout_height="wrap_content"
             android:text="Email" />
 
+
         <EditText
-            android:id="@+id/editTextText7"
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="text"
-            android:hint="Email" />
+            android:hint="Email"
+            android:editable="false"
+            android:inputType="text" />
 
         <TextView
             android:id="@+id/textView24"
@@ -91,35 +152,24 @@
             android:text="Mobile Number" />
 
         <EditText
-            android:id="@+id/editTextText8"
+            android:id="@+id/number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableRight="@drawable/baseline_check_circle_24"
+            android:editable="false"
             android:ems="10"
-            android:inputType="number"
-            android:hint="Mobile Number" />
-
-        <TextView
-            android:id="@+id/textView25"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Password" />
-
-        <EditText
-            android:id="@+id/editTextText9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:hint="Password" />
+            android:enabled="false"
+            android:hint="Mobile Number"
+            android:inputType="number" />
 
         <Button
             android:id="@+id/updatebtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button"
             android:layout_marginTop="20dp"
-            android:textColor="@color/white"
-            android:text="Update"/>
+            android:background="@drawable/button"
+            android:text="Update"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 

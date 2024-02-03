@@ -28,13 +28,15 @@ import com.example.adventours.ui.about_us;
 import com.example.adventours.ui.rate_us;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProfileFragment extends Fragment {
 
     private FirebaseAuth auth;
     private FirebaseUser user;
     private Button logoutbtn;
-    private TextView textView;
+    private TextView textView, usernumber;
 
     TextView myitinerarybtn, settingsbtn, helpcenterbtn, aboutusbtn, rateusbtn;
 
@@ -48,9 +50,10 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        auth = FirebaseAuth.getInstance();
+
         logoutbtn = root.findViewById(R.id.logout);
         textView = root.findViewById(R.id.user_fullname);
+        usernumber = root.findViewById(R.id.usernumber);
         myitinerarybtn = root.findViewById(R.id.myitirinary);
         settingsbtn = root.findViewById(R.id.settings);
         helpcenterbtn = root.findViewById(R.id.helpcenter);
@@ -58,7 +61,9 @@ public class ProfileFragment extends Fragment {
         rateusbtn = root.findViewById(R.id.rateus);
         editprofile = root.findViewById(R.id.displaypicture);
 
+        auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        fetchUserDataAndUpdateUI();
 
         if (user == null) {
             Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -66,6 +71,7 @@ public class ProfileFragment extends Fragment {
             getActivity().finish();
         } else {
             textView.setText(user.getEmail());
+
         }
 
         editprofile.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +167,36 @@ public class ProfileFragment extends Fragment {
         });
 
         return root;
+    }
+
+    private void fetchUserDataAndUpdateUI() {
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference userRef = db.collection("users").document(user.getUid());
+
+        userRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+
+                String firstName = documentSnapshot.getString("firstName");
+                String lastName = documentSnapshot.getString("lastName");
+                String city= documentSnapshot.getString("city");
+                String number = documentSnapshot.getString("phone");
+                String bday = documentSnapshot.getString("birthday");
+                String email = documentSnapshot.getString("email");
+                String username = documentSnapshot.getString("username");
+
+                textView.setText(firstName + " " + lastName);
+                usernumber.setText("+639"+number);
+
+                // Load profile image using Glide or any other image loading library
+                // For example, if you have a field in User class for profile image URL
+                // Glide.with(this).load(userData.getProfileImageUrl()).into(dp);
+            } else {
+                // User document does not exist, handle accordingly
+            }
+        }).addOnFailureListener(e -> {
+            // Handle failure
+        });
     }
 
     @Override
