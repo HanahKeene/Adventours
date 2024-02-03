@@ -27,6 +27,12 @@ public class User {
         this.phone = phone;
     }
 
+    public User(String firstName, String lastName, String city, String number, String bday, String email, String username) {
+    }
+
+    public User(String firstName, String lastName, String city, String number, String bday, String email, String username, String imageUrl) {
+    }
+
     public String getUsername() {
         return username;
     }
