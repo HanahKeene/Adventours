@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.EditProfile"
-    tools:ignore="MissingDefaultResource">
+    tools:context=".ui.EditProfile">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -26,15 +25,16 @@
         android:layout_height="150dp"
         android:layout_marginTop="76dp"
         android:layout_marginBottom="17dp"
+        android:background="@drawable/buttonwborder"
+        android:drawablePadding="20dp"
+        android:drawableBottom="@drawable/baseline_add_photo_alternate_24"
         app:cornerRadius="100dp"
         app:layout_constraintBottom_toTopOf="@+id/textView11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/bluelogo"
 
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView11"
