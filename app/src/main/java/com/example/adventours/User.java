@@ -12,6 +12,9 @@ public class User {
     private String city;
     private String phone;
 
+    private String imageUrl;
+
+
     public User() {
     }
 
@@ -110,4 +113,8 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public String getImageUrl() { return imageUrl;}
+
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl;}
 }

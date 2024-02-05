@@ -4,18 +4,14 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.graphics.drawable.Drawable;
-
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,7 +36,6 @@ import java.io.IOException;
 public class EditProfile extends AppCompatActivity {
 
     private Dialog loadingDialog;
-
     private FirebaseAuth auth;
     private FirebaseUser user;
 
@@ -50,24 +45,12 @@ public class EditProfile extends AppCompatActivity {
 
     private static final int IMAGE_PICK_CODE = 100;
 
-    private String firstName;
-    private String lastName;
-    private String city;
-    private String number;
-    private String bday;
-    private String email;
-    private String username;
-
-    private String age;
-
-    private String gender;
+    private DocumentReference userRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         dp = findViewById(R.id.dp);
         fnametxtfld = findViewById(R.id.fname);
@@ -79,11 +62,21 @@ public class EditProfile extends AppCompatActivity {
         numbertxtfld = findViewById(R.id.number);
         updatebtn = findViewById(R.id.updatebtn);
 
+
         dp.setOnClickListener(view -> setdp());
         updatebtn.setOnClickListener(view -> updateprofile());
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+
+        if (user != null) {
+            // If the user is not null, get the UID
+            String uid = user.getUid();
+            userRef = FirebaseFirestore.getInstance().collection("users").document(uid);
+        } else {
+            // Handle the case where the user is null (not signed in)
+            // You may want to redirect the user to the sign-in screen or take appropriate action.
+        }
         fetchUserDataAndUpdateUI();
     }
 
@@ -110,8 +103,6 @@ public class EditProfile extends AppCompatActivity {
         String bday = bdaytxtfld.getText().toString();
         String email = emailtxtfld.getText().toString();
         String username = unametxtfld.getText().toString();
-        String age = "";   // Get the age from the user input
-        String gender = ""; // Get the gender from the user input
 
         // Fetch the existing user data
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -130,7 +121,6 @@ public class EditProfile extends AppCompatActivity {
                 if (bday != null) existingUser.setBirthday(bday);
                 if (email != null) existingUser.setEmail(email);
                 if (username != null) existingUser.setUsername(username);
-                // Update age and gender as needed
 
                 // Update the document in Firestore with the modified user object
                 userRef.set(existingUser)
@@ -152,8 +142,40 @@ public class EditProfile extends AppCompatActivity {
         });
     }
 
-    private void uploadAndSetImage(User existingUser) {
+    private void fetchUserDataAndUpdateUI() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference userRef = db.collection("users").document(user.getUid());
 
+        userRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                String firstName = documentSnapshot.getString("firstName");
+                String lastName = documentSnapshot.getString("lastName");
+                String city = documentSnapshot.getString("city");
+                String number = documentSnapshot.getString("phone");
+                String bday = documentSnapshot.getString("birthday");
+                String email = documentSnapshot.getString("email");
+                String username = documentSnapshot.getString("username");
+
+                fnametxtfld.setText(firstName);
+                lnametxtfld.setText(lastName);
+                unametxtfld.setText(username);
+                citytxtfld.setText(city);
+                numbertxtfld.setText("+639" + number);
+                bdaytxtfld.setText(bday);
+                emailtxtfld.setText(email);
+
+                // Load and display the image
+                loadAndDisplayImage(documentSnapshot.getString("imageUrl"));
+            } else {
+                // User document does not exist, handle accordingly
+            }
+        }).addOnFailureListener(e -> {
+            // Handle failure
+        });
+    }
+
+    private void uploadAndSetImage(User user) {
+        // Get the image from the dp button
         BitmapDrawable bitmapDrawable = (BitmapDrawable) dp.getBackground();
         Bitmap bitmap = bitmapDrawable.getBitmap();
 
@@ -172,74 +194,65 @@ public class EditProfile extends AppCompatActivity {
                     // Get the download URL
                     storageReference.getDownloadUrl()
                             .addOnSuccessListener(uri -> {
-                                String imageUrl = uri.toString();
-                                user.setImageUrl(imageUrl);
+                                String newImageUrl = uri.toString();
 
-                                // Update the User document with the image URL
-                                FirebaseFirestore.getInstance().collection("users")
-                                        .document(user.getUid())
-                                        .set(user, SetOptions.merge())
+                                // Update the 'imageUrl' field with the new URL
+                                user.setImageUrl(newImageUrl);
+
+                                // Update the User document with the new image URL
+                                userRef.set(user)
                                         .addOnSuccessListener(aVoid -> {
                                             loadingDialog.dismiss(); // Dismiss loading dialog
-                                            Toast.makeText(EditProfile.this, "Image uploaded and profile updated", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(EditProfile.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
 
-                                            // Update the UI with the latest data
-                                            fetchUserDataAndUpdateUI();
+                                            // Reload and display the new image
+                                            loadAndDisplayImage(newImageUrl);
                                         })
                                         .addOnFailureListener(e -> {
                                             loadingDialog.dismiss(); // Dismiss loading dialog
-                                            Toast.makeText(EditProfile.this, "Failed to update profile with image", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(EditProfile.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
                                         });
                             })
                             .addOnFailureListener(e -> {
                                 loadingDialog.dismiss(); // Dismiss loading dialog
-                                Toast.makeText(EditProfile.this, "Failed to get image URL", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(EditProfile.this, "Failed to get new image URL", Toast.LENGTH_SHORT).show();
                             });
                 })
                 .addOnFailureListener(e -> {
                     loadingDialog.dismiss(); // Dismiss loading dialog
-                    Toast.makeText(EditProfile.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditProfile.this, "Failed to upload new image", Toast.LENGTH_SHORT).show();
                 });
     }
 
-
-    private void fetchUserDataAndUpdateUI() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference userRef = db.collection("users").document(user.getUid());
-
-        userRef.get().addOnSuccessListener(documentSnapshot -> {
-            if (documentSnapshot.exists()) {
-
-                String firstName = documentSnapshot.getString("firstName");
-                String lastName = documentSnapshot.getString("lastName");
-                String city = documentSnapshot.getString("city");
-                String number = documentSnapshot.getString("phone");
-                String bday = documentSnapshot.getString("birthday");
-                String email = documentSnapshot.getString("email");
-                String username = documentSnapshot.getString("username");
-                String age = documentSnapshot.getString("age");
-
-                fnametxtfld.setText(firstName);
-                lnametxtfld.setText(lastName);
-                unametxtfld.setText(username);
-                citytxtfld.setText(city);
-                numbertxtfld.setText("+639" + number);
-                bdaytxtfld.setText(bday);
-                emailtxtfld.setText(email);
-
-            } else {
-                // User document does not exist, handle accordingly
-            }
-        }).addOnFailureListener(e -> {
-            // Handle failure
-        });
-    }
 
     private void setdp() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, IMAGE_PICK_CODE);
     }
+
+    private void loadAndDisplayImage(String imageUrl) {
+        Glide.with(this)
+                .load(imageUrl)
+                .circleCrop()
+                .into(new CustomTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        // Convert the Drawable to a BitmapDrawable
+                        BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), ((BitmapDrawable) resource).getBitmap());
+
+                        // Set the BitmapDrawable as the background of the Button
+                        dp.setBackground(bitmapDrawable);
+
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                        // Handle cleanup if needed
+                    }
+                });
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

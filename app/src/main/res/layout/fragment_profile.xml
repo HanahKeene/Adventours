@@ -30,18 +30,21 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
+                android:background="@android:color/transparent"
+                tools:src="@drawable/baseline_add_photo_alternate_24" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="120dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/user_fullname"
                 android:layout_width="wrap_content"
-                android:layout_height="21dp"
+                android:layout_height="wrap_content"
                 android:text="Trixie Soriano"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
@@ -81,7 +84,17 @@
             android:layout_weight="1"
             android:drawableRight="@drawable/baseline_navigate_next_24"
             android:padding="20dp"
-            android:text="My Iterinary"
+            android:text="My Itinerary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/myreservatons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/baseline_navigate_next_24"
+            android:padding="20dp"
+            android:text="My Reservations"
             android:textSize="16sp" />
 
 

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.adventours.HelpCenterActivity;
 import com.example.adventours.R;
 
@@ -25,6 +26,7 @@ import com.example.adventours.musttry_activity;
 import com.example.adventours.ui.EditProfile;
 import com.example.adventours.ui.MyIterinaryActivity;
 import com.example.adventours.ui.about_us;
+import com.example.adventours.ui.check_reservation;
 import com.example.adventours.ui.rate_us;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,7 +40,7 @@ public class ProfileFragment extends Fragment {
     private Button logoutbtn;
     private TextView textView, usernumber;
 
-    TextView myitinerarybtn, settingsbtn, helpcenterbtn, aboutusbtn, rateusbtn;
+    TextView myitinerarybtn, myreservationsbtn, settingsbtn, helpcenterbtn, aboutusbtn, rateusbtn;
 
     ImageButton editprofile;
 
@@ -55,6 +57,7 @@ public class ProfileFragment extends Fragment {
         textView = root.findViewById(R.id.user_fullname);
         usernumber = root.findViewById(R.id.usernumber);
         myitinerarybtn = root.findViewById(R.id.myitirinary);
+        myreservationsbtn = root.findViewById(R.id.myreservatons);
         settingsbtn = root.findViewById(R.id.settings);
         helpcenterbtn = root.findViewById(R.id.helpcenter);
         aboutusbtn = root.findViewById(R.id.aboutus);
@@ -86,6 +89,14 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MyIterinaryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        myreservationsbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), check_reservation.class);
                 startActivity(intent);
             }
         });
@@ -170,27 +181,32 @@ public class ProfileFragment extends Fragment {
     }
 
     private void fetchUserDataAndUpdateUI() {
-
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference userRef = db.collection("users").document(user.getUid());
 
         userRef.get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
 
-                String firstName = documentSnapshot.getString("firstName");
-                String lastName = documentSnapshot.getString("lastName");
-                String city= documentSnapshot.getString("city");
                 String number = documentSnapshot.getString("phone");
-                String bday = documentSnapshot.getString("birthday");
-                String email = documentSnapshot.getString("email");
                 String username = documentSnapshot.getString("username");
+                String imageUrl = documentSnapshot.getString("imageUrl");
 
-                textView.setText(firstName + " " + lastName);
-                usernumber.setText("+639"+number);
+                // Set the username and number
+                textView.setText(username);
+                usernumber.setText("+639" + number);
 
-                // Load profile image using Glide or any other image loading library
-                // For example, if you have a field in User class for profile image URL
-                // Glide.with(this).load(userData.getProfileImageUrl()).into(dp);
+                // Load and display the image using Glide
+                if (imageUrl != null && !imageUrl.isEmpty()) {
+                    Glide.with(requireContext())
+                            .load(imageUrl)
+                            .circleCrop() // Optional: Crop the image into a circle
+                            .into(editprofile);
+                } else {
+                    // If imageUrl is null or empty, you can set a default image or handle it accordingly
+                    // For example, you can set a default drawable:
+                    editprofile.setImageResource(R.drawable.baseline_add_photo_alternate_24);
+                }
+
             } else {
                 // User document does not exist, handle accordingly
             }
@@ -198,6 +214,7 @@ public class ProfileFragment extends Fragment {
             // Handle failure
         });
     }
+
 
     @Override
     public void onDestroyView() {
