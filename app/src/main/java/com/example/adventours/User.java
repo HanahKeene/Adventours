@@ -28,10 +28,16 @@ public class User {
     }
 
     public User(String firstName, String lastName, String city, String number, String bday, String email, String username) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.city = city;
+        this.phone = number;  // Assuming "number" corresponds to the "phone" field
+        this.birthday = bday;
+        this.email = email;
+        this.username = username;
     }
 
-    public User(String firstName, String lastName, String city, String number, String bday, String email, String username, String imageUrl) {
-    }
+
 
     public String getUsername() {
         return username;

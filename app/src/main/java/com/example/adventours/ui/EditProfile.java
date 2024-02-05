@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -48,6 +49,18 @@ public class EditProfile extends AppCompatActivity {
     Button dp, updatebtn;
 
     private static final int IMAGE_PICK_CODE = 100;
+
+    private String firstName;
+    private String lastName;
+    private String city;
+    private String number;
+    private String bday;
+    private String email;
+    private String username;
+
+    private String age;
+
+    private String gender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,88 +103,106 @@ public class EditProfile extends AppCompatActivity {
     private void updateprofile() {
         loadingscreen();
 
-        // Update user details
         String firstName = fnametxtfld.getText().toString();
         String lastName = lnametxtfld.getText().toString();
         String city = citytxtfld.getText().toString();
-        String number = numbertxtfld.getText().toString().substring(4); // Remove the "+639" prefix
+        String number = numbertxtfld.getText().toString().substring(4);
         String bday = bdaytxtfld.getText().toString();
         String email = emailtxtfld.getText().toString();
         String username = unametxtfld.getText().toString();
+        String age = "";   // Get the age from the user input
+        String gender = ""; // Get the gender from the user input
 
-        // Create a new User object or update the existing user details
-        User updatedUser = new User(firstName, lastName, city, number, bday, email, username);
+        // Fetch the existing user data
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference userRef = db.collection("users").document(user.getUid());
 
-        // Update the user details in Firestore
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference().child("profile_images").child(user.getUid() + ".jpg");
+        userRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                // Create a User object with the existing data
+                User existingUser = documentSnapshot.toObject(User.class);
 
-        // Get the Bitmap from the ImageView
-        Bitmap bitmap = ((BitmapDrawable) dp.getBackground()).getBitmap();
+                // Update only the non-null fields
+                if (firstName != null) existingUser.setFirstName(firstName);
+                if (lastName != null) existingUser.setLastName(lastName);
+                if (city != null) existingUser.setCity(city);
+                if (number != null) existingUser.setPhone(number);
+                if (bday != null) existingUser.setBirthday(bday);
+                if (email != null) existingUser.setEmail(email);
+                if (username != null) existingUser.setUsername(username);
+                // Update age and gender as needed
 
-        // Convert the Bitmap to bytes
+                // Update the document in Firestore with the modified user object
+                userRef.set(existingUser)
+                        .addOnSuccessListener(aVoid -> {
+                            // Upload and set the image
+                            uploadAndSetImage(existingUser);
+                        })
+                        .addOnFailureListener(e -> {
+                            loadingDialog.dismiss(); // Dismiss loading dialog
+                            Toast.makeText(EditProfile.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
+                        });
+            } else {
+                loadingDialog.dismiss(); // Dismiss loading dialog
+                Toast.makeText(EditProfile.this, "User document does not exist", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(e -> {
+            loadingDialog.dismiss(); // Dismiss loading dialog
+            Toast.makeText(EditProfile.this, "Failed to fetch user data", Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void uploadAndSetImage(User existingUser) {
+
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) dp.getBackground();
+        Bitmap bitmap = bitmapDrawable.getBitmap();
+
+        // Convert the image to bytes
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
 
-        // Upload the image to Firebase Storage
-        UploadTask uploadTask = storageRef.putBytes(data);
+        // Set the image URL in the User object
+        String imagePath = "images/" + user.getUsername() + "_dp.jpg"; // Adjust the path as needed
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(imagePath);
 
-        uploadTask.addOnSuccessListener(taskSnapshot -> {
-            // Image uploaded successfully, get the download URL
-            storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                String imageUrl = uri.toString();
+        // Upload the image
+        storageReference.putBytes(data)
+                .addOnSuccessListener(taskSnapshot -> {
+                    // Get the download URL
+                    storageReference.getDownloadUrl()
+                            .addOnSuccessListener(uri -> {
+                                String imageUrl = uri.toString();
+                                user.setImageUrl(imageUrl);
 
-                // Update the user details in Firestore including the image URL
-                User updatedUserWithImage = new User(firstName, lastName, city, number, bday, email, username, imageUrl);
+                                // Update the User document with the image URL
+                                FirebaseFirestore.getInstance().collection("users")
+                                        .document(user.getUid())
+                                        .set(user, SetOptions.merge())
+                                        .addOnSuccessListener(aVoid -> {
+                                            loadingDialog.dismiss(); // Dismiss loading dialog
+                                            Toast.makeText(EditProfile.this, "Image uploaded and profile updated", Toast.LENGTH_SHORT).show();
 
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                DocumentReference userRef = db.collection("users").document(user.getUid());
-
-                userRef.set(updatedUserWithImage)
-                        .addOnSuccessListener(aVoid -> {
-                            // Load and display the profile image using Glide
-                            Glide.with(this).load(imageUrl).into(new CustomTarget<Drawable>() {
-                                @Override
-                                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                                    // Set the loaded image as the background of the Button
-                                    dp.setBackground(resource);
-
-                                    // Hide loading screen
-                                    loadingDialog.dismiss();
-
-                                    // Display success message
-                                    Toast.makeText(EditProfile.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
-
-                                    // Delay for 5 seconds and then finish the activity
-                                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                                        // Your code to navigate or finish the activity
-                                        finish();
-                                    }, 5000);
-                                }
-
-                                @Override
-                                public void onLoadCleared(@Nullable Drawable placeholder) {
-                                    // Handle the case where the resource is cleared
-                                }
+                                            // Update the UI with the latest data
+                                            fetchUserDataAndUpdateUI();
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            loadingDialog.dismiss(); // Dismiss loading dialog
+                                            Toast.makeText(EditProfile.this, "Failed to update profile with image", Toast.LENGTH_SHORT).show();
+                                        });
+                            })
+                            .addOnFailureListener(e -> {
+                                loadingDialog.dismiss(); // Dismiss loading dialog
+                                Toast.makeText(EditProfile.this, "Failed to get image URL", Toast.LENGTH_SHORT).show();
                             });
-                        })
-                        .addOnFailureListener(e -> {
-                            // Hide loading screen
-                            loadingDialog.dismiss();
-
-                            // Display failure message
-                            Toast.makeText(EditProfile.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
-                        });
-            });
-        }).addOnFailureListener(e -> {
-            // Hide loading screen
-            loadingDialog.dismiss();
-
-            // Display failure message
-            Toast.makeText(EditProfile.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
-        });
+                })
+                .addOnFailureListener(e -> {
+                    loadingDialog.dismiss(); // Dismiss loading dialog
+                    Toast.makeText(EditProfile.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
+                });
     }
+
+
     private void fetchUserDataAndUpdateUI() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference userRef = db.collection("users").document(user.getUid());
@@ -186,6 +217,7 @@ public class EditProfile extends AppCompatActivity {
                 String bday = documentSnapshot.getString("birthday");
                 String email = documentSnapshot.getString("email");
                 String username = documentSnapshot.getString("username");
+                String age = documentSnapshot.getString("age");
 
                 fnametxtfld.setText(firstName);
                 lnametxtfld.setText(lastName);
@@ -195,9 +227,6 @@ public class EditProfile extends AppCompatActivity {
                 bdaytxtfld.setText(bday);
                 emailtxtfld.setText(email);
 
-                // Load profile image using Glide or any other image loading library
-                // For example, if you have a field in User class for profile image URL
-                // Glide.with(this).load(userData.getProfileImageUrl()).into(dp);
             } else {
                 // User document does not exist, handle accordingly
             }
