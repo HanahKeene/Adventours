@@ -5,57 +5,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/SCREEN"
     tools:context=".ui.lists.hotel_lists_Activity">
 
     <LinearLayout
-        android:id="@+id/linearLayout20"
+        android:id="@+id/linearLayout17"
         android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:layout_marginBottom="1dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:padding="16dp"
+        style="@style/ACTION"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="67dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/backbtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#00FFFFFF"
-                android:padding="20dp"
-                app:srcCompat="@drawable/baseline_arrow_back_black" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView33"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="RESTAURANTS"
-                android:textSize="16sp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/baseline_arrow_back"
+            android:text="Restaurants"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/restaurant_list_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="16dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout20" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout17" />
 </androidx.constraintlayout.widget.ConstraintLayout>

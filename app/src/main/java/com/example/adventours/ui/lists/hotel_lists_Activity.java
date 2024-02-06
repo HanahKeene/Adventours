@@ -1,14 +1,18 @@
 package com.example.adventours.ui.lists;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,24 +39,30 @@ public class hotel_lists_Activity extends AppCompatActivity {
     RecyclerView hotelRecyclerView;
     hotelListAdapter hotelListAdapter;
 
-    ImageButton back;
+    TextView  back;
     List<HotelListModel> hotelListModelList;
     FirebaseFirestore db;
+
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_lists);
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        boolean nightMode = sharedPreferences.getBoolean("night", false);
+
+        if (nightMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
 
         hotelRecyclerView = findViewById(R.id.hotel_list_recyclerview);
-        back = findViewById(R.id.backbtn);
+        back = findViewById(R.id.back);
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               finish();
-            }
-        });
+        back.setOnClickListener(View -> finish());
 
         db = FirebaseFirestore.getInstance();
 

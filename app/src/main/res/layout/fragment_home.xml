@@ -51,7 +51,6 @@
                     android:padding="10dp"
                     android:singleLine="true"
                     android:text="Search your favorite in Panagsinan"
-                    android:textColor="#9026326C"
                     android:textSize="16sp" />
 
             </LinearLayout>

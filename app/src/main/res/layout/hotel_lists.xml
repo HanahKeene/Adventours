@@ -5,19 +5,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="250dp"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="5dp"
+    android:layout_margin="20dp"
+    app:cardCornerRadius="20dp"
     android:layout_gravity="center_horizontal"
     android:padding="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        style="@style/CARD">
 
 
         <ImageView
             android:id="@+id/pic"
-            android:layout_width="372dp"
+            android:layout_width="match_parent"
             android:layout_height="178dp"
             android:contentDescription="TODO"
             android:scaleType="center"
@@ -54,18 +55,20 @@
 
                     <TextView
                         android:id="@+id/place"
+                        style="@style/TEXT"
                         android:layout_width="176dp"
                         android:layout_height="wrap_content"
-                        android:paddingStart="10dp"
-                        android:text="TextView" />
+                        android:paddingStart="5dp"
+                        android:text="TextView"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/price"
                         android:layout_width="176dp"
                         android:layout_height="wrap_content"
-                        android:paddingStart="10dp"
+                        android:paddingStart="5dp"
                         android:text="TextView"
-                        android:textColor="#FF0000" />
+                        style="@style/PRICETEXT" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -78,7 +81,7 @@
                         android:id="@+id/button"
                         android:layout_width="132dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/buttonwborder"
+                        style="@style/VIEWDETAILBTN"
                         android:text="View Details" />
                 </LinearLayout>
             </LinearLayout>

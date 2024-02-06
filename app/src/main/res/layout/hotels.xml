@@ -3,47 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    style="@style/SCREEN">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/linearLayout8"
-            android:layout_width="410dp"
-            android:layout_height="51dp"
+            android:id="@+id/linearLayout17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/ACTION"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout9"
+            android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.054"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:layout_width="50dp"
-                android:layout_height="55dp"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/imageButton6"
-                    android:layout_width="48dp"
-                    android:layout_height="53dp"
-                    android:background="#00FFFFFF"
-                    app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="HOTELS" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/baseline_arrow_back"
+                android:text="Hotels"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -54,7 +38,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout17">
 
 
             <androidx.recyclerview.widget.RecyclerView
