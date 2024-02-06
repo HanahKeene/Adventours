@@ -4,4 +4,33 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
+
+    <style name="SCREEN">
+        <item name="android:background">#252525</item>
+    </style>
+
+    <style name="ACTION">
+        <item name="android:background">#1D636C</item>
+    </style>
+
+    <style name="HEADER">
+        <item name="android:background">#1E636C</item>
+    </style>
+
+    <style name="SEARCH">
+        <item name="android:background">@drawable/dark_round_padding</item>
+    </style>
+
+    <style name="TEXT">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="BUTTON">
+        <item name="android:background">@drawable/buttondarkmode</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="NAVBAR">
+        <item name="android:background">#1D636C</item>
+    </style>
 </resources>

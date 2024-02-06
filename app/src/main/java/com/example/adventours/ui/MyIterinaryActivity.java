@@ -26,7 +26,7 @@ import java.util.List;
 public class MyIterinaryActivity extends AppCompatActivity {
 
     TextView back;
-    
+
     RecyclerView recyclerView;
 
     private FirebaseAuth auth;
@@ -42,7 +42,6 @@ public class MyIterinaryActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        pictureView = findViewById(R.id.pictureView);
         addButton = findViewById(R.id.addButton);
 
         back = findViewById(R.id.back);
@@ -74,8 +73,8 @@ public class MyIterinaryActivity extends AppCompatActivity {
         });
         // Add button click listener and navigation
         addButton.setOnClickListener(v -> {
-           Intent intent = new Intent(this, newitineraryplan.class);
-           startActivity(intent);
+            Intent intent = new Intent(this, newitineraryplan.class);
+            startActivity(intent);
         });
 
     }

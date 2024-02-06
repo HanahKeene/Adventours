@@ -1,6 +1,8 @@
 package com.example.adventours.ui.home;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -57,6 +60,8 @@ public class HomeFragment extends Fragment implements FYPAdapter.OnFYPItemClickL
     MusttryAdapter musttryAdapter;
     List<MusttryModel> musttryModelList;
 
+    SharedPreferences sharedPreferences;
+
     FirebaseFirestore db;
 
     LinearLayout seeallbtn;
@@ -70,6 +75,14 @@ public class HomeFragment extends Fragment implements FYPAdapter.OnFYPItemClickL
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        sharedPreferences = getActivity().getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        boolean nightMode = sharedPreferences.getBoolean("night", false);
+
+        if (nightMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
 
 
 

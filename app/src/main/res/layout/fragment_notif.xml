@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/SCREEN"
     tools:context=".ui.Notifications.NotificationsFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout17"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/dark_blue"
+        style="@style/ACTION"
         android:orientation="horizontal"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
+            style="@style/TEXT"
             android:padding="20dp"
             android:text="System Updates" />
 
@@ -52,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
+            style="@style/TEXT"
             android:padding="20dp"
             android:text="Promotions" />
 
@@ -66,6 +69,7 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:padding="20dp"
+            style="@style/TEXT"
             android:text="Activities" />
 
         <View
@@ -79,6 +83,7 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:padding="20dp"
+            style="@style/TEXT"
             android:text="Travel Advisory" />
     </LinearLayout>
 
@@ -94,7 +99,7 @@
             android:id="@+id/textView48"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/dark_blue"
+            style="@style/ACTION"
             android:padding="10dp"
             android:text="Reservations"
             android:textColor="#FFFFFF" />

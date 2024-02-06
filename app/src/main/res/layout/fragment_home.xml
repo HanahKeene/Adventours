@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    style="@style/SCREEN">
     <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -17,7 +18,7 @@
             android:orientation="vertical"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:background="@color/dark_blue"
+            style="@style/HEADER"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/round_padding"
+                    style="@style/SEARCH"
                     android:drawableRight="@drawable/search"
                     android:drawableTint="@color/dark_blue"
                     android:padding="10dp"
@@ -112,6 +113,7 @@
                         android:id="@+id/textView12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        style="@style/TEXT"
                         android:text="Must Try"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -120,6 +122,7 @@
                         android:id="@+id/textView13"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        style="@style/TEXT"
                         android:text="Top Tourist Spot in Pangasinan" />
                 </LinearLayout>
 
@@ -135,6 +138,7 @@
                         android:id="@+id/textView14"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        style="@style/TEXT"
                         android:text="See all"
                         android:textAlignment="center" />
                 </LinearLayout>
@@ -173,6 +177,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="For You"
+                        style="@style/TEXT"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 

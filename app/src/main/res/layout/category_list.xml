@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#00FFFFFF"
+        style="@style/SCREEN"
         android:padding="10dp">
 
 
@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="Category Name"
+            style="@style/TEXT"
             android:textAlignment="center"
             android:textSize="12sp"
             android:textStyle="bold"

@@ -2,7 +2,9 @@ package com.example.adventours.ui.Notifications;
 
 import static android.os.Build.VERSION_CODES.R;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -26,6 +29,8 @@ public class NotificationsFragment extends Fragment {
 
     TextView systemupdate, promotions, activities, travel_advisory;
 
+    SharedPreferences sharedPreferences;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         NotificationsViewModel NotificationsViewModel =
@@ -33,6 +38,13 @@ public class NotificationsFragment extends Fragment {
 
         binding = FragmentNotifBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        sharedPreferences = getActivity().getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        boolean nightMode = sharedPreferences.getBoolean("night", false);
+        if (nightMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
 
         systemupdate = root.findViewById(com.example.adventours.R.id.system_updatebtn);
         promotions = root.findViewById(com.example.adventours.R.id.promotionsbtn);
