@@ -3,14 +3,17 @@ package com.example.adventours.ui.models;
 public class ItineraryModel {
 
     private String id;
-
     private String name;
-    private String imageUrl;
+    private String image;
+    private String start;
+    private String end;
 
-    public ItineraryModel(String id, String name, String imageUrl) {
+    public ItineraryModel(String id, String name, String image, String start, String end) {
         this.id = id;
         this.name = name;
-        this.imageUrl = imageUrl;
+        this.image = image;
+        this.start = start;
+        this.end = end;
     }
 
     public ItineraryModel() {
@@ -33,10 +36,26 @@ public class ItineraryModel {
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return image;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageUrl(String image) {
+        this.image = image;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
     }
 }

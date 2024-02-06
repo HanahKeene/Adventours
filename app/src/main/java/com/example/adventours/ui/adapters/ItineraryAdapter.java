@@ -66,4 +66,3 @@ public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.Itin
         }
     }
 }
-
