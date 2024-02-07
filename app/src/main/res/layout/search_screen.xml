@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.search_screen">
+    tools:context=".ui.search_screen"
+    style="@style/SCREEN">
 
     <LinearLayout
         android:id="@+id/linearLayout17"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/dark_blue"
+        style="@style/ACTION"
         android:orientation="horizontal"
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout21"
@@ -23,9 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/round_padding"
+            style="@style/SEARCH"
             android:drawableRight="@drawable/search"
-            android:drawableTint="@color/dark_blue"
             android:hint="Search your favorite in Panagsinan"
             android:padding="10dp"
             android:singleLine="true"
@@ -48,7 +48,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Popular Search" />
+            android:text="Popular Search"
+            style="@style/TEXT"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
@@ -57,7 +58,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Recent Search" />
+            android:text="Recent Search"
+            style="@style/TEXT"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
@@ -66,7 +68,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Recently Viewed" />
+            android:text="Recently Viewed"
+            style="@style/TEXT"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"

@@ -47,7 +47,6 @@
                     android:layout_weight="1"
                     style="@style/SEARCH"
                     android:drawableRight="@drawable/search"
-                    android:drawableTint="@color/dark_blue"
                     android:padding="10dp"
                     android:singleLine="true"
                     android:text="Search your favorite in Panagsinan"

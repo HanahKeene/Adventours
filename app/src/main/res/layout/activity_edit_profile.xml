@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.EditProfile">
+    tools:context=".ui.EditProfile"
+    style="@style/SCREEN">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -39,6 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
+        style="@style/TEXT"
         android:text="Change Picture"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +60,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="First Name" />
+            android:text="First Name"
+            style="@style/TEXT"/>
 
         <EditText
             android:id="@+id/fname"
@@ -68,12 +71,14 @@
             android:ems="10"
             android:enabled="false"
             android:inputType="text"
-            android:text="First Name" />
+            android:text="First Name"
+            style="@style/TEXT"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Last Name" />
+            android:text="Last Name"
+            style="@style/TEXT"/>
 
         <EditText
             android:id="@+id/lname"
@@ -83,12 +88,14 @@
             android:text="Last Name"
             android:editable="false"
             android:enabled="false"
-            android:inputType="text" />
+            android:inputType="text"
+            style="@style/TEXT"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Username" />
+            android:text="Username"
+            style="@style/TEXT"/>
 
         <EditText
             android:id="@+id/username"
@@ -96,12 +103,14 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:text="Username"
-            android:inputType="text" />
+            android:inputType="text"
+            style="@style/TEXT"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Birthday" />
+            android:text="Birthday"
+            style="@style/TEXT"/>
 
         <EditText
             android:id="@+id/bday"
@@ -110,13 +119,15 @@
             android:ems="10"
             android:text="January 1, 2024"
             android:inputType="text"
-            android:enabled="false"/>
+            android:enabled="false"
+            style="@style/TEXT"/>
 
         <TextView
             android:id="@+id/textView25"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="City" />
+            android:text="City"
+            style="@style/TEXT"/>
 
         <EditText
             android:id="@+id/city"
@@ -124,14 +135,16 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:text="City"
-            android:inputType="text" />
+            android:inputType="text"
+            style="@style/TEXT"/>
 
 
         <TextView
             android:id="@+id/textView23"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Email" />
+            android:text="Email"
+            style="@style/TEXT"/>
 
 
         <EditText
@@ -141,13 +154,15 @@
             android:ems="10"
             android:hint="Email"
             android:editable="false"
-            android:inputType="text" />
+            android:inputType="text"
+            style="@style/TEXT"/>
 
         <TextView
             android:id="@+id/textView24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mobile Number" />
+            android:text="Mobile Number"
+            style="@style/TEXT"/>
 
         <EditText
             android:id="@+id/number"
@@ -158,6 +173,7 @@
             android:ems="10"
             android:enabled="false"
             android:hint="Mobile Number"
+            style="@style/TEXT"
             android:inputType="number" />
 
         <Button
@@ -165,7 +181,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@drawable/button"
+            style="@style/BUTTON"
             android:text="Update"
             android:textColor="@color/white" />
     </LinearLayout>
