@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HelpCenterActivity">
+    tools:context=".HelpCenterActivity"
+    style="@style/SCREEN">
 
     <LinearLayout
         android:id="@+id/linearLayout17"
@@ -40,6 +41,7 @@
             android:id="@+id/check_reservationbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/TEXT"
             android:clickable="true"
             android:padding="20dp"
             android:text="Check Reservation" />
@@ -53,6 +55,7 @@
             android:id="@+id/faqsbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/TEXT"
             android:clickable="true"
             android:padding="20dp"
             android:text="FAQs" />

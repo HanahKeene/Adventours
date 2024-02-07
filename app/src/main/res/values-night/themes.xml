@@ -40,6 +40,15 @@
         <item name="android:textColor">#B3B7BD</item>
     </style>
 
+    <style name="HINT">
+        <item name="android:textColorHint">#B3B7BD</item>
+    </style>
+
+    <style name="PLACE">
+        <item name="android:textColor">@color/cyan</item>
+        <item name="android:drawableTint">@color/cyan</item>
+    </style>
+
     <style name="BUTTON">
         <item name="android:background">@drawable/buttondarkmode</item>
         <item name="android:textColor">@color/white</item>

@@ -87,13 +87,7 @@ public class touristspotinfo extends AppCompatActivity {
             }
         });
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(touristspotinfo.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+        back.setOnClickListener(View -> finish());
 
         locationTextView.setOnClickListener(new View.OnClickListener() {
             @Override

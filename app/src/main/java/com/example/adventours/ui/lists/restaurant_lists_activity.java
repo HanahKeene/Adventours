@@ -1,15 +1,19 @@
 package com.example.adventours.ui.lists;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,28 +37,33 @@ public class restaurant_lists_activity extends AppCompatActivity {
 
     RecyclerView ResaurantRecyclerView;
 
-    ImageButton back;
+    TextView back;
     restaurantListAdapter restaurantListAdapter;
     List<RestaurantListModel> restaurantListModelList;
 
     FirebaseFirestore db;
 
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_lists);
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        boolean nightMode = sharedPreferences.getBoolean("night", false);
+
+        if (nightMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
 
         ResaurantRecyclerView = findViewById(R.id.restaurant_list_recyclerview);
         db = FirebaseFirestore.getInstance();
 
-        back = findViewById(R.id.backbtn);
+        back = findViewById(R.id.back);
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        back.setOnClickListener(View -> finish());
 
         restaurantListModelList = new ArrayList<>();
         restaurantListAdapter = new restaurantListAdapter(this, restaurantListModelList, null );

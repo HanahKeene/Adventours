@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".musttry_activity">
+    tools:context=".musttry_activity"
+    style="@style/SCREEN">
 
     <LinearLayout
         android:id="@+id/linearLayout17"
@@ -12,6 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp"
+        style="@style/ACTION"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,9 +23,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:drawableLeft="@drawable/baseline_arrow_back_black"
+            android:drawableLeft="@drawable/baseline_arrow_back"
+
             android:text="Must try"
-            android:textColor="#000000"
+            android:textColor="@color/white"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -32,31 +35,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout17"
-        tools:layout_editor_absoluteX="1dp">
+        tools:layout_editor_absoluteX="1dp"
+        style="@style/TEXT">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hotel" />
+            android:text="Hotel"
+            style="@style/TEXT"/>
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Restaurant" />
+            android:text="Restaurant"
+            style="@style/TEXT"/>
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tour"
-            tools:layout_editor_absoluteX="285dp"
-            tools:layout_editor_absoluteY="130dp" />
+            style="@style/TEXT"/>
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Event"
-            tools:layout_editor_absoluteX="285dp"
-            tools:layout_editor_absoluteY="130dp" />
+            style="@style/TEXT"/>
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2

@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".touristspotinfo">
+    tools:context=".touristspotinfo"
+    style="@style/SCREEN">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -65,6 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+                    style="@style/TEXT"
                     android:text="Place"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -78,7 +80,7 @@
                     android:linksClickable="false"
                     android:padding="5dp"
                     android:text="Location"
-                    android:textColor="#415A79"
+                    style="@style/PLACE"
                     android:textSize="16sp" />
 
                 <TextView
@@ -86,7 +88,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="Description" />
+                    android:text="Description"
+                    style="@style/TEXT"/>
 
                 <TextView
                     android:id="@+id/textView28"
@@ -94,7 +97,8 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Gallery"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    style="@style/TEXT"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/galleryRecyclerview"
@@ -107,6 +111,7 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Activities to do"
+                    style="@style/TEXT"
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -120,7 +125,8 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Nearby Hotels"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    style="@style/TEXT"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/hotelsrecyclerview"
@@ -133,7 +139,8 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Nearby Restaurants"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    style="@style/TEXT"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/nearbyrestaurecyclerview"
@@ -160,7 +167,7 @@
             android:id="@+id/addtoitinerary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button"
+            style="@style/BUTTON"
             android:text="Add to Itinerary"
             android:textColor="#FFFFFF"/>
 

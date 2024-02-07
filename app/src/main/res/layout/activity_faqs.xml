@@ -49,11 +49,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="1. How do I book a trip on the app?"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                style="@style/TEXT"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="A: On the home page, select a place you desire to go. On below, click the reserve button." />
 
             <View
@@ -63,12 +65,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="2. How do I reserve a hotel reservation?"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="A: Click a desired hotel on the home screen and fill in the form. " />
 
             <View
@@ -78,12 +82,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="3. Is my personal information safe when booking through the app?"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="A: Yes, we take data security seriously. Your information is encrypted and protected. For more details, refer to our privacy policy." />
 
             <View
@@ -93,12 +99,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="4. Can I change or cancel a reservation after booking?"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="A: Yes, you can change or cancel your reservation. Just go to the Check My Reservations button and click either Change Reservation or Cancel Reservation." />
 
             <View
@@ -108,12 +116,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="5. How can I retrieve my reservation confirmation and tickets?"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="A: Your reservation confirmation is automatically saved in your Reservation History located in Help Button." />
 
             <View
@@ -123,12 +133,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="6. What should I do if I encounter issues during my trip?"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="A: AdvenTours guides your way through your chosen destinations. Yet, AdvenTours is not responsible for emergencies such as accident, natural disasters and mechanical issues." />
 
             <View
@@ -138,12 +150,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="7. Do I need to print my reservation confirmation or can I show them on my mobile device?"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="A: You can typically show your tickets on your mobile device. However, it's a good idea to check the specific requirements of your reservation or accommodation." />
 
             <View
@@ -153,12 +167,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="8. How can I find nearby restaurants and hotels in my chosen tourist spot?"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="A: You can use the Map feature in the app to discover nearby restaurants, attractions, and activities in your current location." />
 
             <View
@@ -168,12 +184,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="9. What's the best way to contact local emergency services while traveling?"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text=" A: Emergency hotlines are given in the description section of your chosen attraction, restaurants and hotels." />
 
             <View

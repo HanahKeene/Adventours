@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.select_itinerary">
+    tools:context=".ui.select_itinerary"
+    style="@style/SCREEN">
 
 
     <LinearLayout
         android:id="@+id/linearLayout17"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/cyan"
         android:orientation="horizontal"
+        style="@style/ACTION"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,6 +55,7 @@
             android:layout_height="180dp"
             android:background="@drawable/addnewitinerarybtn"
             android:text="+"
+            style="@style/TEXT"
             android:visibility="visible" />
 
     </LinearLayout>

@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.about_us">
+    tools:context=".ui.about_us"
+    style="@style/SCREEN">
 
     <LinearLayout
         android:id="@+id/linearLayout17"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/cyan"
+        style="@style/ACTION"
         android:orientation="horizontal"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,6 +56,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus1"/>
 
             <View
@@ -64,6 +66,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus2"/>
 
             <View
@@ -73,6 +76,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus3"/>
 
             <View
@@ -82,6 +86,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus4"/>
 
             <View
@@ -91,6 +96,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus5"/>
 
             <View
@@ -100,6 +106,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus6"/>
 
             <View
@@ -109,6 +116,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus7"/>
 
             <View
@@ -118,6 +126,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus8"/>
 
             <View
@@ -127,6 +136,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus9"/>
 
             <View
@@ -136,6 +146,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus10"/>
 
             <View
@@ -145,6 +156,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus11"/>
 
             <View
@@ -154,6 +166,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus12"/>
 
             <View
@@ -163,6 +176,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus13"/>
 
             <View
@@ -172,6 +186,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus14"/>
 
             <View
@@ -181,6 +196,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus15"/>
 
             <View
@@ -190,6 +206,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus16"/>
 
             <View
@@ -199,6 +216,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus17"/>
 
             <View
@@ -208,6 +226,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus18"/>
 
             <View
@@ -217,6 +236,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus19"/>
 
             <View
@@ -226,6 +246,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus20"/>
 
             <View
@@ -235,6 +256,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus21"/>
 
             <View
@@ -244,6 +266,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus22" />
 
             <View
@@ -253,6 +276,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="@string/aboutus23" />
 
             <ImageView
