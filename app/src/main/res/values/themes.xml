@@ -9,6 +9,10 @@
         <item name="android:background">@color/white</item>
     </style>
 
+     <style name="LINE">
+         <item name="android:background">@color/black</item>
+     </style>
+
      <style name="TEXT">
          <item name="android:textColor">#1E1D1D</item>
      </style>

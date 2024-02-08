@@ -23,6 +23,9 @@
         android:theme="@style/Theme.Adventours"
         tools:targetApi="30">
         <activity
+            android:name=".RestauConfirmationScreen"
+            android:exported="false" />
+        <activity
             android:name=".restauinfo"
             android:exported="false" />
         <activity

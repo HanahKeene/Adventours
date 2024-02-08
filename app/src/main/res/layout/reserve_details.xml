@@ -18,7 +18,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="10dp">
 
                 <TextView
                     android:id="@+id/textView26"
@@ -26,7 +27,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Check in"
-                    android:textSize="20dp"
                     android:textStyle="bold" />
 
             <TextView
@@ -35,7 +35,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Check out"
-                android:textSize="20dp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -49,13 +48,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:layout_weight="1">
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/textfld">
 
 
                 <TextView
                     android:id="@+id/in_date"
-                    android:layout_width="120dp"
-                    android:layout_height="57dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -74,13 +76,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
+                android:padding="10dp"
+                android:background="@drawable/textfld"
                 android:layout_weight="1">
 
 
                 <TextView
                     android:id="@+id/out_date"
-                    android:layout_width="140dp"
-                    android:layout_height="57dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:inputType="date"
@@ -104,8 +108,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="50dp"
-                android:orientation="horizontal">
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
 
                 <LinearLayout
@@ -122,7 +128,6 @@
                         android:layout_weight="1"
                         android:paddingTop="7dp"
                         android:text="Rooms"
-                        android:textSize="20dp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -149,7 +154,6 @@
                         android:layout_weight="1"
                         android:paddingTop="7dp"
                         android:text="0"
-                        android:textSize="20dp"
                         android:textStyle="bold"
                         android:textAlignment="center"/>
 
@@ -168,7 +172,7 @@
             <Button
                 android:id="@+id/reservearoom"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/button"
                 android:text="Reserve"
                 android:textColor="#FFFFFF" />

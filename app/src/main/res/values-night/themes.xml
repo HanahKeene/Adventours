@@ -40,6 +40,10 @@
         <item name="android:textColor">#B3B7BD</item>
     </style>
 
+    <style name="LINE">
+        <item name="android:background">#B3B7BD</item>
+    </style>
+
     <style name="HINT">
         <item name="android:textColorHint">#B3B7BD</item>
     </style>

@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/SCREEN"
+    tools:context=".RestauConfirmationScreen">
+
+    <LinearLayout
+        android:id="@+id/linearLayout17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/ACTION"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/baseline_arrow_back"
+            android:text="Confirmation"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+    </LinearLayout>
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout17"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RESTAURANT NAME"
+            android:textAlignment="center"
+            style="@style/PRICETEXT"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kindly confirm the information below."
+            android:textAlignment="center"
+            style="@style/TEXT"
+            android:textSize="16dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            style="@style/LINE"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Guest Information"
+                    style="@style/PRICETEXT"
+                    android:textStyle="bold"></TextView>
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/TEXT"
+                    android:text="Name"
+                    android:textStyle="bold"></TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Trixie Soriano"
+                    style="@style/TEXT"
+                    android:layout_weight="1">
+                </TextView>
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Address"
+                    style="@style/TEXT"
+                    android:textStyle="bold"></TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pasig City"
+                    style="@style/TEXT"
+                    android:layout_weight="1">
+                </TextView>
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Contact Number"
+                    style="@style/TEXT"
+                    android:textStyle="bold"></TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+369477355259"
+                    style="@style/TEXT"
+                    android:layout_weight="1">
+                </TextView>
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Email"
+                    style="@style/TEXT"
+                    android:textStyle="bold"></TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="trixielavadiasoriano@gmail.com"
+                    style="@style/TEXT"
+                    android:layout_weight="1">
+                </TextView>
+            </TableRow>
+    </TableLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        style="@style/LINE"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"/>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reservation Details"
+                    style="@style/PRICETEXT"
+                    android:textStyle="bold"></TextView>
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Number of Guests"
+                    style="@style/TEXT"
+                    android:textStyle="bold"></TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3 Adults 1 Child"
+                    style="@style/TEXT"
+                    android:layout_weight="1">
+                </TextView>
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Check in"
+                    style="@style/TEXT"
+                    android:textStyle="bold"></TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="January 1, 2023"
+                    style="@style/TEXT"
+                    android:layout_weight="1">
+                </TextView>
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Check out"
+                    style="@style/TEXT"
+                    android:textStyle="bold"></TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="January 1, 2023"
+                    style="@style/TEXT"
+                    android:layout_weight="1">
+                </TextView>
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Note"
+                    style="@style/TEXT"
+                    android:textStyle="bold"></TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="N/A"
+                    style="@style/TEXT"
+                    android:layout_weight="1">
+                </TextView>
+            </TableRow>
+        </TableLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            style="@style/LINE"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Payment Details"
+                    style="@style/PRICETEXT"
+                    android:textStyle="bold"></TextView>
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cost per Head"
+                    style="@style/TEXT"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/peso"
+                    android:drawablePadding="10dp"
+                    style="@style/TEXT"
+                    android:text="100"/>
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Total Cost"
+                    style="@style/TEXT"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/peso"
+                    android:drawablePadding="10dp"
+                    style="@style/TEXT"
+                    android:text="350"/>
+            </TableRow>
+        </TableLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            style="@style/LINE"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mode of Payment"
+                    style="@style/PRICETEXT"
+                    android:textStyle="bold"/>
+            </TableRow>
+            <TableRow>
+
+                <ImageButton
+                    android:id="@+id/gcash"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textfld"
+                    android:clickable="true"
+                    android:padding="20dp"
+                    app:srcCompat="@drawable/gcash" />
+
+                <ImageButton
+                    android:id="@+id/maya"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textfld"
+                    android:clickable="true"
+                    android:padding="20dp"
+                    app:srcCompat="@drawable/maya" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Account Name"
+                    style="@style/TEXT"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="10dp"
+                    style="@style/TEXT"
+                    android:text="Restaurant Name"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Account Number"
+                    style="@style/TEXT"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="10dp"
+                    style="@style/TEXT"
+                    android:text="09477355259"/>
+
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Upload payment receipt here:"
+                    android:paddingTop="20dp"
+                    style="@style/TEXT"
+                    android:textStyle="bold"/>
+
+            </TableRow>
+
+            <TableRow
+                android:background="@drawable/textfld"
+                android:padding="10dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Receipt.jpg"
+                    style="@style/TEXT"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Choose File"/>
+
+            </TableRow>
+
+        </TableLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Note:"
+            style="@style/PRICETEXT"
+            android:textStyle="bold"
+            android:paddingTop="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Please be informed that cancellations are complimentary up to 3 days before your reservation date. Should you wish to cancel beyond this period, we kindly request you to contact the hotel for details regarding applicable fees."
+            style="@style/PRICETEXT" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="40dp"
+            android:text="Confirm"
+            style="@style/BUTTON"/>
+
+    </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

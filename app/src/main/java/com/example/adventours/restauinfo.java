@@ -16,11 +16,15 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.adventours.ui.ConfirmationScreen;
+import com.example.adventours.ui.RoomDetails;
 import com.example.adventours.ui.adapters.photogalleryAdapter;
 import com.example.adventours.ui.adapters.roomAdapter;
 import com.example.adventours.ui.models.roomModel;
@@ -49,6 +53,8 @@ public class restauinfo extends AppCompatActivity {
     Button reserveatable;
 
     TextView in_date, out_date, childnum, adultnum;
+
+    EditText note;
 
     ImageButton in_btn, out_btn, adultnumdec, adultnuminc, childnuminc, childnumdec;
     private RecyclerView photogalleryRecyclerView, delicaciesRecyclerview;
@@ -98,6 +104,7 @@ public class restauinfo extends AppCompatActivity {
         childnumdec = dialog.findViewById(R.id.childnumdec);
         adultnum = dialog.findViewById(R.id.adultnum);
         childnum = dialog.findViewById(R.id.childnum);
+        note = dialog.findViewById(R.id.note);
         reserveatable = dialog.findViewById(R.id.reserveatable);
 
         in_btn.setOnClickListener(new View.OnClickListener() {
@@ -176,7 +183,30 @@ public class restauinfo extends AppCompatActivity {
             window.setAttributes(layoutParams);
         }
 
+        reserveatable.setOnClickListener(View -> confirmreserve());
+
         dialog.show();
+    }
+
+    private void confirmreserve() {
+
+        Intent intent = new Intent(this, RestauConfirmationScreen.class);
+
+        Intent intent1 = getIntent();
+        String restauId = intent1.getStringExtra("restau_id");
+
+        intent.putExtra("RestaurantID", restauId);
+
+        Toast.makeText(this, "Restaurant ID: " + restauId , Toast.LENGTH_SHORT).show();
+
+        intent.putExtra("Start Date", in_date.getText().toString());
+        intent.putExtra("End Date", out_date.getText().toString());
+        intent.putExtra("Adult", adultnum.getText().toString());
+        intent.putExtra("Child", childnum.getText().toString());
+        intent.putExtra("Start Date", note.getText().toString());
+
+        startActivity(intent);
+
     }
 
     private void showDatePicker(final TextView dateTextView) {
