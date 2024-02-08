@@ -2,6 +2,7 @@ package com.example.adventours.ui.models;
 
 public class RestaurantsModel {
 
+    private String restau_id;
     private String img_url;
     private String name;
 
@@ -12,11 +13,21 @@ public class RestaurantsModel {
     public RestaurantsModel() {
     }
 
-    public RestaurantsModel(String img_url, String name, String location, String desc) {
+
+    public RestaurantsModel(String restau_id, String img_url, String name, String location, String desc) {
+        this.restau_id = restau_id;
         this.img_url = img_url;
         this.name = name;
         this.location = location;
         this.desc = desc;
+    }
+
+    public String getRestau_id() {
+        return restau_id;
+    }
+
+    public void setRestau_id(String restau_id) {
+        this.restau_id = restau_id;
     }
 
     public String getImg_url() {
@@ -50,4 +61,6 @@ public class RestaurantsModel {
     public void setDesc(String desc) {
         this.desc = desc;
     }
+
+
 }

@@ -180,22 +180,33 @@ public class touristspotinfo extends AppCompatActivity {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     RestaurantsModel restauModel = document.toObject(RestaurantsModel.class);
+                    String restau_id = document.getId();
+                    restauModel.setRestau_id(restau_id);
                     restauList.add(restauModel);
                 }
+
+                restaurantAdapter.OnRestauItemClickListener restauItemClickListener = new restaurantAdapter.OnRestauItemClickListener() {
+                    @Override
+                    public void onRestauItemClick(String restauId) {
+                        Toast.makeText(touristspotinfo.this, "Clicked Restaurant ID: " + restauId, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(touristspotinfo.this, restauinfo.class);
+                        intent.putExtra("restau_id", restauId);
+                        startActivity(intent);
+                    }
+                };
+
+                restaurantAdapter adapter = new restaurantAdapter(this, restauList, restauItemClickListener);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+                restaurantRecyclerview.setLayoutManager(layoutManager);
+                restaurantRecyclerview.setAdapter(adapter);
+
+                Log.d("HotelAdapter", "Number of hotels fetched: " + restauList.size());
+
+                adapter.notifyDataSetChanged();
             } else {
                 Log.e("HotelAdapter", "Error fetching hotels: " + task.getException());
                 Toast.makeText(touristspotinfo.this, "Error fetching hotels: " + task.getException(), Toast.LENGTH_SHORT).show();
             }
-
-            // Set up the RecyclerView with the hotelList using an adapter
-            restaurantAdapter adapter = new restaurantAdapter(this, restauList);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-            restaurantRecyclerview.setLayoutManager(layoutManager);
-            restaurantRecyclerview.setAdapter(adapter);
-
-            Log.d("HotelAdapter", "Number of resturant fetched: " + restauList.size());
-
-            adapter.notifyDataSetChanged(); // Notify adapter after setting up
         });
     }
 

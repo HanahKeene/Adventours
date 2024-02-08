@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import java.util.List;
 
 public class hotelinfo extends AppCompatActivity implements roomAdapter.OnItemClickListener {
 
+    ImageButton back;
     private ImageView img_spot;
 
     private TextView placeTextView;
@@ -50,6 +52,7 @@ public class hotelinfo extends AppCompatActivity implements roomAdapter.OnItemCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotelinfo);
 
+        back = findViewById(R.id.backbtn);
         img_spot = findViewById(R.id.spot_img);
         placeTextView = findViewById(R.id.spot_place);
         locationTextView = findViewById(R.id.spot_location);
@@ -59,11 +62,12 @@ public class hotelinfo extends AppCompatActivity implements roomAdapter.OnItemCl
 
         db = FirebaseFirestore.getInstance();
 
-        // Get the spot ID from the Intent
+        back.setOnClickListener(View -> finish());
+
+
         Intent intent = getIntent();
         String hotelId = intent.getStringExtra("hotel_id");
 
-        // Fetch the other details of the spot from Firebase
         fetchHotelDetailsFromFirebase(hotelId);
 
     }

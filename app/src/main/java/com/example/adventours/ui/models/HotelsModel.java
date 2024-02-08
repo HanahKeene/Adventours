@@ -15,10 +15,10 @@ public class HotelsModel {
         // Default constructor required for Firestore
     }
 
-    public HotelsModel(String img_url, String name) {
+    public HotelsModel(String img_url, String name, String hotel_id) {
         this.img_url = img_url;
         this.name = name;
-        this.name = hotel_id;
+        this.hotel_id = hotel_id;
     }
 
     // Getters and setters for existing fields
