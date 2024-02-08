@@ -244,12 +244,11 @@ public class RoomDetails extends AppCompatActivity {
             }
         });
 
-
-        // Set the dialog window attributes to appear at the bottom
         Window window = dialog.getWindow();
         if (window != null) {
             WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
             layoutParams.copyFrom(window.getAttributes());
+            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
             layoutParams.gravity = Gravity.BOTTOM;
 
             window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -258,10 +257,6 @@ public class RoomDetails extends AppCompatActivity {
 
             window.setAttributes(layoutParams);
         }
-
-        // Adjust content view padding to remove space around the content
-        View contentView = dialog.findViewById(android.R.id.content);
-        contentView.setPadding(0, 0, 0, 0);
 
         dialog.show();
     }

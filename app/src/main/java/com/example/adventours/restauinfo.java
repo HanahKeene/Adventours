@@ -166,6 +166,7 @@ public class restauinfo extends AppCompatActivity {
         if (window != null) {
             WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
             layoutParams.copyFrom(window.getAttributes());
+            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
             layoutParams.gravity = Gravity.BOTTOM;
 
             window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -175,12 +176,7 @@ public class restauinfo extends AppCompatActivity {
             window.setAttributes(layoutParams);
         }
 
-        // Adjust content view padding to remove space around the content
-        View contentView = dialog.findViewById(android.R.id.content);
-        contentView.setPadding(0, 0, 0, 0);
-
         dialog.show();
-
     }
 
     private void showDatePicker(final TextView dateTextView) {
