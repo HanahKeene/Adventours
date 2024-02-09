@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -121,9 +122,9 @@ public class RestauConfirmationScreen extends AppCompatActivity {
                 }
             });
 
-            DocumentReference hotelRef = db.collection("Restaurants").document(restauid);
+            DocumentReference restauRef = db.collection("Restaurants").document(restauid);
 
-            hotelRef.get().addOnCompleteListener(task -> {
+            restauRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
@@ -195,6 +196,7 @@ public class RestauConfirmationScreen extends AppCompatActivity {
                     reservationData.put("CheckOut", checkout.getText().toString());
                     reservationData.put("Guests", guests.getText().toString());
                     reservationData.put("Expiration", expiration.getText().toString());
+                    reservationData.put("Timestamp", FieldValue.serverTimestamp());
 
                     // Add the reservation to the "Hotel Reservation" collection with the generated ID
                     db.collection("Restaurant Reservation").document(reservationId).set(reservationData)
@@ -213,10 +215,11 @@ public class RestauConfirmationScreen extends AppCompatActivity {
 
                     Intent intent1 = getIntent();
                     String restaurantId = intent1.getStringExtra("RestaurantId");
+                    String timestamp = FieldValue.serverTimestamp().toString();
 
                     intent.putExtra("Restaurant ID", restaurantId);
 
-                    intent.putExtra("ReservatioNumber", reservationId);
+                    intent.putExtra("ReservationNumber", reservationId);
                     intent.putExtra("CustomerName", name.getText().toString());
                     intent.putExtra("Address", address.getText().toString());
                     intent.putExtra("Number", contact.getText().toString());
@@ -226,6 +229,7 @@ public class RestauConfirmationScreen extends AppCompatActivity {
                     intent.putExtra("CheckIn", checkin.getText().toString());
                     intent.putExtra("CheckOut", checkout.getText().toString());
                     intent.putExtra("Expiration", expiration.getText().toString());
+                    intent.putExtra("TimeStamp", timestamp);
 
                     startActivity(intent);
                 }

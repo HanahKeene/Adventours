@@ -62,6 +62,7 @@
                         android:textStyle="bold"/>
 
                     <TextView
+                        android:id="@+id/timestamp"
                         style="@style/TEXT"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -382,14 +383,14 @@
             </TableLayout>
 
             <Button
-                android:id="@+id/saveaspng"
+                android:id="@+id/saveasimage"
                 style="@style/BUTTON"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="SAVE AS PNG " />
             <Button
-                android:id="@+id/submit"
+                android:id="@+id/home"
                 android:background="@drawable/textfld"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
