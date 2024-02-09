@@ -45,11 +45,12 @@
         android:layout_marginLeft="20dp">
 
         <TextView
+            android:id="@+id/restauname"
+            style="@style/PRICETEXT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="RESTAURANT NAME"
             android:textAlignment="center"
-            style="@style/PRICETEXT"
             android:textSize="20dp" />
 
         <TextView
@@ -90,6 +91,7 @@
                     android:text="Name"
                     android:textStyle="bold"></TextView>
                 <TextView
+                    android:id="@+id/customername"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Trixie Soriano"
@@ -107,6 +109,7 @@
                     style="@style/TEXT"
                     android:textStyle="bold"></TextView>
                 <TextView
+                    android:id="@+id/address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Pasig City"
@@ -124,6 +127,7 @@
                     style="@style/TEXT"
                     android:textStyle="bold"></TextView>
                 <TextView
+                    android:id="@+id/contact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="+369477355259"
@@ -141,6 +145,7 @@
                     style="@style/TEXT"
                     android:textStyle="bold"></TextView>
                 <TextView
+                    android:id="@+id/email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="trixielavadiasoriano@gmail.com"
@@ -180,6 +185,7 @@
                     style="@style/TEXT"
                     android:textStyle="bold"></TextView>
                 <TextView
+                    android:id="@+id/numguest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3 Adults 1 Child"
@@ -197,6 +203,7 @@
                     style="@style/TEXT"
                     android:textStyle="bold"></TextView>
                 <TextView
+                    android:id="@+id/checkin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="January 1, 2023"
@@ -214,6 +221,7 @@
                     style="@style/TEXT"
                     android:textStyle="bold"></TextView>
                 <TextView
+                    android:id="@+id/checkout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="January 1, 2023"
@@ -231,6 +239,25 @@
                     style="@style/TEXT"
                     android:textStyle="bold"></TextView>
                 <TextView
+                    android:id="@+id/note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="N/A"
+                    style="@style/TEXT"
+                    android:layout_weight="1">
+                </TextView>
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Expiration Date"
+                    style="@style/TEXT"
+                    android:textStyle="bold"></TextView>
+                <TextView
+                    android:id="@+id/expiration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="N/A"
@@ -432,12 +459,13 @@
             style="@style/PRICETEXT" />
 
         <Button
+            android:id="@+id/submit"
+            style="@style/BUTTON"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="40dp"
-            android:text="Confirm"
-            style="@style/BUTTON"/>
+            android:text="Confirm" />
 
     </LinearLayout>
 

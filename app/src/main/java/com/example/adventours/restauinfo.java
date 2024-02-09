@@ -203,7 +203,7 @@ public class restauinfo extends AppCompatActivity {
         intent.putExtra("End Date", out_date.getText().toString());
         intent.putExtra("Adult", adultnum.getText().toString());
         intent.putExtra("Child", childnum.getText().toString());
-        intent.putExtra("Start Date", note.getText().toString());
+        intent.putExtra("Note", note.getText().toString());
 
         startActivity(intent);
 
