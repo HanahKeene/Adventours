@@ -63,8 +63,8 @@ public class ConfirmationScreen extends AppCompatActivity {
         Toast.makeText(this, "Hotel ID" + hotelid, Toast.LENGTH_SHORT).show();
 
         roomtypeName = findViewById(R.id.roomtypeTextView);
-        checkin = findViewById(R.id.checkinfield);
-        checkout = findViewById(R.id.checkoutfield);
+        checkin = findViewById(R.id.checkin);
+        checkout = findViewById(R.id.checkout);
         name = findViewById(R.id.name);
         add = findViewById(R.id.add);
         numbertxtfld = findViewById(R.id.number);

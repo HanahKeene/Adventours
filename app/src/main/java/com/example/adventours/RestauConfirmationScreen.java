@@ -225,7 +225,7 @@ public class RestauConfirmationScreen extends AppCompatActivity {
                     intent.putExtra("Number", contact.getText().toString());
                     intent.putExtra("Email", emailfld.getText().toString());
                     intent.putExtra("Guests", guests.getText().toString());
-                    intent.putExtra("HotelName", restauname.getText().toString());
+                    intent.putExtra("RestaurantName", restauname.getText().toString());
                     intent.putExtra("CheckIn", checkin.getText().toString());
                     intent.putExtra("CheckOut", checkout.getText().toString());
                     intent.putExtra("Expiration", expiration.getText().toString());

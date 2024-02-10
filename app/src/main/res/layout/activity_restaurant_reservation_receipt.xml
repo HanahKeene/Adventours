@@ -28,7 +28,8 @@
             <ImageView
                 android:id="@+id/imageView6"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/logowtext" />
 
             <TextView
@@ -40,37 +41,29 @@
                 android:textAlignment="center"
                 android:textSize="20dp" />
 
-            <TextView
-                style="@style/TEXT"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Kindly confirm the information below."
-                android:textAlignment="center"
-                android:textSize="16dp" />
+<!--            <TableLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginTop="20dp">-->
+<!--                <TableRow>-->
+<!--                    <TextView-->
+<!--                        style="@style/TEXT"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Reservation Timestamp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:textStyle="bold"/>-->
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp">
-                <TableRow>
-                    <TextView
-                        style="@style/TEXT"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Reservation Timestamp"
-                        android:layout_weight="1"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:id="@+id/timestamp"
-                        style="@style/TEXT"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Guest Information"
-                        android:textAlignment="textEnd" />
-                </TableRow>
-            </TableLayout>
+<!--                    <TextView-->
+<!--                        android:id="@+id/timestamp"-->
+<!--                        style="@style/TEXT"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="Guest Information"-->
+<!--                        android:textAlignment="textEnd" />-->
+<!--                </TableRow>-->
+<!--            </TableLayout>-->
 
             <View
                 style="@style/LINE"
