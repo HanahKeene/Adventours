@@ -108,7 +108,7 @@ public class ConfirmationScreen extends AppCompatActivity {
                         // Update UI with user details
                         name.setText(firstName + " " +lastName);
                         add.setText(city);
-                        numbertxtfld.setText(number);
+                        numbertxtfld.setText("+639"+number);
                         emailtxtfld.setText(email);
                         // Add more UI updates as needed
                     } else {
@@ -148,7 +148,7 @@ public class ConfirmationScreen extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                        generateReservationIdAndAddToFirestore();
+                    generateReservationIdAndAddToFirestore();
                 }
 
                 private void generateReservationIdAndAddToFirestore() {
@@ -220,7 +220,7 @@ public class ConfirmationScreen extends AppCompatActivity {
 
                     intent.putExtra("Hotel ID", hotelid);
 
-                    intent.putExtra("ReservatioNumber", reservationId);
+                    intent.putExtra("ReservationNumber", reservationId);
                     intent.putExtra("CustomerName", name.getText().toString());
                     intent.putExtra("Address", add.getText().toString());
                     intent.putExtra("Number", numbertxtfld.getText().toString());

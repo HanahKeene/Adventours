@@ -29,7 +29,7 @@ import java.io.OutputStream;
 public class
 HotelReservationReceipt extends AppCompatActivity {
 
-    TextView namefield, addfield, numberfield, emailfield, hotelnamefield, reserveIdNumbertxtfld, roomtypefield, numberofPeoplefield, checkinfield, checkoutfield, expirationfield;
+    TextView namefield, addfield, numberfield, emailfield, hotelnamefield, reserveIdNumbertxtfld, roomtypefield, checkinfield, checkoutfield, expirationfield;
 
     Button backtohomepage, saveas;
 
@@ -52,26 +52,17 @@ HotelReservationReceipt extends AppCompatActivity {
         checkoutfield = findViewById(R.id.checkoutfield);
         expirationfield = findViewById(R.id.expiration);
         saveas = findViewById(R.id.saveasimage);
-
-
         backtohomepage = findViewById(R.id.home);
-
-
-//        generateAndDisplayReservationNumber();
 
         Intent intent = getIntent();
         Intent intent1 = getIntent();
 
-        String reservationID = intent.getStringExtra("ReservatioNumber");
-
-        String hotelId = intent1.getStringExtra("HotelId");
-        String roomId = intent1.getStringExtra("RoomId");
+        String reservationID = intent.getStringExtra("ReservationNumber");
 
         String name = intent.getStringExtra("CustomerName");
         String add = intent.getStringExtra("Address");
         String num = intent.getStringExtra("Number");
         String email = intent.getStringExtra("Email");
-
 //        intent.putExtra("No.ofRooms", qtytxtfld.getText().toString());
 //        intent.putExtra("Downpayment", dppayment.getText().toString());
 //        intent.putExtra("Total Cost", total.getText().toString());
@@ -80,7 +71,7 @@ HotelReservationReceipt extends AppCompatActivity {
         String checkin = intent.getStringExtra("CheckIn");
         String checkout = intent.getStringExtra("CheckOut");
         String expiration = intent.getStringExtra("Expiration");
-
+//
         namefield.setText(name);
         addfield.setText(add);
         numberfield.setText(num);
@@ -88,22 +79,18 @@ HotelReservationReceipt extends AppCompatActivity {
 
         hotelnamefield.setText(hotelname);
         roomtypefield.setText(roomname);
-        numberofPeoplefield.setText(roomname);
         checkinfield.setText(checkin);
         checkoutfield.setText(checkout);
         expirationfield.setText(expiration);
-
         reserveIdNumbertxtfld.setText(reservationID);
 
-        Toast.makeText(HotelReservationReceipt.this, "Hotel Id:" + hotelId + "Room Id" + roomId , Toast.LENGTH_SHORT).show();
-
-        backtohomepage.setOnClickListener(View -> backtohomepage());
+        backtohomepage.setOnClickListener(View -> home());
         saveas.setOnClickListener(View -> saveasimage());
 
     }
 
     private void saveasimage() {
-        // Get the root view of the layout
+
         View rootView = getWindow().getDecorView().getRootView();
 
         // Create a Bitmap of the layout
@@ -144,52 +131,10 @@ HotelReservationReceipt extends AppCompatActivity {
         }
     }
 
-    private void backtohomepage() {
+    private void home() {
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
-//    private void generateAndDisplayReservationNumber() {
-//
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        db = FirebaseFirestore.getInstance();
-//
-//        // Reference to the "Hotel Reservation" collection
-//        CollectionReference reservationCollectionRef = db.collection("Hotel Reservations");
-//
-//        // Placeholder for the reservation number
-//        String reservationNumber = null;
-//
-//        // Loop to find the first available reservation number
-//        for (int i = 1; i <= 1000000000; i++) {
-//            // Format the count as a reservation number (e.g., 0000000001)
-//            reservationNumber = String.format("%010d", i);
-//
-//            // Check if the reservation number already exists
-//            DocumentReference reservationRef = reservationCollectionRef.document(reservationNumber);
-//
-//            boolean reservationExists = checkReservationExists(reservationRef);
-//
-//            if (!reservationExists) {
-//                // Reservation number does not exist, break out of the loop
-//                break;
-//            }
-//        }
-//
-//        // Display the reservation number
-//        reserveIdNumbertxtfld.setText(reservationNumber);
-//    }
-
-//    private boolean checkReservationExists(DocumentReference reservationRef) {
-//        // Check if the reservation document exists
-//        try {
-//            DocumentSnapshot document = reservationRef.get().getResult();
-//            return document.exists();
-//        } catch (Exception e) {
-//            // Handle exceptions
-//            return false;
-//        }
-//    }
-
 
 }

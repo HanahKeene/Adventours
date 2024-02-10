@@ -128,7 +128,6 @@ public class RestauConfirmationScreen extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        // DocumentSnapshot contains the data
                         String restauName = document.getString("name");
                         restauname.setText(restauName);
                     } else {
