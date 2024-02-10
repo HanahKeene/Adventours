@@ -38,6 +38,7 @@
 
     <style name="TEXT">
         <item name="android:textColor">#B3B7BD</item>
+        <item name="android:drawableTint">@color/cyan</item>
     </style>
 
     <style name="LINE">

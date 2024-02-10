@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".touristspotinfo">
+    tools:context=".touristspotinfo"
+    style="@style/SCREEN">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -68,7 +69,8 @@
                     android:padding="5dp"
                     android:text="Place"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    style="@style/TEXT"/>
 
                 <TextView
                     android:id="@+id/spot_location"
@@ -77,6 +79,7 @@
                     android:drawableLeft="@drawable/baseline_location_on_24"
                     android:padding="5dp"
                     android:text="Location"
+                    style="@style/PLACE"
                     android:textSize="16sp" />
 
                 <TextView
@@ -84,7 +87,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="Description" />
+                    android:text="Description"
+                    style="@style/TEXT"/>
 
                 <TextView
                     android:id="@+id/textView28"
@@ -92,7 +96,8 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Gallery"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    style="@style/TEXT"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/galleryRecyclerview"
@@ -105,7 +110,8 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Available Rooms"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    style="@style/TEXT"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/roomsrecyclerview"

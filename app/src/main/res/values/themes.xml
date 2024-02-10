@@ -15,6 +15,7 @@
 
      <style name="TEXT">
          <item name="android:textColor">#1E1D1D</item>
+         <item name="android:drawableTint">#1E1D1D</item>
      </style>
 
      <style name="HINT">
