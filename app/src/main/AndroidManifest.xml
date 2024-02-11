@@ -32,7 +32,7 @@
             android:name=".restauinfo"
             android:exported="false" />
         <activity
-            android:name=".ui.search_screen"
+            android:name=".search_screen"
             android:exported="false" />
         <activity
             android:name=".ui.enrollfingerprint"
