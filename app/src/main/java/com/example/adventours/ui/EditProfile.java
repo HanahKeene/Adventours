@@ -31,7 +31,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -95,7 +94,7 @@ public class EditProfile extends AppCompatActivity {
 
     private void loadingscreen() {
         loadingDialog = new Dialog(this);
-        loadingDialog.setContentView(R.layout.loading_screen);
+        loadingDialog.setContentView(R.layout.prompt_loading_screen);
 
         ImageView loadingGif = loadingDialog.findViewById(R.id.loading);
 
