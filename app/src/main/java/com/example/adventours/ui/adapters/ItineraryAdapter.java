@@ -75,7 +75,7 @@ public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.View
                         if (id != null) {
                             Intent intent = new Intent(context, itineraryplan.class);
                             intent.putExtra("ItineraryID", id);
-//                            Toast.makeText(this, "Itinerary ID" + id, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Itinerary ID" + id, Toast.LENGTH_SHORT).show();
                             context.startActivity(intent);
                         } else {
                             // If the item ID is null, log an error message

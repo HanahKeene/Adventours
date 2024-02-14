@@ -62,7 +62,9 @@
 
                 <TextView android:text="Start Date" />
 
-                <TextView android:text="Start Date" />
+                <TextView
+                    android:id="@+id/startdate"
+                    android:text="Start Date" />
             </TableRow>
 
             <TableRow
@@ -71,7 +73,9 @@
 
                 <TextView android:text="End Date" />
 
-                <TextView android:text="End Date" />
+                <TextView
+                    android:id="@+id/enddate"
+                    android:text="End Date" />
             </TableRow>
         </TableLayout>
     </ScrollView>
