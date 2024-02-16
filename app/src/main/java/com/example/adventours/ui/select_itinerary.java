@@ -20,6 +20,7 @@ import com.example.adventours.MainActivity;
 import com.example.adventours.R;
 import com.example.adventours.touristspotinfo;
 import com.example.adventours.ui.adapters.ItineraryAdapter;
+import com.example.adventours.ui.adapters.selectitineraryAdapter;
 import com.example.adventours.ui.models.ItineraryModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,9 +38,9 @@ public class select_itinerary extends AppCompatActivity {
 
     List<ItineraryModel> itineraryModelList;
 
-    ItineraryAdapter itineraryAdapter;
+    selectitineraryAdapter selectitineraryAdapter;
 
-    ItineraryAdapter.OnItineraryItemClickListener listener;
+    selectitineraryAdapter.OnItineraryItemClickListener listener;
 
     private FirebaseAuth auth;
     private FirebaseUser user;
@@ -73,9 +74,9 @@ public class select_itinerary extends AppCompatActivity {
 
 
         itineraryModelList = new ArrayList<>();
-        itineraryAdapter = new ItineraryAdapter(this, itineraryModelList, listener );
+        selectitineraryAdapter = new selectitineraryAdapter(select_itinerary.this, itineraryModelList, listener );
         itineraries.setLayoutManager(new GridLayoutManager(this, 3));
-        itineraries.setAdapter(itineraryAdapter);
+        itineraries.setAdapter(selectitineraryAdapter);
 
         // Firebase data fetching and visibility control
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -95,7 +96,7 @@ public class select_itinerary extends AppCompatActivity {
                                 itineraryModel.setId(itineraryId);
                                 itineraryModelList.add(itineraryModel);
                             }
-                            itineraryAdapter.notifyDataSetChanged();
+                            selectitineraryAdapter.notifyDataSetChanged();
                         }
                     }
                 });
