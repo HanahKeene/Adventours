@@ -1,67 +1,78 @@
-package com.example.adventours.ui;
+        package com.example.adventours.ui;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+        import androidx.appcompat.app.AppCompatActivity;
+        import androidx.recyclerview.widget.LinearLayoutManager;
+        import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.TextView;
-import android.widget.Toast;
+        import android.content.Intent;
+        import android.os.Bundle;
+        import android.widget.TextView;
+        import android.widget.Toast;
 
-import com.example.adventours.R;
-import com.example.adventours.User;
-import com.example.adventours.ui.models.ItineraryModel;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+        import com.example.adventours.R;
+        import com.example.adventours.ui.adapters.SubCollectionAdapter;
+        import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.auth.FirebaseUser;
+        import com.google.firebase.firestore.CollectionReference;
+        import com.google.firebase.firestore.DocumentReference;
+        import com.google.firebase.firestore.DocumentSnapshot;
+        import com.google.firebase.firestore.FirebaseFirestore;
+        import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-public class itineraryplan extends AppCompatActivity {
+        import java.util.ArrayList;
+        import java.util.Arrays;
+        import java.util.List;
 
-    TextView startdatefld, endDatefld, itineraryname;
+        public class itineraryplan extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.itineraryplan);
+            TextView startdatefld, endDatefld, itineraryname;
+            RecyclerView dayRecyclerView;
 
-        startdatefld = findViewById(R.id.startdate);
-        endDatefld = findViewById(R.id.enddate);
-        itineraryname = findViewById(R.id.ItineraryName);
+            List<String> subCollectionNames;
+            SubCollectionAdapter adapter;
 
+            @Override
+            protected void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                setContentView(R.layout.itineraryplan);
 
-        Intent intent = getIntent();
-        String id = intent.getStringExtra("ItineraryID");
+                startdatefld = findViewById(R.id.startdate);
+                endDatefld = findViewById(R.id.enddate);
+                itineraryname = findViewById(R.id.ItineraryName);
+                dayRecyclerView = findViewById(R.id.activities);
 
-        fetchItineraryDetails(id);
+                dayRecyclerView = findViewById(R.id.activities);
+                dayRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-    }
+                subCollectionNames = new ArrayList<>();
+                adapter = new SubCollectionAdapter(subCollectionNames);
+                dayRecyclerView.setAdapter(adapter);
 
-    private void fetchItineraryDetails(String id) {
+                Intent intent = getIntent();
+                String id = intent.getStringExtra("ItineraryID");
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String userId = currentUser.getUid();
-
-        DocumentReference itinerarydetails =  db.collection("users").document(userId).collection("itineraries").document(id);
-
-        itinerarydetails.get().addOnSuccessListener(documentSnapshot -> {
-            if (documentSnapshot.exists()) {
-
-                String startdate = documentSnapshot.getString("start");
-                String enddate = documentSnapshot.getString("end");
-                String name = documentSnapshot.getString("name");
-
-                itineraryname.setText(name);
-                startdatefld.setText(startdate);
-                endDatefld.setText(enddate);
-
+                fetchItineraryDetails(id);
             }
-        }).addOnFailureListener(e -> {
-        });
-    }
-}
+            private void fetchItineraryDetails(String id) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                String userId = currentUser.getUid();
+
+                DocumentReference itineraryDetails =  db.collection("users").document(userId).collection("itineraries").document(id);
+
+                itineraryDetails.get().addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String startDate = documentSnapshot.getString("start");
+                        String endDate = documentSnapshot.getString("end");
+                        String name = documentSnapshot.getString("name");
+
+                        itineraryname.setText(name);
+                        startdatefld.setText(startDate);
+                        endDatefld.setText(endDate);
+                    }
+                }).addOnFailureListener(e -> {
+                    Toast.makeText(this, "Failed to fetch itinerary details", Toast.LENGTH_SHORT).show();
+                });
+            }
+
+        }

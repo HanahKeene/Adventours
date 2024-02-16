@@ -18,6 +18,7 @@ public class ItineraryModel {
         this.image = image;
     }
 
+
     public String getId() {
         return id;
     }

@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/linearLayout23"
@@ -15,45 +14,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TableLayout
+        <TextView
+            android:id="@+id/day"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:text="Day" />
 
-            <TableRow>
-
-                <TextView
-                    android:text="Day "
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/daynumber"
-                    android:text="1"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:text=" : "
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/date"
-                    android:text="January 1, 2024"
-                    android:textStyle="bold" />
-
-
-            </TableRow>
-
-        </TableLayout>
+        <!-- RecyclerView for displaying activities -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/activityRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="870dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout23"></LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

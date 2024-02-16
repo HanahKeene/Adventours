@@ -37,6 +37,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -152,6 +155,12 @@ public class newitineraryplan extends AppCompatActivity {
         String start = startdate.getText().toString();
         String end = enddate.getText().toString();
 
+        LocalDate startDate = LocalDate.parse(start, DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.getDefault()));
+        LocalDate endDate = LocalDate.parse(end, DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.getDefault()));
+
+        // Calculate the number of days between the start and end dates
+        long dayscount = java.time.temporal.ChronoUnit.DAYS.between(startDate, endDate) + 1; // Add 1 to include both start and end dates
+
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DocumentReference userProfileRef = getUserProfileReference();
 
@@ -171,41 +180,24 @@ public class newitineraryplan extends AppCompatActivity {
             itineraryData.put("name", itineraryname);
             itineraryData.put("start", start);
             itineraryData.put("end", end);
+            itineraryData.put("days", dayscount);
+
+            for (int i = 1; i <= dayscount; i++) {
+                Map<String, Object> dayData = new HashMap<>();
+                dayData.put("date", startDate.plusDays(i - 1).toString());
+                dayData.put("spots", new ArrayList<>()); // Initialize spots as an empty list
+
+                // Add day document to days collection
+                int finalI = i;
+                itineraryRef.collection("days").document("Day " + i)
+                        .set(dayData)
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(newitineraryplan.this, "Failed to create day " + finalI, Toast.LENGTH_SHORT).show();
+                        });
+            }
 
             // Upload image to Firebase Storage and set the image URL in Firestore
             uploadImageToStorage(buttonBitmap, itineraryRef, itineraryData, itineraryname, start, end);
-
-            // Convert start and end date strings to long timestamp
-            SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault());
-            long startTimeStamp = 0;
-            long endTimeStamp = 0;
-            try {
-                Date startDate = dateFormat.parse(start);
-                Date endDate = dateFormat.parse(end);
-                startTimeStamp = startDate.getTime();
-                endTimeStamp = endDate.getTime();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            // Create subcollections for each day between start date and end date
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(startTimeStamp); // Set calendar to start date
-            int dayCount = 1; // Initialize day count
-
-            while (calendar.getTimeInMillis() <= endTimeStamp) {
-                String dayName = "Day " + dayCount + ":" + dateFormat.format(calendar.getTime());
-
-                // Create empty subcollection for each day
-                Map<String, Object> dayData = new HashMap<>();
-
-                // Add the day subcollection to Firestore
-                itineraryRef.collection(dayName).document().set(dayData);
-
-                // Move to the next day
-                calendar.add(Calendar.DAY_OF_MONTH, 1);
-                dayCount++;
-            }
         }
     }
 

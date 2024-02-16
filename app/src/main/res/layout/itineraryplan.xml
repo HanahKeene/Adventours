@@ -105,6 +105,7 @@
                 android:background="@color/black"/>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/activities"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="30dp"/>

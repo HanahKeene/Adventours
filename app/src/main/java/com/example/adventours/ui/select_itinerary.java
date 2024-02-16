@@ -1,7 +1,10 @@
 package com.example.adventours.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,19 +19,32 @@ import android.widget.TextView;
 import com.example.adventours.MainActivity;
 import com.example.adventours.R;
 import com.example.adventours.touristspotinfo;
+import com.example.adventours.ui.adapters.ItineraryAdapter;
+import com.example.adventours.ui.models.ItineraryModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class select_itinerary extends AppCompatActivity {
+
+    List<ItineraryModel> itineraryModelList;
+
+    ItineraryAdapter itineraryAdapter;
+
+    ItineraryAdapter.OnItineraryItemClickListener listener;
 
     private FirebaseAuth auth;
     private FirebaseUser user;
 
-    ImageView pictureView;
-    Button addButton;
+    RecyclerView itineraries;
 
     TextView back;
 
@@ -48,41 +64,40 @@ public class select_itinerary extends AppCompatActivity {
         }
 
         back = findViewById(R.id.back);
+        itineraries = findViewById(R.id.itineraries);
 
         back.setOnClickListener(View -> finish());
 
         auth = FirebaseAuth.getInstance();
 
-        pictureView = findViewById(R.id.pictureView);
-        addButton = findViewById(R.id.addButton);
+
+
+        itineraryModelList = new ArrayList<>();
+        itineraryAdapter = new ItineraryAdapter(this, itineraryModelList, listener );
+        itineraries.setLayoutManager(new GridLayoutManager(this, 3));
+        itineraries.setAdapter(itineraryAdapter);
 
         // Firebase data fetching and visibility control
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String userId = currentUser.getUid();
 
-        CollectionReference itinerariesRef = db.collection("users").document(userId).collection("itineraries");
-        itinerariesRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                QuerySnapshot querySnapshot = task.getResult();
-                if (querySnapshot.isEmpty()) {
-                    pictureView.setVisibility(View.GONE);
-                    addButton.setVisibility(View.VISIBLE);
-                } else {
-                    pictureView.setVisibility(View.VISIBLE);
-                    addButton.setVisibility(View.VISIBLE);
-                    // Load picture using retrieved data and chosen library
-                }
-            } else {
-                // Handle errors
-            }
-        });
-
-        // Add button click listener and navigation
-        addButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, newitineraryplan.class);
-            startActivity(intent);
-        });
-
+        db.collection("users").document(userId).collection("itineraries")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            itineraryModelList.clear();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                ItineraryModel itineraryModel = document.toObject(ItineraryModel.class);
+                                String itineraryId = document.getId();
+                                itineraryModel.setId(itineraryId);
+                                itineraryModelList.add(itineraryModel);
+                            }
+                            itineraryAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
     }
 }
