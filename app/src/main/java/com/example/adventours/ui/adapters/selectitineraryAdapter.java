@@ -20,6 +20,7 @@ import com.example.adventours.R;
 import com.example.adventours.ui.itineraryplan;
 import com.example.adventours.ui.models.FYPModel;
 import com.example.adventours.ui.models.ItineraryModel;
+import com.example.adventours.ui.selectDay;
 
 import java.util.List;
 
@@ -73,7 +74,7 @@ public class selectitineraryAdapter extends RecyclerView.Adapter<selectitinerary
                     if (position != RecyclerView.NO_POSITION) {
                         String id = itineraryModelList.get(position).getId();
                         if (id != null) {
-                            Intent intent = new Intent(context, itineraryplan.class);
+                            Intent intent = new Intent(context, selectDay.class);
                             intent.putExtra("ItineraryID", id);
                             Toast.makeText(context, "Itinerary ID" + id, Toast.LENGTH_SHORT).show();
                             context.startActivity(intent);
