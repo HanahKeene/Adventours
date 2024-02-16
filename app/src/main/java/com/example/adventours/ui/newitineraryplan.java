@@ -35,6 +35,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -173,8 +174,42 @@ public class newitineraryplan extends AppCompatActivity {
 
             // Upload image to Firebase Storage and set the image URL in Firestore
             uploadImageToStorage(buttonBitmap, itineraryRef, itineraryData, itineraryname, start, end);
+
+            // Convert start and end date strings to long timestamp
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault());
+            long startTimeStamp = 0;
+            long endTimeStamp = 0;
+            try {
+                Date startDate = dateFormat.parse(start);
+                Date endDate = dateFormat.parse(end);
+                startTimeStamp = startDate.getTime();
+                endTimeStamp = endDate.getTime();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            // Create subcollections for each day between start date and end date
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(startTimeStamp); // Set calendar to start date
+            int dayCount = 1; // Initialize day count
+
+            while (calendar.getTimeInMillis() <= endTimeStamp) {
+                String dayName = "Day " + dayCount + ":" + dateFormat.format(calendar.getTime());
+
+                // Create empty subcollection for each day
+                Map<String, Object> dayData = new HashMap<>();
+
+                // Add the day subcollection to Firestore
+                itineraryRef.collection(dayName).document().set(dayData);
+
+                // Move to the next day
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
+                dayCount++;
+            }
         }
     }
+
+
 
     private void uploadImageToStorage(Bitmap bitmap, DocumentReference itineraryRef, Map<String, Object> itineraryData, String name, String start, String end) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
