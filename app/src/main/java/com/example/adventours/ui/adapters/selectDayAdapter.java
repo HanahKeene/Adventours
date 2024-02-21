@@ -29,6 +29,7 @@ import com.example.adventours.ui.models.selectDayModel;
 import com.example.adventours.ui.selectDay;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -133,42 +134,27 @@ public class selectDayAdapter extends RecyclerView.Adapter<selectDayAdapter.View
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     String user = currentUser.getUid();
 
-                    // Initialize a flag to track if the spot ID exists in any day
-                    final boolean[] spotIdExists = {false};
-
                     // Check for duplicate spot IDs in all days
-                    for (selectDayModel dayModel : selectDayModelList) {
-                        String currentDayId = dayModel.getId();
-                        if (!currentDayId.equals(dayId)) {
-                            // Check if the spot ID exists in the activities collection of the current day
-                            db.collection("users").document(user).collection("itineraries").document(spot_id)
-                                    .collection("days").document(currentDayId).collection("activities")
-                                    .get()
-                                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                            if (!queryDocumentSnapshots.isEmpty()) {
-                                                // Spot ID already exists in the current day collection
-                                                spotIdExists[0] = true;
-                                            }
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(context, "Failed to check spot ID", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                        }
-                    }
+                    Task<QuerySnapshot> queryTask = db.collection("users").document(user).collection("itineraries").document(spot_id)
+                            .collection("days").whereEqualTo("spot_id", itinerary_id).get();
 
-                    // If the spot ID exists in any day, prompt the user to select another day
-                    if (spotIdExists[0]) {
-                        showDuplicateSpotIdDialog(dayId);
-                    } else {
-                        // Spot ID does not exist in any day, proceed to add it to the selected day
-                        addSpotIdToSelectedDay(dayId);
-                    }
+                    queryTask.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if (queryDocumentSnapshots.isEmpty()) {
+                                // No duplicate spot ID found, proceed to add the spot ID to the selected day
+                                addSpotIdToSelectedDay(dayId);
+                            } else {
+                                // Duplicate spot ID found, show dialog to select another day
+                                showDuplicateSpotIdDialog(dayId);
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context, "Failed to check spot ID", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
 
                 private void showDuplicateSpotIdDialog(final String currentDayId) {
@@ -222,13 +208,13 @@ public class selectDayAdapter extends RecyclerView.Adapter<selectDayAdapter.View
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
-                                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Spot ID added to activities of day " + selectedDayId, Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Failed to add spot ID to activities", Toast.LENGTH_SHORT).show();
                                 }
                             });
                 }
