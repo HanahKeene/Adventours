@@ -62,6 +62,7 @@ public class individualitineraryAdapter extends RecyclerView.Adapter<individuali
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.name.setText(individualitineraryModellist.get(position).getId());
+        holder.date.setText(individualitineraryModellist.get(position).getId());
     }
 
     @Override
@@ -70,11 +71,12 @@ public class individualitineraryAdapter extends RecyclerView.Adapter<individuali
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name;
+        TextView name, date;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.day);
+            date = itemView.findViewById(R.id.date);
         }
     }
 }

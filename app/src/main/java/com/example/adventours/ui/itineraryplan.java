@@ -42,7 +42,6 @@
             List<individualitineraryModel> individualitineraryModellist;
 
 
-
             @Override
             protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
@@ -52,7 +51,6 @@
                 endDatefld = findViewById(R.id.enddate);
                 itineraryname = findViewById(R.id.ItineraryName);
                 dayRecyclerView = findViewById(R.id.activities);
-
 
                 individualitineraryModellist = new ArrayList<>();
                 adapter= new individualitineraryAdapter(this, individualitineraryModellist);
@@ -82,6 +80,7 @@
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         individualitineraryModel individualitineraryModel = document.toObject(individualitineraryModel.class);
                                         String dayId = document.getId();
+                                        String date = document.getDate();
                                         individualitineraryModel.setId(dayId);
                                         individualitineraryModellist.add(individualitineraryModel);
                                     }
