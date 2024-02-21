@@ -46,12 +46,13 @@ public class touristspotinfo extends AppCompatActivity {
 
     private Button addtoitinerary;
 
-    ImageView back;
     private RecyclerView photogalleryRecyclerView, activitiesRecyclerView, hotelsRecyclerview, restaurantRecyclerview;
 
     private FirebaseFirestore db;
 
     private FirebaseAnalytics mFirebaseAnalytics;
+
+    ImageView back;
 
     @Override
 
