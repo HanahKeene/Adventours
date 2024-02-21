@@ -71,10 +71,13 @@ public class select_itinerary extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
+        Intent intent = getIntent();
+        String spot_id = intent.getStringExtra("Spot_ID");
+
 
 
         itineraryModelList = new ArrayList<>();
-        selectitineraryAdapter = new selectitineraryAdapter(select_itinerary.this, itineraryModelList, listener );
+        selectitineraryAdapter = new selectitineraryAdapter(select_itinerary.this, itineraryModelList, listener, spot_id);
         itineraries.setLayoutManager(new GridLayoutManager(this, 3));
         itineraries.setAdapter(selectitineraryAdapter);
 

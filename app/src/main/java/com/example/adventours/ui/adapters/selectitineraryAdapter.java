@@ -30,14 +30,17 @@ public class selectitineraryAdapter extends RecyclerView.Adapter<selectitinerary
     private Context context;
     private List<ItineraryModel> itineraryModelList;
 
+    private String spot_id;
+
     public interface OnItineraryItemClickListener {
         void onItineraryItemClick(String Id);
     }
 
-    public selectitineraryAdapter(Context context, List<ItineraryModel> itineraryModelList, OnItineraryItemClickListener listener) {
+    public selectitineraryAdapter(Context context, List<ItineraryModel> itineraryModelList, OnItineraryItemClickListener listener, String spot_id) {
         this.context = context;
         this.itineraryModelList = itineraryModelList;
         this.onItineraryClickListener = listener;
+        this.spot_id = spot_id;
     }
 
     @NonNull
@@ -67,6 +70,7 @@ public class selectitineraryAdapter extends RecyclerView.Adapter<selectitinerary
             img = itemView.findViewById(R.id.cover);
             name = itemView.findViewById(R.id.name);
 
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -75,8 +79,9 @@ public class selectitineraryAdapter extends RecyclerView.Adapter<selectitinerary
                         String id = itineraryModelList.get(position).getId();
                         if (id != null) {
                             Intent intent = new Intent(context, selectDay.class);
+                            intent.putExtra("Spot_ID", spot_id);
                             intent.putExtra("ItineraryID", id);
-                            Toast.makeText(context, "Itinerary ID" + id, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Spot_ID" + spot_id + "Itinerary ID" + id, Toast.LENGTH_SHORT).show();
                             context.startActivity(intent);
                         } else {
                             // If the item ID is null, log an error message

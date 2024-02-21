@@ -80,13 +80,6 @@ public class touristspotinfo extends AppCompatActivity {
         addtoitinerary = findViewById(R.id.addtoitinerary);
         back = findViewById(R.id.backbtn);
 
-        addtoitinerary.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(touristspotinfo.this, select_itinerary.class);
-                startActivity(intent);
-            }
-        });
 
         back.setOnClickListener(View -> finish());
 
@@ -104,6 +97,15 @@ public class touristspotinfo extends AppCompatActivity {
         // Get the spot ID from the Intent
         Intent intent = getIntent();
         String spotId = intent.getStringExtra("spot_id");
+
+        addtoitinerary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(touristspotinfo.this, select_itinerary.class);
+                intent.putExtra("Spot_ID", spotId);
+                startActivity(intent);
+            }
+        });
 
         // Fetch the other details of the spot from Firebase
         fetchSpotDetailsFromFirebase(spotId);

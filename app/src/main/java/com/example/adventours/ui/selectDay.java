@@ -29,6 +29,8 @@ public class selectDay extends AppCompatActivity {
 
     List<selectDayModel> selectDayModelList;
 
+    String spot_id;
+
     selectDayAdapter.OnDayItemClickListener listener;
 
     RecyclerView daysrecylerview;
@@ -39,6 +41,7 @@ public class selectDay extends AppCompatActivity {
         setContentView(R.layout.activity_select_day);
 
         Intent intent = getIntent();
+        String spot_ID = intent.getStringExtra("Spot_ID");
         String itineraryId = intent.getStringExtra("ItineraryID");
 
         daysrecylerview = findViewById(R.id.days);
@@ -51,7 +54,7 @@ public class selectDay extends AppCompatActivity {
         };
 
         selectDayModelList = new ArrayList<>();
-        selectDayAdapter = new selectDayAdapter(this, selectDayModelList, listener);
+        selectDayAdapter = new selectDayAdapter(this, selectDayModelList, spot_ID, itineraryId, listener);
         daysrecylerview.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         daysrecylerview.setAdapter(selectDayAdapter);
 

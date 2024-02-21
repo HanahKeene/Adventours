@@ -1,4 +1,6 @@
 package com.example.adventours.ui;
+import static androidx.fragment.app.FragmentManager.TAG;
+
 import com.example.adventours.ui.BitmapUtils;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
@@ -47,7 +50,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class newitineraryplan extends AppCompatActivity {
-
+    private static final String TAG = "New Itinerary";
     Button cover;
 
     TextInputEditText name, startdate, enddate;
@@ -151,7 +154,7 @@ public class newitineraryplan extends AppCompatActivity {
     }
 
     private void createitinerary() {
-        String itineraryname = name.getText().toString();
+        String itineraryName = name.getText().toString();
         String start = startdate.getText().toString();
         String end = enddate.getText().toString();
 
@@ -159,7 +162,7 @@ public class newitineraryplan extends AppCompatActivity {
         LocalDate endDate = LocalDate.parse(end, DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.getDefault()));
 
         // Calculate the number of days between the start and end dates
-        long dayscount = java.time.temporal.ChronoUnit.DAYS.between(startDate, endDate) + 1; // Add 1 to include both start and end dates
+        long daysCount = java.time.temporal.ChronoUnit.DAYS.between(startDate, endDate) + 1; // Add 1 to include both start and end dates
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DocumentReference userProfileRef = getUserProfileReference();
@@ -177,29 +180,48 @@ public class newitineraryplan extends AppCompatActivity {
 
             // Create a data object to store the information
             Map<String, Object> itineraryData = new HashMap<>();
-            itineraryData.put("name", itineraryname);
+            itineraryData.put("name", itineraryName);
             itineraryData.put("start", start);
             itineraryData.put("end", end);
-            itineraryData.put("days", dayscount);
+            itineraryData.put("days", daysCount);
 
-            for (int i = 1; i <= dayscount; i++) {
+            for (int i = 1; i <= daysCount; i++) {
                 Map<String, Object> dayData = new HashMap<>();
-                dayData.put("date", startDate.plusDays(i - 1).toString());
-                dayData.put("spots", new ArrayList<>()); // Initialize spots as an empty list
+                LocalDate currentDate = startDate.plusDays(i - 1);
+                dayData.put("date", currentDate.toString());
 
                 // Add day document to days collection
                 int finalI = i;
                 itineraryRef.collection("days").document("Day " + i)
                         .set(dayData)
+                        .addOnSuccessListener(aVoid -> {
+                            Log.d(TAG, "Day " + finalI + " created");
+
+                            // Once the day document is successfully created, create the "activities" subcollection
+                            createActivitiesSubcollection(itineraryRef.collection("days").document("Day " + finalI));
+                        })
                         .addOnFailureListener(e -> {
-                            Toast.makeText(newitineraryplan.this, "Failed to create day " + finalI, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Failed to create day " + finalI, Toast.LENGTH_SHORT).show();
                         });
             }
-
             // Upload image to Firebase Storage and set the image URL in Firestore
-            uploadImageToStorage(buttonBitmap, itineraryRef, itineraryData, itineraryname, start, end);
+            uploadImageToStorage(buttonBitmap, itineraryRef, itineraryData, itineraryName, start, end);
         }
     }
+
+    // Method to create "activities" subcollection within the specified day document
+    private void createActivitiesSubcollection(DocumentReference dayDocumentRef) {
+        // Simply create the subcollection, no need to set data in it
+        dayDocumentRef.collection("activities").document("Placeholder")
+                .set(new HashMap<>())  // This is just a placeholder document to trigger subcollection creation
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "Activities subcollection created");
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error creating activities subcollection", e);
+                });
+    }
+
 
 
 
