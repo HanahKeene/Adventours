@@ -200,7 +200,7 @@ public class selectDayAdapter extends RecyclerView.Adapter<selectDayAdapter.View
                     String user = currentUser.getUid();
 
                     Map<String, Object> data = new HashMap<>();
-                    data.put("spot_id", itinerary_id);
+                    data.put("activity_id", itinerary_id);
 
                     db.collection("users").document(user).collection("itineraries").document(spot_id)
                             .collection("days").document(selectedDayId).collection("activities")

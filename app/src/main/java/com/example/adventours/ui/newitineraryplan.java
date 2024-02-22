@@ -127,7 +127,7 @@ public class newitineraryplan extends AppCompatActivity {
                 // Set the formatted date to the TextView
                 dateTextView.setText(formattedDate);
             }
-            private String formatDateAsWords(int year, int month, int day) {
+                private String formatDateAsWords(int year, int month, int day) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
@@ -186,9 +186,12 @@ public class newitineraryplan extends AppCompatActivity {
             itineraryData.put("days", daysCount);
 
             for (int i = 1; i <= daysCount; i++) {
+
                 Map<String, Object> dayData = new HashMap<>();
-                LocalDate currentDate = startDate.plusDays(i - 1);
-                dayData.put("date", currentDate.toString());
+                    LocalDate currentDate = startDate.plusDays(i - 1);
+                    String formattedDate = formatDateAsWords(currentDate);
+                    dayData.put("date", formattedDate.toString());
+
 
                 // Add day document to days collection
                 int finalI = i;
@@ -222,7 +225,10 @@ public class newitineraryplan extends AppCompatActivity {
                 });
     }
 
-
+    private String formatDateAsWords(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
+        return date.format(formatter);
+    }
 
 
     private void uploadImageToStorage(Bitmap bitmap, DocumentReference itineraryRef, Map<String, Object> itineraryData, String name, String start, String end) {

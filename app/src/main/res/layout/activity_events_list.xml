@@ -29,6 +29,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/events"
         android:layout_width="391dp"
         android:layout_height="796dp"
         android:layout_marginStart="1dp"

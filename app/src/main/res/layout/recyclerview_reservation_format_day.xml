@@ -39,7 +39,7 @@
 
         <!-- RecyclerView for displaying activities -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/activityRecyclerView"
+            android:id="@+id/activitiesrecyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp" />
