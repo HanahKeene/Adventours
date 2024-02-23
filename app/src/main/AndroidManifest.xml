@@ -23,6 +23,9 @@
         android:theme="@style/Theme.Adventours"
         tools:targetApi="30">
         <activity
+            android:name=".events_info"
+            android:exported="false" />
+        <activity
             android:name=".ui.selectDay"
             android:exported="false" />
         <activity
@@ -134,7 +137,7 @@
             android:name=".ui.lists.tours_list_activity"
             android:exported="false" />
         <activity
-            android:name=".ui.lists.events_list_activity"
+            android:name=".ui.lists.events_lists_Activity"
             android:exported="false" />
         <activity
             android:name=".ui.lists.restaurant_lists_activity"

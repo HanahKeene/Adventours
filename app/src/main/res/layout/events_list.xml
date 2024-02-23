@@ -29,20 +29,20 @@
 
         <TextView
             android:id="@+id/status"
-            android:layout_width="150dp"
+            android:layout_width="100dp"
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:background="@drawable/button_green"
             android:padding="10dp"
             android:text="Ongoing"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:background="@drawable/button_green"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/eventname"
+            android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -50,26 +50,27 @@
             android:padding="10dp"
             android:text="January 1, 2024"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/date"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/eventname"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/baseline_arrow_back" />
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/eventname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="195dp"
             android:layout_marginBottom="16dp"
             android:background="#00FFFFFF"
             android:padding="10dp"
             android:text="Event Name"
             android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/baseline_arrow_back" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,14 +4,16 @@ public class EventsListModel {
 
 
     String events_id;
+    String img_url;
     String name;
     String location;
     String start_date;
     String end_date;
     String desc;
 
-    public EventsListModel(String events_id, String name, String location, String start_date, String end_date, String desc) {
+    public EventsListModel(String events_id, String img_url, String name, String location, String start_date, String end_date, String desc) {
         this.events_id = events_id;
+        this.img_url = img_url;
         this.name = name;
         this.location = location;
         this.start_date = start_date;
@@ -19,9 +21,22 @@ public class EventsListModel {
         this.desc = desc;
     }
 
+    public EventsListModel(){
+
+    }
+
+    public String getImg_url() {
+        return img_url;
+    }
+
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
+    }
+
     public String getEvents_id() {
         return events_id;
     }
+
 
     public void setEvents_id(String events_id) {
         this.events_id = events_id;
@@ -66,4 +81,5 @@ public class EventsListModel {
     public void setDesc(String desc) {
         this.desc = desc;
     }
+
 }

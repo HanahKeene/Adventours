@@ -26,7 +26,7 @@ import com.example.adventours.touristspotinfo;
 import com.example.adventours.ui.adapters.CategoryAdapter;
 import com.example.adventours.ui.adapters.FYPAdapter;
 import com.example.adventours.ui.adapters.MusttryAdapter;
-import com.example.adventours.ui.lists.events_list_activity;
+import com.example.adventours.ui.lists.events_lists_Activity;
 import com.example.adventours.ui.lists.hotel_lists_Activity;
 import com.example.adventours.ui.lists.restaurant_lists_activity;
 import com.example.adventours.ui.lists.tours_list_activity;
@@ -238,7 +238,7 @@ public class HomeFragment extends Fragment implements FYPAdapter.OnFYPItemClickL
 
                 //Events
             case "qS5pvrgnFRTZD8dfNdR6":
-                Intent intent4 = new Intent(getActivity(), events_list_activity.class);
+                Intent intent4 = new Intent(getActivity(), events_lists_Activity.class);
                 startActivity(intent4);
                 break;
 

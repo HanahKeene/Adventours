@@ -142,9 +142,7 @@
             style="@style/BUTTON"
             android:text="RESERVE A TABLE"
             android:textColor="#FFFFFF"
-            android:padding="20dp"
-            android:layout_margin="10dp"
-            android:layout_weight="0.75"/>
+            android:layout_weight="0.90"/>
 
 
         <ImageView
@@ -152,9 +150,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@drawable/addtoitinerary"
-            android:layout_margin="10dp"
-            android:padding="12dp"
-            android:layout_weight="0.25"
+            android:layout_weight="0.10"
+            android:padding="10dp"
+            android:layout_marginLeft="5dp"
             app:srcCompat="@drawable/outline_book_24"/>
 
     </LinearLayout>

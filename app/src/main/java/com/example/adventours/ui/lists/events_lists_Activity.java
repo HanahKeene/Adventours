@@ -1,29 +1,22 @@
 package com.example.adventours.ui.lists;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.adventours.MainActivity;
 import com.example.adventours.R;
-import com.example.adventours.hotelinfo;
+import com.example.adventours.events_info;
 import com.example.adventours.ui.adapters.eventsListAdapter;
-import com.example.adventours.ui.adapters.hotelListAdapter;
-import com.example.adventours.ui.home.HomeFragment;
 import com.example.adventours.ui.models.EventsListModel;
-import com.example.adventours.ui.models.HotelListModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,17 +26,16 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class events_list_activity extends AppCompatActivity {
+public class events_lists_Activity extends AppCompatActivity {
 
-    RecyclerView events;
-
-    TextView back;
-
-    SharedPreferences sharedPreferences;
+    RecyclerView eventsRecyclerView;
     eventsListAdapter eventsListAdapter;
 
+    TextView  back;
     List<EventsListModel> eventsListModelList;
     FirebaseFirestore db;
+
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +50,9 @@ public class events_list_activity extends AppCompatActivity {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
+
+        eventsRecyclerView = findViewById(R.id.events);
         back = findViewById(R.id.back);
-        events = findViewById(R.id.events);
 
         back.setOnClickListener(View -> finish());
 
@@ -67,21 +60,22 @@ public class events_list_activity extends AppCompatActivity {
 
         eventsListModelList = new ArrayList<>();
 
-        eventsListAdapter = new eventsListAdapter(this, eventsListModelList, new eventsListAdapter.onEventsListItemClickListener() {
+        eventsListAdapter = new eventsListAdapter(this, eventsListModelList, new eventsListAdapter.OnEventListItemClickListener() {
             @Override
-            public void onEventsListItemClickListener(String event_id) {
-                // Handle the click event here
-//                Toast.makeText(hotel_lists_Activity.this, "Clicked Hotel ID: " + hotelId, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(events_list_activity.this, hotelinfo.class);
-                intent.putExtra("event_id", hotelId);
+            public void onEventListItemClickListener(String event_id) {
+
+                Intent intent = new Intent(events_lists_Activity.this, events_info.class);
+                intent.putExtra("events_id", event_id);
                 startActivity(intent);
+
             }
+
         });
 
-        events.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        events.setAdapter(eventsListAdapter);
+        eventsRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        eventsRecyclerView.setAdapter(eventsListAdapter);
 
-        db.collection("Hotels")
+        db.collection("Events")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -90,17 +84,16 @@ public class events_list_activity extends AppCompatActivity {
                             eventsListModelList.clear();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 EventsListModel eventsListModel = document.toObject(EventsListModel.class);
-                                String events_id = document.getId();
-                                eventsListModel.setEvents_id(events_id);
+                                String event_id = document.getId();
+                                eventsListModel.setEvents_id(event_id);
                                 eventsListModelList.add(eventsListModel);
                             }
+
                             eventsListAdapter.notifyDataSetChanged(); // Notify adapter after adding new data
                         } else {
-                            Toast.makeText(events_list_activity.this, "Error fetching hotels: " + task.getException(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(events_lists_Activity.this, "Error fetching hotels: " + task.getException(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-    }
-
     }
 }

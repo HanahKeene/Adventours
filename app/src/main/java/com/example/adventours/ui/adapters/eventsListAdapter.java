@@ -20,20 +20,20 @@ import java.util.List;
 
 public class eventsListAdapter extends RecyclerView.Adapter<eventsListAdapter.ViewHolder> {
 
-    private OnEventsListItemClickListener onEventsListItemClickListener;
+    private OnEventListItemClickListener onEventListItemClickListener;
 
     private Context context;
     private List<EventsListModel> eventsListModelList;
 
-    public interface OnEventsListItemClickListener
+    public interface OnEventListItemClickListener
     {
-        void onEventsListItemClickListener(String event_id);
+        void onEventListItemClickListener(String event_id);
     }
 
-    public eventsListAdapter(Context context, List<EventsListModel> eventsListModelList, OnEventsListItemClickListener listener) {
+    public eventsListAdapter(Context context, List<EventsListModel> eventsListModelList, OnEventListItemClickListener listener) {
         this.context = context;
         this.eventsListModelList = eventsListModelList;
-        this.onEventsListItemClickListener = listener;
+        this.onEventListItemClickListener = listener;
     }
 
     @NonNull
@@ -45,9 +45,8 @@ public class eventsListAdapter extends RecyclerView.Adapter<eventsListAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-//        Glide.with(context).load(eventsListModelList.get(position).getImg_url()).into(holder.catImg);
+        Glide.with(context).load(eventsListModelList.get(position).getImg_url()).into(holder.img);
         holder.name.setText(eventsListModelList.get(position).getName());
-        holder.date.setText(eventsListModelList.get(position).getStart_date());
     }
 
     @Override
@@ -57,34 +56,33 @@ public class eventsListAdapter extends RecyclerView.Adapter<eventsListAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-//        ImageView catImg;
-        TextView name, location, date ;
+        ImageView img;
+        TextView name;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-//            catImg = itemView.findViewById(R.id.pic);
-             name = itemView.findViewById(R.id.event_img);
-             date = itemView.findViewById(R.id.date);
+            img = itemView.findViewById(R.id.event_img);
+            name = itemView.findViewById(R.id.eventname);
 
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    int position = getAdapterPosition();
-//                    if (position != RecyclerView.NO_POSITION) {
-//                        String hotel_id = eventsListModelList.get(position).getHotel_id();
-//                        // Check if the item ID is null
-//                        if (hotel_id != null) {
-//                            // You can also call the onFYPItemClickListener method here to perform other actions
-//                            onHotelListItemClickListener.onHotelListItemClick(hotel_id);
-//                        } else {
-//                            // If the item ID is null, log an error message
-//                            Log.e("FYPAdapter", "Item ID is null");
-//                        }
-//                    } else {
-//                        // If the item position is equal to RecyclerView.NO_POSITION, log an error message
-//                        Log.e("FYPAdapter", "Item position is equal to RecyclerView.NO_POSITION");
-//                    }
-//                }
-//            });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        String events_id = eventsListModelList.get(position).getEvents_id();
+                        // Check if the item ID is null
+                        if (events_id != null) {
+                            // You can also call the onFYPItemClickListener method here to perform other actions
+                            onEventListItemClickListener.onEventListItemClickListener(events_id);
+                        } else {
+                            // If the item ID is null, log an error message
+                            Log.e("FYPAdapter", "Item ID is null");
+                        }
+                    } else {
+                        // If the item position is equal to RecyclerView.NO_POSITION, log an error message
+                        Log.e("FYPAdapter", "Item position is equal to RecyclerView.NO_POSITION");
+                    }
+                }
+            });
         }
     }
 }
