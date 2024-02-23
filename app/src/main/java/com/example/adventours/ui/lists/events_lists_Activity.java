@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,11 +16,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.adventours.R;
 import com.example.adventours.events_info;
+import com.example.adventours.hotelinfo;
+import com.example.adventours.restauinfo;
+import com.example.adventours.touristspotinfo;
 import com.example.adventours.ui.adapters.eventsListAdapter;
+import com.example.adventours.ui.adapters.hotelAdapter;
+import com.example.adventours.ui.adapters.restaurantAdapter;
 import com.example.adventours.ui.models.EventsListModel;
+import com.example.adventours.ui.models.HotelsModel;
+import com.example.adventours.ui.models.RestaurantsModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -28,7 +37,7 @@ import java.util.List;
 
 public class events_lists_Activity extends AppCompatActivity {
 
-    RecyclerView eventsRecyclerView;
+    RecyclerView eventsRecyclerView, hotelsrecyclerview, restaurantsrecyclerview;
     eventsListAdapter eventsListAdapter;
 
     TextView  back;

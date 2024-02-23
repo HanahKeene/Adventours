@@ -139,7 +139,7 @@
     <LinearLayout
         android:id="@+id/buttonLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
@@ -152,12 +152,10 @@
             android:id="@+id/reserveroombtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:layout_margin="10dp"
             style="@style/BUTTON"
             android:text="Reserve a Room"
             android:textColor="#FFFFFF"
-            android:layout_weight="1"/>
+            android:layout_weight="0.90"/>
 
         <ImageView
             android:id="@+id/imageView8"
@@ -166,7 +164,7 @@
             android:background="@drawable/addtoitinerary"
             android:layout_margin="10dp"
             android:padding="12dp"
-            android:layout_weight="0.25"
+            android:layout_weight="0.10"
             app:srcCompat="@drawable/outline_book_24"/>
 
 

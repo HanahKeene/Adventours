@@ -110,12 +110,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="Available Rooms"
+                    android:text="Nearby Restaurants"
                     android:textStyle="bold"
                     style="@style/TEXT"/>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/roomsrecyclerview"
+                    android:id="@+id/restaurants"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Nearby Hotels"
+                    android:textStyle="bold"
+                    style="@style/TEXT"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/hotels"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
