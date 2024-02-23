@@ -12,13 +12,18 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.adventours.ui.adapters.activityAdapter;
+import com.example.adventours.ui.adapters.eventAdapter;
 import com.example.adventours.ui.adapters.photogalleryAdapter;
+import com.example.adventours.ui.adapters.roomAdapter;
 import com.example.adventours.ui.models.activityModel;
+import com.example.adventours.ui.models.eventModel;
+import com.example.adventours.ui.models.roomModel;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class events_info extends AppCompatActivity {
 
@@ -37,6 +42,8 @@ public class events_info extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.events_info);
+
+        db = FirebaseFirestore.getInstance();
 
         back = findViewById(R.id.backbtn);
         img_spot = findViewById(R.id.spot_img);
@@ -101,49 +108,28 @@ public class events_info extends AppCompatActivity {
                             .into(img_spot);
                 }
 
-                // Retrieve image URLs from the sub-collection
-//                spotRef.collection("Photo Gallery").get().addOnSuccessListener(queryDocumentSnapshots -> {
-//                    ArrayList<String> imageUrls = new ArrayList<>();
-//                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-//                        String imageUrl = document.getString("img_url");
-//                        if (imageUrl != null) {
-//                            imageUrls.add(imageUrl);
-//                        }
-//                    }
-//
-//                    // Set up the RecyclerView with the image URLs using photogalleryAdapter
-//                    photogalleryAdapter adapter = new photogalleryAdapter(this, imageUrls);
-//                    LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-//                    eventsRecyclerview.setLayoutManager(layoutManager);
-//                    eventsRecyclerview.setAdapter(adapter);
-//
-//                }).addOnFailureListener(e -> {
-//                    // Handle errors that occurred while fetching spot details
-//                });
+                List<eventModel> eventModelList = new ArrayList<>();
 
-                // Retrieve activities from the "Activities" sub-collection
-//                spotRef.collection("Activities").get().addOnSuccessListener(activitiesSnapshots -> {
-//                    ArrayList<activityModel> activityModelList = new ArrayList<>();
-//                    for (QueryDocumentSnapshot document : activitiesSnapshots) {
-//                        String imageUrl = document.getString("img_url");
-//                        String activityname = document.getString("name");
-//                        if (imageUrl != null && activityname != null) {
-//                            activityModel activityItem = new activityModel(imageUrl, activityname);
-//                            activityModelList.add(activityItem);
-//                        }
-//                    }
-//
-//                    // Set up the RecyclerView with the activityModel objects using activityAdapter
-//                    activityAdapter adapter = new activityAdapter(this, activityModelList);
-//                    LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-//                    activitiesRecyclerView.setLayoutManager(layoutManager);
-//                    activitiesRecyclerView.setAdapter(adapter);
-//                }).addOnFailureListener(e -> {
-//                    // Handle errors that occurred while fetching data from the "Activities" sub-collection
-//                });
+                spotRef.collection("Activities").get().addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (QueryDocumentSnapshot documentSnapshot1 : queryDocumentSnapshots) {
+                        String img_url = documentSnapshot1.getString("img_url");
+                        String name1 = documentSnapshot1.getString("name");
+                        String desc1 = documentSnapshot1.getString("desc");
 
-            } else {
-                // Handle the case where the document does not exist
+                        // Create a Room object
+                        eventModel event = new eventModel(img_url, name1, desc1);
+
+                        // Add the room to the list
+                        eventModelList.add(event);
+                    }
+
+                    eventAdapter eventAdapter = new eventAdapter(this, eventModelList);
+
+                    eventsRecyclerview.setAdapter(eventAdapter);
+                    eventsRecyclerview.setLayoutManager(new LinearLayoutManager(this));
+                }).addOnFailureListener(e -> {
+                    // Handle errors that occurred while fetching room details
+                });
             }
         }).addOnFailureListener(e -> {
             // Handle errors that occurred while fetching spot details
