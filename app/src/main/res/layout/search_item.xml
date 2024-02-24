@@ -8,9 +8,9 @@
         android:id="@+id/place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp"
         android:drawableLeft="@drawable/search"
-        android:drawableTint="@color/black"
+        android:drawableTint="#5C5C5C"
+        android:padding="16dp"
         android:text="Place"
         android:textStyle="bold" />
 </LinearLayout>
