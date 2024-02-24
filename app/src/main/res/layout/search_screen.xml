@@ -29,7 +29,6 @@
             android:hint="Search your favorite in Panagsinan"
             android:padding="10dp"
             android:singleLine="true"
-            android:textColor="@color/white"
             android:textColorHint="#7AFFFFFF"
             android:textSize="16sp" />
     </LinearLayout>
@@ -55,32 +54,17 @@
             android:text="Popular Search"
             style="@style/TEXT"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/popular_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Recent Search"
             style="@style/TEXT"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recentsearch"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Recently Viewed"
             style="@style/TEXT"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recentlyviewed"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
     </LinearLayout>
 

@@ -1,53 +1,68 @@
 package com.example.adventours.ui.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.example.adventours.R;
+import com.example.adventours.ui.models.activityModel;
 import com.example.adventours.ui.models.searchModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class searchAdapter extends RecyclerView.Adapter<searchAdapter.SearchViewHolder> {
+public class searchAdapter extends RecyclerView.Adapter<searchAdapter.ViewHolder> {
 
-    private List<searchModel> dataList;
+    private Context context;
+    private List<searchModel> searchModelList;
+
+    public searchAdapter(Context context, List<searchModel> searchModelList) {
+        this.context = context;
+        this.searchModelList = searchModelList;
+        this.searchModelList = new ArrayList<>();
+    }
 
     public void setData(List<searchModel> dataList) {
-        this.dataList = dataList;
+        this.searchModelList.clear();
+        this.searchModelList.addAll(dataList);
+        notifyDataSetChanged();
+    }
+    public void clearData() {
+        this.searchModelList.clear();
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_item, parent, false);
-        return new SearchViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
-        searchModel data = dataList.get(position);
-        holder.bind(data);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.name.setText(searchModelList.get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        return dataList != null ? dataList.size() : 0;
+        return  searchModelList.size();
     }
 
-    static class SearchViewHolder extends RecyclerView.ViewHolder {
-        private TextView textViewName;
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        SearchViewHolder(@NonNull View itemView) {
+        TextView name;
+
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewName = itemView.findViewById(R.id.place);
-        }
-
-        void bind(searchModel data) {
-            textViewName.setText(data.getName());
+            name = itemView.findViewById(R.id.place);
         }
     }
 }
