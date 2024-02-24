@@ -26,14 +26,19 @@ public class searchAdapter extends RecyclerView.Adapter<searchAdapter.ViewHolder
     public searchAdapter(Context context, List<searchModel> searchModelList) {
         this.context = context;
         this.searchModelList = searchModelList;
-        this.searchModelList = new ArrayList<>();
+        if (this.searchModelList == null) {
+            this.searchModelList = new ArrayList<>(); // Initialize if null
+        }
     }
 
     public void setData(List<searchModel> dataList) {
-        this.searchModelList.clear();
-        this.searchModelList.addAll(dataList);
-        notifyDataSetChanged();
+        if (dataList != null) { // Null check
+            this.searchModelList.clear();
+            this.searchModelList.addAll(dataList);
+            notifyDataSetChanged();
+        }
     }
+
     public void clearData() {
         this.searchModelList.clear();
         notifyDataSetChanged();
@@ -48,12 +53,17 @@ public class searchAdapter extends RecyclerView.Adapter<searchAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText(searchModelList.get(position).getName());
+        if (searchModelList != null && position < searchModelList.size()) { // Null check and bounds check
+            holder.name.setText(searchModelList.get(position).getName());
+        }
     }
 
     @Override
     public int getItemCount() {
-        return  searchModelList.size();
+        if (searchModelList != null) { // Null check
+            return searchModelList.size();
+        }
+        return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -66,4 +76,3 @@ public class searchAdapter extends RecyclerView.Adapter<searchAdapter.ViewHolder
         }
     }
 }
-
