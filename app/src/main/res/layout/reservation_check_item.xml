@@ -23,7 +23,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_weight="0.50"
+                android:layout_weight="0.25"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
@@ -31,17 +31,23 @@
                     android:id="@+id/reservation_item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Reservation Name"/>
+                    android:text="Reservation Name"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/reservation_place"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hotel Name"/>
+                    android:text="Hotel Name"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/reservation_num"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Reservation Number"/>
+                    android:text="Reservation Number"
+                    android:textStyle="italic" />
                 <TextView
                     android:id="@+id/reservation_duration"
                     android:layout_width="match_parent"
@@ -51,7 +57,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_weight="0.50"
+                android:layout_weight="0.75"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center">
