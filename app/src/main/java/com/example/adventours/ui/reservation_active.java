@@ -64,19 +64,37 @@ public class reservation_active extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            activereservationModelList.clear(); // Clear the list before adding new data
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 activereservationModel activereservationModel = document.toObject(activereservationModel.class);
-                                String reservation_id = document.getId(); // Retrieve document ID
-//                                activereservationModel.setCa(reservation_id);
                                 activereservationModelList.add(activereservationModel);
                             }
-                            adapter.notifyDataSetChanged(); // Notify adapter after adding new data
+                            adapter.notifyDataSetChanged();
                         } else {
                             Toast.makeText(getActivity(), "Error fetching categories: " + task.getException(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
+//        db.collection("Restaurant Reservation")
+//                .whereEqualTo("UserID", userId)
+//                .whereIn("status", statusList)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {// Clear the list before adding new data
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                activereservationModel activereservationModel = document.toObject(activereservationModel.class);
+//                                activereservationModelList.add(activereservationModel);
+//                            }
+//                            adapter.notifyDataSetChanged(); // Notify adapter after adding new data
+//                        } else {
+//                            Toast.makeText(getActivity(), "Error fetching categories: " + task.getException(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+
+
 
 
         return rootView;

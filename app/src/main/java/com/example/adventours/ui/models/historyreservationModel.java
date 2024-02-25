@@ -1,27 +1,25 @@
 package com.example.adventours.ui.models;
 
-public class activereservationModel {
+public class historyreservationModel {
 
     String RoomName;
     String HotelName;
-    String RestaurantName;
     String reservationId;
     String CheckIn;
     String CheckOut;
     String status;
 
-    activereservationModel(){
+    historyreservationModel(){
 
     }
 
-    public activereservationModel(String RoomName, String hotelName, String RestaurantName, String reservationId, String checkIn, String checkOut, String status) {
-        this.RoomName = RoomName;
+    public historyreservationModel(String roomName, String hotelName, String reservationId, String checkIn, String checkOut, String status) {
+        this.RoomName = roomName;
         this.HotelName = hotelName;
-        this.RestaurantName = RestaurantName;
         this.reservationId = reservationId;
         this.CheckIn = checkIn;
         this.CheckOut = checkOut;
-        this.status=status;
+        this.status = status;
     }
 
     public String getRoomName() {
@@ -29,7 +27,7 @@ public class activereservationModel {
     }
 
     public void setRoomName(String roomName) {
-        this.RoomName = roomName;
+        RoomName = roomName;
     }
 
     public String getHotelName() {
@@ -38,14 +36,6 @@ public class activereservationModel {
 
     public void setHotelName(String hotelName) {
         HotelName = hotelName;
-    }
-
-    public String getRestaurantName() {
-        return RestaurantName;
-    }
-
-    public void setRestaurantName(String restaurantName) {
-        RestaurantName = restaurantName;
     }
 
     public String getReservationId() {

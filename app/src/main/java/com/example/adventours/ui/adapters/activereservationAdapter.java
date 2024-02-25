@@ -40,7 +40,8 @@ public class activereservationAdapter extends RecyclerView.Adapter<activereserva
 
         holder.roomname.setText(activereservationModelList.get(position).getRoomName());
         holder.hotelname.setText(activereservationModelList.get(position).getHotelName());
-        holder.reservationid.setText(activereservationModelList.get(position).getReservationId());
+//        holder.restauname.setText(activereservationModelList.get(position).getRestaurantName());
+        holder.reservationid.setText("Reservation No. " + activereservationModelList.get(position).getReservationId());
         holder.date.setText(activereservationModelList.get(position).getCheckIn() + " - " + activereservationModelList.get(position).getCheckOut());
         holder.status.setText(activereservationModelList.get(position).getStatus());
 
@@ -54,11 +55,12 @@ public class activereservationAdapter extends RecyclerView.Adapter<activereserva
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView roomname, hotelname, reservationid, date, status;
+        TextView roomname, hotelname, restauname,reservationid, date, status;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             roomname = itemView.findViewById(R.id.reservation_item);
             hotelname = itemView.findViewById(R.id.reservation_place);
+            restauname = itemView.findViewById(R.id.reservation_item);
             reservationid = itemView.findViewById(R.id.reservation_num);
             date = itemView.findViewById(R.id.reservation_duration);
             status = itemView.findViewById(R.id.reservation_status);

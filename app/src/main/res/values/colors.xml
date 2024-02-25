@@ -19,7 +19,11 @@
     <color name="ONHOLD">#A4A8A1</color>
     <color name="PENDINGAPPROVAL">#F4F824</color>
     <color name="UPCOMING">#24F8F8</color>
-    
+
+    <color name="COMPLETED">#75F824</color>
+    <color name="CANCELLED">#F82424</color>
+    <color name="EXPIRED">#9BA596</color>
+    <color name="REJECTED">#FF0000</color>
 
     <color name="transparent">#00000000</color>
 </resources>
