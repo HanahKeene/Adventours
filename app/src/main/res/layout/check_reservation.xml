@@ -28,32 +28,37 @@
             android:textSize="20sp" />
     </LinearLayout>
 
-    <TableLayout
-        android:id="@+id/linearLayout16"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:padding="10dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:stretchColumns="0,1,2"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout17"
+        tools:layout_editor_absoluteX="1dp"
+        style="@style/TEXT">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ACTIVE"
+            style="@style/TEXT"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HISTORY"
+            style="@style/TEXT"/>
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewpage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout17">
-
-        <TableRow>
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/age"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/cancel_btn"
-                android:hint="Search for reservartion no."
-                style="@style/HINT"
-                android:inputType="number"
-                android:minHeight="48dp"
-                android:padding="10dp"
-                tools:ignore="TouchTargetSizeCheck" />
-        </TableRow>
-    </TableLayout>
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

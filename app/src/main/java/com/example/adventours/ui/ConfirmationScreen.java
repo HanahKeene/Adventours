@@ -57,6 +57,7 @@ public class ConfirmationScreen extends AppCompatActivity {
         String check_in = intent.getStringExtra("CheckIn");
         String check_out = intent.getStringExtra("CheckOut");
         String roomquantity = intent.getStringExtra("RoomQuantity");
+        String userid = intent.getStringExtra("UserID");
 
 //        getRoomPriceFromFirebase(hotelid, roomid, roomquantity);
 
@@ -186,6 +187,7 @@ public class ConfirmationScreen extends AppCompatActivity {
 
                 private void addReservationToFirestore(String reservationId) {
                     // Create a Map with reservation details
+                    String userId = currentUser.getUid();
                     Map<String, Object> reservationData = new HashMap<>();
                     String status = "Pending";
                     reservationData.put("status", status);
@@ -199,6 +201,7 @@ public class ConfirmationScreen extends AppCompatActivity {
                     reservationData.put("CheckIn", checkin.getText().toString());
                     reservationData.put("CheckOut", checkout.getText().toString());
                     reservationData.put("Expiration", expirationtxtfld.getText().toString());
+                    reservationData.put("UserID", userId.toString());
 
                     // Add the reservation to the "Hotel Reservation" collection with the generated ID
                     db.collection("Hotel Reservation").document(reservationId).set(reservationData)

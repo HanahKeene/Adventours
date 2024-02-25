@@ -224,6 +224,7 @@ public class RoomDetails extends AppCompatActivity {
                             intent.putExtra("LastName", lastName);
                             intent.putExtra("City", city);
                             intent.putExtra("Phone", phone);
+                            intent.putExtra("UserID", userId);
 
 
                             Toast.makeText(RoomDetails.this, "User:" + userId, Toast.LENGTH_SHORT).show();
