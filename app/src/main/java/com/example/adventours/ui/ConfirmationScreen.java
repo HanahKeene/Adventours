@@ -189,7 +189,7 @@ public class ConfirmationScreen extends AppCompatActivity {
                     // Create a Map with reservation details
                     String userId = currentUser.getUid();
                     Map<String, Object> reservationData = new HashMap<>();
-                    String status = "Pending";
+                    String status = "Pending Approval";
                     reservationData.put("status", status);
                     reservationData.put("reservationId", reservationId);
                     reservationData.put("CustomerName", name.getText().toString());

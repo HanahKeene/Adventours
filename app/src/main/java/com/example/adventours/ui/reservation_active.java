@@ -27,6 +27,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class reservation_active extends Fragment {
@@ -52,10 +53,12 @@ public class reservation_active extends Fragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String userId = currentUser.getUid();
+        List<String> statusList = Arrays.asList("Confirmed", "Checked in", "In Progress", "On Hold", "Pending Approval", "Upcoming");
 
 
         db.collection("Hotel Reservation")
                 .whereEqualTo("UserID", userId)
+                .whereIn("status", statusList)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

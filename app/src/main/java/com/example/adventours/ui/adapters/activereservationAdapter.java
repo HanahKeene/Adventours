@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -37,11 +38,13 @@ public class activereservationAdapter extends RecyclerView.Adapter<activereserva
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.roomname.setText( activereservationModelList.get(position).getRoomName());
-        holder.hotelname.setText( activereservationModelList.get(position).getHotelName());
-        holder.reservationid.setText( activereservationModelList.get(position).getReservationId());
-        holder.date.setText( activereservationModelList.get(position).getCheckIn() + " - "+ activereservationModelList.get(position).getCheckOut());
-        holder.status.setText( activereservationModelList.get(position).getStatus());
+        holder.roomname.setText(activereservationModelList.get(position).getRoomName());
+        holder.hotelname.setText(activereservationModelList.get(position).getHotelName());
+        holder.reservationid.setText(activereservationModelList.get(position).getReservationId());
+        holder.date.setText(activereservationModelList.get(position).getCheckIn() + " - " + activereservationModelList.get(position).getCheckOut());
+        holder.status.setText(activereservationModelList.get(position).getStatus());
+
+        holder.status.setTextColor(getStatusColor(activereservationModelList.get(position).getStatus()));
     }
 
     @Override
@@ -61,5 +64,32 @@ public class activereservationAdapter extends RecyclerView.Adapter<activereserva
             status = itemView.findViewById(R.id.reservation_status);
 
         }
+    }
+
+    private int getStatusColor(String status) {
+        int color;
+        switch (status.toLowerCase()) {
+            case "confirmed":
+                color = ContextCompat.getColor(context, R.color.CONFIRMED);
+                break;
+            case "checkin":
+                color = ContextCompat.getColor(context, R.color.CHECKIN);
+                break;
+            case "in progress":
+                color = ContextCompat.getColor(context, R.color.INPROGRESS);
+                break;
+            case "on hold":
+                color = ContextCompat.getColor(context, R.color.ONHOLD);
+                break;
+            case "pending approval":
+                color = ContextCompat.getColor(context, R.color.PENDINGAPPROVAL);
+                break;
+            case "upcoming":
+                color = ContextCompat.getColor(context, R.color.UPCOMING);
+                break;
+            default:
+                color = ContextCompat.getColor(context, R.color.black); // Set a default color if status doesn't match
+        }
+        return color;
     }
 }
