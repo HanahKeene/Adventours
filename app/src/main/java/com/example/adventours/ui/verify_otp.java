@@ -124,6 +124,8 @@ public class verify_otp extends AppCompatActivity {
                                         resultIntent.putExtra("bday", bday);
                                         resultIntent.putExtra("city", city);
                                         resultIntent.putExtra("number", number);
+                                        resultIntent.putExtra("verificationId", verificationid);
+                                        resultIntent.putExtra("code", code);
                                         setResult(Activity.RESULT_OK, resultIntent);
                                         finish();
                                     }

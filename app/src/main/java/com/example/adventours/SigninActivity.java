@@ -1,10 +1,13 @@
 package com.example.adventours;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -189,7 +192,7 @@ public class SigninActivity extends AppCompatActivity {
         String age = agetxtfld.getText().toString();
         String bday = bdaytxtfld.getText().toString();
         String city = citytxtfld.getText().toString();
-        String phone = phonetxtfld.getText().toString();
+        String phone = "+639"+ phonetxtfld.getText().toString();
         String password = passwordtxtfld.getText().toString();
         String confirmpassword = confirmpasstxtfld.getText().toString();
         CheckBox termsCheckBox = findViewById(R.id.checkterms);
@@ -211,7 +214,7 @@ public class SigninActivity extends AppCompatActivity {
         } else if (!termsCheckBox.isChecked()) {
             Toast.makeText(this, "Please accept the terms and conditions.", Toast.LENGTH_SHORT).show();
         }else if (!isPhoneNumberVerified()){
-
+            Toast.makeText(this, "Verify phone number.", Toast.LENGTH_SHORT).show();
         }else {
 
             progressBarlogin.setVisibility(View.VISIBLE);
@@ -231,6 +234,9 @@ public class SigninActivity extends AppCompatActivity {
                                         .document(user.getUid())
                                         .set(newUser)
                                         .addOnCompleteListener(aVoid -> {
+
+                                            linkPhoneNumberWithAccount(phone);
+
                                             // User registered successfully, now add empty subcollection
                                             db.collection("users")
                                                     .document(user.getUid())
@@ -263,6 +269,31 @@ public class SigninActivity extends AppCompatActivity {
 
         }
     }
+
+    private void linkPhoneNumberWithAccount(String phone) {
+
+        Intent intent = getIntent();
+        String verificationId = intent.getStringExtra("verificationId");
+        String code = intent.getStringExtra("code");
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
+            user.linkWithCredential(credential)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            // Phone number is successfully linked to the user's account
+                            Log.d(TAG, "linkWithCredential:success");
+                            FirebaseUser linkedUser = task.getResult().getUser();
+                        } else {
+                            // Handle the error
+                            Log.w(TAG, "linkWithCredential:failure", task.getException());
+                            Toast.makeText(this, "Failed to link phone number with account.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
 
     private boolean isPhoneNumberVerified() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -317,6 +348,7 @@ public class SigninActivity extends AppCompatActivity {
                     public void onVerificationFailed(@NonNull FirebaseException e) {
                         progressBar.setVisibility(View.GONE);
                         verify.setVisibility(View.VISIBLE);
+                        verify.setText("Verified");
                         Toast.makeText(SigninActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 

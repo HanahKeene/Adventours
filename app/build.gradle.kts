@@ -57,6 +57,8 @@ dependencies {
     implementation("androidx.viewpager2:viewpager2:1.0.0")
     implementation("com.google.android.material:material:1.10.0")
     implementation("com.google.firebase:firebase-analytics:21.5.0")
+    implementation(platform("com.google.firebase:firebase-bom:28.4.0"))
+    implementation ("com.google.firebase:firebase-appcheck")
     implementation("com.android.volley:volley:1.2.1")
     implementation("com.squareup.picasso:picasso:2.71828")
     implementation("com.google.firebase:firebase-storage:20.3.0")
