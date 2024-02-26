@@ -84,9 +84,6 @@ public class ProfileFragment extends Fragment {
             Intent intent = new Intent(getActivity(), LoginActivity.class);
             startActivity(intent);
             getActivity().finish();
-        } else {
-            textView.setText(user.getEmail());
-
         }
 
         editprofile.setOnClickListener(new View.OnClickListener() {
@@ -193,19 +190,23 @@ public class ProfileFragment extends Fragment {
     }
 
     private void fetchUserDataAndUpdateUI() {
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
         DocumentReference userRef = db.collection("users").document(user.getUid());
 
         userRef.get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                String number = documentSnapshot.getString("phone");
+//                String number = documentSnapshot.getString("phone");
                 String username = documentSnapshot.getString("username");
                 String imageUrl = documentSnapshot.getString("imageUrl");
 
                 // Set the username and number
                 textView.setText(username);
-                usernumber.setText("+639" + number);
+                usernumber.setText(user.getPhoneNumber());
 
                 // Load and display the image using Glide
                 if (imageUrl != null && !imageUrl.isEmpty()) {

@@ -1,7 +1,5 @@
 package com.example.adventours;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -22,30 +20,28 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.adventours.ui.home.HomeFragment;
 import com.example.adventours.ui.verify_otp;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.auth.User;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class SigninActivity extends AppCompatActivity {
 
-    TextInputEditText untxtfld, emailtxtfld, nametxtfld, surnametxtfld, agetxtfld, bdaytxtfld, citytxtfld, phonetxtfld, passwordtxtfld, confirmpasstxtfld;
+    private static final String TAG = "Register";
+
+    EditText untxtfld, emailtxtfld, nametxtfld, surnametxtfld, agetxtfld, bdaytxtfld, citytxtfld, phonetxtfld, passwordtxtfld, confirmpasstxtfld;
     RadioGroup gendergroup;
     Button verify, submit, terms;
 
@@ -60,8 +56,6 @@ public class SigninActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-
-
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -85,9 +79,8 @@ public class SigninActivity extends AppCompatActivity {
         confirmpasstxtfld = findViewById(R.id.confirmpassword);
         gendergroup = findViewById(R.id.gender);
         bdaybtn = findViewById(R.id.bday);
-        showpassbtn =findViewById(R.id.showpassword);
+        showpassbtn = findViewById(R.id.showpassword);
         showconfirmpassbtn = findViewById(R.id.showconfirmpassword);
-
 
         bdaybtn.setOnClickListener(view -> openCalendar());
 
@@ -166,6 +159,7 @@ public class SigninActivity extends AppCompatActivity {
                 // Set the formatted date to the TextView
                 bdaytxtfld.setText(formattedDate);
             }
+
             private String formatDateAsWords(int year, int month, int day) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(Calendar.YEAR, year);
@@ -192,7 +186,7 @@ public class SigninActivity extends AppCompatActivity {
         String age = agetxtfld.getText().toString();
         String bday = bdaytxtfld.getText().toString();
         String city = citytxtfld.getText().toString();
-        String phone = "+639"+ phonetxtfld.getText().toString();
+        String phone = "+639" + phonetxtfld.getText().toString();
         String password = passwordtxtfld.getText().toString();
         String confirmpassword = confirmpasstxtfld.getText().toString();
         CheckBox termsCheckBox = findViewById(R.id.checkterms);
@@ -213,9 +207,9 @@ public class SigninActivity extends AppCompatActivity {
             Toast.makeText(this, "Passwords didn't match.", Toast.LENGTH_SHORT).show();
         } else if (!termsCheckBox.isChecked()) {
             Toast.makeText(this, "Please accept the terms and conditions.", Toast.LENGTH_SHORT).show();
-        }else if (!isPhoneNumberVerified()){
+        } else if (!isPhoneNumberVerified()) {
             Toast.makeText(this, "Verify phone number.", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
 
             progressBarlogin.setVisibility(View.VISIBLE);
             submit.setVisibility(View.INVISIBLE);
@@ -227,7 +221,7 @@ public class SigninActivity extends AppCompatActivity {
 
                             if (user != null) {
                                 // Create a new user object
-                                com.example.adventours.User newUser = new com.example.adventours.User(uname, email, gname, lname, gender, age, bday, city, phone);
+                                User newUser = new User(uname, email, gname, lname, gender, age, bday, city, phone);
 
                                 // Add the user to Firestore
                                 db.collection("users")
@@ -275,6 +269,7 @@ public class SigninActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String verificationId = intent.getStringExtra("verificationId");
         String code = intent.getStringExtra("code");
+        String password = passwordtxtfld.getText().toString();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -283,8 +278,27 @@ public class SigninActivity extends AppCompatActivity {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             // Phone number is successfully linked to the user's account
-                            Log.d(TAG, "linkWithCredential:success");
-                            FirebaseUser linkedUser = task.getResult().getUser();
+                            Toast.makeText(this, "Phone number linked successfully!", Toast.LENGTH_SHORT).show();
+
+                            // Update user's profile with the verified phone number
+                            AuthCredential emailCredential = EmailAuthProvider.getCredential(user.getEmail(), password); // Provide the user's email and password used for registration
+                            user.reauthenticate(emailCredential)
+                                    .addOnCompleteListener(reauthTask -> {
+                                        if (reauthTask.isSuccessful()) {
+                                            user.updatePhoneNumber(credential) // Update the phone number associated with the user's profile
+                                                    .addOnCompleteListener(updatePhoneTask -> {
+                                                        if (updatePhoneTask.isSuccessful()) {
+                                                            Log.d(TAG, "Phone number updated successfully!");
+                                                        } else {
+                                                            Log.w(TAG, "Failed to update phone number:", updatePhoneTask.getException());
+                                                            Toast.makeText(this, "Failed to update phone number.", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                        } else {
+                                            Log.w(TAG, "Reauthentication failed:", reauthTask.getException());
+                                            Toast.makeText(this, "Reauthentication failed.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                         } else {
                             // Handle the error
                             Log.w(TAG, "linkWithCredential:failure", task.getException());
@@ -448,8 +462,4 @@ public class SigninActivity extends AppCompatActivity {
             return false; // Return false in case of parsing error
         }
     }
-
-
-
-
 }

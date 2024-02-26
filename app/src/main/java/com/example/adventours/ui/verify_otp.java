@@ -35,7 +35,7 @@ public class verify_otp extends AppCompatActivity {
 
     ProgressBar progressBar;
 
-    TextView resendotp;
+    TextView resendotp, countdown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +52,6 @@ public class verify_otp extends AppCompatActivity {
         String bday = intent1.getStringExtra("bday");
         String city = intent1.getStringExtra("city");
         String number = intent1.getStringExtra("number");
-
-
 
         otp1 = findViewById(R.id.otp1);
         otp2 = findViewById(R.id.otp2);
@@ -141,7 +139,10 @@ public class verify_otp extends AppCompatActivity {
         });
     }
 
-//    private void startCountDownTimer(long l) {
+//    private void startCountDownTimer(long expirationTime) {
+//        long currentTime = System.currentTimeMillis();
+//        timeLeftInMillis = expirationTime - currentTime;
+//
 //        countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
 //            @Override
 //            public void onTick(long millisUntilFinished) {
@@ -161,8 +162,8 @@ public class verify_otp extends AppCompatActivity {
 //        }.start();
 //    }
 
+
 //    private void updateCountdownText() {
-//
 //        TextView countdownTextView = findViewById(R.id.countdown);
 //        long minutes = (timeLeftInMillis / 1000) / 60;
 //        long seconds = (timeLeftInMillis / 1000) % 60;
