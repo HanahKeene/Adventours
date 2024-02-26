@@ -265,27 +265,30 @@ public class SigninActivity extends AppCompatActivity {
     }
 
     private void linkPhoneNumberWithAccount(String phone) {
-
         Intent intent = getIntent();
         String verificationId = intent.getStringExtra("verificationId");
         String code = intent.getStringExtra("code");
-        String password = passwordtxtfld.getText().toString();
+        String password = passwordtxtfld.getText().toString(); // Ensure you have access to the user's password here
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
+            // Create PhoneAuthCredential using verification ID and code
             PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-            user.linkWithCredential(credential)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            // Phone number is successfully linked to the user's account
-                            Toast.makeText(this, "Phone number linked successfully!", Toast.LENGTH_SHORT).show();
 
-                            // Update user's profile with the verified phone number
-                            AuthCredential emailCredential = EmailAuthProvider.getCredential(user.getEmail(), password); // Provide the user's email and password used for registration
-                            user.reauthenticate(emailCredential)
-                                    .addOnCompleteListener(reauthTask -> {
-                                        if (reauthTask.isSuccessful()) {
-                                            user.updatePhoneNumber(credential) // Update the phone number associated with the user's profile
+            // Reauthenticate user using their email and password
+            AuthCredential emailCredential = EmailAuthProvider.getCredential(user.getEmail(), password);
+            user.reauthenticate(emailCredential)
+                    .addOnCompleteListener(reauthTask -> {
+                        if (reauthTask.isSuccessful()) {
+                            // Reauthentication successful, link phone number with the account
+                            user.linkWithCredential(credential)
+                                    .addOnCompleteListener(task -> {
+                                        if (task.isSuccessful()) {
+                                            // Phone number successfully linked to the account
+                                            Toast.makeText(this, "Phone number linked successfully!", Toast.LENGTH_SHORT).show();
+
+                                            // Update user's profile with the verified phone number
+                                            user.updatePhoneNumber(credential)
                                                     .addOnCompleteListener(updatePhoneTask -> {
                                                         if (updatePhoneTask.isSuccessful()) {
                                                             Log.d(TAG, "Phone number updated successfully!");
@@ -295,18 +298,20 @@ public class SigninActivity extends AppCompatActivity {
                                                         }
                                                     });
                                         } else {
-                                            Log.w(TAG, "Reauthentication failed:", reauthTask.getException());
-                                            Toast.makeText(this, "Reauthentication failed.", Toast.LENGTH_SHORT).show();
+                                            // Failed to link phone number with the account
+                                            Log.w(TAG, "Failed to link phone number:", task.getException());
+                                            Toast.makeText(this, "Failed to link phone number with account.", Toast.LENGTH_SHORT).show();
                                         }
                                     });
                         } else {
-                            // Handle the error
-                            Log.w(TAG, "linkWithCredential:failure", task.getException());
-                            Toast.makeText(this, "Failed to link phone number with account.", Toast.LENGTH_SHORT).show();
+                            // Reauthentication failed
+                            Log.w(TAG, "Reauthentication failed:", reauthTask.getException());
+                            Toast.makeText(this, "Reauthentication failed.", Toast.LENGTH_SHORT).show();
                         }
                     });
         }
     }
+
 
 
     private boolean isPhoneNumberVerified() {

@@ -200,13 +200,13 @@ public class ProfileFragment extends Fragment {
             if (documentSnapshot.exists()) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-//                String number = documentSnapshot.getString("phone");
+                String number = documentSnapshot.getString("phone");
                 String username = documentSnapshot.getString("username");
                 String imageUrl = documentSnapshot.getString("imageUrl");
 
                 // Set the username and number
                 textView.setText(username);
-                usernumber.setText(user.getPhoneNumber());
+                usernumber.setText(number);
 
                 // Load and display the image using Glide
                 if (imageUrl != null && !imageUrl.isEmpty()) {
