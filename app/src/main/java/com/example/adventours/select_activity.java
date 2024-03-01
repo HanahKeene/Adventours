@@ -33,15 +33,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class select_activity extends AppCompatActivity {
+public class select_activity extends AppCompatActivity implements selectActivityAdapter.OnActivityItemClickListener {
 
     ConstraintLayout addbutton;
+    Button save;
 
     selectActivityAdapter selectActivityAdapter;
 
     List<selectActivityModel> selectActivityModelList;
-
-    selectActivityAdapter.OnActivityItemClickListener listener;
 
     RecyclerView activityrecyclerview;
 
@@ -53,12 +52,14 @@ public class select_activity extends AppCompatActivity {
 
         activityrecyclerview = findViewById(R.id.activities);
         addbutton = findViewById(R.id.button);
+        save = findViewById(R.id.savetoitinerary);
 
         addbutton.setOnClickListener(View -> showActivitiesDialog());
+        save.setOnClickListener(View -> savetoitinerary());
 
         // Initialize RecyclerView
         selectActivityModelList = new ArrayList<>();
-        selectActivityAdapter = new selectActivityAdapter(this, selectActivityModelList, listener);
+        selectActivityAdapter = new selectActivityAdapter(this, selectActivityModelList, this);
         activityrecyclerview.setLayoutManager(new LinearLayoutManager(this));
         activityrecyclerview.setAdapter(selectActivityAdapter);
 
@@ -82,6 +83,24 @@ public class select_activity extends AppCompatActivity {
             Toast.makeText(this, "Failed to fetch activities", Toast.LENGTH_SHORT).show();
         });
     }
+
+    private void savetoitinerary() {
+        // Get all checked items
+        List<selectActivityModel> checkedItems = selectActivityAdapter.getCheckedItems();
+
+        // Check if there are any checked items
+        if (checkedItems.isEmpty()) {
+            Toast.makeText(this, "No activities selected", Toast.LENGTH_SHORT).show();
+        } else {
+            // Iterate over checked items and toast each one
+            StringBuilder checkedItemsString = new StringBuilder();
+            for (selectActivityModel item : checkedItems) {
+                checkedItemsString.append(item.getName()).append("\n");
+            }
+            Toast.makeText(this, "Selected activities:\n" + checkedItemsString.toString(), Toast.LENGTH_LONG).show();
+        }
+    }
+
 
     private void showActivitiesDialog() {
         Dialog dialog = new Dialog(this);
@@ -107,5 +126,22 @@ public class select_activity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onCheckboxClick(selectActivityModel item, boolean isChecked) {
+        // Handle checkbox click here
+        if (isChecked) {
+            // Perform action when checkbox is checked
+            Toast.makeText(this, item.getName() + " checked", Toast.LENGTH_SHORT).show();
+        } else {
+            // Perform action when checkbox is unchecked
+            Toast.makeText(this, item.getName() + " unchecked", Toast.LENGTH_SHORT).show();
+        }
 
+        // Get all checked items
+        List<selectActivityModel> checkedItems = selectActivityAdapter.getCheckedItems();
+        for (selectActivityModel checkedItem : checkedItems) {
+            Log.d("Checked Item", checkedItem.getName());
+            // Do whatever you need with the checked items here
+        }
+    }
 }
