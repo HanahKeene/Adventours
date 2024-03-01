@@ -27,7 +27,7 @@
     <string name="terms_and_condition9">9. Termination - We reserve the right to terminate or suspend user accounts for violations of these terms or any unlawful activities.</string>
     <string name="terms_and_condition10">10. Updates and Changes - We may update these terms from time to time, and users will be notified of any changes. Continued use of the app after changes constitutes acceptance of the revised terms.</string>
     <string name="terms_and_condition11">11. Jurisdiction and Dispute Resolution These terms are governed by the laws of [Your Jurisdiction]. Any disputes will be resolved through arbitration in accordance with [Arbitration Rules].</string>
-    <string name="terms_and_condition12"> 12. Contact Information - For questions or concerns, please contact us at inquiry@adventours.com.</string>
+    <string name="terms_and_condition12"> 12. Contact Information - For questions or concerns, please contact us at <i>inquiry.adventours@gmail.com</i>.</string>
     <string name="terms_and_condition13">13. Compliance with Regulations: Adventours complies with all applicable laws and regulations in the provision of its services.</string>
     <string name="image">photogallery</string>
     <string name="title_activity_tours_lists">tours_lists_activity</string>
@@ -41,7 +41,7 @@
     <string name="aboutus3">Meet the Team - Our dedicated team of travel enthusiasts works tirelessly to bring you the best experiences. Get to know the members of the project behind the scenes who make it all happen.</string>
     <string name="aboutus4">Daguiso, Justine D.\nGonzales, Jhenzen Anne I.\nParan, John Angelo C.\nSoriano, Trixie L.\nVibiesca, Hanah Keene M.</string>
     <string name="aboutus5">Contact Us - We are here to assist you. If you have questions, suggestions, or need support, please dont hesitate to get in touch with us:</string>
-    <string name="aboutus6">Email: [inquiry@adventour.com]</string>
+    <string name="aboutus6">Email: inquiry.adventours@gmail.com</string>
     <string name="aboutus7">Privacy and Security - We take your privacy and security seriously. Learn more about our commitment to protecting your data.</string>
     <string name="aboutus8">Terms and Conditions - Read our terms of use to understand our policies and guidelines when using AdvenTours.</string>
     <string name="aboutus9">App Version - 1\nCurrent Version: 1</string>

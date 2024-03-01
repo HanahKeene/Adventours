@@ -23,6 +23,9 @@
         android:theme="@style/Theme.Adventours"
         tools:targetApi="30">
         <activity
+            android:name=".select_activity"
+            android:exported="false" />
+        <activity
             android:name=".ui.reservation_history"
             android:exported="false" />
         <activity

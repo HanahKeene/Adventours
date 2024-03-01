@@ -26,15 +26,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <TextView
-                android:id="@+id/daycount"
-                style="@style/TEXT"
+            <CheckBox
+                android:id="@+id/activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/baseline_navigate_next_24"
-                android:paddingStart="5dp"
-                android:text="TextView"
-                android:textStyle="bold" />
+                android:text="CheckBox" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

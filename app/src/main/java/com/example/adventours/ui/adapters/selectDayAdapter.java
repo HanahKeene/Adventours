@@ -22,9 +22,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.example.adventours.R;
+import com.example.adventours.select_activity;
 import com.example.adventours.ui.itineraryplan;
 import com.example.adventours.ui.models.FYPModel;
 import com.example.adventours.ui.models.ItineraryModel;
+import com.example.adventours.ui.models.selectActivityModel;
 import com.example.adventours.ui.models.selectDayModel;
 import com.example.adventours.ui.selectDay;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -94,7 +96,9 @@ public class selectDayAdapter extends RecyclerView.Adapter<selectDayAdapter.View
                     if (position != RecyclerView.NO_POSITION) {
                         String id = selectDayModelList.get(position).getId();
                         if (id != null) {
-                            showConfirmationDialog(id);
+                            Intent intent = new Intent(context, select_activity.class);
+                            context.startActivity(intent);
+//                            showConfirmationDialog(id);
                         } else {
                             // If the item ID is null, log an error message
                             Log.e("FYPAdapter", "Item ID is null");
