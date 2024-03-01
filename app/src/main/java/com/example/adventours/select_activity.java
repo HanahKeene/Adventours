@@ -7,19 +7,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.adventours.ui.adapters.activityAdapter;
 import com.example.adventours.ui.adapters.selectActivityAdapter;
 import com.example.adventours.ui.adapters.selectDayAdapter;
+import com.example.adventours.ui.models.activityModel;
 import com.example.adventours.ui.models.selectActivityModel;
 import com.example.adventours.ui.models.selectDayModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -29,7 +35,7 @@ import java.util.List;
 
 public class select_activity extends AppCompatActivity {
 
-    ConstraintLayout button;
+    ConstraintLayout addbutton;
 
     selectActivityAdapter selectActivityAdapter;
 
@@ -39,64 +45,67 @@ public class select_activity extends AppCompatActivity {
 
     RecyclerView activityrecyclerview;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_activity);
 
-        button = findViewById(R.id.button);
         activityrecyclerview = findViewById(R.id.activities);
+        addbutton = findViewById(R.id.button);
 
-        button.setOnClickListener(View -> showActivities());
+        addbutton.setOnClickListener(View -> showActivitiesDialog());
 
-
+        // Initialize RecyclerView
         selectActivityModelList = new ArrayList<>();
         selectActivityAdapter = new selectActivityAdapter(this, selectActivityModelList, listener);
-        activityrecyclerview.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        activityrecyclerview.setLayoutManager(new LinearLayoutManager(this));
         activityrecyclerview.setAdapter(selectActivityAdapter);
 
-        // Firebase data fetching and visibility control
+        // Fetch activities from Firebase
+        Intent intent = getIntent();
+        String spotId = intent.getStringExtra("SpotId");
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference spotRef = db.collection("Tourist Spots").document(spotId);
 
-        db.collection("Tourist Spots").document(userId).collection("Activities").document(itineraryId).collection("days")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            selectActivityModelList.clear();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                selectActivityModel selectActivityModel = document.toObject(selectActivityModel.class);
-                                String dayId = document.getId();
-//                                selectActivityModel.setName(dayId);
-                                selectActivityModelList.add(selectDayModel);
-                            }
-                            Log.d("Firestore", "Number of days retrieved: " + selectActivityModelList.size());
-                            selectActivityAdapter.notifyDataSetChanged();
-                        }
-                    }
-                });
+        spotRef.collection("Activities").get().addOnSuccessListener(activitiesSnapshots -> {
+            for (QueryDocumentSnapshot document : activitiesSnapshots) {
+                String activityName = document.getString("name");
+                if (activityName != null) {
+                    selectActivityModel activityItem = new selectActivityModel(activityName);
+                    selectActivityModelList.add(activityItem);
+                }
+            }
+            selectActivityAdapter.notifyDataSetChanged();
+        }).addOnFailureListener(e -> {
+            Toast.makeText(this, "Failed to fetch activities", Toast.LENGTH_SHORT).show();
+        });
     }
 
-    private void showActivities() {
+    private void showActivitiesDialog() {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.prompt_add_custom_activity);
+        dialog.show();
 
-        Dialog firstDialog = new Dialog(this);
-        firstDialog.setContentView(R.layout.prompt_add_custom_activity);
-        firstDialog.show();
+        Button addButton = dialog.findViewById(R.id.addbtn);
+        EditText activityEditText = dialog.findViewById(R.id.new_activity);
 
-//        Button insideDialogBtn = firstDialog.findViewById(R.id.submitrate);
-//        insideDialogBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                firstDialog.dismiss();
-//                Dialog secondDialog = new Dialog(this);
-//                secondDialog.setContentView(R.layout.prompt_thanksfortherate);
-//                secondDialog.show();
-//
-//                Button welcomebtn = secondDialog.findViewById(R.id.welcomebtn);
-//                welcomebtn.setOnClickListener(View -> secondDialog.dismiss());
-//            }
-//        });
-
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String newActivityName = activityEditText.getText().toString().trim();
+                if (!newActivityName.isEmpty()) {
+                    selectActivityModel newActivity = new selectActivityModel(newActivityName);
+                    selectActivityModelList.add(newActivity);
+                    selectActivityAdapter.notifyDataSetChanged();
+                    dialog.dismiss();
+                } else {
+                    Toast.makeText(select_activity.this, "Please enter a valid activity name", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
+
+
 }

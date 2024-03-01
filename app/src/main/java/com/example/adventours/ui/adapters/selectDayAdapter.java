@@ -97,6 +97,7 @@ public class selectDayAdapter extends RecyclerView.Adapter<selectDayAdapter.View
                         String id = selectDayModelList.get(position).getId();
                         if (id != null) {
                             Intent intent = new Intent(context, select_activity.class);
+                            intent.putExtra("SpotId", itinerary_id);
                             context.startActivity(intent);
 //                            showConfirmationDialog(id);
                         } else {
