@@ -1,6 +1,9 @@
 package com.example.adventours;
 
 import androidx.annotation.NonNull;
+import java.util.HashMap;
+import java.util.Map;
+import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,9 +13,12 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.adventours.ui.adapters.activityAdapter;
@@ -34,6 +40,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class select_activity extends AppCompatActivity implements selectActivityAdapter.OnActivityItemClickListener {
+
+    private Dialog savingDialog;
 
     ConstraintLayout addbutton;
     Button save;
@@ -92,14 +100,60 @@ public class select_activity extends AppCompatActivity implements selectActivity
         if (checkedItems.isEmpty()) {
             Toast.makeText(this, "No activities selected", Toast.LENGTH_SHORT).show();
         } else {
-            // Iterate over checked items and toast each one
-            StringBuilder checkedItemsString = new StringBuilder();
-            for (selectActivityModel item : checkedItems) {
-                checkedItemsString.append(item.getName()).append("\n");
+//
+// Iterate over checked items and toast each one
+//            StringBuilder checkedItemsString = new StringBuilder();
+//            for (selectActivityModel item : checkedItems) {
+//                checkedItemsString.append(item.getName()).append("\n");
+//            }
+//            Toast.makeText(this, "Selected activities:\n" + checkedItemsString.toString(), Toast.LENGTH_LONG).show();
+
+            showSavingDialog();
+
+            // Store each activity to Firestore
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            String user = currentUser.getUid();
+
+            for (selectActivityModel activity : checkedItems) {
+                Map<String, Object> data = new HashMap<>();
+                data.put("activityName", activity.getName());
+
+                // Add the activity to Firestore
+                db.collection("users").document(user).collection("activities")
+                        .add(data)
+                        .addOnSuccessListener(documentReference -> {
+                            // Activity added successfully
+                            Log.d("Firestore", "Activity added: " + activity.getName());
+                        })
+                        .addOnFailureListener(e -> {
+                            // Failed to add activity
+                            Log.e("Firestore", "Error adding activity", e);
+                        });
             }
-            Toast.makeText(this, "Selected activities:\n" + checkedItemsString.toString(), Toast.LENGTH_LONG).show();
+
+            // Dismiss the saving dialog after a short delay
+            new Handler().postDelayed(() -> {
+                dismissSavingDialog();
+                // Navigate to another screen here (e.g., startActivity(new Intent(this, AnotherActivity.class)))
+            }, 2000);
         }
     }
+
+    private void dismissSavingDialog() {
+
+        if (savingDialog != null && savingDialog.isShowing()) {
+            savingDialog.dismiss();
+        }
+    }
+
+    private void showSavingDialog() {
+
+        savingDialog = new Dialog(this);
+        savingDialog.setContentView(R.layout.prompt_loading_screen);
+        savingDialog.show();
+    }
+
 
 
     private void showActivitiesDialog() {
