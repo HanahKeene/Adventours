@@ -21,9 +21,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.adventours.databinding.FragmentHomeBinding;
 import com.example.adventours.ui.adapters.activityAdapter;
 import com.example.adventours.ui.adapters.selectActivityAdapter;
 import com.example.adventours.ui.adapters.selectDayAdapter;
+import com.example.adventours.ui.itineraryplan;
 import com.example.adventours.ui.models.activityModel;
 import com.example.adventours.ui.models.selectActivityModel;
 import com.example.adventours.ui.models.selectDayModel;
@@ -41,7 +44,9 @@ import java.util.List;
 
 public class select_activity extends AppCompatActivity implements selectActivityAdapter.OnActivityItemClickListener {
 
-    private Dialog savingDialog;
+    private static final long SUCCESS_DIALOG_DELAY = 2000;
+
+    private Dialog savingDialog, successDialog;
 
     ConstraintLayout addbutton;
     Button save;
@@ -51,6 +56,8 @@ public class select_activity extends AppCompatActivity implements selectActivity
     List<selectActivityModel> selectActivityModelList;
 
     RecyclerView activityrecyclerview;
+
+    private Handler handler = new Handler();
 
 
     @Override
@@ -74,6 +81,7 @@ public class select_activity extends AppCompatActivity implements selectActivity
         // Fetch activities from Firebase
         Intent intent = getIntent();
         String spotId = intent.getStringExtra("SpotId");
+
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference spotRef = db.collection("Tourist Spots").document(spotId);
@@ -114,13 +122,18 @@ public class select_activity extends AppCompatActivity implements selectActivity
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
             String user = currentUser.getUid();
+            Intent intent = getIntent();
+            String itineraryId = intent.getStringExtra("ItineraryId");
+            String dayId = intent.getStringExtra("Day");
+            String spotId = intent.getStringExtra("SpotId");
 
             for (selectActivityModel activity : checkedItems) {
                 Map<String, Object> data = new HashMap<>();
-                data.put("activityName", activity.getName());
+                data.put("activity", activity.getName());
+                data.put("place", spotId);
 
                 // Add the activity to Firestore
-                db.collection("users").document(user).collection("activities")
+                db.collection("users").document(user).collection("itineraries").document(itineraryId).collection("days").document(dayId).collection("activities")
                         .add(data)
                         .addOnSuccessListener(documentReference -> {
                             // Activity added successfully
@@ -141,16 +154,40 @@ public class select_activity extends AppCompatActivity implements selectActivity
     }
 
     private void dismissSavingDialog() {
-
         if (savingDialog != null && savingDialog.isShowing()) {
             savingDialog.dismiss();
         }
+
+        successDialog = new Dialog(this);
+        successDialog.setContentView(R.layout.prompt_success);
+        successDialog.show();
+
+        // Post a delayed action to dismiss the success dialog and start MainActivity
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (successDialog != null && successDialog.isShowing()) {
+                    successDialog.dismiss();
+                }
+
+                // Start MainActivity
+                Intent intent = new Intent(select_activity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        }, SUCCESS_DIALOG_DELAY);
     }
 
     private void showSavingDialog() {
 
         savingDialog = new Dialog(this);
         savingDialog.setContentView(R.layout.prompt_loading_screen);
+
+        ImageView loadingGif = savingDialog.findViewById(R.id.loading);
+
+        Glide.with(this)
+                .load(R.drawable.loading) // Replace with your GIF resource
+                .into(loadingGif);
+
         savingDialog.show();
     }
 
