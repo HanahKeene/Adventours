@@ -214,16 +214,16 @@ public class newitineraryplan extends AppCompatActivity {
 
     // Method to create "activities" subcollection within the specified day document
     private void createActivitiesSubcollection(DocumentReference dayDocumentRef) {
-        // Simply create the subcollection, no need to set data in it
-        dayDocumentRef.collection("activities").document("Placeholder")
-                .set(new HashMap<>())  // This is just a placeholder document to trigger subcollection creation
-                .addOnSuccessListener(aVoid -> {
+        dayDocumentRef.collection("activities")
+                .addSnapshotListener((value, error) -> {
+                    if (error != null) {
+                        Log.e(TAG, "Error creating activities subcollection", error);
+                        return;
+                    }
                     Log.d(TAG, "Activities subcollection created");
-                })
-                .addOnFailureListener(e -> {
-                    Log.e(TAG, "Error creating activities subcollection", e);
                 });
     }
+
 
     private String formatDateAsWords(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);

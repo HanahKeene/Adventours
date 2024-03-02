@@ -1,44 +1,19 @@
     package com.example.adventours.ui.adapters;
-    import static androidx.fragment.app.FragmentManager.TAG;
 
-    import android.app.Activity;
-    import android.app.AlertDialog;
     import android.content.Context;
-    import android.content.DialogInterface;
-    import android.content.Intent;
     import android.util.Log;
     import android.view.LayoutInflater;
     import android.view.View;
     import android.view.ViewGroup;
-    import android.widget.ImageView;
     import android.widget.TextView;
-    import android.widget.Toast;
 
     import androidx.annotation.NonNull;
     import androidx.recyclerview.widget.LinearLayoutManager;
     import androidx.recyclerview.widget.RecyclerView;
 
-    import com.bumptech.glide.Glide;
-    import com.bumptech.glide.request.RequestOptions;
-    import com.bumptech.glide.request.target.Target;
     import com.example.adventours.R;
-    import com.example.adventours.ui.itineraryplan;
-    import com.example.adventours.ui.models.FYPModel;
-    import com.example.adventours.ui.models.ItineraryModel;
     import com.example.adventours.ui.models.individualitineraryModel;
-    import com.example.adventours.ui.models.selectDayModel;
-    import com.example.adventours.ui.selectDay;
-    import com.google.android.gms.tasks.OnFailureListener;
-    import com.google.android.gms.tasks.OnSuccessListener;
-    import com.google.android.gms.tasks.Task;
-    import com.google.firebase.auth.FirebaseAuth;
-    import com.google.firebase.auth.FirebaseUser;
-    import com.google.firebase.firestore.DocumentReference;
-    import com.google.firebase.firestore.FirebaseFirestore;
-    import com.google.firebase.firestore.QueryDocumentSnapshot;
-    import com.google.firebase.firestore.QuerySnapshot;
 
-    import java.util.ArrayList;
     import java.util.HashMap;
     import java.util.List;
     import java.util.Map;
@@ -67,21 +42,26 @@
             holder.name.setText(currentItem.getId());
             holder.date.setText(currentItem.getDate());
 
-            // Set up the nested RecyclerView for activities
-            LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-            holder.activities.setLayoutManager(layoutManager);
-
             List<String> activities = currentItem.getActivities();
-            if (activities != null) {
-                individualItineraryactivityAdapter activityAdapter = new individualItineraryactivityAdapter(context, activities);
-                holder.activities.setAdapter(activityAdapter);
-
-                // Save the adapter in the map for later access
-                dayAdapters.put(currentItem.getId(), activityAdapter);
+            if (activities != null && !activities.isEmpty()) {
+                // If there are activities, set up the adapter and display them
+                LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+                holder.activities.setLayoutManager(layoutManager);
+                individualItineraryactivityAdapter itineraryactivityAdapter = new individualItineraryactivityAdapter(context, activities);
+                holder.activities.setAdapter(itineraryactivityAdapter);
+                dayAdapters.put(currentItem.getId(), itineraryactivityAdapter);
+                holder.activities.setVisibility(View.VISIBLE); // Show the RecyclerView
+                holder.noActivities.setVisibility(View.GONE); // Hide the TextView for no activities
+                Log.d("RecyclerView", "Activities for day " + currentItem.getId() + ": " + activities.size());
             } else {
+                // If there are no activities, display a message
                 holder.activities.setAdapter(null);
+                holder.activities.setVisibility(View.GONE); // Hide the RecyclerView
+                holder.noActivities.setVisibility(View.VISIBLE); // Show the TextView for no activities
+                Log.d("RecyclerView", "No activities for day " + currentItem.getId());
             }
         }
+
 
         @Override
         public int getItemCount() {
@@ -89,7 +69,7 @@
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            TextView name, date;
+            TextView name, date, noActivities;
             RecyclerView activities;
 
             public ViewHolder(@NonNull View itemView) {
@@ -97,6 +77,7 @@
                 name = itemView.findViewById(R.id.day);
                 date = itemView.findViewById(R.id.date);
                 activities = itemView.findViewById(R.id.activitiesrecyclerview);
+                noActivities = itemView.findViewById(R.id.no_activities);
             }
         }
 

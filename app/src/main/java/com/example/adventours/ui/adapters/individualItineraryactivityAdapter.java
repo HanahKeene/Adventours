@@ -54,7 +54,6 @@ public class individualItineraryactivityAdapter extends RecyclerView.Adapter<ind
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.picture);
             activity = itemView.findViewById(R.id.activityname);
         }
     }

@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.adventours.databinding.FragmentHomeBinding;
+import com.example.adventours.ui.MyIterinaryActivity;
 import com.example.adventours.ui.adapters.activityAdapter;
 import com.example.adventours.ui.adapters.selectActivityAdapter;
 import com.example.adventours.ui.adapters.selectDayAdapter;
@@ -108,14 +109,6 @@ public class select_activity extends AppCompatActivity implements selectActivity
         if (checkedItems.isEmpty()) {
             Toast.makeText(this, "No activities selected", Toast.LENGTH_SHORT).show();
         } else {
-//
-// Iterate over checked items and toast each one
-//            StringBuilder checkedItemsString = new StringBuilder();
-//            for (selectActivityModel item : checkedItems) {
-//                checkedItemsString.append(item.getName()).append("\n");
-//            }
-//            Toast.makeText(this, "Selected activities:\n" + checkedItemsString.toString(), Toast.LENGTH_LONG).show();
-
             showSavingDialog();
 
             // Store each activity to Firestore
@@ -127,31 +120,49 @@ public class select_activity extends AppCompatActivity implements selectActivity
             String dayId = intent.getStringExtra("Day");
             String spotId = intent.getStringExtra("SpotId");
 
-            for (selectActivityModel activity : checkedItems) {
-                Map<String, Object> data = new HashMap<>();
-                data.put("activity", activity.getName());
-                data.put("place", spotId);
+            // Fetch spotName from TouristSpot collection using spotId
+            db.collection("Tourist Spots").document(spotId)
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            String spotName = documentSnapshot.getString("name");
 
-                // Add the activity to Firestore
-                db.collection("users").document(user).collection("itineraries").document(itineraryId).collection("days").document(dayId).collection("activities")
-                        .add(data)
-                        .addOnSuccessListener(documentReference -> {
-                            // Activity added successfully
-                            Log.d("Firestore", "Activity added: " + activity.getName());
-                        })
-                        .addOnFailureListener(e -> {
-                            // Failed to add activity
-                            Log.e("Firestore", "Error adding activity", e);
-                        });
-            }
+                            for (selectActivityModel activity : checkedItems) {
+                                Map<String, Object> data = new HashMap<>();
+                                data.put("activity", activity.getName());
+                                data.put("place", spotName);
 
-            // Dismiss the saving dialog after a short delay
-            new Handler().postDelayed(() -> {
-                dismissSavingDialog();
-                // Navigate to another screen here (e.g., startActivity(new Intent(this, AnotherActivity.class)))
-            }, 2000);
+                                // Add the activity to Firestore
+                                db.collection("users").document(user).collection("itineraries").document(itineraryId).collection("days").document(dayId).collection("activities")
+                                        .add(data)
+                                        .addOnSuccessListener(documentReference -> {
+                                            // Activity added successfully
+                                            Log.d("Firestore", "Activity added: " + activity.getName());
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            // Failed to add activity
+                                            Log.e("Firestore", "Error adding activity", e);
+                                        });
+                            }
+
+                            // Dismiss the saving dialog after a short delay
+                            new Handler().postDelayed(() -> {
+                                dismissSavingDialog();
+                                // Navigate to another screen here (e.g., startActivity(new Intent(this, AnotherActivity.class)))
+                            }, 2000);
+                        } else {
+                            Log.e("Firestore", "Document does not exist for spotId: " + spotId);
+                            dismissSavingDialog(); // Dismiss dialog in case of error
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        // Failed to fetch spotName
+                        Log.e("Firestore", "Error fetching spotName", e);
+                        dismissSavingDialog(); // Dismiss dialog in case of error
+                    });
         }
     }
+
 
     private void dismissSavingDialog() {
         if (savingDialog != null && savingDialog.isShowing()) {
@@ -170,8 +181,7 @@ public class select_activity extends AppCompatActivity implements selectActivity
                     successDialog.dismiss();
                 }
 
-                // Start MainActivity
-                Intent intent = new Intent(select_activity.this, MainActivity.class);
+                Intent intent = new Intent(select_activity.this, MyIterinaryActivity.class);
                 startActivity(intent);
             }
         }, SUCCESS_DIALOG_DELAY);

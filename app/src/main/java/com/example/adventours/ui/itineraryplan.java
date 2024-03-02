@@ -12,26 +12,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.adventours.R;
-import com.example.adventours.ui.adapters.SubCollectionAdapter;
 import com.example.adventours.ui.adapters.individualitineraryAdapter;
 import com.example.adventours.ui.adapters.individualItineraryactivityAdapter;
-import com.example.adventours.ui.adapters.selectDayAdapter;
 import com.example.adventours.ui.models.individualitineraryModel;
-import com.example.adventours.ui.models.selectDayModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -109,26 +102,30 @@ public class itineraryplan extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             List<String> activities = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                // Assuming each activity is stored as a String in Firestore
-                                String activityName = document.getString("activity_id");
-                                activities.add(activityName);
+                                String activityName = document.getString("activity");
+                                String location = document.getString("place");
+                                activities.add(activityName + " at " + location);
                             }
-                            // Pass activities to the adapter for this day
-                            individualItineraryactivityAdapter activityAdapter = getAdapterForDay(dayId);
-                            if (activityAdapter != null) {
-                                activityAdapter.setActivities(activities);
-                                activityAdapter.notifyDataSetChanged();
-                            } else {
-                                // Create new adapter if not already exists
-                                activityAdapter = new individualItineraryactivityAdapter(itineraryplan.this, activities);
-                                setAdapterForDay(dayId, activityAdapter);
+                            // Find the day with the matching ID in the list
+                            for (int i = 0; i < individualitineraryModellist.size(); i++) {
+                                individualitineraryModel dayModel = individualitineraryModellist.get(i);
+                                if (dayModel.getId().equals(dayId)) {
+                                    // Set activities for this day model
+                                    dayModel.setActivities(activities);
+                                    // Notify adapter about data change
+                                    adapter.notifyDataSetChanged(); // Notify adapter of dataset change
+                                    return; // Exit the loop once the day is found
+                                }
                             }
+                            Log.e("Firestore", "Day with ID " + dayId + " not found in the list");
                         } else {
                             Log.e("Firestore", "Error getting activities for day " + dayId, task.getException());
                         }
                     }
                 });
     }
+
+
 
     private individualItineraryactivityAdapter getAdapterForDay(String dayId) {
         return dayAdapters.get(dayId);
