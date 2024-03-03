@@ -56,7 +56,6 @@
                     android:layout_width="100dp"
                     android:layout_height="75dp"
                     android:padding="28dp"
-                    android:tint="#FF0000"
                     app:srcCompat="@drawable/car_ui_icon_delete" />
             </LinearLayout>
 
