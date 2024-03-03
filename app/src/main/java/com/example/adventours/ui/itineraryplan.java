@@ -15,6 +15,7 @@ import com.example.adventours.R;
 import com.example.adventours.ui.adapters.individualitineraryAdapter;
 import com.example.adventours.ui.adapters.individualItineraryactivityAdapter;
 import com.example.adventours.ui.models.individualitineraryModel;
+import com.example.adventours.ui.models.individualitineraryactivityModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -100,18 +101,21 @@ public class itineraryplan extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            List<String> activities = new ArrayList<>();
+                            List<individualitineraryactivityModel> activityModels = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String activityName = document.getString("activity");
                                 String location = document.getString("place");
-                                activities.add(activityName + " at " + location);
+                                String documentId = document.getId();
+                                Log.e("System", "Document ID " + documentId);
+                                individualitineraryactivityModel activityModel = new individualitineraryactivityModel(activityName, location, documentId);
+                                activityModels.add(activityModel);
                             }
                             // Find the day with the matching ID in the list
                             for (int i = 0; i < individualitineraryModellist.size(); i++) {
                                 individualitineraryModel dayModel = individualitineraryModellist.get(i);
                                 if (dayModel.getId().equals(dayId)) {
                                     // Set activities for this day model
-                                    dayModel.setActivities(activities);
+                                    dayModel.setActivityModels(activityModels);
                                     // Notify adapter about data change
                                     adapter.notifyDataSetChanged(); // Notify adapter of dataset change
                                     return; // Exit the loop once the day is found
@@ -124,6 +128,8 @@ public class itineraryplan extends AppCompatActivity {
                     }
                 });
     }
+
+
 
 
 

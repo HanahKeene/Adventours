@@ -7,38 +7,59 @@
     android:layout_marginBottom="10dp"
     android:layout_gravity="center_horizontal">
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_margin="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TableRow>
-
-
-            <TextView
-                android:id="@+id/activityname"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:layout_weight="0.80"
-                android:gravity="center_vertical"
-                android:text="Activity Name" />
+                android:layout_weight="0.30">
 
-            <ImageButton
-                android:id="@+id/removebtn"
-                android:layout_width="10dp"
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="100dp"
+                    android:layout_height="75dp"
+                    app:srcCompat="@drawable/bluelogo" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="0.20"
-                android:background="#00FFFFFF"
-                android:padding="5dp"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/trash_solid" />
+                android:layout_weight="0.60"
+                android:gravity="center">
 
+                <TextView
+                    android:id="@+id/activity_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Activity Name"
+                    android:textStyle="bold" />
 
-        </TableRow>
+                <TextView
+                    android:id="@+id/activity_place"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Location" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.10">
 
-    </TableLayout>
+                <ImageView
+                    android:id="@+id/removebtn"
+                    android:layout_width="100dp"
+                    android:layout_height="75dp"
+                    android:padding="28dp"
+                    android:tint="#FF0000"
+                    app:srcCompat="@drawable/car_ui_icon_delete" />
+            </LinearLayout>
+
+        </LinearLayout>
+
 </androidx.cardview.widget.CardView>

@@ -13,7 +13,9 @@
 
     import com.example.adventours.R;
     import com.example.adventours.ui.models.individualitineraryModel;
+    import com.example.adventours.ui.models.individualitineraryactivityModel;
 
+    import java.util.ArrayList;
     import java.util.HashMap;
     import java.util.List;
     import java.util.Map;
@@ -42,9 +44,8 @@
             holder.name.setText(currentItem.getId());
             holder.date.setText(currentItem.getDate());
 
-            List<String> activities = currentItem.getActivities();
+            List<individualitineraryactivityModel> activities = currentItem.getActivityModels();
             if (activities != null && !activities.isEmpty()) {
-                // If there are activities, set up the adapter and display them
                 LinearLayoutManager layoutManager = new LinearLayoutManager(context);
                 holder.activities.setLayoutManager(layoutManager);
                 individualItineraryactivityAdapter itineraryactivityAdapter = new individualItineraryactivityAdapter(context, activities);
@@ -60,6 +61,8 @@
                 holder.noActivities.setVisibility(View.VISIBLE); // Show the TextView for no activities
                 Log.d("RecyclerView", "No activities for day " + currentItem.getId());
             }
+
+
         }
 
 

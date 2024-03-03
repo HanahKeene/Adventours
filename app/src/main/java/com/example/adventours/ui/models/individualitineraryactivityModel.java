@@ -2,17 +2,41 @@ package com.example.adventours.ui.models;
 
 public class individualitineraryactivityModel {
 
-    String activity_id;
+    String name;
+    String place;
+    String documentId;
 
-    public individualitineraryactivityModel(String activity_id) {
-        this.activity_id = activity_id;
+    public individualitineraryactivityModel(){
+
     }
 
-    public String getActivity_id() {
-        return activity_id;
+    public individualitineraryactivityModel(String name, String place, String documentId) {
+        this.name = name;
+        this.place = place;
+        this.documentId = documentId;
     }
 
-    public void setActivity_id(String activity_id) {
-        this.activity_id = activity_id;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 }

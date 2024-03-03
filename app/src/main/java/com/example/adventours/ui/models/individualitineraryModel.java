@@ -8,16 +8,16 @@ public class individualitineraryModel {
 
     String date;
 
-    private List<String> activities;
+    private List<individualitineraryactivityModel> activityModels;
 
     public individualitineraryModel(){
 
     }
 
-    public individualitineraryModel(String id, String date, List<String> activities) {
+    public individualitineraryModel(String id, String date, List<individualitineraryactivityModel> activityModels) {
         this.id = id;
         this.date = date;
-        this.activities = activities;
+        this.activityModels = activityModels;
     }
 
     public String getId() {
@@ -36,11 +36,11 @@ public class individualitineraryModel {
         this.date = date;
     }
 
-    public List<String> getActivities() {
-        return activities;
+    public List<individualitineraryactivityModel> getActivityModels() {
+        return activityModels;
     }
 
-    public void setActivities(List<String> activities) {
-        this.activities = activities;
+    public void setActivityModels(List<individualitineraryactivityModel> activityModels) {
+        this.activityModels = activityModels;
     }
 }
