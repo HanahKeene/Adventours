@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.adventours.R;
 import com.example.adventours.ui.models.individualitineraryactivityModel;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -93,7 +94,106 @@ public class individualItineraryactivityAdapter extends RecyclerView.Adapter<ind
                         });
             }
         });
+
+        loadPlaceImage(activityModel.getPlace(), holder.imgplace);
     }
+
+    private void loadPlaceImage(String placeName, ImageView imageView) {
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // Query Firestore to get the image URL based on the place name
+        db.collection("Tourist Spots").whereEqualTo("name", placeName)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        // Retrieve the image URL from Firestore and load it into the ImageView using a library like Glide or Picasso
+                        String imageUrl = queryDocumentSnapshots.getDocuments().get(0).getString("img_url");
+                        if (imageUrl != null && !imageUrl.isEmpty()) {
+                            // Use Glide or Picasso to load the image into the ImageView
+                            Glide.with(context)
+                                    .load(imageUrl)
+                                    .placeholder(R.drawable.placeholder) // Placeholder image while loading
+                                    .error(R.drawable.error_image) // Error image if loading fails
+                                    .into(imageView);
+                        } else {
+                            // Handle case where image URL is not available
+                            imageView.setImageResource(R.drawable.placeholder); // Set default image
+                        }
+                    } else {
+                        // Handle case where place is not found in Firestore
+                        imageView.setImageResource(R.drawable.placeholder); // Set default image
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    imageView.setImageResource(R.drawable.placeholder);
+                    queryHotelCollection(placeName, imageView);
+                });
+    }
+
+    private void queryHotelCollection(String placeName, ImageView imageView) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // Query Firestore to get the image URL based on the place name
+        db.collection("Hotels").whereEqualTo("name", placeName)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        // Retrieve the image URL from Firestore and load it into the ImageView using a library like Glide or Picasso
+                        String imageUrl = queryDocumentSnapshots.getDocuments().get(0).getString("img_url");
+                        if (imageUrl != null && !imageUrl.isEmpty()) {
+                            // Use Glide or Picasso to load the image into the ImageView
+                            Glide.with(context)
+                                    .load(imageUrl)
+                                    .placeholder(R.drawable.placeholder) // Placeholder image while loading
+                                    .error(R.drawable.error_image) // Error image if loading fails
+                                    .into(imageView);
+                        } else {
+                            // Handle case where image URL is not available
+                            imageView.setImageResource(R.drawable.placeholder); // Set default image
+                        }
+                    } else {
+                        // Handle case where place is not found in Firestore
+                        imageView.setImageResource(R.drawable.placeholder); // Set default image
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    imageView.setImageResource(R.drawable.placeholder);
+                    queryRestaurantCollection(placeName, imageView);
+                });
+    }
+
+    private void queryRestaurantCollection(String placeName, ImageView imageView) {
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // Query Firestore to get the image URL based on the place name
+        db.collection("Restaurants").whereEqualTo("name", placeName)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        // Retrieve the image URL from Firestore and load it into the ImageView using a library like Glide or Picasso
+                        String imageUrl = queryDocumentSnapshots.getDocuments().get(0).getString("img_url");
+                        if (imageUrl != null && !imageUrl.isEmpty()) {
+                            // Use Glide or Picasso to load the image into the ImageView
+                            Glide.with(context)
+                                    .load(imageUrl)
+                                    .placeholder(R.drawable.placeholder) // Placeholder image while loading
+                                    .error(R.drawable.error_image) // Error image if loading fails
+                                    .into(imageView);
+                        } else {
+                            // Handle case where image URL is not available
+                            imageView.setImageResource(R.drawable.placeholder); // Set default image
+                        }
+                    } else {
+                        // Handle case where place is not found in Firestore
+                        imageView.setImageResource(R.drawable.placeholder); // Set default image
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    imageView.setImageResource(R.drawable.placeholder);
+                    queryRestaurantCollection(placeName, imageView);
+                });
+
+    }
+
 
     @Override
     public int getItemCount() {
@@ -102,11 +202,12 @@ public class individualItineraryactivityAdapter extends RecyclerView.Adapter<ind
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView remove;
+        ImageView remove, imgplace;
         TextView activity, place;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            imgplace = itemView.findViewById(R.id.imgplace);
             activity = itemView.findViewById(R.id.activity_name);
             place = itemView.findViewById(R.id.activity_place);
             remove = itemView.findViewById(R.id.removebtn);
