@@ -53,7 +53,7 @@ public class itineraryplan extends AppCompatActivity {
         dayRecyclerView = findViewById(R.id.activities);
 
         individualitineraryModellist = new ArrayList<>();
-        adapter= new individualitineraryAdapter(this, individualitineraryModellist);
+        adapter= new individualitineraryAdapter(this, individualitineraryModellist );
         dayRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         dayRecyclerView.setAdapter(adapter);
 
@@ -107,21 +107,17 @@ public class itineraryplan extends AppCompatActivity {
                                 String location = document.getString("place");
                                 String documentId = document.getId();
                                 Log.e("System", "Document ID " + documentId);
-                                individualitineraryactivityModel activityModel = new individualitineraryactivityModel(activityName, location, documentId);
+                                individualitineraryactivityModel activityModel = new individualitineraryactivityModel(activityName, location, documentId, dayId, itineraryId);
                                 activityModels.add(activityModel);
                             }
-                            // Find the day with the matching ID in the list
-                            for (int i = 0; i < individualitineraryModellist.size(); i++) {
-                                individualitineraryModel dayModel = individualitineraryModellist.get(i);
-                                if (dayModel.getId().equals(dayId)) {
-                                    // Set activities for this day model
-                                    dayModel.setActivityModels(activityModels);
-                                    // Notify adapter about data change
-                                    adapter.notifyDataSetChanged(); // Notify adapter of dataset change
-                                    return; // Exit the loop once the day is found
+
+                            for (individualitineraryModel model : individualitineraryModellist) {
+                                if (model.getId().equals(dayId)) {
+                                    model.setActivityModels(activityModels);
+                                    break;
                                 }
                             }
-                            Log.e("Firestore", "Day with ID " + dayId + " not found in the list");
+                            adapter.notifyDataSetChanged();
                         } else {
                             Log.e("Firestore", "Error getting activities for day " + dayId, task.getException());
                         }

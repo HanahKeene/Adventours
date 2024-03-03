@@ -26,6 +26,7 @@
         private List<individualitineraryModel> individualitineraryModellist;
         private Map<String, individualItineraryactivityAdapter> dayAdapters;
 
+
         public individualitineraryAdapter(Context context, List<individualitineraryModel> individualitineraryModellist) {
             this.context = context;
             this.individualitineraryModellist = individualitineraryModellist;
