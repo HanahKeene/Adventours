@@ -126,42 +126,127 @@ public class select_activity extends AppCompatActivity implements selectActivity
                     .addOnSuccessListener(documentSnapshot -> {
                         if (documentSnapshot.exists()) {
                             String spotName = documentSnapshot.getString("name");
-
-                            for (selectActivityModel activity : checkedItems) {
-                                Map<String, Object> data = new HashMap<>();
-                                data.put("activity", activity.getName());
-                                data.put("place", spotName);
-
-                                // Add the activity to Firestore
-                                db.collection("users").document(user).collection("itineraries").document(itineraryId).collection("days").document(dayId).collection("activities")
-                                        .add(data)
-                                        .addOnSuccessListener(documentReference -> {
-                                            // Activity added successfully
-                                            Log.d("Firestore", "Activity added: " + activity.getName());
-                                        })
-                                        .addOnFailureListener(e -> {
-                                            // Failed to add activity
-                                            Log.e("Firestore", "Error adding activity", e);
-                                        });
-                            }
-
-                            // Dismiss the saving dialog after a short delay
-                            new Handler().postDelayed(() -> {
-                                dismissSavingDialog();
-                                // Navigate to another screen here (e.g., startActivity(new Intent(this, AnotherActivity.class)))
-                            }, 2000);
+                            saveActivitiesToFirestore(db, user, itineraryId, dayId, spotName, checkedItems);
                         } else {
-                            Log.e("Firestore", "Document does not exist for spotId: " + spotId);
-                            dismissSavingDialog(); // Dismiss dialog in case of error
+                            // If the document does not exist in the "Tourist Spots" collection,
+                            // try fetching spotName from the "Hotels" collection
+                            db.collection("Hotels").document(spotId)
+                                    .get()
+                                    .addOnSuccessListener(hotelSnapshot -> {
+                                        if (hotelSnapshot.exists()) {
+                                            String spotName = hotelSnapshot.getString("name");
+                                            saveActivitiesToFirestore(db, user, itineraryId, dayId, spotName, checkedItems);
+                                        } else {
+                                            // If the document does not exist in the "Hotels" collection,
+                                            // try fetching spotName from the "Restaurants" collection
+                                            db.collection("Restaurants").document(spotId)
+                                                    .get()
+                                                    .addOnSuccessListener(restaurantSnapshot -> {
+                                                        if (restaurantSnapshot.exists()) {
+                                                            String spotName = restaurantSnapshot.getString("name");
+                                                            saveActivitiesToFirestore(db, user, itineraryId, dayId, spotName, checkedItems);
+                                                        } else {
+                                                            Log.e("Firestore", "Document does not exist for spotId: " + spotId);
+                                                            dismissSavingDialog(); // Dismiss dialog in case of error
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(e -> {
+                                                        // Failed to fetch spotName from Restaurants collection
+                                                        Log.e("Firestore", "Error fetching spotName from Restaurants collection", e);
+                                                        dismissSavingDialog(); // Dismiss dialog in case of error
+                                                    });
+                                        }
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        // Failed to fetch spotName from Hotels collection
+                                        Log.e("Firestore", "Error fetching spotName from Hotels collection", e);
+                                        dismissSavingDialog(); // Dismiss dialog in case of error
+                                    });
                         }
                     })
                     .addOnFailureListener(e -> {
-                        // Failed to fetch spotName
-                        Log.e("Firestore", "Error fetching spotName", e);
+                        // Failed to fetch spotName from TouristSpots collection
+                        Log.e("Firestore", "Error fetching spotName from TouristSpots collection", e);
                         dismissSavingDialog(); // Dismiss dialog in case of error
                     });
         }
     }
+
+    private void saveActivitiesToFirestore(FirebaseFirestore db, String user, String itineraryId, String dayId, String spotName, List<selectActivityModel> checkedItems) {
+        for (selectActivityModel activity : checkedItems) {
+            Map<String, Object> data = new HashMap<>();
+            data.put("activity", activity.getName());
+            data.put("place", spotName);
+
+            // Add the activity to Firestore
+            db.collection("users").document(user).collection("itineraries").document(itineraryId).collection("days").document(dayId).collection("activities")
+                    .add(data)
+                    .addOnSuccessListener(documentReference -> {
+                        // Activity added successfully
+                        Log.d("Firestore", "Activity added: " + activity.getName());
+                    })
+                    .addOnFailureListener(e -> {
+                        // Failed to add activity
+                        Log.e("Firestore", "Error adding activity", e);
+                    });
+        }
+
+        // Dismiss the saving dialog after a short delay
+        new Handler().postDelayed(() -> {
+            dismissSavingDialog();
+            // Navigate to another screen here (e.g., startActivity(new Intent(this, AnotherActivity.class)))
+        }, 2000);
+    }
+
+
+    private void addActivitiesToFirestore(FirebaseFirestore db, String user, String itineraryId, String dayId, String spotName, List<selectActivityModel> checkedItems) {
+        for (selectActivityModel activity : checkedItems) {
+            Map<String, Object> data = new HashMap<>();
+            data.put("activity", activity.getName());
+            data.put("place", spotName);
+
+            // Add the activity to Firestore
+            db.collection("users").document(user).collection("itineraries").document(itineraryId).collection("days").document(dayId).collection("activities")
+                    .add(data)
+                    .addOnSuccessListener(documentReference -> {
+                        // Activity added successfully
+                        Log.d("Firestore", "Activity added: " + activity.getName());
+                    })
+                    .addOnFailureListener(e -> {
+                        // Failed to add activity
+                        Log.e("Firestore", "Error adding activity", e);
+                    });
+        }
+
+        // Dismiss the saving dialog after a short delay
+        new Handler().postDelayed(() -> {
+            dismissSavingDialog();
+            // Navigate to another screen here (e.g., startActivity(new Intent(this, AnotherActivity.class)))
+        }, 2000);
+    }
+
+    private void fetchSpotNameFromHotelsCollection(FirebaseFirestore db, String user, String itineraryId, String dayId, String spotId, List<selectActivityModel> checkedItems) {
+        // Fetch spotName from Hotels collection using spotId
+        db.collection("Hotels").document(spotId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String spotName = documentSnapshot.getString("name");
+
+                        // Add activities to Firestore
+                        addActivitiesToFirestore(db, user, itineraryId, dayId, spotName, checkedItems);
+                    } else {
+                        Log.e("Firestore", "Document does not exist for spotId in Tourist Spots or Hotels collection: " + spotId);
+                        dismissSavingDialog(); // Dismiss dialog in case of error
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // Failed to fetch spotName from Hotels collection
+                    Log.e("Firestore", "Error fetching spotName from Hotels collection", e);
+                    dismissSavingDialog(); // Dismiss dialog in case of error
+                });
+    }
+
 
 
     private void dismissSavingDialog() {

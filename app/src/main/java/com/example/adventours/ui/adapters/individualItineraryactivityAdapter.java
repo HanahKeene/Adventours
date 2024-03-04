@@ -99,9 +99,9 @@ public class individualItineraryactivityAdapter extends RecyclerView.Adapter<ind
     }
 
     private void loadPlaceImage(String placeName, ImageView imageView) {
-
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        // Query Firestore to get the image URL based on the place name
+
+        // Load image from Tourist Spots collection using placeName
         db.collection("Tourist Spots").whereEqualTo("name", placeName)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
@@ -116,23 +116,24 @@ public class individualItineraryactivityAdapter extends RecyclerView.Adapter<ind
                                     .error(R.drawable.error_image) // Error image if loading fails
                                     .into(imageView);
                         } else {
-                            // Handle case where image URL is not available
-                            imageView.setImageResource(R.drawable.placeholder); // Set default image
+                            // If image URL is not available, try loading image from Hotels collection
+                            loadHotelImage(placeName, imageView);
                         }
                     } else {
-                        // Handle case where place is not found in Firestore
-                        imageView.setImageResource(R.drawable.placeholder); // Set default image
+                        // If place is not found in Tourist Spots collection, try loading image from Hotels collection
+                        loadHotelImage(placeName, imageView);
                     }
                 })
                 .addOnFailureListener(e -> {
-                    imageView.setImageResource(R.drawable.placeholder);
-                    queryHotelCollection(placeName, imageView);
+                    // Failed to fetch image from Tourist Spots collection, try loading image from Hotels collection
+                    loadHotelImage(placeName, imageView);
                 });
     }
 
-    private void queryHotelCollection(String placeName, ImageView imageView) {
+    private void loadHotelImage(String placeName, ImageView imageView) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        // Query Firestore to get the image URL based on the place name
+
+        // Load image from Hotels collection using placeName
         db.collection("Hotels").whereEqualTo("name", placeName)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
@@ -147,24 +148,24 @@ public class individualItineraryactivityAdapter extends RecyclerView.Adapter<ind
                                     .error(R.drawable.error_image) // Error image if loading fails
                                     .into(imageView);
                         } else {
-                            // Handle case where image URL is not available
-                            imageView.setImageResource(R.drawable.placeholder); // Set default image
+                            // If image URL is not available, try loading image from Restaurants collection
+                            loadRestaurantImage(placeName, imageView);
                         }
                     } else {
-                        // Handle case where place is not found in Firestore
-                        imageView.setImageResource(R.drawable.placeholder); // Set default image
+                        // If place is not found in Hotels collection, try loading image from Restaurants collection
+                        loadRestaurantImage(placeName, imageView);
                     }
                 })
                 .addOnFailureListener(e -> {
-                    imageView.setImageResource(R.drawable.placeholder);
-                    queryRestaurantCollection(placeName, imageView);
+                    // Failed to fetch image from Hotels collection, try loading image from Restaurants collection
+                    loadRestaurantImage(placeName, imageView);
                 });
     }
 
-    private void queryRestaurantCollection(String placeName, ImageView imageView) {
-
+    private void loadRestaurantImage(String placeName, ImageView imageView) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        // Query Firestore to get the image URL based on the place name
+
+        // Load image from Restaurants collection using placeName
         db.collection("Restaurants").whereEqualTo("name", placeName)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
@@ -183,16 +184,16 @@ public class individualItineraryactivityAdapter extends RecyclerView.Adapter<ind
                             imageView.setImageResource(R.drawable.placeholder); // Set default image
                         }
                     } else {
-                        // Handle case where place is not found in Firestore
+                        // Handle case where place is not found in Restaurants collection
                         imageView.setImageResource(R.drawable.placeholder); // Set default image
                     }
                 })
                 .addOnFailureListener(e -> {
-                    imageView.setImageResource(R.drawable.placeholder);
-                    queryRestaurantCollection(placeName, imageView);
+                    // Failed to fetch image from Restaurants collection
+                    imageView.setImageResource(R.drawable.placeholder); // Set default image
                 });
-
     }
+
 
 
     @Override

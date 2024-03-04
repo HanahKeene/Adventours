@@ -49,7 +49,7 @@ public class RoomDetails extends AppCompatActivity {
     ImageButton back;
     RecyclerView galleryRecyclerView;
 
-    ImageView room_img;
+    ImageView room_img, addtoitinerary;
 
     TextView priceTxtView, paxTxtView, roomName, amenitiesTxtView, descTxtView, in_date, out_date, roomNumber;
 
@@ -75,6 +75,10 @@ public class RoomDetails extends AppCompatActivity {
         String hotelId = intent.getStringExtra("HotelId");
 
         back = findViewById(R.id.backbtn);
+        addtoitinerary = findViewById(R.id.addtoitinerarybtn);
+
+        addtoitinerary.setOnClickListener(View -> addtoitinerary(hotelId));
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +113,14 @@ public class RoomDetails extends AppCompatActivity {
         });
 
         fetchRoomDetailsFromFirebase(hotelId, roomId);
+    }
+
+    private void addtoitinerary(String hotel_id) {
+
+        Intent intent = new Intent(RoomDetails.this, select_itinerary.class);
+        intent.putExtra("source", "Hotel");
+        intent.putExtra("Hotel_ID", hotel_id);
+        startActivity(intent);
     }
 
     private void showDialog() {

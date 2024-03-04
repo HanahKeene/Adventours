@@ -158,7 +158,7 @@
             android:layout_weight="0.90"/>
 
         <ImageView
-            android:id="@+id/imageView8"
+            android:id="@+id/addtoitinerarybtn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@drawable/addtoitinerary"

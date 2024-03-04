@@ -102,6 +102,7 @@ public class touristspotinfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(touristspotinfo.this, select_itinerary.class);
+                intent.putExtra("source", "Tourist Spot");
                 intent.putExtra("Spot_ID", spotId);
                 startActivity(intent);
             }

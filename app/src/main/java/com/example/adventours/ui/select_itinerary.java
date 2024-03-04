@@ -73,11 +73,13 @@ public class select_itinerary extends AppCompatActivity {
 
         Intent intent = getIntent();
         String spot_id = intent.getStringExtra("Spot_ID");
-
+        String restau_id = intent.getStringExtra("Restau_ID");
+        String hotel_id = intent.getStringExtra("Hotel_ID");
+        String source = getIntent().getStringExtra("source");
 
 
         itineraryModelList = new ArrayList<>();
-        selectitineraryAdapter = new selectitineraryAdapter(select_itinerary.this, itineraryModelList, listener, spot_id);
+        selectitineraryAdapter = new selectitineraryAdapter(select_itinerary.this, itineraryModelList, listener, spot_id, restau_id, hotel_id, source);
         itineraries.setLayoutManager(new GridLayoutManager(this, 3));
         itineraries.setAdapter(selectitineraryAdapter);
 

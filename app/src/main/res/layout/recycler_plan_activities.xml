@@ -14,24 +14,24 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.30">
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/imgplace"
-                    android:layout_width="100dp"
+                    android:layout_width="match_parent"
                     android:layout_height="75dp"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/bluelogo" />
             </LinearLayout>
-
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.60"
-                android:gravity="center">
+                android:padding="15dp"
+                android:gravity="center"
+                android:layout_weight="0.80">
 
                 <TextView
                     android:id="@+id/activity_name"
@@ -48,9 +48,9 @@
             </LinearLayout>
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.10">
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/removebtn"

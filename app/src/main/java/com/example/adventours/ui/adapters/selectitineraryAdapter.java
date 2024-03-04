@@ -17,8 +17,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.example.adventours.R;
-import com.example.adventours.ui.itineraryplan;
-import com.example.adventours.ui.models.FYPModel;
 import com.example.adventours.ui.models.ItineraryModel;
 import com.example.adventours.ui.selectDay;
 
@@ -30,18 +28,21 @@ public class selectitineraryAdapter extends RecyclerView.Adapter<selectitinerary
     private Context context;
     private List<ItineraryModel> itineraryModelList;
 
-    private String spot_id;
+    private String spot_id, restau_id, hotel_id, source;
 
     public interface OnItineraryItemClickListener {
         void onItineraryItemClick(String Id);
     }
 
-    public selectitineraryAdapter(Context context, List<ItineraryModel> itineraryModelList, OnItineraryItemClickListener listener, String spot_id) {
+    public selectitineraryAdapter(Context context, List<ItineraryModel> itineraryModelList, OnItineraryItemClickListener listener, String spot_id, String restau_id, String hotel_id, String source) {
         this.context = context;
         this.itineraryModelList = itineraryModelList;
-        this.onItineraryClickListener = listener;
         this.spot_id = spot_id;
+        this.restau_id = restau_id;
+        this.hotel_id = hotel_id;
+        this.source = source;
     }
+
 
     @NonNull
     @Override
@@ -79,9 +80,17 @@ public class selectitineraryAdapter extends RecyclerView.Adapter<selectitinerary
                         String id = itineraryModelList.get(position).getId();
                         if (id != null) {
                             Intent intent = new Intent(context, selectDay.class);
-                            intent.putExtra("Spot_ID", spot_id);
+                            if (source.equals("Tourist Spot")) {
+                                intent.putExtra("Spot_ID", spot_id);
+                                Toast.makeText(context, "Spot_ID" + spot_id + " Itinerary ID " + id, Toast.LENGTH_SHORT).show();
+                            } else if (source.equals("Restaurant")) {
+                                intent.putExtra("Spot_ID", restau_id);
+                                Toast.makeText(context, "Restaurant ID" + restau_id + " Itinerary ID " + id, Toast.LENGTH_SHORT).show();
+                            } else if (source.equals("Hotel")) {
+                                intent.putExtra("Spot_ID", hotel_id);
+                                Toast.makeText(context, "Hotel_ID" + hotel_id + " Itinerary ID " + id, Toast.LENGTH_SHORT).show();
+                            }
                             intent.putExtra("ItineraryID", id);
-                            Toast.makeText(context, "Spot_ID" + spot_id + "Itinerary ID" + id, Toast.LENGTH_SHORT).show();
                             context.startActivity(intent);
                         } else {
                             // If the item ID is null, log an error message

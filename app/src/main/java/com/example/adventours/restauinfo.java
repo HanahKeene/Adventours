@@ -28,6 +28,7 @@ import com.example.adventours.ui.RoomDetails;
 import com.example.adventours.ui.adapters.photogalleryAdapter;
 import com.example.adventours.ui.adapters.roomAdapter;
 import com.example.adventours.ui.models.roomModel;
+import com.example.adventours.ui.select_itinerary;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -56,6 +57,8 @@ public class restauinfo extends AppCompatActivity {
 
     EditText note;
 
+    ImageView addtoitinerary;
+
     ImageButton in_btn, out_btn, adultnumdec, adultnuminc, childnuminc, childnumdec;
     private RecyclerView photogalleryRecyclerView, delicaciesRecyclerview;
 
@@ -79,15 +82,25 @@ public class restauinfo extends AppCompatActivity {
         photogalleryRecyclerView = findViewById(R.id.galleryRecyclerview);
         delicaciesRecyclerview = findViewById(R.id.delicaciesrecyclerview);
         reserve = findViewById(R.id.reservetable);
-
-        back.setOnClickListener(View -> finish());
-        reserve.setOnClickListener(View -> showDialog());
+        addtoitinerary = findViewById(R.id.addtoitinerary);
 
         db = FirebaseFirestore.getInstance();
         Intent intent = getIntent();
         String restauId = intent.getStringExtra("restau_id");
 
+        back.setOnClickListener(View -> finish());
+        reserve.setOnClickListener(View -> showDialog());
+        addtoitinerary.setOnClickListener(View -> addtoitinerary(restauId));
+
         fetchRestaurantDetailsFromDatabase(restauId);
+    }
+
+    private void addtoitinerary(String restauId) {
+
+        Intent intent = new Intent(restauinfo.this, select_itinerary.class);
+        intent.putExtra("source", "Restaurant");
+        intent.putExtra("Restau_ID", restauId);
+        startActivity(intent);
     }
 
     private void showDialog() {
