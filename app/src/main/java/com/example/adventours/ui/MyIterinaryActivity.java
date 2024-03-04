@@ -65,7 +65,7 @@ public class MyIterinaryActivity extends AppCompatActivity {
         back.setOnClickListener(View -> finish());
 
         itineraryModelList = new ArrayList<>();
-        itineraryAdapter = new ItineraryAdapter(MyIterinaryActivity.this, itineraryModelList, listener );
+        itineraryAdapter = new ItineraryAdapter(MyIterinaryActivity.this, itineraryModelList, listener);
         existingitinerary.setLayoutManager(new GridLayoutManager(this, 3));
         existingitinerary.setAdapter(itineraryAdapter);
 

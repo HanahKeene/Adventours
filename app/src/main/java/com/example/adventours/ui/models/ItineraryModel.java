@@ -7,6 +7,7 @@ public class ItineraryModel {
 
     private String name;
     private String image;
+    private boolean isDeleteButtonVisible;
 
     public ItineraryModel() {
         // Required empty public constructor for Firestore
@@ -41,5 +42,13 @@ public class ItineraryModel {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public boolean isDeleteButtonVisible() {
+        return isDeleteButtonVisible;
+    }
+
+    public void setDeleteButtonVisible(boolean deleteButtonVisible) {
+        isDeleteButtonVisible = deleteButtonVisible;
     }
 }
