@@ -12,5 +12,6 @@
         android:drawableTint="#5C5C5C"
         android:padding="16dp"
         android:text="Place"
+        style="@style/TEXT"
         android:textStyle="bold" />
 </LinearLayout>

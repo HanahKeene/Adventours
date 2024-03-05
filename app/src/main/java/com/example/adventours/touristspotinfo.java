@@ -305,7 +305,6 @@ public class touristspotinfo extends AppCompatActivity {
                 hotelAdapter.OnHotelItemClickListener hotelItemClickListener = new hotelAdapter.OnHotelItemClickListener() {
                     @Override
                     public void onHotelItemClick(String hotelId) {
-                        // Handle the click event here, for example, display a toast with the hotel ID
                         Toast.makeText(touristspotinfo.this, "Clicked Hotel ID: " + hotelId, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(touristspotinfo.this, hotelinfo.class);
                         intent.putExtra("hotel_id", hotelId);

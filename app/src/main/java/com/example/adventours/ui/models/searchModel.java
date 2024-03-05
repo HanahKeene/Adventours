@@ -1,22 +1,30 @@
 package com.example.adventours.ui.models;
 
 public class searchModel {
+    private String id;
+    private String name;
+    private String spot_id;
+    private String hotel_id;
+    private String restau_id;
 
-    String name;
-    String spot_id;
-    String hotel_id;
-    String restau_id;
-
-
-    searchModel() {
+    searchModel(){
 
     }
 
-    public searchModel(String name, String spot_id, String hotel_id, String restau_id) {
+    public searchModel(String id, String name, String spot_id, String hotel_id, String restau_id) {
+        this.id = id;
         this.name = name;
         this.spot_id = spot_id;
         this.hotel_id = hotel_id;
         this.restau_id = restau_id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
