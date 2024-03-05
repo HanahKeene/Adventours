@@ -83,7 +83,8 @@ public class search_screen extends AppCompatActivity implements searchAdapter.On
 
         // Filter data based on searchText from original data fetched from the database
         for (searchModel item : originalSearchModelList) {
-            if (item.getName().toLowerCase().contains(query)) {
+            // Check if item name is not null before converting to lowercase
+            if (item.getName() != null && item.getName().toLowerCase().contains(query)) {
                 searchModelList.add(item);
             }
         }
@@ -91,6 +92,7 @@ public class search_screen extends AppCompatActivity implements searchAdapter.On
         // Notify adapter about the changes
         searchAdapter.notifyDataSetChanged();
     }
+
 
     private void loadData() {
         // Fetch data from the database
