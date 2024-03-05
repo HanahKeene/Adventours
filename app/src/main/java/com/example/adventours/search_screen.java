@@ -1,5 +1,6 @@
 package com.example.adventours;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,6 +17,7 @@ import com.example.adventours.ui.models.searchModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -152,9 +154,62 @@ public class search_screen extends AppCompatActivity implements searchAdapter.On
 
     @Override
     public void onSearchItemClick(String itemId) {
-        // Handle item click here, you can toast the item ID
-        Toast.makeText(this, "Clicked Item ID: " + itemId, Toast.LENGTH_SHORT).show();
+        // Check if the item ID exists in the Hotel collection
+        String hotelid = itemId;
+        db.collection("Hotels").document(hotelid).get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            Toast.makeText(this, "Found in Hotels" + itemId, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(search_screen.this, hotelinfo.class);
+                            intent.putExtra("hotel_id", hotelid);
+                            startActivity(intent);
+                        } else {
+                            String restauid = itemId;
+                            db.collection("Restaurants").document(restauid).get()
+                                    .addOnCompleteListener(task1 -> {
+                                        if (task1.isSuccessful()) {
+                                            DocumentSnapshot document1 = task1.getResult();
+                                            if (document1.exists()) {
+                                                Toast.makeText(this, "Found in Restaurants" + itemId, Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(search_screen.this, restauinfo.class);
+                                                intent.putExtra("restau_id", restauid);
+                                                startActivity(intent);
+                                            } else {
+                                                String spotid = itemId;
+                                                db.collection("Tourist Spots").document(spotid).get()
+                                                        .addOnCompleteListener(task2 -> {
+                                                            if (task2.isSuccessful()) {
+                                                                DocumentSnapshot document2 = task2.getResult();
+                                                                if (document2.exists()) {
+                                                                    Toast.makeText(this, "Found in Tourist Spot" + itemId, Toast.LENGTH_SHORT).show();
+                                                                    Intent intent = new Intent(search_screen.this, touristspotinfo.class);
+                                                                    intent.putExtra("spot_id", itemId);
+                                                                    startActivity(intent);
+                                                                } else {
+                                                                    // If the item ID doesn't exist in any collection
+                                                                    showToast("Item ID not found");
+                                                                }
+                                                            } else {
+                                                                Log.e("search_screen", "Error fetching Tourist Spots document: " + task2.getException());
+                                                                showToast("Error fetching Tourist Spots document");
+                                                            }
+                                                        });
+                                            }
+                                        } else {
+                                            Log.e("search_screen", "Error fetching Restaurants document: " + task1.getException());
+                                            showToast("Error fetching Restaurants document");
+                                        }
+                                    });
+                        }
+                    } else {
+                        Log.e("search_screen", "Error fetching Hotels document: " + task.getException());
+                        showToast("Error fetching Hotels document");
+                    }
+                });
     }
+
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
