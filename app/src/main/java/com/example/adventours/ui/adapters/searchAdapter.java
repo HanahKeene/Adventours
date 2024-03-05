@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.adventours.R;
+import com.example.adventours.ui.models.HotelListModel;
 import com.example.adventours.ui.models.activityModel;
 import com.example.adventours.ui.models.searchModel;
 
@@ -20,28 +21,20 @@ import java.util.List;
 
 public class searchAdapter extends RecyclerView.Adapter<searchAdapter.ViewHolder> {
 
+    private SearchItemClickListener searchItemClickListener;
+
     private Context context;
     private List<searchModel> searchModelList;
 
-    public searchAdapter(Context context, List<searchModel> searchModelList) {
+    public interface SearchItemClickListener
+    {
+        void searchItemClickListener(String spot_id, String hotel_id, String restau_id);
+    }
+
+    public searchAdapter(Context context, List<searchModel> searchModelList, SearchItemClickListener listener) {
         this.context = context;
         this.searchModelList = searchModelList;
-        if (this.searchModelList == null) {
-            this.searchModelList = new ArrayList<>(); // Initialize if null
-        }
-    }
-
-    public void setData(List<searchModel> dataList) {
-        if (dataList != null) { // Null check
-            this.searchModelList.clear();
-            this.searchModelList.addAll(dataList);
-            notifyDataSetChanged();
-        }
-    }
-
-    public void clearData() {
-        this.searchModelList.clear();
-        notifyDataSetChanged();
+        this.searchItemClickListener = listener;
     }
 
     @NonNull
@@ -53,17 +46,12 @@ public class searchAdapter extends RecyclerView.Adapter<searchAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (searchModelList != null && position < searchModelList.size()) { // Null check and bounds check
-            holder.name.setText(searchModelList.get(position).getName());
-        }
+        holder.name.setText(searchModelList.get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        if (searchModelList != null) { // Null check
             return searchModelList.size();
-        }
-        return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
