@@ -42,29 +42,16 @@ public class musttry_hotels extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_musttry_hotels, container, false);
-
-        sharedPreferences .getSharedPreferences("MODE", Context.MODE_PRIVATE);
-        boolean nightMode = sharedPreferences.getBoolean("night", false);
-
-        if (nightMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
+        View rootView = inflater.inflate(R.layout.fragment_musttry_hotels, container, false);
 
 
-        hotelRecyclerView = findViewById(R.id.hotel_list_recyclerview);
-        back = findViewById(R.id.back);
-
-        back.setOnClickListener(View -> finish());
+        hotelRecyclerView = rootView.findViewById(R.id.hotelrecyclerview);
 
         db = FirebaseFirestore.getInstance();
 
         hotelListModelList = new ArrayList<>();
 
-        hotelListAdapter = new hotelListAdapter(this, hotelListModelList, new hotelListAdapter.OnHotelListItemClickListener() {
+        hotelListAdapter = new hotelListAdapter(getContext(), hotelListModelList, new hotelListAdapter.OnHotelListItemClickListener() {
             @Override
             public void onHotelListItemClick(String hotelId) {
                 // Handle the click event here
@@ -98,6 +85,6 @@ public class musttry_hotels extends Fragment {
                         }
                     }
                 });
+    return rootView;
     }
-}
 }

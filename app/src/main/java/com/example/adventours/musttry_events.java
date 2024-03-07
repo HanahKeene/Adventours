@@ -14,6 +14,8 @@ public class musttry_events extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_musttry_events, container, false);
+        View viewRoot = inflater.inflate(R.layout.fragment_musttry_events, container, false);
+
+        return viewRoot;
     }
 }
