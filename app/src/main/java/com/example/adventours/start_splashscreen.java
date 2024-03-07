@@ -57,7 +57,7 @@ public class start_splashscreen extends AppCompatActivity {
                         // Finish the current activity
                         finish();
                     }
-                }, 5000); // Adjust the delay time as needed (3000 milliseconds = 3 seconds)
+                }, 0); // Adjust the delay time as needed (3000 milliseconds = 3 seconds)
             }
         });
     }
