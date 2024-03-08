@@ -62,7 +62,7 @@ public class tours_list_activity extends AppCompatActivity {
                     @Override
                     public void onTourListItemClick(String tour_id) {
                         Intent intent = new Intent(tours_list_activity.this, toursinfo.class);
-                        intent.putExtra("hotel_id", tour_id);
+                        intent.putExtra("tour_id", tour_id);
                         startActivity(intent);
                     }
                 }, this, tourListModelList);
