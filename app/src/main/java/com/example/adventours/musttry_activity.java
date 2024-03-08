@@ -52,8 +52,8 @@ public class musttry_activity extends AppCompatActivity {
         // Add fragments to the adapter
         vpAdapter.addFragment(new musttry_hotels(), "Hotels");
         vpAdapter.addFragment(new musttry_restaurants(), "Restaurants");
-        vpAdapter.addFragment(new musttry_events(), "Tours");
-        vpAdapter.addFragment(new musttry_tours(), "Events");
+        vpAdapter.addFragment(new musttry_tours(), "Tours");
+        vpAdapter.addFragment(new musttry_events(), "Events");
 
         // Set the adapter to the ViewPager
         viewPager.setAdapter(vpAdapter);

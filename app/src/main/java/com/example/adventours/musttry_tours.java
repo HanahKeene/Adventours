@@ -51,8 +51,6 @@ public class musttry_tours extends Fragment {
         hotelListAdapter = new hotelListAdapter(getContext(), hotelListModelList, new hotelListAdapter.OnHotelListItemClickListener() {
             @Override
             public void onHotelListItemClick(String hotelId) {
-                // Handle the click event here
-//                Toast.makeText(hotel_lists_Activity.this, "Clicked Hotel ID: " + hotelId, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), hotelinfo.class);
                 intent.putExtra("hotel_id", hotelId);
                 startActivity(intent);
