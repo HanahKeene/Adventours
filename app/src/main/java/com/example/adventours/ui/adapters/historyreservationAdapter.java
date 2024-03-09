@@ -35,16 +35,21 @@ import java.util.List;
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            historyreservationModel reservation = historyreservationModelList.get(position);
 
-            holder.roomname.setText(historyreservationModelList.get(position).getRoomName());
-            holder.hotelname.setText(historyreservationModelList.get(position).getHotelName());
-            holder.reservationid.setText("Reservation No. " + historyreservationModelList.get(position).getReservationId());
-            holder.date.setText(historyreservationModelList.get(position).getCheckIn() + " - " + historyreservationModelList.get(position).getCheckOut());
-            holder.status.setText(historyreservationModelList.get(position).getStatus());
-
-            holder.status.setTextColor(getStatusColor(historyreservationModelList.get(position).getStatus()));
-
+            if (reservation.getHotelName() != null) {
+                holder.roomname.setText(reservation.getRoomName());
+                holder.restauname.setText(reservation.getHotelName());
+            } else if (reservation.getRestaurantName() != null) {
+                holder.roomname.setText(reservation.getGuests());
+                holder.restauname.setText(reservation.getRestaurantName());
+            }
+            holder.reservationid.setText("Reservation No. " + reservation.getReservationId());
+            holder.date.setText(reservation.getCheckIn() + " - " + reservation.getCheckOut());
+            holder.status.setText(reservation.getStatus());
+            holder.status.setTextColor(getStatusColor(reservation.getStatus()));
         }
+
 
         @Override
         public int getItemCount() {
@@ -53,11 +58,11 @@ import java.util.List;
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView roomname, hotelname, reservationid, date, status;
+            TextView roomname, restauname, reservationid, date, status;
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
                 roomname = itemView.findViewById(R.id.reservation_item);
-                hotelname = itemView.findViewById(R.id.reservation_place);
+                restauname = itemView.findViewById(R.id.reservation_place);
                 reservationid = itemView.findViewById(R.id.reservation_num);
                 date = itemView.findViewById(R.id.reservation_duration);
                 status = itemView.findViewById(R.id.reservation_status);

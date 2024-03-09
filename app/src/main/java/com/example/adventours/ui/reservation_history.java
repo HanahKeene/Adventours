@@ -64,8 +64,11 @@ public class reservation_history extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                historyreservationModel historyreservationModel = document.toObject(historyreservationModel.class);
-                                historyreservationModelList.add(historyreservationModel);
+                                historyreservationModel reservation = document.toObject(historyreservationModel.class);
+                                if (reservation.getHotelName() != null) { // Check if HotelName is not null
+                                    historyreservationModelList.add(reservation);
+                                }
+                                adapter.notifyDataSetChanged();
                             }
                             adapter.notifyDataSetChanged();
                         } else {
@@ -83,8 +86,11 @@ public class reservation_history extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {// Clear the list before adding new data
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                historyreservationModel historyreservationModel = document.toObject(historyreservationModel.class);
-                                historyreservationModelList.add(historyreservationModel);
+                                historyreservationModel reservation = document.toObject(historyreservationModel.class);
+                                if (reservation.getHotelName() != null) {
+                                    historyreservationModelList.add(reservation);
+                                }
+                                adapter.notifyDataSetChanged();
                             }
                             adapter.notifyDataSetChanged(); // Notify adapter after adding new data
                         } else {
