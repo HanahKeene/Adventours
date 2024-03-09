@@ -51,15 +51,17 @@ public class reservation_active extends Fragment {
         list = rootView.findViewById(R.id.reservations);
         activereservationModelList = new ArrayList<>();
 
-        adapter = new activereservationAdapter(getContext(), activereservationModelList, new activereservationAdapter.OnActiveReservationListItemClickListener(){
+        adapter = new activereservationAdapter(getContext(), activereservationModelList, new activereservationAdapter.OnActiveReservationListItemClickListener() {
             @Override
-            public void onActiveReservationListItemClickListener(String reservation_id) {
+            public void onActiveReservationListItemClick(String reservation_id, String reservationType) {
+                String message = "Reservation ID: " + reservation_id + "\nReservation Type: " + reservationType;
+                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), reservation_details.class);
                 intent.putExtra("reservation_id", reservation_id);
+                intent.putExtra("reservationType", reservationType);
                 startActivity(intent);
             }
         });
-
         list.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         list.setAdapter(adapter);
 

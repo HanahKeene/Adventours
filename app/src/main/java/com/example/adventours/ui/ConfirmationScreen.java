@@ -198,6 +198,7 @@ public class ConfirmationScreen extends AppCompatActivity {
                     reservationData.put("Email", emailtxtfld.getText().toString());
                     reservationData.put("HotelName", hotelnametxtfld.getText().toString());
                     reservationData.put("RoomName", roomtypeName.getText().toString());
+                    reservationData.put("Quantity", qtytxtfld.getText().toString());
                     reservationData.put("CheckIn", checkin.getText().toString());
                     reservationData.put("CheckOut", checkout.getText().toString());
                     reservationData.put("Expiration", expirationtxtfld.getText().toString());

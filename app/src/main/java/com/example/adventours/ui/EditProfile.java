@@ -172,7 +172,7 @@ public class EditProfile extends AppCompatActivity {
                 lnametxtfld.setText(lastName);
                 unametxtfld.setText(username);
                 citytxtfld.setText(city);
-                numbertxtfld.setText("+639" + number);
+                numbertxtfld.setText(number);
                 bdaytxtfld.setText(bday);
                 emailtxtfld.setText(email);
 

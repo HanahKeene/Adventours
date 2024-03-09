@@ -4,6 +4,342 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/SCREEN"
     tools:context=".reservation_details">
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/logowtext" />
+
+            <TextView
+                android:id="@+id/place"
+                style="@style/PRICETEXT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="HOTEL NAME"
+                android:textAlignment="center"
+                android:textSize="20dp" />
+
+            <TextView
+                style="@style/TEXT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thank you fir reservation! \n Here are the details of your stay."
+                android:textAlignment="center"
+                android:textSize="16dp" />
+
+            <View
+                style="@style/LINE"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow android:layout_width="wrap_content">
+
+                    <TextView
+                        style="@style/PRICETEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Guest Information"
+                        android:textStyle="bold"></TextView>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Name"
+                        android:textStyle="bold"></TextView>
+
+                    <TextView
+                        android:id="@+id/name"
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Trixie Soriano"></TextView>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Address"
+                        android:textStyle="bold"></TextView>
+
+                    <TextView
+                        android:id="@+id/add"
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Pasig City"></TextView>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Contact Number"
+                        android:textStyle="bold"></TextView>
+
+                    <TextView
+                        android:id="@+id/number"
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="+639477355259"></TextView>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Email"
+                        android:textStyle="bold"></TextView>
+
+                    <TextView
+                        android:id="@+id/email"
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="trixielavadiasoriano@gmail.com"></TextView>
+                </TableRow>
+            </TableLayout>
+
+            <View
+                style="@style/LINE"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow>
+
+                    <TextView
+                        style="@style/PRICETEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reservation Details"
+                        android:textStyle="bold"></TextView>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Reservation No."
+                        android:textStyle="bold"></TextView>
+
+                    <TextView
+                        android:id="@+id/reservationNumber"
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="0000000001"></TextView>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Reservation Date"
+                        android:textStyle="bold"></TextView>
+
+                    <TextView
+                        android:id="@+id/reservationdate"
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="December 30, 2023"></TextView>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        style="@style/TEXT"
+                        android:id="@+id/guests"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Room Type"
+                        android:textStyle="bold"></TextView>
+
+                    <TextView
+                        android:id="@+id/objecttxtfld"
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="3 Adults 1 Child"></TextView>
+                </TableRow>
+                <TableRow>
+
+                    <TextView
+                        style="@style/TEXT"
+                        android:id="@+id/quatity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Quantity of Room/s"
+                        android:textStyle="bold"></TextView>
+
+                    <TextView
+                        android:id="@+id/qtyofroom"
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="2 Rooms"></TextView>
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Check in"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/checkinfield"
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="January 1, 2023"/>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Check out"
+                        android:textStyle="bold"></TextView>
+
+                    <TextView
+                        android:id="@+id/checkoutfield"
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="January 1, 2023"></TextView>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Expiration Date"
+                        android:textStyle="bold"></TextView>
+
+                    <TextView
+                        android:id="@+id/expiration"
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="March 1, 2024"></TextView>
+                </TableRow>
+            </TableLayout>
+
+            <View
+                style="@style/LINE"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp" />
+
+            <TextView
+                style="@style/PRICETEXT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment Details"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                style="@style/TEXT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Please be informed that cancellations are complimentary up to 3 days before your reservation date. Should you wish to cancel beyond this period, we kindly request you to contact the hotel for details regarding applicable fees."
+                android:textColor="#FF0000"></TextView>
+
+            <Button
+                android:id="@+id/saveasimage"
+                style="@style/BUTTON"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Change Room Reservation " />
+            <Button
+                android:id="@+id/home"
+                android:background="@drawable/textfld"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cancel Reservation " />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

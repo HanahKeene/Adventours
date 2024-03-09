@@ -190,7 +190,7 @@ public class RestauConfirmationScreen extends AppCompatActivity {
                     reservationData.put("Address", address.getText().toString());
                     reservationData.put("Number", contact.getText().toString());
                     reservationData.put("Email", emailfld.getText().toString());
-                    reservationData.put("RestaurantName", restauname.getText().toString());
+                    reservationData.put("Place", restauname.getText().toString());
                     reservationData.put("CheckIn", checkin.getText().toString());
                     reservationData.put("CheckOut", checkout.getText().toString());
                     reservationData.put("Guests", guests.getText().toString());

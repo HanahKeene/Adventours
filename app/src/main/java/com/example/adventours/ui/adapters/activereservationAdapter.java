@@ -27,13 +27,13 @@ public class activereservationAdapter extends RecyclerView.Adapter<activereserva
 
     public interface OnActiveReservationListItemClickListener
     {
-        void onActiveReservationListItemClickListener(String reservation_id);
+        void onActiveReservationListItemClick(String reservation_id, String reservationType);
     }
 
-    public activereservationAdapter(Context context, List<activereservationModel> activereservationModelList, OnActiveReservationListItemClickListener listener) {
+    public activereservationAdapter(Context context, List<activereservationModel> activereservationModelList, OnActiveReservationListItemClickListener onActiveReservationListItemClickListener) {
         this.context = context;
         this.activereservationModelList = activereservationModelList;
-        this.onActiveReservationListItemClickListener = listener;
+        this.onActiveReservationListItemClickListener = onActiveReservationListItemClickListener;
     }
 
     @NonNull
@@ -48,13 +48,23 @@ public class activereservationAdapter extends RecyclerView.Adapter<activereserva
         activereservationModel reservation = activereservationModelList.get(position);
 
         if (reservation.getHotelName() != null) {
-            // Display hotel reservation information
             holder.roomname.setText(reservation.getRoomName());
             holder.restauname.setText(reservation.getHotelName());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onActiveReservationListItemClickListener.onActiveReservationListItemClick(reservation.getReservationId(), "Hotel Reservation");
+                }
+            });
         } else if (reservation.getRestaurantName() != null) {
-            // Display restaurant reservation information
-            holder.roomname.setText(reservation.getRestaurantName());
-            holder.restauname.setText(reservation.getGuests());
+            holder.roomname.setText(reservation.getGuests());
+            holder.restauname.setText(reservation.getRestaurantName());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onActiveReservationListItemClickListener.onActiveReservationListItemClick(reservation.getReservationId(), "Restaurant Reservation");
+                }
+            });
         }
 
         holder.reservationid.setText("Reservation No. " + reservation.getReservationId());
@@ -64,22 +74,41 @@ public class activereservationAdapter extends RecyclerView.Adapter<activereserva
     }
 
 
+
     @Override
     public int getItemCount() {
         return  activereservationModelList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView roomname, restauname,reservationid, date, status;
+        TextView roomname, restauname, reservationid, date, status;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            roomname = itemView.findViewById(R.id.reservation_place);
-            restauname = itemView.findViewById(R.id.reservation_item);
+            roomname = itemView.findViewById(R.id.reservation_item);
+            restauname = itemView.findViewById(R.id.reservation_place);
             reservationid = itemView.findViewById(R.id.reservation_num);
             date = itemView.findViewById(R.id.reservation_duration);
             status = itemView.findViewById(R.id.reservation_status);
 
+            // Set click listener for the item view
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            // Get the position of the clicked item
+            int position = getAdapterPosition();
+            // Check if listener is not null and the position is valid
+            if (position != RecyclerView.NO_POSITION && onActiveReservationListItemClickListener != null) {
+                // Retrieve the corresponding reservation ID and reservation type
+                activereservationModel reservation = activereservationModelList.get(position);
+                String reservationId = reservation.getReservationId();
+                String reservationType = (reservation.getHotelName() != null) ? "Hotel Reservation" : "Restaurant Reservation";
+                // Call the listener method
+                onActiveReservationListItemClickListener.onActiveReservationListItemClick(reservationId, reservationType);
+            }
         }
     }
 
