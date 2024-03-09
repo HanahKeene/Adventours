@@ -65,7 +65,7 @@ public class reservation_history extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 historyreservationModel reservation = document.toObject(historyreservationModel.class);
-                                if (reservation.getHotelName() != null) { // Check if HotelName is not null
+                                if (reservation.getHotelName() != null) {
                                     historyreservationModelList.add(reservation);
                                 }
                                 adapter.notifyDataSetChanged();

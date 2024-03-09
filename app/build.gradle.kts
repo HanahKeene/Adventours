@@ -60,7 +60,6 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.7.3"))
     implementation ("com.google.firebase:firebase-appcheck")
     implementation("com.android.volley:volley:1.2.1")
-    implementation("com.google.firebase:firebase-messaging:23.0.0")
     implementation("com.squareup.picasso:picasso:2.71828")
     implementation("com.google.firebase:firebase-storage:20.3.0")
     implementation("androidx.biometric:biometric:1.1.0")

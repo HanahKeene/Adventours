@@ -1,24 +1,29 @@
 package com.example.adventours.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
-import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.adventours.OnboardingAdapter;
 import com.example.adventours.OnboardingItem;
 import com.example.adventours.R;
-import com.example.adventours.touristspotinfo;
-import com.example.adventours.ui.home.HomeFragment;
-import com.google.android.material.button.MaterialButton;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +41,10 @@ public class tutorial extends AppCompatActivity {
 
         layoutOnboardindicator = findViewById(R.id.layoutOnboardingIndicators);
         buttonOnboardinAction = findViewById(R.id.buttonOnboardingAction);
+
+        Intent intent = getIntent();
+        String spotId = intent.getStringExtra("Spot_ID");
+        Toast.makeText(this, "ID" + spotId, Toast.LENGTH_SHORT).show();
 
         setOnboardingItems();
 
@@ -61,9 +70,61 @@ public class tutorial extends AppCompatActivity {
 
                     onboardingViewPager.setCurrentItem(onboardingViewPager.getCurrentItem() + 1);
                 } else {
-                    startActivity(new Intent(getApplicationContext(), HomeFragment.class));
-                    finish();
+                   openGoogleMaps(spotId);
                 }
+            }
+        });
+    }
+
+    public void openGoogleMaps(String spotId) {
+        // Fetch GeoPoint from Firestore (example)
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection("Tourist Spots").document(spotId);
+
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    // Retrieve GeoPoint from document
+                    GeoPoint geoPoint = documentSnapshot.getGeoPoint("coordinates");
+
+                    // Proceed if GeoPoint is available
+                    if (geoPoint != null) {
+                        // Extract latitude and longitude from GeoPoint
+                        double latitude = geoPoint.getLatitude();
+                        double longitude = geoPoint.getLongitude();
+
+                        // Create a Uri from the latitude and longitude
+                        Uri gmmIntentUri = Uri.parse("geo:" + latitude + "," + longitude);
+
+                        // Create an Intent to open Google Maps with the specified location
+                        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+
+                        // Set the package for Google Maps
+                        mapIntent.setPackage("com.google.android.apps.maps");
+
+                        // Check if there's an activity to handle the Intent
+                        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                            // Start Google Maps
+                            startActivity(mapIntent);
+                        } else {
+                            // If Google Maps is not available, show a message
+                            Toast.makeText(tutorial.this, "Google Maps app is not installed", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        // GeoPoint not found in document
+                        Toast.makeText(tutorial.this, "Location not found in Firestore", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    // Document does not exist
+                    Toast.makeText(tutorial.this, "Document does not exist", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // Error fetching document
+                Toast.makeText(tutorial.this, "Error fetching document: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

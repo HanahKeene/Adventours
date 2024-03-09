@@ -83,20 +83,20 @@ public class touristspotinfo extends AppCompatActivity {
 
         back.setOnClickListener(View -> finish());
 
-        locationTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    Intent intent = new Intent(touristspotinfo.this, tutorial.class);
-                    startActivity(intent);
-            }
-        });
-
-
         db = FirebaseFirestore.getInstance();
 
         // Get the spot ID from the Intent
         Intent intent = getIntent();
         String spotId = intent.getStringExtra("spot_id");
+
+        locationTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(touristspotinfo.this, tutorial.class);
+                intent.putExtra("Spot_ID", spotId);
+                startActivity(intent);
+            }
+        });
 
         addtoitinerary.setOnClickListener(new View.OnClickListener() {
             @Override
