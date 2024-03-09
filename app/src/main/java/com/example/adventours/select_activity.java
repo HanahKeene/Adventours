@@ -57,6 +57,7 @@ public class select_activity extends AppCompatActivity implements selectActivity
     List<selectActivityModel> selectActivityModelList;
 
     RecyclerView activityrecyclerview;
+    TextView back;
 
     private Handler handler = new Handler();
 
@@ -69,9 +70,11 @@ public class select_activity extends AppCompatActivity implements selectActivity
         activityrecyclerview = findViewById(R.id.activities);
         addbutton = findViewById(R.id.button);
         save = findViewById(R.id.savetoitinerary);
+        back = findViewById(R.id.back);
 
         addbutton.setOnClickListener(View -> showActivitiesDialog());
         save.setOnClickListener(View -> savetoitinerary());
+        back.setOnClickListener(View -> finish());
 
         // Initialize RecyclerView
         selectActivityModelList = new ArrayList<>();

@@ -183,7 +183,7 @@ public class RestauConfirmationScreen extends AppCompatActivity {
                 private void addReservationToFirestore(String reservationId) {
                     // Create a Map with reservation details
                     Map<String, Object> reservationData = new HashMap<>();
-                    String status = "Pending";
+                    String status = "Pending Approval";
                     reservationData.put("status", status);
                     reservationData.put("reservationId", reservationId);
                     reservationData.put("CustomerName", name.getText().toString());
@@ -196,6 +196,7 @@ public class RestauConfirmationScreen extends AppCompatActivity {
                     reservationData.put("Guests", guests.getText().toString());
                     reservationData.put("Expiration", expiration.getText().toString());
                     reservationData.put("Timestamp", FieldValue.serverTimestamp());
+                    reservationData.put("UserID", userId.toString());
 
                     // Add the reservation to the "Hotel Reservation" collection with the generated ID
                     db.collection("Restaurant Reservation").document(reservationId).set(reservationData)

@@ -24,6 +24,9 @@
         android:theme="@style/Theme.Adventours"
         tools:targetApi="30">
         <activity
+            android:name=".reservation_details"
+            android:exported="false" />
+        <activity
             android:name=".toursinfo"
             android:exported="false" />
 

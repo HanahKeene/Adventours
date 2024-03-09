@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.adventours.MainActivity;
 import com.example.adventours.R;
+import com.example.adventours.hotelinfo;
+import com.example.adventours.restauinfo;
 import com.example.adventours.ui.adapters.hotelListAdapter;
 import com.example.adventours.ui.adapters.restaurantListAdapter;
 import com.example.adventours.ui.home.HomeFragment;
@@ -66,7 +68,14 @@ public class restaurant_lists_activity extends AppCompatActivity {
         back.setOnClickListener(View -> finish());
 
         restaurantListModelList = new ArrayList<>();
-        restaurantListAdapter = new restaurantListAdapter(this, restaurantListModelList, null );
+        restaurantListAdapter = new restaurantListAdapter(this, restaurantListModelList, new restaurantListAdapter.OnRestaurantItemClickListener() {
+            @Override
+            public void onRestaurantItemClick(String restau_id) {
+                Intent intent = new Intent(restaurant_lists_activity.this, restauinfo.class);
+                intent.putExtra("restau_id", restau_id);
+                startActivity(intent);
+            }
+        });
         ResaurantRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         ResaurantRecyclerView.setAdapter(restaurantListAdapter);
 

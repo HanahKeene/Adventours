@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +15,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.adventours.R;
+import com.example.adventours.reservation_details;
+import com.example.adventours.restauinfo;
 import com.example.adventours.ui.adapters.CategoryAdapter;
 import com.example.adventours.ui.adapters.activereservationAdapter;
+import com.example.adventours.ui.adapters.restaurantListAdapter;
+import com.example.adventours.ui.lists.restaurant_lists_activity;
 import com.example.adventours.ui.models.CategoryModel;
 import com.example.adventours.ui.models.activereservationModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -44,9 +49,17 @@ public class reservation_active extends Fragment {
         View rootView = inflater.inflate(R.layout.reservation_active, container, false);
 
         list = rootView.findViewById(R.id.reservations);
-
         activereservationModelList = new ArrayList<>();
-        adapter = new activereservationAdapter(getContext(), activereservationModelList);
+
+        adapter = new activereservationAdapter(getContext(), activereservationModelList, new activereservationAdapter.OnActiveReservationListItemClickListener(){
+            @Override
+            public void onActiveReservationListItemClickListener(String reservation_id) {
+                Intent intent = new Intent(getContext(), reservation_details.class);
+                intent.putExtra("reservation_id", reservation_id);
+                startActivity(intent);
+            }
+        });
+
         list.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         list.setAdapter(adapter);
 
@@ -54,7 +67,6 @@ public class reservation_active extends Fragment {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String userId = currentUser.getUid();
         List<String> statusList = Arrays.asList("Confirmed", "Checked in", "In Progress", "On Hold", "Pending Approval", "Upcoming");
-
 
         db.collection("Hotel Reservation")
                 .whereEqualTo("UserID", userId)
@@ -75,27 +87,24 @@ public class reservation_active extends Fragment {
                     }
                 });
 
-//        db.collection("Restaurant Reservation")
-//                .whereEqualTo("UserID", userId)
-//                .whereIn("status", statusList)
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {// Clear the list before adding new data
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                activereservationModel activereservationModel = document.toObject(activereservationModel.class);
-//                                activereservationModelList.add(activereservationModel);
-//                            }
-//                            adapter.notifyDataSetChanged(); // Notify adapter after adding new data
-//                        } else {
-//                            Toast.makeText(getActivity(), "Error fetching categories: " + task.getException(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-
-
-
+        db.collection("Restaurant Reservation")
+                .whereEqualTo("UserID", userId)
+                .whereIn("status", statusList)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                activereservationModel activereservationModel = document.toObject(activereservationModel.class);
+                                activereservationModelList.add(activereservationModel);
+                            }
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            Toast.makeText(getActivity(), "Error fetching categories: " + task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
         return rootView;
     }

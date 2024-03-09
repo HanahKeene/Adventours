@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.adventours.R;
+import com.example.adventours.ui.models.EventsListModel;
 import com.example.adventours.ui.models.activereservationModel;
 import com.example.adventours.ui.models.activityModel;
 
@@ -20,12 +21,19 @@ import java.util.List;
 
 public class activereservationAdapter extends RecyclerView.Adapter<activereservationAdapter.ViewHolder> {
 
+    private OnActiveReservationListItemClickListener onActiveReservationListItemClickListener;
     private Context context;
     private List<activereservationModel> activereservationModelList;
 
-    public activereservationAdapter(Context context, List<activereservationModel> activereservationModelList) {
+    public interface OnActiveReservationListItemClickListener
+    {
+        void onActiveReservationListItemClickListener(String reservation_id);
+    }
+
+    public activereservationAdapter(Context context, List<activereservationModel> activereservationModelList, OnActiveReservationListItemClickListener listener) {
         this.context = context;
         this.activereservationModelList = activereservationModelList;
+        this.onActiveReservationListItemClickListener = listener;
     }
 
     @NonNull
@@ -40,7 +48,7 @@ public class activereservationAdapter extends RecyclerView.Adapter<activereserva
 
         holder.roomname.setText(activereservationModelList.get(position).getRoomName());
         holder.hotelname.setText(activereservationModelList.get(position).getHotelName());
-//        holder.restauname.setText(activereservationModelList.get(position).getRestaurantName());
+        holder.restauname.setText(activereservationModelList.get(position).getRestaurantName());
         holder.reservationid.setText("Reservation No. " + activereservationModelList.get(position).getReservationId());
         holder.date.setText(activereservationModelList.get(position).getCheckIn() + " - " + activereservationModelList.get(position).getCheckOut());
         holder.status.setText(activereservationModelList.get(position).getStatus());
