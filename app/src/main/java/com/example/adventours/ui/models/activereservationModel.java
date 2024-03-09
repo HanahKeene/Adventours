@@ -6,6 +6,7 @@ public class activereservationModel {
     String HotelName;
     String RestaurantName;
     String reservationId;
+    String Guests;
     String CheckIn;
     String CheckOut;
     String status;
@@ -14,14 +15,15 @@ public class activereservationModel {
 
     }
 
-    public activereservationModel(String RoomName, String hotelName, String RestaurantName, String reservationId, String checkIn, String checkOut, String status) {
-        this.RoomName = RoomName;
+    public activereservationModel(String roomName, String hotelName, String restaurantName, String reservationId, String guests, String checkIn, String checkOut, String status) {
+        this.RoomName = roomName;
         this.HotelName = hotelName;
-        this.RestaurantName = RestaurantName;
+        this.RestaurantName = restaurantName;
         this.reservationId = reservationId;
+        this.Guests = guests;
         this.CheckIn = checkIn;
         this.CheckOut = checkOut;
-        this.status=status;
+        this.status = status;
     }
 
     public String getRoomName() {
@@ -29,7 +31,7 @@ public class activereservationModel {
     }
 
     public void setRoomName(String roomName) {
-        this.RoomName = roomName;
+        RoomName = roomName;
     }
 
     public String getHotelName() {
@@ -54,6 +56,14 @@ public class activereservationModel {
 
     public void setReservationId(String reservationId) {
         this.reservationId = reservationId;
+    }
+
+    public String getGuests() {
+        return Guests;
+    }
+
+    public void setGuests(String guests) {
+        Guests = guests;
     }
 
     public String getCheckIn() {

@@ -45,16 +45,24 @@ public class activereservationAdapter extends RecyclerView.Adapter<activereserva
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        activereservationModel reservation = activereservationModelList.get(position);
 
-        holder.roomname.setText(activereservationModelList.get(position).getRoomName());
-        holder.hotelname.setText(activereservationModelList.get(position).getHotelName());
-        holder.restauname.setText(activereservationModelList.get(position).getRestaurantName());
-        holder.reservationid.setText("Reservation No. " + activereservationModelList.get(position).getReservationId());
-        holder.date.setText(activereservationModelList.get(position).getCheckIn() + " - " + activereservationModelList.get(position).getCheckOut());
-        holder.status.setText(activereservationModelList.get(position).getStatus());
+        if (reservation.getHotelName() != null) {
+            // Display hotel reservation information
+            holder.roomname.setText(reservation.getRoomName());
+            holder.restauname.setText(reservation.getHotelName());
+        } else if (reservation.getRestaurantName() != null) {
+            // Display restaurant reservation information
+            holder.roomname.setText(reservation.getRestaurantName());
+            holder.restauname.setText(reservation.getGuests());
+        }
 
-        holder.status.setTextColor(getStatusColor(activereservationModelList.get(position).getStatus()));
+        holder.reservationid.setText("Reservation No. " + reservation.getReservationId());
+        holder.date.setText(reservation.getCheckIn() + " - " + reservation.getCheckOut());
+        holder.status.setText(reservation.getStatus());
+        holder.status.setTextColor(getStatusColor(reservation.getStatus()));
     }
+
 
     @Override
     public int getItemCount() {
@@ -63,11 +71,10 @@ public class activereservationAdapter extends RecyclerView.Adapter<activereserva
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView roomname, hotelname, restauname,reservationid, date, status;
+        TextView roomname, restauname,reservationid, date, status;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            roomname = itemView.findViewById(R.id.reservation_item);
-            hotelname = itemView.findViewById(R.id.reservation_place);
+            roomname = itemView.findViewById(R.id.reservation_place);
             restauname = itemView.findViewById(R.id.reservation_item);
             reservationid = itemView.findViewById(R.id.reservation_num);
             date = itemView.findViewById(R.id.reservation_duration);

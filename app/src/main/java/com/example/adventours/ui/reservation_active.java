@@ -77,12 +77,14 @@ public class reservation_active extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                activereservationModel activereservationModel = document.toObject(activereservationModel.class);
-                                activereservationModelList.add(activereservationModel);
+                                activereservationModel reservation = document.toObject(activereservationModel.class);
+                                if (reservation.getHotelName() != null) { // Check if HotelName is not null
+                                    activereservationModelList.add(reservation);
+                                }
                             }
                             adapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(getActivity(), "Error fetching categories: " + task.getException(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Error fetching hotel reservations: " + task.getException(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -96,12 +98,14 @@ public class reservation_active extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                activereservationModel activereservationModel = document.toObject(activereservationModel.class);
-                                activereservationModelList.add(activereservationModel);
+                                activereservationModel reservation = document.toObject(activereservationModel.class);
+                                if (reservation.getRestaurantName() != null) { // Check if RestaurantName is not null
+                                    activereservationModelList.add(reservation);
+                                }
                             }
                             adapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(getActivity(), "Error fetching categories: " + task.getException(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Error fetching restaurant reservations: " + task.getException(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
