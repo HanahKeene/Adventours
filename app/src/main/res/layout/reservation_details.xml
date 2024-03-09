@@ -45,7 +45,7 @@
                 style="@style/TEXT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Thank you fir reservation! \n Here are the details of your stay."
+                android:text="Here are the details of your stay."
                 android:textAlignment="center"
                 android:textSize="16dp" />
 
@@ -210,7 +210,7 @@
 
                     <TextView
                         style="@style/TEXT"
-                        android:id="@+id/guests"
+                        android:id="@+id/roomlabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -218,7 +218,7 @@
                         android:textStyle="bold"></TextView>
 
                     <TextView
-                        android:id="@+id/objecttxtfld"
+                        android:id="@+id/roomvalue"
                         style="@style/TEXT"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -229,7 +229,7 @@
 
                     <TextView
                         style="@style/TEXT"
-                        android:id="@+id/quatity"
+                        android:id="@+id/quantitylabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -237,7 +237,7 @@
                         android:textStyle="bold"></TextView>
 
                     <TextView
-                        android:id="@+id/qtyofroom"
+                        android:id="@+id/quantityvalue"
                         style="@style/TEXT"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -309,13 +309,6 @@
                 android:layout_marginBottom="20dp" />
 
             <TextView
-                style="@style/PRICETEXT"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Payment Details"
-                android:textStyle="bold"></TextView>
-
-            <TextView
                 style="@style/TEXT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -324,14 +317,14 @@
                 android:textColor="#FF0000"></TextView>
 
             <Button
-                android:id="@+id/saveasimage"
+                android:id="@+id/changeroom"
                 style="@style/BUTTON"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="Change Room Reservation " />
             <Button
-                android:id="@+id/home"
+                android:id="@+id/cancelbutton"
                 android:background="@drawable/textfld"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"

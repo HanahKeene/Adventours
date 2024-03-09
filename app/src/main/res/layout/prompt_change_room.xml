@@ -18,7 +18,7 @@
             android:id="@+id/textView8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cancelling reservation could result temporary loss of your data. Click continue if you agree."
+            android:text="Changing reservation could result in a change of price. Click continue if you agree."
             android:textAlignment="center"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/confirm"
