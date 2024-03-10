@@ -45,7 +45,7 @@ public class RestauConfirmationScreen extends AppCompatActivity {
 
     private static final int IMAGE_PICK_CODE = 100;
     private Uri selectedImageUri;
-    String mod;
+    String mop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -248,20 +248,24 @@ public class RestauConfirmationScreen extends AppCompatActivity {
 
     private void addReservationToFirestore(String reservationId) {
         // Create a Map with reservation details
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = currentUser.getUid();
         Map<String, Object> reservationData = new HashMap<>();
         String status = "Pending Approval";
         reservationData.put("status", status);
         reservationData.put("reservationId", reservationId);
+        reservationData.put("UserID", userId.toString());
         reservationData.put("CustomerName", name.getText().toString());
         reservationData.put("Address", address.getText().toString());
         reservationData.put("Number", contact.getText().toString());
         reservationData.put("Email", emailfld.getText().toString());
-        reservationData.put("Place", restauname.getText().toString());
+        reservationData.put("RestaurantName", restauname.getText().toString());
         reservationData.put("CheckIn", checkin.getText().toString());
         reservationData.put("CheckOut", checkout.getText().toString());
         reservationData.put("Guests", guests.getText().toString());
         reservationData.put("Expiration", expiration.getText().toString());
         reservationData.put("Timestamp", FieldValue.serverTimestamp());
+        reservationData.put("MOP", mop);
 
         // Add the reservation to the "Hotel Reservation" collection with the generated ID
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -283,6 +287,7 @@ public class RestauConfirmationScreen extends AppCompatActivity {
                     intent.putExtra("CheckOut", checkout.getText().toString());
                     intent.putExtra("Expiration", expiration.getText().toString());
                     intent.putExtra("TimeStamp", timestamp);
+                    intent.putExtra("MOP", mop);
                     startActivity(intent);
                 })
                 .addOnFailureListener(e -> {
@@ -312,7 +317,7 @@ public class RestauConfirmationScreen extends AppCompatActivity {
     private void enablemaya(String restauid) {
         gcash.setBackgroundResource(R.drawable.buttonwborder);
         maya.setBackgroundResource(R.drawable.button_cyan);
-        mod = "Maya";
+        mop = "Maya";
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference userRef = db.collection("Restaurants").document(restauid);
 
@@ -340,7 +345,7 @@ public class RestauConfirmationScreen extends AppCompatActivity {
     private void enablegcash(String restauid) {
         maya.setBackgroundResource(R.drawable.buttonwborder);
         gcash.setBackgroundResource(R.drawable.button_cyan);
-        mod = "GCash";
+        mop = "GCash";
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference userRef = db.collection("Restaurants").document(restauid);
 
