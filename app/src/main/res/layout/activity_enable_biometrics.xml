@@ -6,4 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".ui.EnableBiometrics">
 
+
+    <LinearLayout
+        android:id="@+id/linearLayout17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        style="@style/ACTION"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/baseline_arrow_back"
+            android:textColor="@color/white"
+            android:text="Biometrics Authentication"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout17"
+        tools:layout_editor_absoluteX="1dp">
+
+        <Switch
+            android:id="@+id/enablebiomtrics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enable Biometrics"
+            android:padding="20dp"
+            style="@style/TEXT"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

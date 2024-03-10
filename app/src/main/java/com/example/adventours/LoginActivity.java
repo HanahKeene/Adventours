@@ -2,55 +2,30 @@ package com.example.adventours;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.method.PasswordTransformationMethod;
-import android.view.View;
-
-import com.example.adventours.MainActivity;
-import com.example.adventours.R;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.adventours.SigninActivity;
+import com.example.adventours.MainActivity;
+import com.example.adventours.R;
 import com.example.adventours.ui.forgot_password;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.adventours.SigninActivity;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import androidx.biometric.BiometricPrompt;
-
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private TextInputEditText email_txtfld, password_txtfld;
-    private TextView forgotpass, fingerprint;
-    private Button signupbtn, loginbtn;
-    private ImageButton showpass;
+    private TextInputEditText emailTxtField, passwordTxtField;
+    private Button loginButton, signupButton;
+    private TextView forgotPassword, fingerprintAuth;
     private FirebaseAuth mAuth;
     private final Executor executor = Executors.newSingleThreadExecutor();
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finish();
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,124 +33,100 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
 
-        email_txtfld = findViewById(R.id.email);
-        password_txtfld = findViewById(R.id.Password);
+        emailTxtField = findViewById(R.id.email);
+        passwordTxtField = findViewById(R.id.Password);
 
-        loginbtn = findViewById(R.id.loginbutton);
-        loginbtn.setOnClickListener(view -> openHome());
+        loginButton = findViewById(R.id.loginbutton);
+        loginButton.setOnClickListener(view -> login());
 
-        forgotpass = findViewById(R.id.forgotpass);
-        forgotpass.setOnClickListener(view -> openforgotPass());
+        forgotPassword = findViewById(R.id.forgotpass);
+        forgotPassword.setOnClickListener(view -> openForgotPassword());
 
-        signupbtn = findViewById(R.id.signupbutton);
-        signupbtn.setOnClickListener(view -> openRegister());
+        signupButton = findViewById(R.id.signupbutton);
+        signupButton.setOnClickListener(view -> openRegister());
 
-        showpass = findViewById(R.id.showpassword);
-        showpass.setOnClickListener(v -> togglePasswordVisibility());
-
-        fingerprint = findViewById(R.id.fingerprint);
-        fingerprint.setOnClickListener(view -> showFingerprintScanner());
+        fingerprintAuth = findViewById(R.id.fingerprint);
+        fingerprintAuth.setOnClickListener(view -> authenticateWithFingerprint());
     }
 
-    private void showFingerprintScanner() {
-        if (isBiometricPromptEnabled()) {
-            BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                    .setTitle("Biometric Authentication")
-                    .setSubtitle("Place your finger on the sensor")
-                    .setNegativeButtonText("Cancel")
-                    .build();
-
-            BiometricPrompt biometricPrompt = new BiometricPrompt(this, executor,
-                    new BiometricPrompt.AuthenticationCallback() {
-                        @Override
-                        public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
-                            super.onAuthenticationError(errorCode, errString);
-                            showToast("Authentication error: " + errString);
-                        }
-
-                        @Override
-                        public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-                            super.onAuthenticationSucceeded(result);
-                            showToast("Authentication succeeded");
-                            openMainActivity();
-                        }
-
-                        @Override
-                        public void onAuthenticationFailed() {
-                            super.onAuthenticationFailed();
-                            showToast("Authentication failed");
-                        }
-                    });
-
-            biometricPrompt.authenticate(promptInfo);
-        } else {
-            showToast("Biometric authentication is not available on this device.");
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            openMainActivity();
         }
     }
 
-    private boolean isBiometricPromptEnabled() {
-        FingerprintManager fingerprintManager = (FingerprintManager) getSystemService(Context.FINGERPRINT_SERVICE);
-        return fingerprintManager != null && fingerprintManager.isHardwareDetected()
-                && fingerprintManager.hasEnrolledFingerprints();
-    }
+    private void login() {
+        String email = emailTxtField.getText().toString();
+        String password = passwordTxtField.getText().toString();
 
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    private void openforgotPass() {
-        startActivity(new Intent(this, forgot_password.class));
-    }
-
-    private void openRegister() {
-        startActivity(new Intent(this, SigninActivity.class));
-    }
-
-    private void openHome() {
-        String email = String.valueOf(email_txtfld.getText());
-        String password = String.valueOf(password_txtfld.getText());
-
-        if (TextUtils.isEmpty(email) && TextUtils.isEmpty(password)) {
-            showToast("Enter email or password");
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            showToast("Please enter both email and password.");
             return;
         }
 
-        if (!TextUtils.isEmpty(email)) {
-            // Email authentication
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                showToast("Login Successful");
-                                openMainActivity();
-                            } else {
-                                showToast("Authentication failed.");
-                            }
-                        }
-                    });
-        } else {
-            // Fingerprint authentication
-            showFingerprintScanner();
-        }
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        showToast("Login successful!");
+                        openMainActivity();
+                    } else {
+                        showToast("Login failed. Please check your credentials.");
+                    }
+                });
+    }
+
+    private void authenticateWithFingerprint() {
+        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Fingerprint Authentication")
+                .setSubtitle("Place your finger on the sensor to authenticate.")
+                .setNegativeButtonText("Cancel")
+                .build();
+
+        BiometricPrompt biometricPrompt = new BiometricPrompt(this, executor,
+                new BiometricPrompt.AuthenticationCallback() {
+                    @Override
+                    public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                        super.onAuthenticationError(errorCode, errString);
+                        showToast("Authentication error: " + errString);
+                    }
+
+                    @Override
+                    public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                        super.onAuthenticationSucceeded(result);
+                        showToast("Authentication succeeded");
+                        openMainActivity();
+                    }
+
+                    @Override
+                    public void onAuthenticationFailed() {
+                        super.onAuthenticationFailed();
+                        showToast("Authentication failed. Please try again.");
+                    }
+                });
+
+        biometricPrompt.authenticate(promptInfo);
     }
 
     private void openMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish(); // Finish the LoginActivity to prevent going back to it on back press
     }
 
-    private void togglePasswordVisibility() {
-        boolean isPasswordVisible = password_txtfld.getTransformationMethod() == null;
+    private void openForgotPassword() {
+        Intent intent = new Intent(this, forgot_password.class);
+        startActivity(intent);
+    }
 
-        // Change transformation method based on visibility state
-        password_txtfld.setTransformationMethod(
-                isPasswordVisible ? new PasswordTransformationMethod() : null
-        );
+    private void openRegister() {
+        Intent intent = new Intent(this, SigninActivity.class);
+        startActivity(intent);
+    }
 
-        // Move the cursor to the end of the text to ensure it's always visible
-        password_txtfld.setSelection(password_txtfld.getText().length());
-        int imageResource = isPasswordVisible ? R.drawable.eye_solid : R.drawable.eye_slash_solid;
-        showpass.setImageResource(imageResource);
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
