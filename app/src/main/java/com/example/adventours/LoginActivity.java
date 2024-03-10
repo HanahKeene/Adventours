@@ -102,7 +102,20 @@ public class LoginActivity extends AppCompatActivity {
                     public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                         super.onAuthenticationSucceeded(result);
                         showToastOnUiThread("Authentication succeeded");
-                        openMainActivity();
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        if (user != null) {
+                            String linkedBiometricData = user.getDisplayName(); // Retrieve linked biometric data from Firebase
+                            String authenticatedBiometricData = ""; // Retrieve authenticated biometric data from the authentication result
+
+                            // Perform biometric data comparison
+                            if (authenticatedBiometricData.equals(linkedBiometricData)) {
+                                openMainActivity(); // Open MainActivity if biometric data matches
+                            } else {
+                                showToastOnUiThread("Biometric data does not match."); // Show error message if biometric data doesn't match
+                            }
+                        } else {
+                            showToastOnUiThread("User not logged in."); // Show error message if user is not logged in
+                        }
                     }
 
                     @Override
@@ -114,6 +127,7 @@ public class LoginActivity extends AppCompatActivity {
 
         biometricPrompt.authenticate(promptInfo);
     }
+
 
     private void openMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);

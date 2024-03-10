@@ -355,7 +355,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/textfld"
+                    android:background="@drawable/button_cyan"
                     android:clickable="true"
                     android:padding="20dp"
                     app:srcCompat="@drawable/gcash" />
@@ -366,7 +366,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/textfld"
+                    android:background="@drawable/buttonwborder"
                     android:clickable="true"
                     android:padding="20dp"
                     app:srcCompat="@drawable/maya" />
@@ -382,6 +382,7 @@
                     android:textStyle="bold"/>
 
                 <TextView
+                    android:id="@+id/account_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -399,6 +400,7 @@
                     android:textStyle="bold"/>
 
                 <TextView
+                    android:id="@+id/account_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -426,6 +428,7 @@
 
 
                 <TextView
+                    android:id="@+id/filename"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -434,6 +437,7 @@
                     android:textStyle="bold"/>
 
                 <Button
+                    android:id="@+id/choosefile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Choose File"/>

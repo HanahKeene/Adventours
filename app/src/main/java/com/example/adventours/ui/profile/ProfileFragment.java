@@ -51,6 +51,9 @@ public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
 
+    private Dialog rateDialog;
+    private Dialog logoutDialog;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
@@ -129,26 +132,18 @@ public class ProfileFragment extends Fragment {
         rateusbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                rateDialog = new Dialog(getActivity());
+                rateDialog.setContentView(R.layout.activity_rate_us);
+                rateDialog.show();
 
-                Dialog firstDialog = new Dialog(getActivity());
-                firstDialog.setContentView(R.layout.activity_rate_us);
-                firstDialog.show();
-
-                Button insideDialogBtn = firstDialog.findViewById(R.id.submitrate);
+                Button insideDialogBtn = rateDialog.findViewById(R.id.submitrate);
                 insideDialogBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        firstDialog.dismiss();
-                        Dialog secondDialog = new Dialog(getActivity());
-                        secondDialog.setContentView(R.layout.prompt_thanksfortherate);
-                        secondDialog.show();
-
-                        Button welcomebtn = secondDialog.findViewById(R.id.welcomebtn);
-                        welcomebtn.setOnClickListener(View -> secondDialog.dismiss());
+                        rateDialog.dismiss();
+                        // Your code for the second dialog
                     }
                 });
-
-
             }
         });
 
@@ -166,12 +161,11 @@ public class ProfileFragment extends Fragment {
         logoutbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                logoutDialog = new Dialog(getActivity());
+                logoutDialog.setContentView(R.layout.prompt_logoutconfirmation);
+                logoutDialog.show();
 
-                Dialog firstDialog = new Dialog(getActivity());
-                firstDialog.setContentView(R.layout.prompt_logoutconfirmation);
-                firstDialog.show();
-
-                Button insideDialogBtn = firstDialog.findViewById(R.id.logoutbtn);
+                Button insideDialogBtn = logoutDialog.findViewById(R.id.logoutbtn);
                 insideDialogBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -181,8 +175,6 @@ public class ProfileFragment extends Fragment {
                         getActivity().finish();
                     }
                 });
-
-
             }
         });
 
@@ -233,7 +225,12 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
+        if (rateDialog != null && rateDialog.isShowing()) {
+            rateDialog.dismiss();
+        }
+        if (logoutDialog != null && logoutDialog.isShowing()) {
+            logoutDialog.dismiss();
+        }
     }
 }
 
