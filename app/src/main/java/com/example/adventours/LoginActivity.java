@@ -2,20 +2,24 @@ package com.example.adventours;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.adventours.MainActivity;
 import com.example.adventours.R;
 import com.example.adventours.ui.forgot_password;
 import com.example.adventours.SigninActivity;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import androidx.biometric.BiometricPrompt;
+
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -80,8 +84,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private void authenticateWithFingerprint() {
         BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Fingerprint Authentication")
+                .setTitle("Authenticate using Biometrics")
                 .setSubtitle("Place your finger on the sensor to authenticate.")
+                .setDescription("This will authenticate you using your enrolled biometric data.")
                 .setNegativeButtonText("Cancel")
                 .build();
 
@@ -90,20 +95,20 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                         super.onAuthenticationError(errorCode, errString);
-                        showToast("Authentication error: " + errString);
+                        showToastOnUiThread("Authentication error: " + errString);
                     }
 
                     @Override
                     public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                         super.onAuthenticationSucceeded(result);
-                        showToast("Authentication succeeded");
+                        showToastOnUiThread("Authentication succeeded");
                         openMainActivity();
                     }
 
                     @Override
                     public void onAuthenticationFailed() {
                         super.onAuthenticationFailed();
-                        showToast("Authentication failed. Please try again.");
+                        showToastOnUiThread("Authentication failed. Please try again.");
                     }
                 });
 
@@ -128,5 +133,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void showToastOnUiThread(String message) {
+        runOnUiThread(() -> showToast(message));
     }
 }

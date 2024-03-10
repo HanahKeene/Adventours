@@ -4,14 +4,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 import com.example.adventours.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.concurrent.Executor;
 
@@ -87,20 +91,49 @@ public class EnableBiometrics extends AppCompatActivity {
 
         BiometricPrompt biometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
-            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+            public void onAuthenticationError(int errorCode, CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
-                // Handle authentication error
+                showToast("Biometric authentication error: " + errString);
             }
 
             @Override
-            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+            public void onAuthenticationSucceeded(BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
-                // Authentication succeeded, perform necessary actions here
+                showToast("Biometric authentication succeeded");
+
+                // Upon successful biometric authentication, link with Firebase
+                linkBiometricWithFirebase();
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+                showToast("Biometric authentication failed. Please try again.");
             }
         });
 
         biometricPrompt.authenticate(promptInfo);
     }
+
+    private void linkBiometricWithFirebase() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String biometricIdentifier = currentUser.getUid();
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(biometricIdentifier)
+                    .build();
+            currentUser.updateProfile(profileUpdates)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            showToast("Biometric credential linked successfully");
+                        } else {
+                            showToast("Biometric credential linking failed");
+                        }
+                    });
+        }
+    }
+
+
 
     private void saveBiometricEnabled(boolean enabled) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -112,8 +145,7 @@ public class EnableBiometrics extends AppCompatActivity {
         return sharedPreferences.getBoolean(BIOMETRIC_ENABLED_KEY, false);
     }
 
-    private void openBiometricSettings() {
-        Intent intent = new Intent(Settings.ACTION_SECURITY_SETTINGS);
-        startActivity(intent);
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

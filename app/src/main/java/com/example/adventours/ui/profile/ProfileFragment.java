@@ -190,43 +190,44 @@ public class ProfileFragment extends Fragment {
     }
 
     private void fetchUserDataAndUpdateUI() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference userRef = db.collection("users").document(currentUser.getUid());
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+            userRef.get().addOnSuccessListener(documentSnapshot -> {
+                if (documentSnapshot.exists()) {
+                    String number = documentSnapshot.getString("phone");
+                    String username = documentSnapshot.getString("username");
+                    String imageUrl = documentSnapshot.getString("imageUrl");
 
+                    // Set the username and number
+                    textView.setText(username);
+                    usernumber.setText(number);
 
-        DocumentReference userRef = db.collection("users").document(user.getUid());
+                    // Load and display the image using Glide
+                    if (imageUrl != null && !imageUrl.isEmpty()) {
+                        Glide.with(requireContext())
+                                .load(imageUrl)
+                                .circleCrop() // Optional: Crop the image into a circle
+                                .into(editprofile);
+                    } else {
+                        // If imageUrl is null or empty, you can set a default image or handle it accordingly
+                        // For example, you can set a default drawable:
+                        editprofile.setImageResource(R.drawable.baseline_add_photo_alternate_24);
+                    }
 
-        userRef.get().addOnSuccessListener(documentSnapshot -> {
-            if (documentSnapshot.exists()) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-                String number = documentSnapshot.getString("phone");
-                String username = documentSnapshot.getString("username");
-                String imageUrl = documentSnapshot.getString("imageUrl");
-
-                // Set the username and number
-                textView.setText(username);
-                usernumber.setText(number);
-
-                // Load and display the image using Glide
-                if (imageUrl != null && !imageUrl.isEmpty()) {
-                    Glide.with(requireContext())
-                            .load(imageUrl)
-                            .circleCrop() // Optional: Crop the image into a circle
-                            .into(editprofile);
                 } else {
-                    // If imageUrl is null or empty, you can set a default image or handle it accordingly
-                    // For example, you can set a default drawable:
-                    editprofile.setImageResource(R.drawable.baseline_add_photo_alternate_24);
+                    // User document does not exist, handle accordingly
                 }
-
-            } else {
-                // User document does not exist, handle accordingly
-            }
-        }).addOnFailureListener(e -> {
-            // Handle failure
-        });
+            }).addOnFailureListener(e -> {
+                // Handle failure
+            });
+        } else {
+            // User is not signed in, handle this scenario accordingly
+        }
     }
+
 
 
     @Override
