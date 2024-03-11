@@ -165,10 +165,18 @@ public class RestauConfirmationScreen extends AppCompatActivity {
                 }
             });
 
-            submit.setOnClickListener(v -> generateReservationIdAndAddToFirestore());
+            submit.setOnClickListener(v -> checkreceipt());
         }
     }
 
+    private void checkreceipt() {
+
+        if (selectedImageUri == null) {
+            Toast.makeText(RestauConfirmationScreen.this, "Please select a receipt image", Toast.LENGTH_SHORT).show();
+        } else {
+            generateReservationIdAndAddToFirestore();
+        }
+    }
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
@@ -267,7 +275,34 @@ public class RestauConfirmationScreen extends AppCompatActivity {
         reservationData.put("Timestamp", FieldValue.serverTimestamp());
         reservationData.put("MOP", mop);
 
-        // Add the reservation to the "Hotel Reservation" collection with the generated ID
+        // Upload image to Firebase Storage and get the download URL
+        if (selectedImageUri != null) {
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("receipts").child(reservationId);
+            UploadTask uploadTask = storageRef.putFile(selectedImageUri);
+
+            uploadTask.addOnSuccessListener(taskSnapshot -> {
+                // Image uploaded successfully, get the download URL
+                storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String imageUrl = uri.toString();
+                    // Add the download URL to the reservation data
+                    reservationData.put("receipt", imageUrl);
+                    // Add the reservation to Firestore
+                    addReservationDataToFirestore(reservationId, reservationData);
+                }).addOnFailureListener(e -> {
+                    // Handle failure to get download URL
+                    Toast.makeText(RestauConfirmationScreen.this, "Failed to get download URL: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+            }).addOnFailureListener(e -> {
+                // Handle failure to upload image
+                Toast.makeText(RestauConfirmationScreen.this, "Failed to upload image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            });
+        } else {
+            // No image selected, add reservation data without image URL
+            addReservationDataToFirestore(reservationId, reservationData);
+        }
+    }
+
+    private void addReservationDataToFirestore(String reservationId, Map<String, Object> reservationData) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Restaurant Reservation").document(reservationId).set(reservationData)
                 .addOnSuccessListener(aVoid -> {
@@ -294,25 +329,8 @@ public class RestauConfirmationScreen extends AppCompatActivity {
                     // Handle errors
                     Toast.makeText(RestauConfirmationScreen.this, "Error adding reservation: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
-
-        // Upload image to Firebase Storage
-        if (selectedImageUri != null) {
-            uploadImageToFirebaseStorage(selectedImageUri, reservationId);
-        }
     }
 
-    private void uploadImageToFirebaseStorage(Uri imageUri, String reservationId) {
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("receipts").child(reservationId);
-        UploadTask uploadTask = storageRef.putFile(imageUri);
-
-        uploadTask.addOnSuccessListener(taskSnapshot -> {
-            // Image uploaded successfully
-            Toast.makeText(RestauConfirmationScreen.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
-        }).addOnFailureListener(e -> {
-            // Handle failure to upload image
-            Toast.makeText(RestauConfirmationScreen.this, "Failed to upload image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        });
-    }
 
     private void enablemaya(String restauid) {
         gcash.setBackgroundResource(R.drawable.buttonwborder);
