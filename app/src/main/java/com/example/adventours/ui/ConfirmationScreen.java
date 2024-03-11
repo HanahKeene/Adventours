@@ -1,13 +1,16 @@
 package com.example.adventours.ui;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -108,8 +111,12 @@ public class ConfirmationScreen extends AppCompatActivity {
         choosefile = findViewById(R.id.choosefile);
         filename = findViewById(R.id.filename);
 
+        gcash.setOnClickListener(v -> enablegcash(hotelid));
+        maya.setOnClickListener(v -> enablemaya(hotelid));
         submit.setOnClickListener(View ->  checkreceipt());
         choosefile.setOnClickListener(View -> openGallery());
+
+        enablegcash(hotelid);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -187,6 +194,43 @@ public class ConfirmationScreen extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, IMAGE_PICK_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE && data != null) {
+            selectedImageUri = data.getData();
+            String fileName = getFileName(selectedImageUri);
+            filename.setText(fileName);
+        }
+    }
+
+    private String getFileName(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null) {
+                try {
+                    if (cursor.moveToFirst()) {
+                        int displayNameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                        if (displayNameIndex != -1) {
+                            result = cursor.getString(displayNameIndex);
+                        }
+                    }
+                } finally {
+                    cursor.close();
+                }
+            }
+        }
+        if (result == null) {
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
     }
 
     private void generateReservationIdAndAddToFirestore() {
@@ -278,6 +322,7 @@ public class ConfirmationScreen extends AppCompatActivity {
                         Intent intent = new Intent(ConfirmationScreen.this, HotelReservationReceipt.class);
                         Intent intent1 = getIntent();
                         String hotelid = intent1.getStringExtra("HotelId");
+                        String timestamp = FieldValue.serverTimestamp().toString();
                         intent.putExtra("Hotel ID", hotelid);
                         intent.putExtra("ReservationNumber", reservationId);
                         intent.putExtra("CustomerName", name.getText().toString());
@@ -334,7 +379,7 @@ public class ConfirmationScreen extends AppCompatActivity {
         maya.setBackgroundResource(R.drawable.button_cyan);
         mop = "Maya";
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference userRef = db.collection("Restaurants").document(restauid);
+        DocumentReference userRef = db.collection("Hotels").document(restauid);
 
         userRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -362,7 +407,7 @@ public class ConfirmationScreen extends AppCompatActivity {
         gcash.setBackgroundResource(R.drawable.button_cyan);
         mop = "GCash";
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference userRef = db.collection("Restaurants").document(restauid);
+        DocumentReference userRef = db.collection("Hotels").document(restauid);
 
         userRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {

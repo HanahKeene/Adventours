@@ -167,6 +167,7 @@ public class RestaurantReservationReceipt extends AppCompatActivity {
     private void backHome() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
     
     

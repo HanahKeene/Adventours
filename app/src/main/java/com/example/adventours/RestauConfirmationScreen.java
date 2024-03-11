@@ -288,6 +288,7 @@ public class RestauConfirmationScreen extends AppCompatActivity {
                     reservationData.put("receipt", imageUrl);
                     // Add the reservation to Firestore
                     addReservationDataToFirestore(reservationId, reservationData);
+
                 }).addOnFailureListener(e -> {
                     // Handle failure to get download URL
                     Toast.makeText(RestauConfirmationScreen.this, "Failed to get download URL: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -324,6 +325,7 @@ public class RestauConfirmationScreen extends AppCompatActivity {
                     intent.putExtra("TimeStamp", timestamp);
                     intent.putExtra("MOP", mop);
                     startActivity(intent);
+                    finish();
                 })
                 .addOnFailureListener(e -> {
                     // Handle errors
