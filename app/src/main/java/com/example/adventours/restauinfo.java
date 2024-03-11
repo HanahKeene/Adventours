@@ -29,6 +29,7 @@ import com.example.adventours.ui.adapters.photogalleryAdapter;
 import com.example.adventours.ui.adapters.roomAdapter;
 import com.example.adventours.ui.models.roomModel;
 import com.example.adventours.ui.select_itinerary;
+import com.example.adventours.ui.tutorial;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -91,8 +92,17 @@ public class restauinfo extends AppCompatActivity {
         back.setOnClickListener(View -> finish());
         reserve.setOnClickListener(View -> showDialog());
         addtoitinerary.setOnClickListener(View -> addtoitinerary(restauId));
+        placeTextView.setOnClickListener(View -> openGMaps(restauId));
 
         fetchRestaurantDetailsFromDatabase(restauId);
+    }
+
+    private void openGMaps(String restauId) {
+
+        Intent intent = new Intent(restauinfo.this, tutorial.class);
+        intent.putExtra("source", "Restaurant");
+        intent.putExtra("Restau_ID", restauId);
+        startActivity(intent);
     }
 
     private void addtoitinerary(String restauId) {

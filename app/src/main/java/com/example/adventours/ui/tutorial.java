@@ -42,9 +42,7 @@ public class tutorial extends AppCompatActivity {
         layoutOnboardindicator = findViewById(R.id.layoutOnboardingIndicators);
         buttonOnboardinAction = findViewById(R.id.buttonOnboardingAction);
 
-        Intent intent = getIntent();
-        String spotId = intent.getStringExtra("Spot_ID");
-        Toast.makeText(this, "ID" + spotId, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "ID" + spotId, Toast.LENGTH_SHORT).show();
 
         setOnboardingItems();
 
@@ -70,16 +68,45 @@ public class tutorial extends AppCompatActivity {
 
                     onboardingViewPager.setCurrentItem(onboardingViewPager.getCurrentItem() + 1);
                 } else {
-                   openGoogleMaps(spotId);
+                   openGoogleMaps();
                 }
             }
         });
     }
 
-    public void openGoogleMaps(String spotId) {
-        // Fetch GeoPoint from Firestore (example)
+    public void openGoogleMaps() {
+        Intent intent = getIntent();
+        String source = intent.getStringExtra("source");
+        String spotId = intent.getStringExtra("Spot_ID");
+        String restau_id = intent.getStringExtra("Restau_ID");
+        String hotel_id = intent.getStringExtra("Hotel_ID");
+        String collection = "";
+        String id = "";
+
+        Toast.makeText(this, "From Screen:" + collection + "ID" + id , Toast.LENGTH_SHORT).show();
+
+        switch(source) {
+            case "Tourist Spot":
+                collection = "Tourist Spots";
+                id = spotId;
+                Toast.makeText(this, "From Screen:" + collection + "ID" + id , Toast.LENGTH_SHORT).show();
+                break;
+            case "Hotel":
+                collection = "Hotels";
+                id = hotel_id;
+                Toast.makeText(this, "From Screen:" + collection + "ID" + id , Toast.LENGTH_SHORT).show();
+                break;
+            case "Restaurant":
+                collection = "Restaurants";
+                id = restau_id;
+                Toast.makeText(this, "From Screen:" + collection + "ID" + id , Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                // Handle default case if needed
+        }
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference docRef = db.collection("Tourist Spots").document(spotId);
+        DocumentReference docRef = db.collection(collection).document(id);
 
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -128,6 +155,7 @@ public class tutorial extends AppCompatActivity {
             }
         });
     }
+
 
     private void setOnboardingItems()
     {

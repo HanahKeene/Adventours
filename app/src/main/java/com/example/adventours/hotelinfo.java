@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.example.adventours.ui.adapters.photogalleryAdapter;
 import com.example.adventours.ui.adapters.roomAdapter;
 import com.example.adventours.ui.lists.hotel_lists_Activity;
 import com.example.adventours.ui.models.roomModel;
+import com.example.adventours.ui.tutorial;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -64,13 +66,25 @@ public class hotelinfo extends AppCompatActivity implements roomAdapter.OnItemCl
 
         back.setOnClickListener(View -> finish());
 
-
         Intent intent = getIntent();
         String hotelId = intent.getStringExtra("hotel_id");
+
+        locationTextView.setOnClickListener(View -> openGMaps(hotelId));
 
         fetchHotelDetailsFromFirebase(hotelId);
 
     }
+
+    private void openGMaps(String hotelId) {
+
+        Intent intent = new Intent(hotelinfo.this, tutorial.class);
+        intent.putExtra("source", "Hotel");
+        intent.putExtra("Hotel_ID", hotelId);
+        startActivity(intent);
+
+    }
+
+
 
     private void fetchHotelDetailsFromFirebase(String hotelId) {
 
