@@ -139,6 +139,7 @@ public class EditProfile extends AppCompatActivity {
                         .addOnSuccessListener(aVoid -> {
                             // Upload and set the image
                             uploadAndSetImage(existingUser);
+                            loadingDialog.dismiss();
                         })
                         .addOnFailureListener(e -> {
                             loadingDialog.dismiss(); // Dismiss loading dialog

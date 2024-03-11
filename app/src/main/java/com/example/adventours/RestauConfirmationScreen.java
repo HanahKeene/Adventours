@@ -4,19 +4,23 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.OpenableColumns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -46,6 +50,9 @@ public class RestauConfirmationScreen extends AppCompatActivity {
     private static final int IMAGE_PICK_CODE = 100;
     private Uri selectedImageUri;
     String mop;
+
+    private Dialog loadingDialog, successDialog;
+    private static final long DELAY_TIME_MILLISECONDS = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -255,7 +262,7 @@ public class RestauConfirmationScreen extends AppCompatActivity {
     }
 
     private void addReservationToFirestore(String reservationId) {
-        // Create a Map with reservation details
+
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String userId = currentUser.getUid();
         Map<String, Object> reservationData = new HashMap<>();
@@ -288,7 +295,6 @@ public class RestauConfirmationScreen extends AppCompatActivity {
                     reservationData.put("receipt", imageUrl);
                     // Add the reservation to Firestore
                     addReservationDataToFirestore(reservationId, reservationData);
-
                 }).addOnFailureListener(e -> {
                     // Handle failure to get download URL
                     Toast.makeText(RestauConfirmationScreen.this, "Failed to get download URL: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -307,30 +313,33 @@ public class RestauConfirmationScreen extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Restaurant Reservation").document(reservationId).set(reservationData)
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(RestauConfirmationScreen.this, "Reservation successful", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RestauConfirmationScreen.this, RestaurantReservationReceipt.class);
-                    String restaurantId = intent.getStringExtra("RestaurantId");
-                    String timestamp = FieldValue.serverTimestamp().toString();
-                    intent.putExtra("Restaurant ID", restaurantId);
-                    intent.putExtra("ReservationNumber", reservationId);
-                    intent.putExtra("CustomerName", name.getText().toString());
-                    intent.putExtra("Address", address.getText().toString());
-                    intent.putExtra("Number", contact.getText().toString());
-                    intent.putExtra("Email", emailfld.getText().toString());
-                    intent.putExtra("Guests", guests.getText().toString());
-                    intent.putExtra("RestaurantName", restauname.getText().toString());
-                    intent.putExtra("CheckIn", checkin.getText().toString());
-                    intent.putExtra("CheckOut", checkout.getText().toString());
-                    intent.putExtra("Expiration", expiration.getText().toString());
-                    intent.putExtra("TimeStamp", timestamp);
-                    intent.putExtra("MOP", mop);
-                    startActivity(intent);
-                    finish();
+                        Intent intent = new Intent(RestauConfirmationScreen.this, RestaurantReservationReceipt.class);
+                        intent.putExtra("ReservationNumber", reservationId);
+                        intent.putExtra("CustomerName", name.getText().toString());
+                        intent.putExtra("Address", address.getText().toString());
+                        intent.putExtra("Number", contact.getText().toString());
+                        intent.putExtra("Email", emailfld.getText().toString());
+                        intent.putExtra("Guests", guests.getText().toString());
+                        intent.putExtra("RestaurantName", restauname.getText().toString());
+                        intent.putExtra("CheckIn", checkin.getText().toString());
+                        intent.putExtra("CheckOut", checkout.getText().toString());
+                        intent.putExtra("Expiration", expiration.getText().toString());
+                        intent.putExtra("TimeStamp", FieldValue.serverTimestamp().toString());
+                        intent.putExtra("MOP", mop);
+                        startActivity(intent);
                 })
                 .addOnFailureListener(e -> {
-                    // Handle errors
-                    Toast.makeText(RestauConfirmationScreen.this, "Error adding reservation: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    errorDialog();
+//                    Toast.makeText(RestauConfirmationScreen.this, "Error adding reservation: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
+    }
+
+    private void errorDialog() {
+
+        loadingDialog = new Dialog(this);
+        loadingDialog.setContentView(R.layout.prompt_reservation_error);
+
+        loadingDialog.show();
     }
 
 

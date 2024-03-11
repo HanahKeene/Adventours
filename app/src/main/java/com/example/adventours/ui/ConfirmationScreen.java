@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -49,6 +50,7 @@ public class ConfirmationScreen extends AppCompatActivity {
     private static final int IMAGE_PICK_CODE = 100;
     private Uri selectedImageUri;
     String mop;
+    Dialog loadingDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -339,11 +341,18 @@ public class ConfirmationScreen extends AppCompatActivity {
                         startActivity(intent);
                 })
                 .addOnFailureListener(e -> {
-                    // Handle errors
-                    Toast.makeText(ConfirmationScreen.this, "Error adding reservation: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    errorDialog();
+//                    Toast.makeText(ConfirmationScreen.this, "Error adding reservation: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
 
 
+    }
+    private void errorDialog() {
+
+        loadingDialog = new Dialog(this);
+        loadingDialog.setContentView(R.layout.prompt_reservation_error);
+
+        loadingDialog.show();
     }
 
 //    private void getRoomPriceFromFirebase(String hotelid, String roomid, String roomquantity) {
