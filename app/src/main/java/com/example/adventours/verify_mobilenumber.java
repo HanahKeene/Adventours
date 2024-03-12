@@ -41,7 +41,7 @@ public class verify_mobilenumber extends AppCompatActivity {
         String bday = intent.getStringExtra("bday");
         String city = intent.getStringExtra("city");
         String password = intent.getStringExtra("password");
-        String phoneNumber = intent.getStringExtra("phoneNumber")
+        String phoneNumber = intent.getStringExtra("phoneNumber");
 
         button.setOnClickListener(View -> openverifier(email, gname, lname, gender, age, bday, city, password, phoneNumber));
 

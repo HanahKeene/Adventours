@@ -190,11 +190,12 @@ public class ProfileFragment extends Fragment {
             userRef.get().addOnSuccessListener(documentSnapshot -> {
                 if (documentSnapshot.exists()) {
                     String number = documentSnapshot.getString("phone");
-                    String username = documentSnapshot.getString("username");
+                    String firstName = documentSnapshot.getString("firstName");
+                    String lastName = documentSnapshot.getString("lastName");
                     String imageUrl = documentSnapshot.getString("imageUrl");
 
                     // Set the username and number
-                    textView.setText(username);
+                    textView.setText(firstName + " " + lastName);
                     usernumber.setText(number);
 
                     // Load and display the image using Glide

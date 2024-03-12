@@ -154,9 +154,10 @@ public class verify_otp extends AppCompatActivity {
         userDetails.put("lastName", lname);
         userDetails.put("gender", gender);
         userDetails.put("age", age);
-        userDetails.put("bday", bday);
+        userDetails.put("birthdate", bday);
         userDetails.put("city", city);
         userDetails.put("phone", phone);
+        userDetails.put("imageUrl", "");
 
         db.collection("users").document(userId)
                 .set(userDetails)

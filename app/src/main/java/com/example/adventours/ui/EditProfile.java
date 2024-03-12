@@ -167,11 +167,9 @@ public class EditProfile extends AppCompatActivity {
                 String number = documentSnapshot.getString("phone");
                 String bday = documentSnapshot.getString("birthday");
                 String email = documentSnapshot.getString("email");
-                String username = documentSnapshot.getString("username");
 
                 fnametxtfld.setText(firstName);
                 lnametxtfld.setText(lastName);
-                unametxtfld.setText(username);
                 citytxtfld.setText(city);
                 numbertxtfld.setText(number);
                 bdaytxtfld.setText(bday);
