@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
     private void openMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-        finish(); // Finish the LoginActivity to prevent going back to it on back press
+        finish();
     }
 
     private void openForgotPassword() {
@@ -141,7 +141,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void openRegister() {
-        Intent intent = new Intent(this, SigninActivity.class);
+        Intent intent = new Intent(this, register.class);
         startActivity(intent);
     }
 

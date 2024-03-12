@@ -6,288 +6,166 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.adventours.R;
 import com.example.adventours.SigninActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class verify_otp extends AppCompatActivity {
 
-    private CountDownTimer countDownTimer;
-    private long otpExpirationTime;
-    private long timeLeftInMillis;
-    EditText otp1, otp2, otp3, otp4, otp5, otp6;
-    Button verify;
-
-    ProgressBar progressBar;
-
-    TextView resendotp, countdown;
+    private EditText[] otpFields;
+    private ProgressBar progressBar;
+    private Button verifyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_otp);
 
-        Intent intent1 = getIntent();
-        String username = intent1.getStringExtra("uname");
-        String email = intent1.getStringExtra("email");
-        String gname = intent1.getStringExtra("gname");
-        String lname = intent1.getStringExtra("lname");
-        String gender = intent1.getStringExtra("gender");
-        String age = intent1.getStringExtra("age");
-        String bday = intent1.getStringExtra("bday");
-        String city = intent1.getStringExtra("city");
-        String number = intent1.getStringExtra("number");
+        // Initialize views
+        initViews();
 
-        otp1 = findViewById(R.id.otp1);
-        otp2 = findViewById(R.id.otp2);
-        otp3 = findViewById(R.id.otp3);
-        otp4 = findViewById(R.id.otp4);
-        otp5 = findViewById(R.id.otp5);
-        otp6 = findViewById(R.id.otp6);
-        progressBar = findViewById(R.id.progressBar);
-
-        verify = findViewById(R.id.verify);
-        
-        otpExpirationTime = getIntent().getLongExtra("otpExpirationTime", 0);
-
-        setupOTP();
-//        startCountDownTimer(otpExpirationTime - System.currentTimeMillis());
-
-        String verificationid = getIntent().getStringExtra("verificationId");
-
+        // Retrieve data from previous activity
         Intent intent = getIntent();
-        otpExpirationTime = intent.getLongExtra("otpExpirationTime", 0);
+        String verificationId = intent.getStringExtra("verificationId");
+        String email = intent.getStringExtra("email");
+        String password = intent.getStringExtra("password");
+        String gname = intent.getStringExtra("gname");
+        String lname = intent.getStringExtra("lname");
+        String gender = intent.getStringExtra("gender");
+        String age = intent.getStringExtra("age");
+        String bday = intent.getStringExtra("bday");
+        String city = intent.getStringExtra("city");
 
-
-
-        verify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(otp1.getText().toString().trim().isEmpty()
-                || otp2.getText().toString().trim().isEmpty()
-                || otp3.getText().toString().trim().isEmpty()
-                || otp4.getText().toString().trim().isEmpty()
-                || otp5.getText().toString().trim().isEmpty()
-                || otp6.getText().toString().trim().isEmpty())
-                {
-                    Toast.makeText(verify_otp.this, "Please enter valid code.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                String code = otp1.getText().toString()
-                        + otp2.getText().toString()
-                        + otp3.getText().toString()
-                        + otp4.getText().toString()
-                        + otp5.getText().toString()
-                        + otp6.getText().toString() ;
-
-                if(verificationid != null)
-                {
-                    progressBar.setVisibility(View. VISIBLE);
-                    verify.setVisibility(View.VISIBLE);
-                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(
-                            verificationid,
-                            code
-                    );
-                    FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    progressBar.setVisibility(View.GONE);
-                                    verify.setVisibility(View.VISIBLE);
-                                    if (task.isSuccessful()) {
-                                        Intent resultIntent = new Intent(verify_otp.this, SigninActivity.class);
-                                        resultIntent.putExtra("verificationStatus", "Verified");
-                                        resultIntent.putExtra("username", username);
-                                        resultIntent.putExtra("email", email);
-                                        resultIntent.putExtra("gname", gname);
-                                        resultIntent.putExtra("lname", lname);
-                                        resultIntent.putExtra("gender", gender);
-                                        resultIntent.putExtra("age", age);
-                                        resultIntent.putExtra("bday", bday);
-                                        resultIntent.putExtra("city", city);
-                                        resultIntent.putExtra("number", number);
-                                        resultIntent.putExtra("verificationId", verificationid);
-                                        resultIntent.putExtra("code", code);
-                                        setResult(Activity.RESULT_OK, resultIntent);
-                                        finish();
-                                    }
-                                    else
-                                    {
-                                        Toast.makeText(verify_otp.this, "The verification code entered was invalid", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                }
-
-            }
-        });
+        // Set up click listener for verify button
+        verifyButton.setOnClickListener(view -> verifyOTP(verificationId, email, password, gname, lname, gender, age, bday, city));
     }
 
-//    private void startCountDownTimer(long expirationTime) {
-//        long currentTime = System.currentTimeMillis();
-//        timeLeftInMillis = expirationTime - currentTime;
-//
-//        countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
-//            @Override
-//            public void onTick(long millisUntilFinished) {
-//                timeLeftInMillis = millisUntilFinished;
-//                updateCountdownText();
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//                // Handle what happens when the countdown finishes
-//                // For example, show a message or take appropriate action
-//                // This could include setting a flag to indicate that the time has expired
-//                // and preventing further verification attempts
-//                Toast.makeText(verify_otp.this, "OTP has expired", Toast.LENGTH_SHORT).show();
-//                finish(); // Finish the activity when the OTP expires
-//            }
-//        }.start();
-//    }
+    private void initViews() {
+        otpFields = new EditText[] {
+                findViewById(R.id.otp1),
+                findViewById(R.id.otp2),
+                findViewById(R.id.otp3),
+                findViewById(R.id.otp4),
+                findViewById(R.id.otp5),
+                findViewById(R.id.otp6)
+        };
 
+        progressBar = findViewById(R.id.progressBar);
+        verifyButton = findViewById(R.id.verify);
 
-//    private void updateCountdownText() {
-//        TextView countdownTextView = findViewById(R.id.countdown);
-//        long minutes = (timeLeftInMillis / 1000) / 60;
-//        long seconds = (timeLeftInMillis / 1000) % 60;
-//        String timeLeftFormatted = String.format("%02d:%02d", minutes, seconds);
-//        countdownTextView.setText(timeLeftFormatted);
-//    }
-
-    private void setupOTP()
-    {
-        otp1.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int count, int after) {
-                if(!s.toString().trim().isEmpty()){
-                    otp2.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        otp2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int count, int after) {
-                if(!s.toString().trim().isEmpty()){
-                    otp3.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        otp3.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int count, int after) {
-                if(!s.toString().trim().isEmpty()){
-                    otp4.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        otp4.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int count, int after) {
-                if(!s.toString().trim().isEmpty()){
-                    otp5.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        otp5.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int count, int after) {
-                if(!s.toString().trim().isEmpty()){
-                    otp6.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        otp6.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int count, int after) {
-                if(!s.toString().trim().isEmpty()){
-                    otp1.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        setupOTPFields();
     }
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        if (countDownTimer != null) {
-//            countDownTimer.cancel();
-//        }
-//    }
+    private void setupOTPFields() {
+        for (int i = 0; i < otpFields.length; i++) {
+            final int currentIndex = i;
+            otpFields[i].addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int count, int after) {
+                    if (s.length() > 0 && currentIndex < otpFields.length - 1) {
+                        otpFields[currentIndex + 1].requestFocus();
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {}
+            });
+        }
+    }
+
+    private void verifyOTP(String verificationId, String email, String password, String gname, String lname, String gender, String age, String bday, String city) {
+        // Validate OTP length
+        StringBuilder otp = new StringBuilder();
+        for (EditText field : otpFields) {
+            String digit = field.getText().toString().trim();
+            if (digit.isEmpty()) {
+                Toast.makeText(this, "Please enter valid OTP.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            otp.append(digit);
+        }
+
+        // Show progress bar
+        progressBar.setVisibility(View.VISIBLE);
+        verifyButton.setEnabled(false);
+
+        // Perform verification
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, otp.toString());
+        FirebaseAuth.getInstance().signInWithCredential(credential)
+                .addOnCompleteListener(task -> {
+                    progressBar.setVisibility(View.GONE);
+                    verifyButton.setEnabled(true);
+                    if (task.isSuccessful()) {
+                        // Verification successful, link email to phone number
+                        linkEmailToPhoneNumber(email, password, gname, lname, gender, age, bday, city);
+                    } else {
+                        // Verification failed
+                        Toast.makeText(verify_otp.this, "The verification code entered was invalid", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void linkEmailToPhoneNumber(String email, String password, String gname, String lname, String gender, String age, String bday, String city) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            AuthCredential credential = EmailAuthProvider.getCredential(email, password);
+            user.linkWithCredential(credential)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            // Email linking successful, save user details to Firestore
+                            saveUserDetailsToFirestore(user.getUid(), gname, lname, gender, age, bday, city);
+                        } else {
+                            // Email linking failed
+                            Toast.makeText(verify_otp.this, "Failed to link email.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else {
+            // User is not authenticated
+            Toast.makeText(this, "User not authenticated.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void saveUserDetailsToFirestore(String userId, String gname, String lname, String gender, String age, String bday, String city) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Object> userDetails = new HashMap<>();
+        userDetails.put("gname", gname);
+        userDetails.put("lname", lname);
+        userDetails.put("gender", gender);
+        userDetails.put("age", age);
+        userDetails.put("bday", bday);
+        userDetails.put("city", city);
+
+        db.collection("users").document(userId)
+                .set(userDetails)
+                .addOnSuccessListener(aVoid -> {
+                    // User details saved successfully
+                    Intent resultIntent = new Intent();
+                    setResult(Activity.RESULT_OK, resultIntent);
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+                    // Failed to save user details
+                    Toast.makeText(verify_otp.this, "Failed to save user details.", Toast.LENGTH_SHORT).show();
+                });
+    }
 }

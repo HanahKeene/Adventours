@@ -24,6 +24,12 @@
         android:theme="@style/Theme.Adventours"
         tools:targetApi="30">
         <activity
+            android:name=".register"
+            android:exported="false" />
+        <activity
+            android:name=".verify_mobilenumber"
+            android:exported="false" />
+        <activity
             android:name=".SetupBiometrics"
             android:exported="false" />
         <activity

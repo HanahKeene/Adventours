@@ -21,6 +21,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.adventours.ui.verify_otp;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
@@ -213,104 +215,154 @@ public class SigninActivity extends AppCompatActivity {
 
             progressBarlogin.setVisibility(View.VISIBLE);
             submit.setVisibility(View.INVISIBLE);
-            // Proceed with Firebase registration and database update
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, task -> {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
 
-                            if (user != null) {
-                                // Create a new user object
-                                User newUser = new User(uname, email, gname, lname, gender, age, bday, city, phone);
+            if (!email.isEmpty()) {
+                mAuth.getCurrentUser().updateEmail(email)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(SigninActivity.this, "Email linked successfully", Toast.LENGTH_SHORT).show();
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    if (user != null) {
+                                        // Create a new user object
+                                        User newUser = new User(uname, email, gname, lname, gender, age, bday, city, phone);
 
-                                // Add the user to Firestore
-                                db.collection("users")
-                                        .document(user.getUid())
-                                        .set(newUser)
-                                        .addOnCompleteListener(aVoid -> {
-
-                                            linkPhoneNumberWithAccount(phone);
-
-                                            // User registered successfully, now add empty subcollection
-                                            db.collection("users")
-                                                    .document(user.getUid())
-                                                    .collection("Itinerary")
-                                                    .get()
-                                                    .addOnCompleteListener(subcollectionTask -> {
-                                                        if (subcollectionTask.isSuccessful()) {
-                                                            if (subcollectionTask.getResult().isEmpty()) {
-                                                                // Subcollection doesn't exist, you can perform any necessary actions here
-                                                                Toast.makeText(this, "User registered successfully!", Toast.LENGTH_SHORT).show();
-                                                                startActivity(new Intent(getApplicationContext(), interestform.class));
-                                                                finish();
-                                                            } else {
-                                                                Toast.makeText(this, "Subcollection creation failed. Please try again.", Toast.LENGTH_SHORT).show();
-                                                            }
-                                                        } else {
-                                                            Toast.makeText(this, "Subcollection creation failed. Please try again.", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    });
-                                        })
-                                        .addOnFailureListener(e -> {
-                                            Toast.makeText(this, "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
-                                        });
+                                        // Add the user to Firestore
+                                        db.collection("users")
+                                                .document(user.getUid())
+                                                .set(newUser)
+                                                .addOnCompleteListener(aVoid -> {
+                                                    // User registered successfully, now add empty subcollection
+                                                    db.collection("users")
+                                                            .document(user.getUid())
+                                                            .collection("Itinerary")
+                                                            .get()
+                                                            .addOnCompleteListener(subcollectionTask -> {
+                                                                if (subcollectionTask.isSuccessful()) {
+                                                                    if (subcollectionTask.getResult().isEmpty()) {
+                                                                        // Subcollection doesn't exist, you can perform any necessary actions here
+                                                                        Toast.makeText(SigninActivity.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
+                                                                        startActivity(new Intent(getApplicationContext(), interestform.class));
+                                                                        finish();
+                                                                    } else {
+                                                                        Toast.makeText(SigninActivity.this, "Subcollection creation failed. Please try again.", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                } else {
+                                                                    Toast.makeText(SigninActivity.this, "Subcollection creation failed. Please try again.", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            });
+                                                })
+                                                .addOnFailureListener(e -> {
+                                                    Toast.makeText(SigninActivity.this, "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
+                                                });
+                                    }
+                                } else {
+                                    Toast.makeText(SigninActivity.this, "Failed to link email: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        } else {
-                            // Registration failed
-                            Toast.makeText(this, "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                        });
+            } else {
+                Toast.makeText(SigninActivity.this, "Please enter an email address", Toast.LENGTH_SHORT).show();
+            }
+            // Proceed with Firebase registration and database update
+//            mAuth.createUserWithEmailAndPassword(email, password)
+//                    .addOnCompleteListener(this, task -> {
+//                        if (task.isSuccessful()) {
+//                            FirebaseUser user = mAuth.getCurrentUser();
+//
+//                            if (user != null) {
+//                                // Create a new user object
+//                                User newUser = new User(uname, email, gname, lname, gender, age, bday, city, phone);
+//
+//                                // Add the user to Firestore
+//                                db.collection("users")
+//                                        .document(user.getUid())
+//                                        .set(newUser)
+//                                        .addOnCompleteListener(aVoid -> {
+//
+//                                            linkPhoneNumberWithAccount(phone);
+//
+//                                            // User registered successfully, now add empty subcollection
+//                                            db.collection("users")
+//                                                    .document(user.getUid())
+//                                                    .collection("Itinerary")
+//                                                    .get()
+//                                                    .addOnCompleteListener(subcollectionTask -> {
+//                                                        if (subcollectionTask.isSuccessful()) {
+//                                                            if (subcollectionTask.getResult().isEmpty()) {
+//                                                                // Subcollection doesn't exist, you can perform any necessary actions here
+//                                                                Toast.makeText(this, "User registered successfully!", Toast.LENGTH_SHORT).show();
+//                                                                startActivity(new Intent(getApplicationContext(), interestform.class));
+//                                                                finish();
+//                                                            } else {
+//                                                                Toast.makeText(this, "Subcollection creation failed. Please try again.", Toast.LENGTH_SHORT).show();
+//                                                            }
+//                                                        } else {
+//                                                            Toast.makeText(this, "Subcollection creation failed. Please try again.", Toast.LENGTH_SHORT).show();
+//                                                        }
+//                                                    });
+//                                        })
+//                                        .addOnFailureListener(e -> {
+//                                            Toast.makeText(this, "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
+//                                        });
+//                            }
+//                        } else {
+//                            // Registration failed
+//                            Toast.makeText(this, "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
 
         }
     }
 
-    private void linkPhoneNumberWithAccount(String phone) {
-        Intent intent = getIntent();
-        String verificationId = intent.getStringExtra("verificationId");
-        String code = intent.getStringExtra("code");
-        String password = passwordtxtfld.getText().toString(); // Ensure you have access to the user's password here
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // Create PhoneAuthCredential using verification ID and code
-            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-
-            // Reauthenticate user using their email and password
-            AuthCredential emailCredential = EmailAuthProvider.getCredential(user.getEmail(), password);
-            user.reauthenticate(emailCredential)
-                    .addOnCompleteListener(reauthTask -> {
-                        if (reauthTask.isSuccessful()) {
-                            // Reauthentication successful, link phone number with the account
-                            user.linkWithCredential(credential)
-                                    .addOnCompleteListener(task -> {
-                                        if (task.isSuccessful()) {
-                                            // Phone number successfully linked to the account
-                                            Toast.makeText(this, "Phone number linked successfully!", Toast.LENGTH_SHORT).show();
-
-                                            // Update user's profile with the verified phone number
-                                            user.updatePhoneNumber(credential)
-                                                    .addOnCompleteListener(updatePhoneTask -> {
-                                                        if (updatePhoneTask.isSuccessful()) {
-                                                            Log.d(TAG, "Phone number updated successfully!");
-                                                        } else {
-                                                            Log.w(TAG, "Failed to update phone number:", updatePhoneTask.getException());
-                                                            Toast.makeText(this, "Failed to update phone number.", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    });
-                                        } else {
-                                            // Failed to link phone number with the account
-                                            Log.w(TAG, "Failed to link phone number:", task.getException());
-                                            Toast.makeText(this, "Failed to link phone number with account.", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                        } else {
-                            // Reauthentication failed
-                            Log.w(TAG, "Reauthentication failed:", reauthTask.getException());
-                            Toast.makeText(this, "Reauthentication failed.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        }
-    }
+//    private void linkPhoneNumberWithAccount(String phone) {
+//        Intent intent = getIntent();
+//        String verificationId = intent.getStringExtra("verificationId");
+//        String code = intent.getStringExtra("code");
+//        String password = passwordtxtfld.getText().toString(); // Ensure you have access to the user's password here
+//
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        if (user != null) {
+//            // Create PhoneAuthCredential using verification ID and code
+//            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
+//
+//            // Reauthenticate user using their email and password
+//            AuthCredential emailCredential = EmailAuthProvider.getCredential(user.getEmail(), password);
+//            user.reauthenticate(emailCredential)
+//                    .addOnCompleteListener(reauthTask -> {
+//                        if (reauthTask.isSuccessful()) {
+//                            // Reauthentication successful, link phone number with the account
+//                            user.linkWithCredential(credential)
+//                                    .addOnCompleteListener(task -> {
+//                                        if (task.isSuccessful()) {
+//                                            // Phone number successfully linked to the account
+//                                            Toast.makeText(this, "Phone number linked successfully!", Toast.LENGTH_SHORT).show();
+//
+//                                            // Update user's profile with the verified phone number
+//                                            user.updatePhoneNumber(credential)
+//                                                    .addOnCompleteListener(updatePhoneTask -> {
+//                                                        if (updatePhoneTask.isSuccessful()) {
+//                                                            Log.d(TAG, "Phone number updated successfully!");
+//                                                        } else {
+//                                                            Log.w(TAG, "Failed to update phone number:", updatePhoneTask.getException());
+//                                                            Toast.makeText(this, "Failed to update phone number.", Toast.LENGTH_SHORT).show();
+//                                                        }
+//                                                    });
+//                                        } else {
+//                                            // Failed to link phone number with the account
+//                                            Log.w(TAG, "Failed to link phone number:", task.getException());
+//                                            Toast.makeText(this, "Failed to link phone number with account.", Toast.LENGTH_SHORT).show();
+//                                        }
+//                                    });
+//                        } else {
+//                            // Reauthentication failed
+//                            Log.w(TAG, "Reauthentication failed:", reauthTask.getException());
+//                            Toast.makeText(this, "Reauthentication failed.", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//        }
+//    }
 
 
 

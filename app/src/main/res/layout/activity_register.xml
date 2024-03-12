@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="@drawable/home_background"
+    tools:context=".register">
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:padding="30dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logowithwhitetext" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="REGISTER"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView10"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_padding"
+        android:hint="First Name"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        tools:ignore="TouchTargetSizeCheck"
+        app:layout_constraintTop_toBottomOf="@id/textView27"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/surname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_padding"
+        android:hint="Last Name"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        tools:ignore="TouchTargetSizeCheck"
+        app:layout_constraintTop_toBottomOf="@id/name"/>
+
+    <TableLayout
+        android:id="@+id/linearLayout16"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginTop="10dp"
+        android:stretchColumns="0,1,2"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/surname">
+
+        <TableRow>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/round_padding"
+                android:hint="Age"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <LinearLayout
+                android:background="@drawable/round_padding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/birthdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_padding"
+                    android:hint="Birthdate"
+                    android:inputType="date"
+                    android:padding="10dp"
+                    tools:ignore="TouchTargetSizeCheck"
+                    android:layout_weight="1"/>
+
+                <ImageButton
+                    android:id="@+id/bday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="46dp"
+                    android:backgroundTint="#00FFFFFF"
+                    app:srcCompat="@drawable/calendar"
+                    app:tint="@color/dark_blue"
+                    />
+            </LinearLayout>
+
+
+
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/linearLayout12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0,1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout16">
+
+        <RadioGroup
+            android:id="@+id/gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="49dp"
+                android:buttonTint="#FFFFFF"
+                android:padding="10dp"
+                android:text="Male"
+                android:textColor="#FFFFFF" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:buttonTint="#FFFFFF"
+                android:text="Female"
+                android:textColor="#FFFFFF"
+                tools:ignore="TouchTargetSizeCheck" />
+        </RadioGroup>
+
+    </TableLayout>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/round_padding"
+        android:ems="10"
+        android:hint="City"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout12" />
+
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_padding"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        tools:ignore="TouchTargetSizeCheck"
+        app:layout_constraintTop_toBottomOf="@id/city"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_padding">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/white"
+                android:layout_weight="1"/>
+
+            <ImageButton
+                android:id="@+id/showpassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/eye_solid"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout15">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_padding">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/confirmpassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/white"
+                android:layout_weight="1"/>
+
+            <ImageButton
+                android:id="@+id/showconfirmpassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/eye_solid"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/submitbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/login_padding"
+        android:text="CONTINUE"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout20" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/submitbtn">
+    <CheckBox
+        android:id="@+id/checkterms"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:buttonTint="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/submitbtn"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/terms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="I AGREE  WITH TERMS AND CONDITION"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/submitbtn"
+        app:layout_constraintStart_toEndOf="@id/checkterms"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
