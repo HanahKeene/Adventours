@@ -52,9 +52,10 @@ public class verify_otp extends AppCompatActivity {
         String age = intent.getStringExtra("age");
         String bday = intent.getStringExtra("bday");
         String city = intent.getStringExtra("city");
+        String phone = intent.getStringExtra("phoneNumber");
 
         // Set up click listener for verify button
-        verifyButton.setOnClickListener(view -> verifyOTP(verificationId, email, password, gname, lname, gender, age, bday, city));
+        verifyButton.setOnClickListener(view -> verifyOTP(verificationId, email, password, gname, lname, gender, age, bday, city, phone));
     }
 
     private void initViews() {
@@ -93,7 +94,7 @@ public class verify_otp extends AppCompatActivity {
         }
     }
 
-    private void verifyOTP(String verificationId, String email, String password, String gname, String lname, String gender, String age, String bday, String city) {
+    private void verifyOTP(String verificationId, String email, String password, String gname, String lname, String gender, String age, String bday, String city, String phone) {
         // Validate OTP length
         StringBuilder otp = new StringBuilder();
         for (EditText field : otpFields) {
@@ -117,7 +118,7 @@ public class verify_otp extends AppCompatActivity {
                     verifyButton.setEnabled(true);
                     if (task.isSuccessful()) {
                         // Verification successful, link email to phone number
-                        linkEmailToPhoneNumber(email, password, gname, lname, gender, age, bday, city);
+                        linkEmailToPhoneNumber(email, password, gname, lname, gender, age, bday, city, phone);
                     } else {
                         // Verification failed
                         Toast.makeText(verify_otp.this, "The verification code entered was invalid", Toast.LENGTH_SHORT).show();
@@ -125,7 +126,7 @@ public class verify_otp extends AppCompatActivity {
                 });
     }
 
-    private void linkEmailToPhoneNumber(String email, String password, String gname, String lname, String gender, String age, String bday, String city) {
+    private void linkEmailToPhoneNumber(String email, String password, String gname, String lname, String gender, String age, String bday, String city, String phone) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             AuthCredential credential = EmailAuthProvider.getCredential(email, password);
@@ -133,7 +134,7 @@ public class verify_otp extends AppCompatActivity {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             // Email linking successful, save user details to Firestore
-                            saveUserDetailsToFirestore(user.getUid(), gname, lname, gender, age, bday, city);
+                            saveUserDetailsToFirestore(user.getUid(), email, gname, lname, gender, age, bday, city, phone);
                         } else {
                             // Email linking failed
                             Toast.makeText(verify_otp.this, "Failed to link email.", Toast.LENGTH_SHORT).show();
@@ -145,15 +146,17 @@ public class verify_otp extends AppCompatActivity {
         }
     }
 
-    private void saveUserDetailsToFirestore(String userId, String gname, String lname, String gender, String age, String bday, String city) {
+    private void saveUserDetailsToFirestore(String userId, String email, String gname, String lname, String gender, String age, String bday, String city, String phone) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String, Object> userDetails = new HashMap<>();
-        userDetails.put("gname", gname);
-        userDetails.put("lname", lname);
+        userDetails.put("email", email);
+        userDetails.put("firstName", gname);
+        userDetails.put("lastName", lname);
         userDetails.put("gender", gender);
         userDetails.put("age", age);
         userDetails.put("bday", bday);
         userDetails.put("city", city);
+        userDetails.put("phone", phone);
 
         db.collection("users").document(userId)
                 .set(userDetails)

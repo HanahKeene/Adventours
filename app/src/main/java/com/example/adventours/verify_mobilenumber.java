@@ -41,12 +41,13 @@ public class verify_mobilenumber extends AppCompatActivity {
         String bday = intent.getStringExtra("bday");
         String city = intent.getStringExtra("city");
         String password = intent.getStringExtra("password");
+        String phoneNumber = intent.getStringExtra("phoneNumber")
 
-        button.setOnClickListener(View -> openverifier(email, gname, lname, gender, age, bday, city, password));
+        button.setOnClickListener(View -> openverifier(email, gname, lname, gender, age, bday, city, password, phoneNumber));
 
     }
 
-    private void openverifier(String email, String gname, String lname, String gender, String age, String bday, String city, String password) {
+    private void openverifier(String email, String gname, String lname, String gender, String age, String bday, String city, String password, String phoneNumber) {
 
         if (number.getText().toString().trim().isEmpty()) {
             Toast.makeText(verify_mobilenumber.this, "Enter your mobile number", Toast.LENGTH_SHORT).show();
@@ -84,6 +85,7 @@ public class verify_mobilenumber extends AppCompatActivity {
                         intent.putExtra("bday", bday);
                         intent.putExtra("city", city);
                         intent.putExtra("password", password);
+                        intent.putExtra("phonenumber", phoneNumber);
                         startActivity(intent);
                         startActivityForResult(intent, REQUEST_CODE_VERIFY_OTP);
                     }
