@@ -151,27 +151,6 @@ public class SettingsActivity extends AppCompatActivity {
          }
         }
 
-//    private void deleteAccountByMatchingPhoneNumber(String userMobileNumber) {
-//
-//        FirebaseAuth.getInstance().listUsers(null)
-//                .addOnSuccessListener(listUsersResult -> {
-//                    for (UserInfo user : listUsersResult.getUsers()) {
-//                        if (user.getPhoneNumber() != null && user.getPhoneNumber().equals(userMobileNumber)) {
-//                            // If a matching phone number is found in Firebase Authentication, delete the user account
-//                            deleteUserAccount(user);
-//                            return; // Exit the loop after finding the matching phone number
-//                        }
-//                    }
-//                    // If no matching phone number is found
-//                    Toast.makeText(SettingsActivity.this, "No user found with the provided phone number.", Toast.LENGTH_SHORT).show();
-//                })
-//                .addOnFailureListener(e -> {
-//                    // Error occurred while retrieving list of users
-//                    Toast.makeText(SettingsActivity.this, "Error retrieving list of users: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                });
-//
-//    }
-
     private void removeUser(String userMobileNumber) {
 
     }

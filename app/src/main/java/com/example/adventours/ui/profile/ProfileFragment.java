@@ -193,8 +193,9 @@ public class ProfileFragment extends Fragment {
                     String firstName = documentSnapshot.getString("firstName");
                     String lastName = documentSnapshot.getString("lastName");
                     String imageUrl = documentSnapshot.getString("imageUrl");
+                    String email = documentSnapshot.getString("email");
 
-                    // Set the username and number
+
                     textView.setText(firstName + " " + lastName);
                     usernumber.setText(number);
 
