@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.security.keystore.KeyGenParameterSpec;
+import android.security.keystore.KeyProperties;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -15,15 +17,18 @@ import android.widget.Toast;
 
 import com.example.adventours.MainActivity;
 import com.example.adventours.R;
+import com.example.adventours.ui.EnableBiometrics;
 import com.example.adventours.ui.forgot_password;
 import com.example.adventours.SigninActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 
 import java.security.AlgorithmParameters;
 import java.util.Arrays;
@@ -31,6 +36,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 
 public class LoginActivity extends AppCompatActivity {
@@ -77,37 +84,81 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void authenticateWithFingerprint() {
-        biometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
-            @Override
-            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
-                super.onAuthenticationError(errorCode, errString);
-                showToastOnUiThread("Authentication error: " + errString);
-            }
+        Cipher cipher = getCipher();
+        if (cipher != null) {
+            BiometricPrompt.CryptoObject cryptoObject = new BiometricPrompt.CryptoObject(cipher);
 
-            @Override
-            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-                super.onAuthenticationSucceeded(result);
-                showToastOnUiThread("Fingerprint authentication successful!");
-                // Proceed with login using fingerprint authentication
-                super.onAuthenticationSucceeded(result);
-                byte[] fingerprintData = retrieveFingerprintData(result);
-                loginWithBiometric(fingerprintData);
-            }
+            BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                    .setTitle("Authenticate to enable biometric login")
+                    .setSubtitle("Please use your biometrics to proceed")
+                    .setNegativeButtonText("Cancel")
+                    .build();
 
-            @Override
-            public void onAuthenticationFailed() {
-                super.onAuthenticationFailed();
-                showToastOnUiThread("Fingerprint authentication failed.");
-            }
-        });
+            BiometricPrompt biometricPrompt = new BiometricPrompt(this, ContextCompat.getMainExecutor(this), new BiometricPrompt.AuthenticationCallback() {
+                @Override
+                public void onAuthenticationError(int errorCode, CharSequence errString) {
+                    super.onAuthenticationError(errorCode, errString);
+                    Toast.makeText(LoginActivity.this, "Authentication error: " + errString, Toast.LENGTH_SHORT).show();
+                }
 
-        promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Fingerprint Authentication")
-                .setSubtitle("Place your finger on the fingerprint sensor")
-                .setNegativeButtonText("Cancel")
-                .build();
+                @Override
+                public void onAuthenticationSucceeded(BiometricPrompt.AuthenticationResult result) {
+                    super.onAuthenticationSucceeded(result);
+                    byte[] fingerprintData = retrieveFingerprintData(result);
+                    if (fingerprintData != null) {
+                        String email = emailTxtField.getText().toString().trim();
+                        if (!TextUtils.isEmpty(email)) {
+                            loginWithBiometric(email, fingerprintData);
+                        } else {
+                            showToast("Please enter your email to proceed with fingerprint authentication.");
+                        }
+                    } else {
+                        showToast("Failed to retrieve fingerprint data.");
+                    }
+                }
 
-        biometricPrompt.authenticate(promptInfo);
+                @Override
+                public void onAuthenticationFailed() {
+                    super.onAuthenticationFailed();
+                    Toast.makeText(LoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            biometricPrompt.authenticate(promptInfo, cryptoObject);
+        } else {
+            Log.e("BiometricAuthentication", "Cipher is null");
+            Toast.makeText(this, "Failed to initialize cryptographic object", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void loginWithBiometric(String email, byte[] fingerprintData) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").whereEqualTo("email", email).get()  // Assuming email is a field in the document
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                        String uid = documentSnapshot.getId();
+                        String storedFingerprintData = documentSnapshot.getString("fingerprintData");
+                        if (storedFingerprintData != null) {
+                            byte[] storedFingerprintBytes = Base64.decode(storedFingerprintData, Base64.DEFAULT);
+                            Log.d("FingerprintDebug", "Stored Fingerprint Bytes: " + Arrays.toString(storedFingerprintBytes));
+
+                            Log.d("FingerprintDebug", "Fingerprint Data Bytes: " + Arrays.toString(fingerprintData));
+
+                            if (Arrays.equals(storedFingerprintBytes, fingerprintData)) {
+                                showToast("Fingerprint authentication successful!");
+                                openMainActivity();
+                            } else {
+                                showToast("Fingerprint data mismatch. Unable to authenticate with fingerprint.");
+                            }
+                        } else {
+                            showToast("Stored fingerprint data is null. Unable to authenticate with fingerprint.");
+                        }
+                    } else {
+                        showToast("User document not found in Firestore.");
+                    }
+                })
+                .addOnFailureListener(e -> showToast("Failed to retrieve user data from Firestore: " + e.getMessage()));
     }
 
     private byte[] retrieveFingerprintData(BiometricPrompt.AuthenticationResult result) {
@@ -140,40 +191,22 @@ public class LoginActivity extends AppCompatActivity {
         return null;
     }
 
-    private void loginWithBiometric(byte[] fingerprintData) {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            db.collection("users").document(currentUser.getUid()).get()
-                    .addOnSuccessListener(documentSnapshot -> {
-                        if (documentSnapshot.exists()) {
-                            String storedFingerprintData = documentSnapshot.getString("fingerprintData");
-                            if (storedFingerprintData != null) {
-                                // Decode the stored fingerprint data from Base64
-                                byte[] storedFingerprintBytes = Base64.decode(storedFingerprintData, Base64.DEFAULT);
-                                // Compare the two byte arrays
-                                if (Arrays.equals(storedFingerprintBytes, fingerprintData)) {
-                                    // Fingerprint authentication successful, proceed with login
-                                    showToast("Fingerprint authentication successful!");
-                                    openMainActivity();
-                                } else {
-                                    // Fingerprint data mismatch
-                                    showToast("Fingerprint data mismatch. Unable to authenticate with fingerprint.");
-                                }
-                            } else {
-                                // Stored fingerprint data is null
-                                showToast("Stored fingerprint data is null. Unable to authenticate with fingerprint.");
-                            }
-                        } else {
-                            // User document not found in Firestore
-                            showToast("User document not found in Firestore.");
-                        }
-                    })
-                    .addOnFailureListener(e -> {
-                        showToast("Failed to retrieve user data from Firestore: " + e.getMessage());
-                    });
-        } else {
-            showToast("User not authenticated. Unable to authenticate with fingerprint.");
+    private Cipher getCipher() {
+        try {
+            KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
+            keyGenerator.init(new KeyGenParameterSpec.Builder("my_key", KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
+                    .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
+                    .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7)
+                    .build());
+            SecretKey secretKey = keyGenerator.generateKey();
+
+            Cipher cipher = Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/" + KeyProperties.BLOCK_MODE_CBC + "/" + KeyProperties.ENCRYPTION_PADDING_PKCS7);
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+
+            return cipher;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
@@ -203,11 +236,7 @@ public class LoginActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString(PREF_EMAIL_KEY, email);
                         editor.apply();
-
-                        showToast("Login successful!");
-
-                        // Proceed with fingerprint authentication
-                        authenticateWithFingerprint();
+                        openMainActivity();
                     } else {
                         showToast("Login failed. Please check your credentials.");
                     }
