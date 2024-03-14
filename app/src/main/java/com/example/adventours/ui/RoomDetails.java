@@ -79,16 +79,7 @@ public class RoomDetails extends AppCompatActivity {
 
         addtoitinerary.setOnClickListener(View -> addtoitinerary(hotelId));
 
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RoomDetails.this, touristspotinfo.class);
-                startActivity(intent);
-            }
-        });
-
-
+        back.setOnClickListener(View -> finish());
 
         Toast.makeText(this, "Hotel ID: " + hotelId + " ROOM ID: " + roomId, Toast.LENGTH_SHORT).show();
 

@@ -243,8 +243,14 @@ public class reservation_details extends AppCompatActivity {
 
     private void showavailableroomlist(){
         String hotelname = place.getText().toString();
+        String roomtype = roomvalue.getText().toString();
+        String reservationId = reservationnumber.getText().toString();
         Intent intent = new Intent(reservation_details.this, changeroomlist.class);
+        intent.putExtra("roomname", roomtype);
         intent.putExtra("HotelName", hotelname);
+        intent.putExtra("reservationId", reservationId);
+        Toast.makeText(this, "Room Name" + roomtype, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "HotelName" + hotelname, Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
 

@@ -24,6 +24,9 @@
         android:theme="@style/Theme.Adventours"
         tools:targetApi="30">
         <activity
+            android:name=".changeroom_details"
+            android:exported="false" />
+        <activity
             android:name=".register"
             android:exported="false" />
         <activity

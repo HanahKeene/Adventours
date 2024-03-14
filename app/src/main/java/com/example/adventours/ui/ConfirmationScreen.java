@@ -145,7 +145,7 @@ public class ConfirmationScreen extends AppCompatActivity {
                         // Update UI with user details
                         name.setText(firstName + " " + lastName);
                         add.setText(city);
-                        numbertxtfld.setText("+639" + number);
+                        numbertxtfld.setText(number);
                         emailtxtfld.setText(email);
                         // Add more UI updates as needed
                     } else {
