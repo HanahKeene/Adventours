@@ -1,44 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardElevation="0dp">
 
     <LinearLayout
         android:id="@+id/linearLayout28"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_notification_title"
+        <LinearLayout
+            android:id="@+id/linearLayout29"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Reservation Request Approved"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:padding="20dp">
 
-        <TextView
-            android:id="@+id/tv_reservation_details"
+            <TextView
+                android:id="@+id/notification_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reservation Request Approved"
+                android:textSize="14sp"
+                style="@style/TEXT" />
+
+            <TextView
+                android:id="@+id/reservation_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Congratulations! your request for reservation at Star Hotel has been approved."
+                android:textSize="12sp"
+                style="@style/TEXT" />
+        </LinearLayout>
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Congratiolations! your request for reservation at Star Hotel has been approved.  "
-            android:textSize="16sp" />
-
+            android:layout_height="2dp"
+            style="@style/LINE"
+            android:background="@color/ONHOLD"/>
     </LinearLayout>
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout28" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

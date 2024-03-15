@@ -25,6 +25,7 @@ import com.example.adventours.hotelinfo;
 import com.example.adventours.ui.adapters.hotelListAdapter;
 import com.example.adventours.ui.adapters.notificationAdapter;
 import com.example.adventours.ui.models.HotelListModel;
+import com.example.adventours.ui.models.ItineraryModel;
 import com.example.adventours.ui.models.NotificationModel;
 import com.example.adventours.ui.notification_activities;
 import com.example.adventours.ui.notification_promotions;
@@ -32,10 +33,13 @@ import com.example.adventours.ui.notification_systemupdate;
 import com.example.adventours.ui.notification_traveladvisory;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NotificationsFragment extends Fragment {
@@ -45,7 +49,8 @@ public class NotificationsFragment extends Fragment {
     FirebaseFirestore db;
     TextView systemupdate, promotions, activities, travel_advisory;
     notificationAdapter notificationAdapter;
-    List<NotificationModel> notificationModelList;
+    List<NotificationModel> notificationModelList = new ArrayList<>();
+
     SharedPreferences sharedPreferences;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -76,7 +81,7 @@ public class NotificationsFragment extends Fragment {
 
         notificationAdapter = new notificationAdapter(getContext(), notificationModelList, new notificationAdapter.OnNotificationListItemClickListener() {
             @Override
-            public void onNotificationItemClick(String reservation_id, String reservationType) {
+            public void onNotificationItemClick(String reservation_id, String status) {
 
             }
         });
@@ -84,23 +89,34 @@ public class NotificationsFragment extends Fragment {
         notification_recyclerview.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         notification_recyclerview.setAdapter(notificationAdapter);
 
-        db.collection("users").document(id).collection("unread_notification")
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = currentUser.getUid();
+
+        db.collection("users").document(userId).collection("unread_notification")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            notificationModelList.clear(); // Clear the list before adding new data
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                NotificationModel notificationModel = document.toObject(NotificationModel.class);
-//                                String hotel_id = document.getId(); // Retrieve document ID
-//                                notificationModel.setHotel_id(hotel_id);
+                                // Retrieve reservation_id field from each document
+                                String title = document.getString("title");
+                                String desc = document.getString("description");
+
+                                // Create a new NotificationModel instance and set the reservation_id
+                                NotificationModel notificationModel = new NotificationModel();
+                                notificationModel.setTitle(title);
+                                notificationModel.setDescription(desc);
+
+                                // Add the notificationModel to the list
                                 notificationModelList.add(notificationModel);
                             }
 
-                            notificationAdapter.notifyDataSetChanged(); // Notify adapter after adding new data
+                            // Notify adapter after adding new data
+                            notificationAdapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(getContext(), "Error fetching hotels: " + task.getException(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Error fetching notifications: " + task.getException(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

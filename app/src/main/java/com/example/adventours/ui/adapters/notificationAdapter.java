@@ -1,6 +1,7 @@
 package com.example.adventours.ui.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.example.adventours.ui.models.NotificationModel;
 import com.example.adventours.ui.models.activereservationModel;
 import com.example.adventours.ui.models.activityModel;
 
+
 import java.util.List;
 
 public class notificationAdapter extends RecyclerView.Adapter<notificationAdapter.ViewHolder> {
@@ -28,7 +30,7 @@ public class notificationAdapter extends RecyclerView.Adapter<notificationAdapte
 
     public interface OnNotificationListItemClickListener
     {
-        void onNotificationItemClick(String reservation_id, String reservationType);
+        void onNotificationItemClick(String reservation_id, String status);
     }
 
     public notificationAdapter(Context context, List<NotificationModel> notificationModelList , OnNotificationListItemClickListener onNotificationListItemClickListener) {
@@ -40,102 +42,45 @@ public class notificationAdapter extends RecyclerView.Adapter<notificationAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reservation_check_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notification_layout, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        activereservationModel reservation = activereservationModelList.get(position);
-//
-//        if (reservation.getHotelName() != null) {
-//            holder.roomname.setText(reservation.getRoomName());
-//            holder.restauname.setText(reservation.getHotelName());
-//            holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    onActiveReservationListItemClickListener.onActiveReservationListItemClick(reservation.getReservationId(), "Hotel Reservation");
-//                }
-//            });
-//        } else if (reservation.getRestaurantName() != null) {
-//            holder.roomname.setText(reservation.getGuests());
-//            holder.restauname.setText(reservation.getRestaurantName());
-//            holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    onActiveReservationListItemClickListener.onActiveReservationListItemClick(reservation.getReservationId(), "Restaurant Reservation");
-//                }
-//            });
-//        }
-        holder.reservationid.setText("Reservation No. " + reservation.getReservationId());
-        holder.date.setText(reservation.getCheckIn() + " - " + reservation.getCheckOut());
-        holder.status.setText(reservation.getStatus());
-        holder.status.setTextColor(getStatusColor(reservation.getStatus()));
-    }
+        NotificationModel notification = notificationModelList.get(position);
 
+        holder.title.setText(notification.getTitle());
+        holder.details.setText(notification.getDescription());
+        holder.
+
+        // Apply text style based on the status
+        if ("unread".equalsIgnoreCase(notification.getStatus())) {
+            // Set title and description to bold if status is unread
+            holder.title.setTypeface(null, Typeface.BOLD);
+            holder.details.setTypeface(null, Typeface.BOLD);
+        } else {
+            // Set title and description to normal typeface if status is not unread
+            holder.title.setTypeface(null, Typeface.NORMAL);
+            holder.details.setTypeface(null, Typeface.NORMAL);
+        }
+    }
 
 
     @Override
     public int getItemCount() {
-        return  activereservationModelList.size();
+        return  notificationModelList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView roomname, restauname, reservationid, date, status;
+        TextView title, details;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            roomname = itemView.findViewById(R.id.reservation_item);
-            restauname = itemView.findViewById(R.id.reservation_place);
-            reservationid = itemView.findViewById(R.id.reservation_num);
-            date = itemView.findViewById(R.id.reservation_duration);
-            status = itemView.findViewById(R.id.reservation_status);
+            title = itemView.findViewById(R.id.notification_title);
+            details = itemView.findViewById(R.id.reservation_details);
 
-            // Set click listener for the item view
-            itemView.setOnClickListener(this);
         }
-
-        @Override
-        public void onClick(View v) {
-            // Get the position of the clicked item
-            int position = getAdapterPosition();
-            // Check if listener is not null and the position is valid
-            if (position != RecyclerView.NO_POSITION && onActiveReservationListItemClickListener != null) {
-                // Retrieve the corresponding reservation ID and reservation type
-                activereservationModel reservation = activereservationModelList.get(position);
-                String reservationId = reservation.getReservationId();
-                String reservationType = (reservation.getHotelName() != null) ? "Hotel Reservation" : "Restaurant Reservation";
-                // Call the listener method
-                onActiveReservationListItemClickListener.onActiveReservationListItemClick(reservationId, reservationType);
-            }
-        }
-    }
-
-    private int getStatusColor(String status) {
-        int color;
-        switch (status.toLowerCase()) {
-            case "confirmed":
-                color = ContextCompat.getColor(context, R.color.CONFIRMED);
-                break;
-            case "checkin":
-                color = ContextCompat.getColor(context, R.color.CHECKIN);
-                break;
-            case "in progress":
-                color = ContextCompat.getColor(context, R.color.INPROGRESS);
-                break;
-            case "on hold":
-                color = ContextCompat.getColor(context, R.color.ONHOLD);
-                break;
-            case "pending approval":
-                color = ContextCompat.getColor(context, R.color.PENDINGAPPROVAL);
-                break;
-            case "upcoming":
-                color = ContextCompat.getColor(context, R.color.UPCOMING);
-                break;
-            default:
-                color = ContextCompat.getColor(context, R.color.black); // Set a default color if status doesn't match
-        }
-        return color;
     }
 }
