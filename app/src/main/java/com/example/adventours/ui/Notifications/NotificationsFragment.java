@@ -10,25 +10,42 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.adventours.R;
 import com.example.adventours.databinding.FragmentNotifBinding;
+import com.example.adventours.hotelinfo;
+import com.example.adventours.ui.adapters.hotelListAdapter;
+import com.example.adventours.ui.adapters.notificationAdapter;
+import com.example.adventours.ui.models.HotelListModel;
+import com.example.adventours.ui.models.NotificationModel;
 import com.example.adventours.ui.notification_activities;
 import com.example.adventours.ui.notification_promotions;
 import com.example.adventours.ui.notification_systemupdate;
 import com.example.adventours.ui.notification_traveladvisory;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.List;
 
 public class NotificationsFragment extends Fragment {
 
     private FragmentNotifBinding binding;
-
+    RecyclerView notification_recyclerview;
+    FirebaseFirestore db;
     TextView systemupdate, promotions, activities, travel_advisory;
-
+    notificationAdapter notificationAdapter;
+    List<NotificationModel> notificationModelList;
     SharedPreferences sharedPreferences;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -50,11 +67,44 @@ public class NotificationsFragment extends Fragment {
         promotions = root.findViewById(com.example.adventours.R.id.promotionsbtn);
         activities = root.findViewById(com.example.adventours.R.id.activitiesbtn);
         travel_advisory = root.findViewById(com.example.adventours.R.id.travel_advisorybtn);
+        notification_recyclerview = root.findViewById(com.example.adventours.R.id.notification_recyclerview);
 
         systemupdate.setOnClickListener(View -> systemupdate());
         promotions.setOnClickListener(View -> promotions());
         activities.setOnClickListener(View -> activities());
         travel_advisory.setOnClickListener(View -> travel_advisory());
+
+        notificationAdapter = new notificationAdapter(getContext(), notificationModelList, new notificationAdapter.OnNotificationListItemClickListener() {
+            @Override
+            public void onNotificationItemClick(String reservation_id, String reservationType) {
+
+            }
+        });
+
+        notification_recyclerview.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        notification_recyclerview.setAdapter(notificationAdapter);
+
+        db.collection("users").document(id).collection("unread_notification")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            notificationModelList.clear(); // Clear the list before adding new data
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                NotificationModel notificationModel = document.toObject(NotificationModel.class);
+//                                String hotel_id = document.getId(); // Retrieve document ID
+//                                notificationModel.setHotel_id(hotel_id);
+                                notificationModelList.add(notificationModel);
+                            }
+
+                            notificationAdapter.notifyDataSetChanged(); // Notify adapter after adding new data
+                        } else {
+                            Toast.makeText(getContext(), "Error fetching hotels: " + task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
         return root;
     }
 

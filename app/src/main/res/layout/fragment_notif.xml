@@ -32,15 +32,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout17"
-        tools:layout_editor_absoluteX="1dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout17">
 
         <TextView
             android:id="@+id/system_updatebtn"
+            style="@style/TEXT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            style="@style/TEXT"
             android:padding="20dp"
             android:text="System Updates" />
 
@@ -51,10 +52,10 @@
 
         <TextView
             android:id="@+id/promotionsbtn"
+            style="@style/TEXT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            style="@style/TEXT"
             android:padding="20dp"
             android:text="Promotions" />
 
@@ -65,11 +66,11 @@
 
         <TextView
             android:id="@+id/activitiesbtn"
+            style="@style/TEXT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:padding="20dp"
-            style="@style/TEXT"
             android:text="Activities" />
 
         <View
@@ -79,30 +80,36 @@
 
         <TextView
             android:id="@+id/travel_advisorybtn"
+            style="@style/TEXT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:padding="20dp"
-            style="@style/TEXT"
             android:text="Travel Advisory" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="409dp"
         android:layout_height="583dp"
-        android:layout_marginTop="1dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout22"
-        tools:layout_editor_absoluteX="1dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout22">
 
         <TextView
             android:id="@+id/textView48"
+            style="@style/ACTION"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/ACTION"
             android:padding="10dp"
-            android:text="Reservations"
+            android:text="Reservations Notification"
             android:textColor="#FFFFFF" />
+        .
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/notification_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
 
