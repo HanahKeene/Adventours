@@ -248,46 +248,8 @@
                         android:text="2 Rooms"></TextView>
                 </TableRow>
 
-                <TableRow>
-
-                    <TextView
-                        style="@style/TEXT"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="20% Downpayment"
-                        android:textStyle="bold"></TextView>
-
-                    <TextView
-                        android:id="@+id/dp"
-                        style="@style/TEXT"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableLeft="@drawable/peso"
-                        android:drawablePadding="20dp"
-                        android:text="1000"></TextView>
-                </TableRow>
-                <TableRow>
-
-                    <TextView
-                        style="@style/TEXT"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Remaining Balance"
-                        android:textStyle="bold"></TextView>
-
-                    <TextView
-                        android:id="@+id/remainingbal"
-                        style="@style/TEXT"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableLeft="@drawable/peso"
-                        android:drawablePadding="20dp"
-                        android:text="40000"></TextView>
-                </TableRow>
+                <TableRow/>
+                <TableRow/>
 
                 <TableRow>
 
@@ -379,11 +341,32 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/mop"
                         style="@style/TEXT"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="GCash" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Total Payment"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/downpayment"
+                        style="@style/TEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/peso"
+                        android:drawablePadding="10dp"
+                        android:text="350" />
                 </TableRow>
 
                 <TableRow>
@@ -393,10 +376,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Total Cost"
+                        android:text="Downpayent"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/totalcost"
                         style="@style/TEXT"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

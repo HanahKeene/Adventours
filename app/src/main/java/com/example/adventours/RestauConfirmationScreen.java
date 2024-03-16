@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.adventours.ui.ConfirmationScreen;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -41,7 +43,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class RestauConfirmationScreen extends AppCompatActivity {
-    TextView back, restauname, name, address, contact, emailfld, guests, checkin, checkout, notefld, expiration, account_name, accountnumber, filename;
+    TextView back, restauname, name, address, contact, emailfld, guests, checkin, checkout, notefld, expiration, account_name, accountnumber, filename, adultfld, childfld, totalfld;
     Button submit, choosefile;
 
     ImageButton gcash, maya;
@@ -77,6 +79,9 @@ public class RestauConfirmationScreen extends AppCompatActivity {
         checkin = findViewById(R.id.checkin);
         checkout = findViewById(R.id.checkout);
         notefld = findViewById(R.id.note);
+        adultfld = findViewById(R.id.adult);
+        childfld = findViewById(R.id.child);
+        totalfld = findViewById(R.id.totalcost);
         expiration = findViewById(R.id.expiration);
         gcash = findViewById(R.id.gcash);
         maya = findViewById(R.id.maya);
@@ -117,6 +122,7 @@ public class RestauConfirmationScreen extends AppCompatActivity {
         expiration.setText(expirationDateString);
 
         enablegcash(restauid);
+        getReservationCost(restauid, adult, child);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -174,6 +180,52 @@ public class RestauConfirmationScreen extends AppCompatActivity {
 
             submit.setOnClickListener(v -> checkreceipt());
         }
+    }
+
+    private void getReservationCost(String restauid, String adult, String child) {
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference restauRef = db.collection("Restaurants").document(restauid);
+
+        restauRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    // Retrieve the price as a double
+                    Double adultPrice = document.getDouble("adult_fee");
+                    Double childPrice = document.getDouble("child_fee");
+                    if (adultPrice != null && childPrice != null) {
+                        int adultquantity = Integer.parseInt(adult);
+                        int childquantity = Integer.parseInt(child);
+
+                        double adultsubtotal = adultquantity * adultPrice;
+                        double childsubtotal = childquantity * childPrice;
+                        double grandtotal = adultsubtotal + childsubtotal;
+
+                        String adultPriceString = String.format(Locale.getDefault(), "%.2f", adultsubtotal);
+                        adultfld.setText(adultPriceString);
+
+                        String childPriceString = String.format(Locale.getDefault(), "%.2f", childsubtotal);
+                        childfld.setText(childPriceString);
+
+                        String totalPriceString = String.format(Locale.getDefault(),"%.2f", grandtotal );
+                        totalfld.setText(totalPriceString);
+
+
+
+                    } else {
+                        // Price is null or not found
+                        Toast.makeText(RestauConfirmationScreen.this, "Price not found or invalid", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    // Document does not exist
+                    Toast.makeText(RestauConfirmationScreen.this, "Room document does not exist", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                // Error getting document
+                Toast.makeText(RestauConfirmationScreen.this, "Error getting room document: " + task.getException(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void checkreceipt() {
@@ -278,9 +330,18 @@ public class RestauConfirmationScreen extends AppCompatActivity {
         reservationData.put("CheckIn", checkin.getText().toString());
         reservationData.put("CheckOut", checkout.getText().toString());
         reservationData.put("Guests", guests.getText().toString());
+        reservationData.put("Total Cost", totalfld.getText().toString());
         reservationData.put("Expiration", expiration.getText().toString());
         reservationData.put("Timestamp", FieldValue.serverTimestamp());
         reservationData.put("MOP", mop);
+        if (notefld.getText().toString().isEmpty()) {
+            // If note field is empty, add a message indicating no note was left
+            reservationData.put("Note", "No note left by the reservee");
+        } else {
+            // If note field is not empty, add the note to reservation data
+            reservationData.put("Note", notefld.getText().toString());
+        }
+
 
         // Upload image to Firebase Storage and get the download URL
         if (selectedImageUri != null) {
@@ -313,6 +374,7 @@ public class RestauConfirmationScreen extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Restaurant Reservation").document(reservationId).set(reservationData)
                 .addOnSuccessListener(aVoid -> {
+                        addtonotif(reservationId);
                         Intent intent = new Intent(RestauConfirmationScreen.this, RestaurantReservationReceipt.class);
                         intent.putExtra("ReservationNumber", reservationId);
                         intent.putExtra("CustomerName", name.getText().toString());
@@ -325,12 +387,40 @@ public class RestauConfirmationScreen extends AppCompatActivity {
                         intent.putExtra("CheckOut", checkout.getText().toString());
                         intent.putExtra("Expiration", expiration.getText().toString());
                         intent.putExtra("TimeStamp", FieldValue.serverTimestamp().toString());
+                        intent.putExtra("TotalCost", totalfld.getText().toString());
                         intent.putExtra("MOP", mop);
+                        intent.putExtra("Note", notefld.getText().toString());
                         startActivity(intent);
                 })
                 .addOnFailureListener(e -> {
                     errorDialog();
 //                    Toast.makeText(RestauConfirmationScreen.this, "Error adding reservation: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void addtonotif(String reservationId) {
+
+        String restau = restauname.getText().toString();
+        String guestsnum = guests.getText().toString();
+        String in = checkin.getText().toString();
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = currentUser.getUid();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference userRef = db.collection("users").document(userId);
+        CollectionReference notificationRef = userRef.collection("unread_notification");
+
+        Map<String, Object> notificationData = new HashMap<>();
+        notificationData.put("title", "Awaiting Confirmation for Your Reservation at " + restau);
+        notificationData.put("description", "This notification acknowledges your reservation request for" + guestsnum + " at " + restauname + " on " + in + ". We are awaiting confirmation and will update you as soon as possible.");
+
+        notificationRef.add(notificationData)
+                .addOnSuccessListener(documentReference -> {
+                    Log.d("Firestore", "Notification added successfully");
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firestore", "Error adding notification: " + e.getMessage(), e);
                 });
     }
 

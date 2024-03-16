@@ -283,7 +283,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Payment Details"
+                    android:text="Down Payment Details"
                     style="@style/PRICETEXT"
                     android:textStyle="bold"></TextView>
             </TableRow>
@@ -293,11 +293,33 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Cost per Head"
+                    android:text="Adult"
                     style="@style/TEXT"
                     android:textStyle="bold"/>
 
                 <TextView
+                    android:id="@+id/adult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/peso"
+                    android:drawablePadding="10dp"
+                    style="@style/TEXT"
+                    android:text="100"/>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Child"
+                    style="@style/TEXT"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/child"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -317,6 +339,7 @@
                     android:textStyle="bold"/>
 
                 <TextView
+                    android:id="@+id/totalcost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

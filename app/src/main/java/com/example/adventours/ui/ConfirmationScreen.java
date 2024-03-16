@@ -291,6 +291,7 @@ public class ConfirmationScreen extends AppCompatActivity {
         reservationData.put("CheckOut", checkout.getText().toString());
         reservationData.put("Total Cost", total.getText().toString());
         reservationData.put("DownPayment", dppayment.getText().toString());
+        reservationData.put("MOP", mop);
         reservationData.put("Expiration", expirationtxtfld.getText().toString());
         reservationData.put("Timestamp", FieldValue.serverTimestamp());
         reservationData.put("UserID", userId.toString());
@@ -343,6 +344,8 @@ public class ConfirmationScreen extends AppCompatActivity {
                         intent.putExtra("CheckOut", checkout.getText().toString());
                         intent.putExtra("Expiration", expirationtxtfld.getText().toString());
                         intent.putExtra("Timestamp", timestamp);
+                        intent.putExtra("Downpayment", total.getText().toString());
+                        intent.putExtra("TotalCost", dppayment.getText().toString());
                         intent.putExtra("MOP", mop);
                         startActivity(intent);
                 })

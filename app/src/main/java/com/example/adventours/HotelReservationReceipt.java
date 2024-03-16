@@ -29,7 +29,7 @@ import java.io.OutputStream;
 public class
 HotelReservationReceipt extends AppCompatActivity {
 
-    TextView namefield, addfield, numberfield, emailfield, hotelnamefield, reserveIdNumbertxtfld, roomtypefield, checkinfield, checkoutfield, expirationfield;
+    TextView namefield, addfield, numberfield, emailfield, hotelnamefield, reserveIdNumbertxtfld, roomtypefield, checkinfield, checkoutfield, expirationfield, totalfield, downpaymentfield;
 
     Button backtohomepage, saveas;
 
@@ -51,6 +51,8 @@ HotelReservationReceipt extends AppCompatActivity {
         checkinfield = findViewById(R.id.checkinfield);
         checkoutfield = findViewById(R.id.checkoutfield);
         expirationfield = findViewById(R.id.expiration);
+        downpaymentfield = findViewById(R.id.downpayment);
+        totalfield = findViewById(R.id.totalcost);
         saveas = findViewById(R.id.saveasimage);
         backtohomepage = findViewById(R.id.home);
 
@@ -63,15 +65,14 @@ HotelReservationReceipt extends AppCompatActivity {
         String add = intent.getStringExtra("Address");
         String num = intent.getStringExtra("Number");
         String email = intent.getStringExtra("Email");
-//        intent.putExtra("No.ofRooms", qtytxtfld.getText().toString());
-//        intent.putExtra("Downpayment", dppayment.getText().toString());
-//        intent.putExtra("Total Cost", total.getText().toString());
+        String downpayment = intent.getStringExtra("Downpayment");
+        String totalcost = intent.getStringExtra("TotalCost");
         String hotelname = intent.getStringExtra("HotelName");
         String roomname = intent.getStringExtra("RoomName");
         String checkin = intent.getStringExtra("CheckIn");
         String checkout = intent.getStringExtra("CheckOut");
         String expiration = intent.getStringExtra("Expiration");
-//
+
         namefield.setText(name);
         addfield.setText(add);
         numberfield.setText(num);
@@ -83,6 +84,9 @@ HotelReservationReceipt extends AppCompatActivity {
         checkoutfield.setText(checkout);
         expirationfield.setText(expiration);
         reserveIdNumbertxtfld.setText(reservationID);
+        downpaymentfield.setText(downpayment);
+        totalfield.setText(totalcost);
+
 
         backtohomepage.setOnClickListener(View -> home());
         saveas.setOnClickListener(View -> saveasimage());

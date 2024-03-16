@@ -28,7 +28,7 @@ import java.util.Locale;
 
 public class RestaurantReservationReceipt extends AppCompatActivity {
 
-    TextView timestampfld, namefld, addressfld, contactfld, emailfld, restaunamefld, reservenumfld, guestfld, checkinfld, checkoutfld, notefld, expirationfld, MOP;
+    TextView timestampfld, namefld, addressfld, contactfld, emailfld, restaunamefld, reservenumfld, guestfld, checkinfld, checkoutfld, notefld, expirationfld, MOP, totalcostfld;
 
     Button home, saveasimage;
     @Override
@@ -47,6 +47,7 @@ public class RestaurantReservationReceipt extends AppCompatActivity {
         checkinfld = findViewById(R.id.checkin);
         checkoutfld = findViewById(R.id.checkout);
         notefld = findViewById(R.id.note);
+        totalcostfld = findViewById(R.id.totalcost);
         expirationfld = findViewById(R.id.expiration);
         home = findViewById(R.id.home);
         saveasimage = findViewById(R.id.saveasimage);
@@ -64,6 +65,8 @@ public class RestaurantReservationReceipt extends AppCompatActivity {
         String checkin = intent.getStringExtra("CheckIn");
         String checkout = intent.getStringExtra("CheckOut");
         String guests = intent.getStringExtra("Guests");
+        String note = intent.getStringExtra("Note");
+        String totalcost = intent.getStringExtra("TotalCost");
         String expiration = intent.getStringExtra("Expiration");
         String mop = intent.getStringExtra("MOP");
 
@@ -77,6 +80,8 @@ public class RestaurantReservationReceipt extends AppCompatActivity {
         checkoutfld.setText(checkout);
         guestfld.setText(guests);
         expirationfld.setText(expiration);
+        notefld.setText(note);
+        totalcostfld.setText(totalcost);
         MOP.setText(mop);
 
         
