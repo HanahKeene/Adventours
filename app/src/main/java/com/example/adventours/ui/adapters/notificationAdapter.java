@@ -31,7 +31,7 @@ public class notificationAdapter extends RecyclerView.Adapter<notificationAdapte
 
     public interface OnNotificationListItemClickListener
     {
-        void onNotificationItemClick(String reservation_id, String status);
+        void onNotificationItemClick(String document_id, String reservation_id, String reservation_category, String status);
     }
 
     public notificationAdapter(Context context, List<NotificationModel> notificationModelList , OnNotificationListItemClickListener onNotificationListItemClickListener) {
@@ -53,6 +53,7 @@ public class notificationAdapter extends RecyclerView.Adapter<notificationAdapte
 
         holder.title.setText(notification.getTitle());
         holder.details.setText(notification.getDescription());
+
 
         // Log the status
         Log.d("NotificationAdapter", "Status: " + notification.getStatus());
@@ -85,6 +86,16 @@ public class notificationAdapter extends RecyclerView.Adapter<notificationAdapte
             title = itemView.findViewById(R.id.notification_title);
             details = itemView.findViewById(R.id.reservation_details);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        NotificationModel notification = notificationModelList.get(position);
+                        onNotificationListItemClickListener.onNotificationItemClick(notification.getDocument_id(), notification.getReservation_id(), notification.getReservation_category(), notification.getStatus());
+                    }
+                }
+            });
         }
     }
 }

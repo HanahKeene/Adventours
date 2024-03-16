@@ -2,10 +2,13 @@ package com.example.adventours.ui.Notifications;
 
 import static android.os.Build.VERSION_CODES.R;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +35,12 @@ import com.example.adventours.ui.notification_promotions;
 import com.example.adventours.ui.notification_systemupdate;
 import com.example.adventours.ui.notification_traveladvisory;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -81,8 +87,34 @@ public class NotificationsFragment extends Fragment {
 
         notificationAdapter = new notificationAdapter(getContext(), notificationModelList, new notificationAdapter.OnNotificationListItemClickListener() {
             @Override
-            public void onNotificationItemClick(String reservation_id, String status) {
+            public void onNotificationItemClick(String document_id, String reservation_id, String reservation_category, String status) {
 
+                String toastMessage = "Reservation ID: " + reservation_id + ", Category: " + reservation_category + ",Status" + status;
+                Toast.makeText(getContext(), toastMessage, Toast.LENGTH_SHORT).show();
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                String userId = currentUser.getUid();
+
+                // Reference to the specific document in the collection
+                DocumentReference notificationRef = db.collection("users").document(userId)
+                        .collection("unread_notification").document(document_id);
+
+                // Update the status field to "read"
+                notificationRef.update("status", "read")
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "Status updated successfully to read");
+                                // Optionally, you can update the UI here if needed
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error updating status to read", e);
+                            }
+                        });
             }
         });
 
@@ -100,16 +132,22 @@ public class NotificationsFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                // Retrieve reservation_id field from each document
+                                // Retrieve document ID along with other notification details
+                                String documentId = document.getId();
                                 String title = document.getString("title");
                                 String desc = document.getString("description");
                                 String status = document.getString("status");
+                                String reservation_id = document.getString("reservation_id");
+                                String reservation_category = document.getString("reservation_category");
 
-                                // Create a new NotificationModel instance and set the reservation_id
+                                // Create a new NotificationModel instance and set the document ID and other details
                                 NotificationModel notificationModel = new NotificationModel();
                                 notificationModel.setTitle(title);
                                 notificationModel.setDescription(desc);
                                 notificationModel.setStatus(status);
+                                notificationModel.setReservation_id(reservation_id);
+                                notificationModel.setReservation_category(reservation_category);
+                                notificationModel.setDocument_id(documentId); // Set document ID
 
                                 // Add the notificationModel to the list
                                 notificationModelList.add(notificationModel);
