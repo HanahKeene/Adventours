@@ -25,6 +25,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class hotelinfo extends AppCompatActivity implements roomAdapter.OnItemClickListener {
 
@@ -136,7 +137,8 @@ public class hotelinfo extends AppCompatActivity implements roomAdapter.OnItemCl
                     for (QueryDocumentSnapshot documentSnapshot1 : queryDocumentSnapshots) {
                         String img_url = documentSnapshot1.getString("img_url");
                         String name1 = documentSnapshot1.getString("name");
-                        String price = documentSnapshot1.getString("price");
+                        Double roomPrice = documentSnapshot1.getDouble("price");
+                        String price = String.format(Locale.getDefault(), "%.2f", roomPrice);
                         String room_id = documentSnapshot1.getId();
 
                         // Create a Room object

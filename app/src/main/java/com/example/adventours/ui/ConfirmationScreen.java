@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -78,7 +79,7 @@ public class ConfirmationScreen extends AppCompatActivity {
 
         Intent intent = getIntent();
         String hotelid = intent.getStringExtra("HotelId");
-        String roomid = intent.getStringExtra("RoomId");
+        String roomid = intent.getStringExtra("Room ID");
         String roomtype = intent.getStringExtra("RoomName");
         String check_in = intent.getStringExtra("CheckIn");
         String check_out = intent.getStringExtra("CheckOut");
@@ -119,6 +120,8 @@ public class ConfirmationScreen extends AppCompatActivity {
         choosefile.setOnClickListener(View -> openGallery());
 
         enablegcash(hotelid);
+        getRoomPriceFromFirebase(hotelid, roomid, roomquantity);
+
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -286,6 +289,8 @@ public class ConfirmationScreen extends AppCompatActivity {
         reservationData.put("Quantity", qtytxtfld.getText().toString());
         reservationData.put("CheckIn", checkin.getText().toString());
         reservationData.put("CheckOut", checkout.getText().toString());
+        reservationData.put("Total Cost", total.getText().toString());
+        reservationData.put("DownPayment", dppayment.getText().toString());
         reservationData.put("Expiration", expirationtxtfld.getText().toString());
         reservationData.put("Timestamp", FieldValue.serverTimestamp());
         reservationData.put("UserID", userId.toString());
@@ -321,6 +326,7 @@ public class ConfirmationScreen extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Hotel Reservation").document(reservationId).set(reservationData)
                 .addOnSuccessListener(aVoid -> {
+                        addtonotif(reservationId);
                         Intent intent = new Intent(ConfirmationScreen.this, HotelReservationReceipt.class);
                         Intent intent1 = getIntent();
                         String hotelid = intent1.getStringExtra("HotelId");
@@ -347,6 +353,38 @@ public class ConfirmationScreen extends AppCompatActivity {
 
 
     }
+
+    private void addtonotif(String reservationId) {
+        String reservation_id = reservationId;
+        String hotelname = hotelnametxtfld.getText().toString();
+        String roomName = roomtypeName.getText().toString();
+        String in = checkin.getText().toString();
+        String out = checkout.getText().toString();
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = currentUser.getUid();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference userRef = db.collection("users").document(userId);
+        CollectionReference notificationRef = userRef.collection("unread_notification");
+
+        Map<String, Object> notificationData = new HashMap<>();
+        notificationData.put("title", "Awaiting Confirmation for Your Reservation at " + hotelname);
+        notificationData.put("description", "Your reservation request for " + roomName + " at " + hotelname + " on " + in + " to " + out + ". We are awaiting confirmation and will update you as soon as possible.");
+//        notificationData.put ("reservation_id", reservation_id);
+//        notificationData.put("reservation_category", )
+//        notificationData.put("status", "unread"); // Assuming the initial status is "unread"
+
+        notificationRef.add(notificationData)
+                .addOnSuccessListener(documentReference -> {
+                    Log.d("Firestore", "Notification added successfully");
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firestore", "Error adding notification: " + e.getMessage(), e);
+                });
+    }
+
+
     private void errorDialog() {
 
         loadingDialog = new Dialog(this);
@@ -355,34 +393,43 @@ public class ConfirmationScreen extends AppCompatActivity {
         loadingDialog.show();
     }
 
-//    private void getRoomPriceFromFirebase(String hotelid, String roomid, String roomquantity) {
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        DocumentReference roomRef = db.collection("Hotels").document(hotelid)
-//                .collection("Rooms").document(roomid);
-//
-//        roomRef.get().addOnCompleteListener(task -> {
-//            if (task.isSuccessful()) {
-//                DocumentSnapshot document = task.getResult();
-//                if (document.exists()) {
-//                    double roomPrice = document.getDouble("price");
-//                    double totalCost = roomPrice * Integer.parseInt(qtytxtfld.toString());
-//
-//                    // Set the total cost in the TextView
-//                    total.setText(String.valueOf(totalCost));
-//
-//                    double downpaymentAmount = 0.2 * totalCost;
-//                    dppayment.setText(String.valueOf(downpaymentAmount));
-//                } else {
-//                    // Document does not exist
-//                    Toast.makeText(ConfirmationScreen.this, "Room document does not exist", Toast.LENGTH_SHORT).show();
-//                }
-//            } else {
-//                // Error getting document
-//                Toast.makeText(ConfirmationScreen.this, "Error getting room document: " + task.getException(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+    private void getRoomPriceFromFirebase(String hotelid, String roomid, String roomquantity) {
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference roomRef = db.collection("Hotels").document(hotelid)
+                .collection("Rooms").document(roomid);
+
+        roomRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    // Retrieve the price as a double
+                    Double roomPrice = document.getDouble("price");
+                    if (roomPrice != null) {
+                        int quantity = Integer.parseInt(roomquantity);
+                        double totalCost = roomPrice * quantity;
+                        double downpaymentAmount = 0.2 * totalCost;
+
+                        // Display the room price
+                        String roomPriceString = String.format(Locale.getDefault(), "%.2f", totalCost);
+                        total.setText(roomPriceString);
+
+                        String downpaymentAmountString = String.format(Locale.getDefault(), "%.2f", downpaymentAmount);
+                        dppayment.setText(downpaymentAmountString);
+                    } else {
+                        // Price is null or not found
+                        Toast.makeText(ConfirmationScreen.this, "Price not found or invalid", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    // Document does not exist
+                    Toast.makeText(ConfirmationScreen.this, "Room document does not exist", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                // Error getting document
+                Toast.makeText(ConfirmationScreen.this, "Error getting room document: " + task.getException(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private void enablemaya(String restauid) {
         gcash.setBackgroundResource(R.drawable.buttonwborder);
         maya.setBackgroundResource(R.drawable.button_cyan);

@@ -310,13 +310,14 @@ public class RoomDetails extends AppCompatActivity {
                 // Retrieve room details
                 String img_url = documentSnapshot.getString("img_url");
                 String pax = documentSnapshot.getString("pax");
-                String price = documentSnapshot.getString("price");
+                Double price = documentSnapshot.getDouble("price");
+                String PriceString = String.format(Locale.getDefault(), "%.2f", price);
                 String roomname = documentSnapshot.getString("name");
                 String amenities = documentSnapshot.getString("amenities");
                 String desc = documentSnapshot.getString("desc");
 
                 // Set room details to the corresponding views
-                priceTxtView.setText(price);
+                priceTxtView.setText(PriceString);
                 paxTxtView.setText(pax);
                 roomName.setText(roomname);
                 amenitiesTxtView.setText(amenities);

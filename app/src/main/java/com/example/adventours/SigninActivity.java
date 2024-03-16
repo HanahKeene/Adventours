@@ -259,7 +259,7 @@ public class SigninActivity extends AppCompatActivity {
 
                                         db.collection("users")
                                                 .document(user.getUid())
-                                                .collection("unread_notif")
+                                                .collection("Notification")
                                                 .get()
                                                 .addOnCompleteListener(unreadNotifTask -> {
                                                     if (unreadNotifTask.isSuccessful()) {
