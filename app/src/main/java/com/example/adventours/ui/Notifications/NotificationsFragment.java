@@ -103,11 +103,13 @@ public class NotificationsFragment extends Fragment {
                                 // Retrieve reservation_id field from each document
                                 String title = document.getString("title");
                                 String desc = document.getString("description");
+                                String status = document.getString("status");
 
                                 // Create a new NotificationModel instance and set the reservation_id
                                 NotificationModel notificationModel = new NotificationModel();
                                 notificationModel.setTitle(title);
                                 notificationModel.setDescription(desc);
+                                notificationModel.setStatus(status);
 
                                 // Add the notificationModel to the list
                                 notificationModelList.add(notificationModel);

@@ -2,6 +2,7 @@ package com.example.adventours.ui.adapters;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,9 @@ public class notificationAdapter extends RecyclerView.Adapter<notificationAdapte
 
         holder.title.setText(notification.getTitle());
         holder.details.setText(notification.getDescription());
-        holder.
+
+        // Log the status
+        Log.d("NotificationAdapter", "Status: " + notification.getStatus());
 
         // Apply text style based on the status
         if ("unread".equalsIgnoreCase(notification.getStatus())) {
@@ -65,6 +68,7 @@ public class notificationAdapter extends RecyclerView.Adapter<notificationAdapte
             holder.details.setTypeface(null, Typeface.NORMAL);
         }
     }
+
 
 
     @Override
