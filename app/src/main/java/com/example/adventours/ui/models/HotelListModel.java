@@ -10,6 +10,9 @@ public class HotelListModel {
     private String location;
 
     private String desc;
+    private double lowestPrice;
+    private double highestPrice;
+
 
     public HotelListModel() {
     }
@@ -60,5 +63,21 @@ public class HotelListModel {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public double getLowestPrice() {
+        return lowestPrice;
+    }
+
+    public void setLowestPrice(double lowestPrice) {
+        this.lowestPrice = lowestPrice;
+    }
+
+    public double getHighestPrice() {
+        return highestPrice;
+    }
+
+    public void setHighestPrice(double highestPrice) {
+        this.highestPrice = highestPrice;
     }
 }

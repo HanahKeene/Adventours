@@ -46,6 +46,7 @@ public class hotelListAdapter extends RecyclerView.Adapter<hotelListAdapter.View
 
         Glide.with(context).load(hotelListModelList.get(position).getImg_url()).into(holder.catImg);
         holder.catName.setText(hotelListModelList.get(position).getName());
+        holder.catPrice.setText("₱" + hotelListModelList.get(position).getLowestPrice() + " - ₱" + hotelListModelList.get(position).getHighestPrice());
     }
 
     @Override
@@ -56,11 +57,12 @@ public class hotelListAdapter extends RecyclerView.Adapter<hotelListAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView catImg;
-        TextView catName;
+        TextView catName, catPrice;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             catImg = itemView.findViewById(R.id.pic);
             catName = itemView.findViewById(R.id.place);
+            catPrice = itemView.findViewById(R.id.price);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
