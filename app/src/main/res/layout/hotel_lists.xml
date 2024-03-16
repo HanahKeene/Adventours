@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
-    app:cardCornerRadius="20dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
     android:layout_margin="15dp"
     android:layout_gravity="center_horizontal">
 
@@ -30,8 +30,8 @@
 
         <LinearLayout
             android:id="@+id/linearLayout2"
-            android:layout_width="380dp"
-            android:layout_height="72dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -41,13 +41,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="68dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="206dp"
-                    android:layout_height="68dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="5dp">
@@ -55,34 +55,26 @@
                     <TextView
                         android:id="@+id/place"
                         style="@style/TEXT"
-                        android:layout_width="176dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="5dp"
+                        android:paddingLeft="5dp"
                         android:text="TextView"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/price"
-                        android:layout_width="176dp"
+                        style="@style/PRICETEXT"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="5dp"
-                        android:text="TextView"
-                        style="@style/PRICETEXT" />
+                        android:paddingLeft="5dp"
+                        android:text="TextView" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="165dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:orientation="vertical">
-
-                    <Button
-                        android:id="@+id/button"
-                        android:layout_width="132dp"
-                        android:layout_height="wrap_content"
-                        style="@style/VIEWDETAILBTN"
-                        android:text="View Details" />
-                </LinearLayout>
+                    android:orientation="vertical"/>
             </LinearLayout>
         </LinearLayout>
 

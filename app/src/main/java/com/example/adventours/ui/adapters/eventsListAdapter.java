@@ -47,6 +47,7 @@ public class eventsListAdapter extends RecyclerView.Adapter<eventsListAdapter.Vi
 
         Glide.with(context).load(eventsListModelList.get(position).getImg_url()).into(holder.img);
         holder.name.setText(eventsListModelList.get(position).getName());
+        holder.date.setText(eventsListModelList.get(position).getStart_date() + " - " + eventsListModelList.get(position).getEnd_date());
     }
 
     @Override
@@ -57,11 +58,13 @@ public class eventsListAdapter extends RecyclerView.Adapter<eventsListAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView img;
-        TextView name;
+        TextView name, date, status;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.event_img);
             name = itemView.findViewById(R.id.eventname);
+            date = itemView.findViewById(R.id.date);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
