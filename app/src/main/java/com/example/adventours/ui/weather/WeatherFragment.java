@@ -24,9 +24,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.example.adventours.databinding.FragmentWeatherBinding;
+import com.example.adventours.ui.adapters.WeeklyForecast;
+import com.example.adventours.ui.adapters.WeeklyForecastAdapter;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -35,6 +38,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -58,6 +62,7 @@ public class WeatherFragment extends Fragment {
     private LocationManager locationManager;
     private int PERMISSION_CODE = 1;
     private String cityName;
+    private RecyclerView hourly, weekly;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -96,6 +101,8 @@ public class WeatherFragment extends Fragment {
         windTV = root.findViewById(R.id.idTVWindTextMetric);
         cloudTV = root.findViewById(R.id.idTVCloudTextMetric);
         humidityTV = root.findViewById(R.id.idTVCHumidTextMetric);
+        hourly = root.findViewById(R.id.hourlyupdateforcast);
+        weekly = root.findViewById(R.id.everydayupdateforcast);
         homeRL = root.findViewById(R.id.idRLHome);
         currentdate = root.findViewById(R.id.currentdate);
     }
@@ -110,16 +117,18 @@ public class WeatherFragment extends Fragment {
         currentdate.setText(formattedDate);
     }
 
-    private void getWeatherInfo(String cityName) {
+    private void getCurrentWeatherInfo(String cityName) {
         String apiKey = "89852f15bebd043e42effdd09d6aef37";
-        String url = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey + "&units=metric";
+        String currentWeatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey + "&units=metric";
+        String hourlyForecastUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + apiKey + "&units=metric";
+        String weeklyForecastUrl = "https://api.openweathermap.org/data/2.5/forecast/daily?q=" + cityName + "&appid=" + apiKey + "&units=metric&cnt=7";
 
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+        JsonObjectRequest currentWeatherRequest = new JsonObjectRequest(Request.Method.GET, currentWeatherUrl, null,
                 response -> {
                     try {
                         // Extract and update UI with weather information from the response
-                        updateWeatherUI(response);
+                        updateCurrentWeatherUI(response);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -129,8 +138,63 @@ public class WeatherFragment extends Fragment {
                     error.printStackTrace();
                 });
 
-        requestQueue.add(jsonObjectRequest);
+        JsonObjectRequest weeklyWeatherRequest = new JsonObjectRequest(Request.Method.GET, weeklyForecastUrl, null,
+                response -> {
+                    try {
+                        // Extract and update UI with weather information from the response
+                        updateWeeklyWeatherUI(response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> {
+                    Toast.makeText(requireContext(), "Error fetching weather data", Toast.LENGTH_SHORT).show();
+                    error.printStackTrace();
+                });
+
+
+        requestQueue.add(currentWeatherRequest);
+        requestQueue.add(weeklyWeatherRequest);
+//        requestQueue.add(hourlyWeatherRequest);
     }
+
+    private void updateWeeklyWeatherUI(JSONObject response) throws JSONException {
+
+        List<WeeklyForecast> weeklyForecastList = new ArrayList<>();
+
+        JSONArray forecastArray = response.getJSONArray("list");
+        for (int i = 0; i < forecastArray.length(); i++) {
+            JSONObject forecastObj = forecastArray.getJSONObject(i);
+            long timestamp = forecastObj.getLong("dt") * 1000; // Convert to milliseconds
+            Date date = new Date(timestamp);
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE", Locale.getDefault()); // Get day of the week (e.g., Mon, Tue, etc.)
+            String dayOfWeek = sdf.format(date);
+
+            JSONObject mainObj = forecastObj.getJSONObject("temp");
+            double minTemp = mainObj.getDouble("min");
+            double maxTemp = mainObj.getDouble("max");
+
+            JSONArray weatherArray = forecastObj.getJSONArray("weather");
+            JSONObject weatherObj = weatherArray.getJSONObject(0);
+            String conditionIcon = weatherObj.getString("icon");
+
+            // Create WeeklyForecast object
+            WeeklyForecast weeklyForecast = new WeeklyForecast(dayOfWeek, String.valueOf((int) minTemp) + "°C", String.valueOf((int) maxTemp) + "°C", "https://openweathermap.org/img/w/" + conditionIcon + ".png");
+            weeklyForecast.setDay(dayOfWeek);
+            weeklyForecast.setMinTemperature(String.valueOf((int) minTemp) + "°C");
+            weeklyForecast.setMaxTemperature(String.valueOf((int) maxTemp) + "°C");
+            weeklyForecast.setConditionIconUrl("https://openweathermap.org/img/w/" + conditionIcon + ".png");
+
+            weeklyForecastList.add(weeklyForecast);
+        }
+
+        // Now you have a list of WeeklyForecast objects containing the parsed data
+        // You can update your RecyclerView adapter with this data
+        // For example:
+        WeeklyForecastAdapter adapter = new WeeklyForecastAdapter(weeklyForecastList);
+        weekly.setAdapter(adapter);
+    }
+
 
     private void checkAndRequestLocationPermission() {
         locationManager = (LocationManager) requireContext().getSystemService(Context.LOCATION_SERVICE);
@@ -153,7 +217,7 @@ public class WeatherFragment extends Fragment {
         if (location != null) {
             String cityName = getCityName(location.getLongitude(), location.getLatitude());
             if (!TextUtils.isEmpty(cityName)) {
-                getWeatherInfo(cityName);
+                getCurrentWeatherInfo(cityName);
             } else {
                 Log.e("Location", "City name not available");
             }
@@ -182,7 +246,7 @@ public class WeatherFragment extends Fragment {
         return cityName;
     }
 
-    private void updateWeatherUI(JSONObject response) throws JSONException {
+    private void updateCurrentWeatherUI(JSONObject response) throws JSONException {
 
         JSONObject mainObject = response.getJSONObject("main");
         String temperature = mainObject.getString("temp");
