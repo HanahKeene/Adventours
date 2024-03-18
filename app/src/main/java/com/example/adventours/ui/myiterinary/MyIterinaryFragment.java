@@ -6,45 +6,35 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.adventours.databinding.FragmentMyiterinaryBinding;
 import com.example.adventours.ui.adapters.CustomCalendarAdapter;
-import com.example.adventours.ui.adapters.MyItineraryCalendarAdapter;
-import com.example.adventours.ui.models.MyItineraryCalendarModel;
+import com.example.adventours.R;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.protobuf.Timestamp;
-import com.example.adventours.R;
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 public class MyIterinaryFragment extends Fragment {
 
     private FragmentMyiterinaryBinding binding;
     private SharedPreferences sharedPreferences;
-
-    private RecyclerView activitiesRecyclerView;
-    private FirebaseFirestore db;
 
     private GridView calendarGridView;
     private CustomCalendarAdapter calendarAdapter;
@@ -67,8 +57,6 @@ public class MyIterinaryFragment extends Fragment {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
-        db = FirebaseFirestore.getInstance();
-
         calendarGridView = root.findViewById(R.id.calendarGridView);
         prev = root.findViewById(R.id.prevButton);
         next = root.findViewById(R.id.nextButton);
@@ -85,14 +73,10 @@ public class MyIterinaryFragment extends Fragment {
                 updateCalendar();
 
                 // Extract and toast the displayed month
-                Calendar displayedCalendar = Calendar.getInstance();
-                displayedCalendar.setTime(calendar.getTime());
-                int displayedMonth = displayedCalendar.get(Calendar.MONTH);
-                String monthName = new DateFormatSymbols().getMonths()[displayedMonth];
+                String monthName = monthYearFormat.format(calendar.getTime());
                 Toast.makeText(getContext(), monthName, Toast.LENGTH_SHORT).show();
             }
         });
-
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,14 +85,29 @@ public class MyIterinaryFragment extends Fragment {
                 updateCalendar();
 
                 // Extract and toast the displayed month
-                Calendar displayedCalendar = Calendar.getInstance();
-                displayedCalendar.setTime(calendar.getTime());
-                int displayedMonth = displayedCalendar.get(Calendar.MONTH);
-                String monthName = new DateFormatSymbols().getMonths()[displayedMonth];
+                String monthName = monthYearFormat.format(calendar.getTime());
                 Toast.makeText(getContext(), monthName, Toast.LENGTH_SHORT).show();
             }
         });
 
+        // Set OnItemClickListener for calendarGridView
+        calendarGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String clickedDate = (String) parent.getItemAtPosition(position);
+                if (!clickedDate.isEmpty()) {
+                    // Get the current month and year
+                    int currentMonth = calendar.get(Calendar.MONTH);
+                    int currentYear = calendar.get(Calendar.YEAR);
+
+                    // Format the month using SimpleDateFormat
+                    String monthName = new DateFormatSymbols().getMonths()[currentMonth];
+
+                    // Show a toast with the clicked month and date
+                    Toast.makeText(getContext(), "Clicked Date: " + monthName + " " + clickedDate + ", " + currentYear, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         return root;
     }
