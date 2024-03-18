@@ -69,7 +69,6 @@ public class MyIterinaryFragment extends Fragment {
 
         db = FirebaseFirestore.getInstance();
 
-
         calendarGridView = root.findViewById(R.id.calendarGridView);
         prev = root.findViewById(R.id.prevButton);
         next = root.findViewById(R.id.nextButton);
@@ -79,35 +78,39 @@ public class MyIterinaryFragment extends Fragment {
         monthYearFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
         updateCalendar();
 
-//        Calendar calendar = Calendar.getInstance();
-//        int currentMonthIndex = calendar.get(Calendar.MONTH);
-//        String currentMonthName = getMonthName(currentMonthIndex);
-//        Toast.makeText(getContext(), "Current month: " + currentMonthName, Toast.LENGTH_SHORT).show();
-
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 calendar.add(Calendar.MONTH, -1);
                 updateCalendar();
 
+                // Extract and toast the displayed month
+                Calendar displayedCalendar = Calendar.getInstance();
+                displayedCalendar.setTime(calendar.getTime());
+                int displayedMonth = displayedCalendar.get(Calendar.MONTH);
+                String monthName = new DateFormatSymbols().getMonths()[displayedMonth];
+                Toast.makeText(getContext(), monthName, Toast.LENGTH_SHORT).show();
             }
         });
+
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 calendar.add(Calendar.MONTH, 1);
                 updateCalendar();
+
+                // Extract and toast the displayed month
+                Calendar displayedCalendar = Calendar.getInstance();
+                displayedCalendar.setTime(calendar.getTime());
+                int displayedMonth = displayedCalendar.get(Calendar.MONTH);
+                String monthName = new DateFormatSymbols().getMonths()[displayedMonth];
+                Toast.makeText(getContext(), monthName, Toast.LENGTH_SHORT).show();
             }
         });
 
+
         return root;
-    }
-
-    private String getMonthName(int currentMonthIndex) {
-
-        String[] monthNames = new DateFormatSymbols().getMonths();
-        return monthNames[currentMonthIndex];
     }
 
     private void updateCalendar() {
