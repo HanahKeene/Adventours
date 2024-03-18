@@ -66,15 +66,15 @@ public class MyIterinaryFragment extends Fragment {
         monthYearFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
         updateCalendar();
 
+        // Extract and toast the displayed month
+        String monthName = monthYearFormat.format(calendar.getTime());
+        Toast.makeText(getContext(), monthName, Toast.LENGTH_SHORT).show();
+
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 calendar.add(Calendar.MONTH, -1);
                 updateCalendar();
-
-                // Extract and toast the displayed month
-                String monthName = monthYearFormat.format(calendar.getTime());
-                Toast.makeText(getContext(), monthName, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -83,10 +83,6 @@ public class MyIterinaryFragment extends Fragment {
             public void onClick(View v) {
                 calendar.add(Calendar.MONTH, 1);
                 updateCalendar();
-
-                // Extract and toast the displayed month
-                String monthName = monthYearFormat.format(calendar.getTime());
-                Toast.makeText(getContext(), monthName, Toast.LENGTH_SHORT).show();
             }
         });
 
