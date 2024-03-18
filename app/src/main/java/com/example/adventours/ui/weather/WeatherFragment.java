@@ -97,12 +97,9 @@ public class WeatherFragment extends Fragment {
         conditionTV = root.findViewById(R.id.idTVCondition);
         backIV = root.findViewById(R.id.IdIVBack);
         iconIV = root.findViewById(R.id.idIVIcon);
-        searchIv = root.findViewById(R.id.idTVSearch);
         windTV = root.findViewById(R.id.idTVWindTextMetric);
         cloudTV = root.findViewById(R.id.idTVCloudTextMetric);
         humidityTV = root.findViewById(R.id.idTVCHumidTextMetric);
-        hourly = root.findViewById(R.id.hourlyupdateforcast);
-        weekly = root.findViewById(R.id.everydayupdateforcast);
         homeRL = root.findViewById(R.id.idRLHome);
         currentdate = root.findViewById(R.id.currentdate);
     }
@@ -120,8 +117,8 @@ public class WeatherFragment extends Fragment {
     private void getCurrentWeatherInfo(String cityName) {
         String apiKey = "89852f15bebd043e42effdd09d6aef37";
         String currentWeatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey + "&units=metric";
-        String hourlyForecastUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + apiKey + "&units=metric";
-        String weeklyForecastUrl = "https://api.openweathermap.org/data/2.5/forecast/daily?q=" + cityName + "&appid=" + apiKey + "&units=metric&cnt=7";
+//        String hourlyForecastUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + apiKey + "&units=metric";
+//        String weeklyForecastUrl = "https://api.openweathermap.org/data/2.5/forecast/daily?q=" + cityName + "&appid=" + apiKey + "&units=metric&cnt=7";
 
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
         JsonObjectRequest currentWeatherRequest = new JsonObjectRequest(Request.Method.GET, currentWeatherUrl, null,
@@ -138,62 +135,62 @@ public class WeatherFragment extends Fragment {
                     error.printStackTrace();
                 });
 
-        JsonObjectRequest weeklyWeatherRequest = new JsonObjectRequest(Request.Method.GET, weeklyForecastUrl, null,
-                response -> {
-                    try {
-                        // Extract and update UI with weather information from the response
-                        updateWeeklyWeatherUI(response);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                },
-                error -> {
-                    Toast.makeText(requireContext(), "Error fetching weather data", Toast.LENGTH_SHORT).show();
-                    error.printStackTrace();
-                });
+//        JsonObjectRequest weeklyWeatherRequest = new JsonObjectRequest(Request.Method.GET, weeklyForecastUrl, null,
+//                response -> {
+//                    try {
+//                        // Extract and update UI with weather information from the response
+//                        updateWeeklyWeatherUI(response);
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                },
+//                error -> {
+//                    Toast.makeText(requireContext(), "Error fetching weather data", Toast.LENGTH_SHORT).show();
+//                    error.printStackTrace();
+//                });
 
 
         requestQueue.add(currentWeatherRequest);
-        requestQueue.add(weeklyWeatherRequest);
+//        requestQueue.add(weeklyWeatherRequest);
 //        requestQueue.add(hourlyWeatherRequest);
     }
 
-    private void updateWeeklyWeatherUI(JSONObject response) throws JSONException {
-
-        List<WeeklyForecast> weeklyForecastList = new ArrayList<>();
-
-        JSONArray forecastArray = response.getJSONArray("list");
-        for (int i = 0; i < forecastArray.length(); i++) {
-            JSONObject forecastObj = forecastArray.getJSONObject(i);
-            long timestamp = forecastObj.getLong("dt") * 1000; // Convert to milliseconds
-            Date date = new Date(timestamp);
-            SimpleDateFormat sdf = new SimpleDateFormat("EEE", Locale.getDefault()); // Get day of the week (e.g., Mon, Tue, etc.)
-            String dayOfWeek = sdf.format(date);
-
-            JSONObject mainObj = forecastObj.getJSONObject("temp");
-            double minTemp = mainObj.getDouble("min");
-            double maxTemp = mainObj.getDouble("max");
-
-            JSONArray weatherArray = forecastObj.getJSONArray("weather");
-            JSONObject weatherObj = weatherArray.getJSONObject(0);
-            String conditionIcon = weatherObj.getString("icon");
-
-            // Create WeeklyForecast object
-            WeeklyForecast weeklyForecast = new WeeklyForecast(dayOfWeek, String.valueOf((int) minTemp) + "°C", String.valueOf((int) maxTemp) + "°C", "https://openweathermap.org/img/w/" + conditionIcon + ".png");
-            weeklyForecast.setDay(dayOfWeek);
-            weeklyForecast.setMinTemperature(String.valueOf((int) minTemp) + "°C");
-            weeklyForecast.setMaxTemperature(String.valueOf((int) maxTemp) + "°C");
-            weeklyForecast.setConditionIconUrl("https://openweathermap.org/img/w/" + conditionIcon + ".png");
-
-            weeklyForecastList.add(weeklyForecast);
-        }
-
-        // Now you have a list of WeeklyForecast objects containing the parsed data
-        // You can update your RecyclerView adapter with this data
-        // For example:
-        WeeklyForecastAdapter adapter = new WeeklyForecastAdapter(weeklyForecastList);
-        weekly.setAdapter(adapter);
-    }
+//    private void updateWeeklyWeatherUI(JSONObject response) throws JSONException {
+//
+//        List<WeeklyForecast> weeklyForecastList = new ArrayList<>();
+//
+//        JSONArray forecastArray = response.getJSONArray("list");
+//        for (int i = 0; i < forecastArray.length(); i++) {
+//            JSONObject forecastObj = forecastArray.getJSONObject(i);
+//            long timestamp = forecastObj.getLong("dt") * 1000; // Convert to milliseconds
+//            Date date = new Date(timestamp);
+//            SimpleDateFormat sdf = new SimpleDateFormat("EEE", Locale.getDefault()); // Get day of the week (e.g., Mon, Tue, etc.)
+//            String dayOfWeek = sdf.format(date);
+//
+//            JSONObject mainObj = forecastObj.getJSONObject("temp");
+//            double minTemp = mainObj.getDouble("min");
+//            double maxTemp = mainObj.getDouble("max");
+//
+//            JSONArray weatherArray = forecastObj.getJSONArray("weather");
+//            JSONObject weatherObj = weatherArray.getJSONObject(0);
+//            String conditionIcon = weatherObj.getString("icon");
+//
+//            // Create WeeklyForecast object
+//            WeeklyForecast weeklyForecast = new WeeklyForecast(dayOfWeek, String.valueOf((int) minTemp) + "°C", String.valueOf((int) maxTemp) + "°C", "https://openweathermap.org/img/w/" + conditionIcon + ".png");
+//            weeklyForecast.setDay(dayOfWeek);
+//            weeklyForecast.setMinTemperature(String.valueOf((int) minTemp) + "°C");
+//            weeklyForecast.setMaxTemperature(String.valueOf((int) maxTemp) + "°C");
+//            weeklyForecast.setConditionIconUrl("https://openweathermap.org/img/w/" + conditionIcon + ".png");
+//
+//            weeklyForecastList.add(weeklyForecast);
+//        }
+//
+//        // Now you have a list of WeeklyForecast objects containing the parsed data
+//        // You can update your RecyclerView adapter with this data
+//        // For example:
+//        WeeklyForecastAdapter adapter = new WeeklyForecastAdapter(weeklyForecastList);
+//        weekly.setAdapter(adapter);
+//    }
 
 
     private void checkAndRequestLocationPermission() {
