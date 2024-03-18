@@ -1,11 +1,8 @@
 package com.example.adventours.ui.adapters;
 
-import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,39 +10,30 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.adventours.R;
-import com.example.adventours.ui.models.HotelListModel;
+
 import com.example.adventours.ui.models.MyItineraryCalendarModel;
-import com.example.adventours.ui.models.ToursListModel;
 
 import java.util.List;
 
-public class MyItineraryCalendarAdapter extends RecyclerView.Adapter<MyItineraryCalendarAdapter.ViewHolder> {
+public class MyItineraryCalendarAdapter extends RecyclerView.Adapter<MyItineraryCalendarAdapter.ReservationViewHolder> {
 
-    private Context context;
     private List<MyItineraryCalendarModel> myItineraryCalendarModelList;
 
-    public void setReservations(List<MyItineraryCalendarModel> reservationsList) {
-    }
-
-    public interface OnToursListItemClickListener
-    {
-        void onTourListItemClick(String tour_id);
-    }
-
-    public MyItineraryCalendarAdapter(Context context, List<MyItineraryCalendarModel> myItineraryCalendarModelList) {
-        this.context = context;
+    public MyItineraryCalendarAdapter(List<MyItineraryCalendarModel> myItineraryCalendarModelList) {
         this.myItineraryCalendarModelList = myItineraryCalendarModelList;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.my_itineraryitem, parent, false));
+    public ReservationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_itineraryitem, parent, false);
+        return new ReservationViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.date.setText(myItineraryCalendarModelList.get(position).getDate());
+    public void onBindViewHolder(@NonNull ReservationViewHolder holder, int position) {
+        holder.date.setText(myItineraryCalendarModelList.get(position).getCheckIn() + " - " + myItineraryCalendarModelList.get(position).getCheckOut());
+        holder.activityname.setText(myItineraryCalendarModelList.get(position).getHotelName());
     }
 
     @Override
@@ -53,12 +41,14 @@ public class MyItineraryCalendarAdapter extends RecyclerView.Adapter<MyItinerary
         return myItineraryCalendarModelList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView date, activity;
-        public ViewHolder(@NonNull View itemView) {
+    static class ReservationViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView date, activityname;
+
+        public ReservationViewHolder(@NonNull View itemView) {
             super(itemView);
             date = itemView.findViewById(R.id.date);
-            activity = itemView.findViewById(R.id.activityname);
+            activityname = itemView.findViewById(R.id.activityname);
         }
     }
 }

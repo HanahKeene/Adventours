@@ -9,11 +9,10 @@
     app:cardCornerRadius="15dp">
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/cyan"
-        android:padding="10dp">
+        android:background="@color/cyan">
 
             <TextView
                 android:id="@+id/date"
@@ -24,15 +23,15 @@
                 android:paddingRight="30dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="15dp"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="left"
                 android:gravity="center"
-                android:textSize="30dp"
+                android:textSize="14dp"
                 android:textColor="@color/white"/>
 
 
             <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
+                android:layout_height="2dp"
+                android:layout_width="match_parent"
                 android:background="@color/white"/>
 
 

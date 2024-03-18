@@ -59,10 +59,11 @@ public class CustomCalendarAdapter extends BaseAdapter {
         if (!day.isEmpty() && Integer.parseInt(day) == currentDayOfMonth &&
                 currentCalendar.get(Calendar.MONTH) == currentMonth) {
             // Change the background color or apply other styling for the current day
-            convertView.setBackground(ContextCompat.getDrawable(context, R.drawable.buttonwborder));
+            convertView.setBackground(ContextCompat.getDrawable(context, R.drawable.addtoitinerary));
         } else {
             // Reset the background color or apply default styling for other days
             convertView.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
+            dayTextView.setTextColor(ContextCompat.getColor(context, R.color.black)); // Reset text color to black
         }
 
         return convertView;

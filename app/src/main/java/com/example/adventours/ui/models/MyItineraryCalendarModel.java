@@ -2,27 +2,62 @@ package com.example.adventours.ui.models;
 
 public class MyItineraryCalendarModel {
 
-    String date;
-    String activity;
+    private String UserID;
+    private String HotelName;
+    private String CheckIn;
+    private String CheckOut;
+    private int day;
 
-    public MyItineraryCalendarModel(String date, String activity) {
-        this.date = date;
-        this.activity = activity;
+
+    public MyItineraryCalendarModel(){
+
     }
 
-    public String getDate() {
-        return date;
+    public MyItineraryCalendarModel(String userID, String hotelName, String checkIn, String checkOut, int day) {
+        UserID = userID;
+        HotelName = hotelName;
+        CheckIn = checkIn;
+        CheckOut = checkOut;
+        this.day = day;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public String getUserID() {
+        return UserID;
     }
 
-    public String getActivity() {
-        return activity;
+    public void setUserID(String userID) {
+        UserID = userID;
     }
 
-    public void setActivity(String activity) {
-        this.activity = activity;
+    public String getHotelName() {
+        return HotelName;
+    }
+
+    public void setHotelName(String hotelName) {
+        HotelName = hotelName;
+    }
+
+    public String getCheckIn() {
+        return CheckIn;
+    }
+
+    public void setCheckIn(String checkIn) {
+        CheckIn = checkIn;
+    }
+
+    public String getCheckOut() {
+        return CheckOut;
+    }
+
+    public void setCheckOut(String checkOut) {
+        CheckOut = checkOut;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
     }
 }
