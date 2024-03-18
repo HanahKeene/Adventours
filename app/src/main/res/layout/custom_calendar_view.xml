@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        style="@style/HEADER"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/prevButton"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_weight="0.20"
+            android:background="@drawable/baseline_arrow_back_ios_24"
+            android:backgroundTint="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/monthYearTextView"
+            style="@style/TEXT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="0.80"
+            android:text="Month Year"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_weight="0.20"
+            android:background="@drawable/baseline_arrow_forward_ios_24"
+            android:backgroundTint="#FFFFFF" />
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/calendarGridView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="7"
+        android:padding="20dp"
+        android:stretchMode="columnWidth"
+        android:horizontalSpacing="1dp"
+        android:verticalSpacing="1dp"/>
+
+</LinearLayout>
