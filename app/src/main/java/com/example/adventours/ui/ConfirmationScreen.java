@@ -11,14 +11,19 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.adventours.HotelReservationReceipt;
 import com.example.adventours.R;
 import com.example.adventours.RestauConfirmationScreen;
@@ -274,7 +279,24 @@ public class ConfirmationScreen extends AppCompatActivity {
 
     private void addReservationToFirestore(String reservationId) {
 
+        loadingDialog = new Dialog(this);
+        loadingDialog.setContentView(R.layout.prompt_reserving_please_wait);
+        loadingDialog.setCancelable(false);
+        Window dialogWindow = loadingDialog.getWindow();
+        if (dialogWindow != null) {
+            dialogWindow.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
+        loadingDialog.show();
+
+        ImageView loadingImageView = loadingDialog.findViewById(R.id.loading);
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.loading)
+                .into(loadingImageView);
+
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert currentUser != null;
         String userId = currentUser.getUid();
         Map<String, Object> reservationData = new HashMap<>();
         String status = "Pending Approval";
@@ -327,27 +349,41 @@ public class ConfirmationScreen extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Hotel Reservation").document(reservationId).set(reservationData)
                 .addOnSuccessListener(aVoid -> {
-                        addtonotif(reservationId);
-                        Intent intent = new Intent(ConfirmationScreen.this, HotelReservationReceipt.class);
-                        Intent intent1 = getIntent();
-                        String hotelid = intent1.getStringExtra("HotelId");
-                        String timestamp = FieldValue.serverTimestamp().toString();
-                        intent.putExtra("Hotel ID", hotelid);
-                        intent.putExtra("ReservationNumber", reservationId);
-                        intent.putExtra("CustomerName", name.getText().toString());
-                        intent.putExtra("Address", add.getText().toString());
-                        intent.putExtra("Number", numbertxtfld.getText().toString());
-                        intent.putExtra("Email", emailtxtfld.getText().toString());
-                        intent.putExtra("HotelName", hotelnametxtfld.getText().toString());
-                        intent.putExtra("RoomName", roomtypeName.getText().toString());
-                        intent.putExtra("CheckIn", checkin.getText().toString());
-                        intent.putExtra("CheckOut", checkout.getText().toString());
-                        intent.putExtra("Expiration", expirationtxtfld.getText().toString());
-                        intent.putExtra("Timestamp", timestamp);
-                        intent.putExtra("Downpayment", total.getText().toString());
-                        intent.putExtra("TotalCost", dppayment.getText().toString());
-                        intent.putExtra("MOP", mop);
-                        startActivity(intent);
+                        loadingDialog.dismiss();
+
+                        Dialog successDialog = new Dialog(this);
+                        successDialog.setContentView(R.layout.prompt_success);
+
+                        successDialog.show();
+
+
+                        new Handler().postDelayed(() -> {
+                            successDialog.dismiss();
+
+                            addtonotif(reservationId);
+                            Intent intent = new Intent(ConfirmationScreen.this, HotelReservationReceipt.class);
+                            Intent intent1 = getIntent();
+                            String hotelid = intent1.getStringExtra("HotelId");
+                            String timestamp = FieldValue.serverTimestamp().toString();
+                            intent.putExtra("Hotel ID", hotelid);
+                            intent.putExtra("ReservationNumber", reservationId);
+                            intent.putExtra("CustomerName", name.getText().toString());
+                            intent.putExtra("Address", add.getText().toString());
+                            intent.putExtra("Number", numbertxtfld.getText().toString());
+                            intent.putExtra("Email", emailtxtfld.getText().toString());
+                            intent.putExtra("HotelName", hotelnametxtfld.getText().toString());
+                            intent.putExtra("RoomName", roomtypeName.getText().toString());
+                            intent.putExtra("CheckIn", checkin.getText().toString());
+                            intent.putExtra("CheckOut", checkout.getText().toString());
+                            intent.putExtra("Expiration", expirationtxtfld.getText().toString());
+                            intent.putExtra("Timestamp", timestamp);
+                            intent.putExtra("Downpayment", total.getText().toString());
+                            intent.putExtra("TotalCost", dppayment.getText().toString());
+                            intent.putExtra("MOP", mop);
+                            startActivity(intent);
+                            finish();
+
+                        }, 1000);
                 })
                 .addOnFailureListener(e -> {
                     errorDialog();

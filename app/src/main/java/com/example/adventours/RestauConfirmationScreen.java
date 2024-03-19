@@ -15,6 +15,8 @@ import android.os.Handler;
 import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -315,6 +317,22 @@ public class RestauConfirmationScreen extends AppCompatActivity {
 
     private void addReservationToFirestore(String reservationId) {
 
+        loadingDialog = new Dialog(this);
+        loadingDialog.setContentView(R.layout.prompt_reserving_please_wait);
+        loadingDialog.setCancelable(false);
+        Window dialogWindow = loadingDialog.getWindow();
+        if (dialogWindow != null) {
+            dialogWindow.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
+        loadingDialog.show();
+
+        ImageView loadingImageView = loadingDialog.findViewById(R.id.loading);
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.loading)
+                .into(loadingImageView);
+
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String userId = currentUser.getUid();
         Map<String, Object> reservationData = new HashMap<>();
@@ -371,26 +389,41 @@ public class RestauConfirmationScreen extends AppCompatActivity {
     }
 
     private void addReservationDataToFirestore(String reservationId, Map<String, Object> reservationData) {
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Restaurant Reservation").document(reservationId).set(reservationData)
                 .addOnSuccessListener(aVoid -> {
-                        addtonotif(reservationId);
-                        Intent intent = new Intent(RestauConfirmationScreen.this, RestaurantReservationReceipt.class);
-                        intent.putExtra("ReservationNumber", reservationId);
-                        intent.putExtra("CustomerName", name.getText().toString());
-                        intent.putExtra("Address", address.getText().toString());
-                        intent.putExtra("Number", contact.getText().toString());
-                        intent.putExtra("Email", emailfld.getText().toString());
-                        intent.putExtra("Guests", guests.getText().toString());
-                        intent.putExtra("RestaurantName", restauname.getText().toString());
-                        intent.putExtra("CheckIn", checkin.getText().toString());
-                        intent.putExtra("CheckOut", checkout.getText().toString());
-                        intent.putExtra("Expiration", expiration.getText().toString());
-                        intent.putExtra("TimeStamp", FieldValue.serverTimestamp().toString());
-                        intent.putExtra("TotalCost", totalfld.getText().toString());
-                        intent.putExtra("MOP", mop);
-                        intent.putExtra("Note", notefld.getText().toString());
-                        startActivity(intent);
+
+                        loadingDialog.dismiss();
+
+                        Dialog successDialog = new Dialog(this);
+                        successDialog.setContentView(R.layout.prompt_success);
+
+                        successDialog.show();
+
+
+                        new Handler().postDelayed(() -> {
+                                    successDialog.dismiss();
+                                    addtonotif(reservationId);
+                                Intent intent = new Intent(RestauConfirmationScreen.this, RestaurantReservationReceipt.class);
+                                intent.putExtra("ReservationNumber", reservationId);
+                                intent.putExtra("CustomerName", name.getText().toString());
+                                intent.putExtra("Address", address.getText().toString());
+                                intent.putExtra("Number", contact.getText().toString());
+                                intent.putExtra("Email", emailfld.getText().toString());
+                                intent.putExtra("Guests", guests.getText().toString());
+                                intent.putExtra("RestaurantName", restauname.getText().toString());
+                                intent.putExtra("CheckIn", checkin.getText().toString());
+                                intent.putExtra("CheckOut", checkout.getText().toString());
+                                intent.putExtra("Expiration", expiration.getText().toString());
+                                intent.putExtra("TimeStamp", FieldValue.serverTimestamp().toString());
+                                intent.putExtra("TotalCost", totalfld.getText().toString());
+                                intent.putExtra("MOP", mop);
+                                intent.putExtra("Note", notefld.getText().toString());
+                                startActivity(intent);
+                                finish();
+
+                        }, 1000);
                 })
                 .addOnFailureListener(e -> {
                     errorDialog();

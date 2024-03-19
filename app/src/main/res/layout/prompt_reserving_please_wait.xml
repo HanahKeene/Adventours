@@ -28,7 +28,7 @@
             android:id="@+id/textView39"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Reserving please wait...."
+            android:text="Reserving...."
             android:textAlignment="center" />
 
 
