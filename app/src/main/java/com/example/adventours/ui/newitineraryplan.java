@@ -1,6 +1,7 @@
 package com.example.adventours.ui;
 import static androidx.fragment.app.FragmentManager.TAG;
 
+import com.bumptech.glide.Glide;
 import com.example.adventours.ui.BitmapUtils;
 
 import androidx.annotation.NonNull;
@@ -8,18 +9,23 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +63,8 @@ public class newitineraryplan extends AppCompatActivity {
     
     ImageButton startbtn, endbtn;
     Button create;
+
+    Dialog loadingDialog;
 
     private static final int IMAGE_PICK_CODE = 100; // You can choose any unique integer value
 
@@ -154,9 +162,34 @@ public class newitineraryplan extends AppCompatActivity {
     }
 
     private void createitinerary() {
+
+        if (cover.getBackground() == null) {
+            // If no image is selected, show a message to the user
+            Toast.makeText(this, "Please select a cover image for the itinerary", Toast.LENGTH_SHORT).show();
+            return; // Exit the method without proceeding further
+        } else {
+
+        loadingDialog = new Dialog(this);
+        loadingDialog.setContentView(R.layout.prompt_reserving_please_wait);
+        loadingDialog.setCancelable(false);
+        Window dialogWindow = loadingDialog.getWindow();
+        if (dialogWindow != null) {
+            dialogWindow.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
+        loadingDialog.show();
+
+        ImageView loadingImageView = loadingDialog.findViewById(R.id.loading);
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.loading)
+                .into(loadingImageView);
+
         String itineraryName = name.getText().toString();
         String start = startdate.getText().toString();
         String end = enddate.getText().toString();
+
+
 
         LocalDate startDate = LocalDate.parse(start, DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.getDefault()));
         LocalDate endDate = LocalDate.parse(end, DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.getDefault()));
@@ -210,6 +243,7 @@ public class newitineraryplan extends AppCompatActivity {
             // Upload image to Firebase Storage and set the image URL in Firestore
             uploadImageToStorage(buttonBitmap, itineraryRef, itineraryData, itineraryName, start, end);
         }
+        }
     }
 
     // Method to create "activities" subcollection within the specified day document
@@ -220,6 +254,7 @@ public class newitineraryplan extends AppCompatActivity {
                         Log.e(TAG, "Error creating activities subcollection", error);
                         return;
                     }
+
                     Log.d(TAG, "Activities subcollection created");
                 });
     }
@@ -266,10 +301,22 @@ public class newitineraryplan extends AppCompatActivity {
                 // Store the data in the Firestore document
                 itineraryRef.set(itineraryData)
                         .addOnSuccessListener(aVoid -> {
-                            // Successfully stored the itinerary data
-                            Toast.makeText(newitineraryplan.this, "Itinerary created successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(this, MyIterinaryActivity.class);
-                            startActivity(intent);
+                            loadingDialog.dismiss();
+
+                            Dialog successDialog = new Dialog(this);
+                            successDialog.setContentView(R.layout.prompt_success);
+
+                            successDialog.show();
+
+
+                            new Handler().postDelayed(() -> {
+                                        successDialog.dismiss();
+
+                                Toast.makeText(newitineraryplan.this, "Itinerary created successfully", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(this, MyIterinaryActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }, 1000);
                         })
                         .addOnFailureListener(e -> {
                             // Handle failure

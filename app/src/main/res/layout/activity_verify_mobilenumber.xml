@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="20dp"
     tools:context=".verify_mobilenumber">
 
     <LinearLayout
@@ -17,9 +18,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Enter your mobile number"
+            android:paddingTop="60dp"
+            android:layout_margin="30dp"
+            android:textAlignment="center"
             android:textColor="@color/dark_blue"
             android:textSize="18sp" />
 
@@ -53,6 +57,7 @@
         <Button
             android:id="@+id/button"
             style="@style/BUTTON"
+            android:layout_marginTop="60dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="VERIFY" />

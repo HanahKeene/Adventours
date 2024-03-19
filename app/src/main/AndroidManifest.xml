@@ -24,9 +24,6 @@
         android:theme="@style/Theme.Adventours"
         tools:targetApi="30">
         <activity
-            android:name=".ui.adapters.MyItineraryActivitiesAdapter"
-            android:exported="false" />
-        <activity
             android:name=".changeroom_details"
             android:exported="false" />
         <activity

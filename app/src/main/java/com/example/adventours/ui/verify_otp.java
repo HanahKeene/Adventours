@@ -14,15 +14,20 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.CountDownTimer;
 
+import com.example.adventours.MainActivity;
 import com.example.adventours.R;
 import com.example.adventours.SigninActivity;
+import com.example.adventours.User;
+import com.example.adventours.interestform;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -33,8 +38,11 @@ public class verify_otp extends AppCompatActivity {
     private EditText[] otpFields;
     private ProgressBar progressBar;
     private Button verifyButton;
-
-    private TextView countdown;
+    private TextView countdown, resendButton;
+    private CountDownTimer countDownTimer;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private boolean isTimerRunning = false;
+    private final long COUNTDOWN_TIME = 60000; // 60 seconds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +50,10 @@ public class verify_otp extends AppCompatActivity {
         setContentView(R.layout.activity_verify_otp);
 
         countdown = findViewById(R.id.countdown);
+        resendButton = findViewById(R.id.resend);
+
+        // Start countdown timer
+        startCountdown();
 
         // Initialize views
         initViews();
@@ -57,7 +69,7 @@ public class verify_otp extends AppCompatActivity {
         String age = intent.getStringExtra("age");
         String bday = intent.getStringExtra("bday");
         String city = intent.getStringExtra("city");
-        String phone = intent.getStringExtra("phoneNumber");
+        String phone = intent.getStringExtra("phonenumber");
 
         // Set up click listener for verify button
         verifyButton.setOnClickListener(view -> verifyOTP(verificationId, email, password, gname, lname, gender, age, bday, city, phone));
@@ -99,6 +111,25 @@ public class verify_otp extends AppCompatActivity {
         }
     }
 
+    private void startCountdown() {
+        countDownTimer = new CountDownTimer(COUNTDOWN_TIME, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long secondsLeft = millisUntilFinished / 1000;
+                countdown.setText("Resend OTP in " + secondsLeft + " seconds");
+            }
+
+            @Override
+            public void onFinish() {
+                countdown.setText("Resend OTP");
+                isTimerRunning = false;
+                resendButton.setEnabled(true);
+            }
+        }.start();
+
+        isTimerRunning = true;
+    }
+
     private void verifyOTP(String verificationId, String email, String password, String gname, String lname, String gender, String age, String bday, String city, String phone) {
         // Validate OTP length
         StringBuilder otp = new StringBuilder();
@@ -128,8 +159,15 @@ public class verify_otp extends AppCompatActivity {
                         // Verification failed
                         Toast.makeText(verify_otp.this, "The verification code entered was invalid", Toast.LENGTH_SHORT).show();
                     }
+                })
+                .addOnFailureListener(e -> {
+                    // Handle network errors or other failures
+                    Toast.makeText(verify_otp.this, "Phone verification failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    verifyButton.setVisibility(View.VISIBLE);
                 });
     }
+
 
     private void linkEmailToPhoneNumber(String email, String password, String gname, String lname, String gender, String age, String bday, String city, String phone) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -167,14 +205,45 @@ public class verify_otp extends AppCompatActivity {
         db.collection("users").document(userId)
                 .set(userDetails)
                 .addOnSuccessListener(aVoid -> {
-                    // User details saved successfully
-                    Intent resultIntent = new Intent();
-                    setResult(Activity.RESULT_OK, resultIntent);
+                    createCollections(userId);
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
                     finish();
                 })
                 .addOnFailureListener(e -> {
                     // Failed to save user details
                     Toast.makeText(verify_otp.this, "Failed to save user details.", Toast.LENGTH_SHORT).show();
                 });
+    }
+
+    private void createCollections(String userId) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Reference to the "itineraries" collection under the user's ID
+        CollectionReference itinerariesCollection = db.collection("users").document(userId).collection("itineraries");
+        itinerariesCollection.addSnapshotListener((value, error) -> {
+            if (error != null) {
+                // Handle error
+                Toast.makeText(verify_otp.this, "Error creating itineraries collection: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Reference to the "notifications" collection under the user's ID
+        CollectionReference notificationsCollection = db.collection("users").document(userId).collection("notifications");
+        notificationsCollection.addSnapshotListener((value, error) -> {
+            if (error != null) {
+                // Handle error
+                Toast.makeText(verify_otp.this, "Error creating notifications collection: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
     }
 }

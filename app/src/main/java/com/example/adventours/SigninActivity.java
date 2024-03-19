@@ -275,25 +275,6 @@ public class SigninActivity extends AppCompatActivity {
                                                         Toast.makeText(SigninActivity.this, "Subcollection creation failed. Please try again.", Toast.LENGTH_SHORT).show();
                                                     }
                                                 });
-
-                                        db.collection("users")
-                                                .document(user.getUid())
-                                                .collection("read_notif")
-                                                .get()
-                                                .addOnCompleteListener(unreadNotifTask -> {
-                                                    if (unreadNotifTask.isSuccessful()) {
-                                                        if (unreadNotifTask.getResult().isEmpty()) {
-                                                            // unread_notif subcollection doesn't exist, you can perform any necessary actions here
-                                                            Toast.makeText(SigninActivity.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
-                                                            startActivity(new Intent(getApplicationContext(), interestform.class));
-                                                            finish();
-                                                        } else {
-                                                            Toast.makeText(SigninActivity.this, "Subcollection creation failed. Please try again.", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    } else {
-                                                        Toast.makeText(SigninActivity.this, "Subcollection creation failed. Please try again.", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                });
                                     }
                                 } else {
                                     Toast.makeText(SigninActivity.this, "Failed to link email: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

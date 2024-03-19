@@ -150,20 +150,20 @@
         app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
 
 
-    <TextView
-        android:id="@+id/fingerprint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:clickable="true"
-        android:text="@string/loginwithfingerprint"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginbutton" />
+<!--    <TextView-->
+<!--        android:id="@+id/fingerprint"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginBottom="20dp"-->
+<!--        android:clickable="true"-->
+<!--        android:text="@string/loginwithfingerprint"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/textView9"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/loginbutton" />-->
 
     <TableLayout
         android:id="@+id/linearLayout20"

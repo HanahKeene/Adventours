@@ -235,7 +235,7 @@
 
 
     <TextView
-        android:id="@+id/textView46"
+        android:id="@+id/resend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Resend OTP"
