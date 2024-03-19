@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Window;
@@ -163,14 +164,12 @@ public class newitineraryplan extends AppCompatActivity {
 
     private void createitinerary() {
 
-        if (cover.getBackground() == null) {
-            // If no image is selected, show a message to the user
-            Toast.makeText(this, "Please select a cover image for the itinerary", Toast.LENGTH_SHORT).show();
-            return; // Exit the method without proceeding further
+        if (cover.getBackground() == null || TextUtils.isEmpty(name.getText()) || TextUtils.isEmpty(startdate.getText()) || TextUtils.isEmpty(enddate.getText())) {
+                Toast.makeText(this, "Please fill in all fields and select a cover image for the itinerary", Toast.LENGTH_SHORT).show();
         } else {
 
         loadingDialog = new Dialog(this);
-        loadingDialog.setContentView(R.layout.prompt_reserving_please_wait);
+        loadingDialog.setContentView(R.layout.prompt_loading_screen);
         loadingDialog.setCancelable(false);
         Window dialogWindow = loadingDialog.getWindow();
         if (dialogWindow != null) {
@@ -221,9 +220,9 @@ public class newitineraryplan extends AppCompatActivity {
             for (int i = 1; i <= daysCount; i++) {
 
                 Map<String, Object> dayData = new HashMap<>();
-                    LocalDate currentDate = startDate.plusDays(i - 1);
-                    String formattedDate = formatDateAsWords(currentDate);
-                    dayData.put("date", formattedDate.toString());
+                LocalDate currentDate = startDate.plusDays(i - 1);
+                String formattedDate = formatDateAsWords(currentDate);
+                dayData.put("date", formattedDate.toString());
 
 
                 // Add day document to days collection
@@ -242,7 +241,7 @@ public class newitineraryplan extends AppCompatActivity {
             }
             // Upload image to Firebase Storage and set the image URL in Firestore
             uploadImageToStorage(buttonBitmap, itineraryRef, itineraryData, itineraryName, start, end);
-        }
+            }
         }
     }
 

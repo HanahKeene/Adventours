@@ -38,7 +38,6 @@ public class hotel_lists_Activity extends AppCompatActivity {
     TextView back;
     List<HotelListModel> hotelListModelList;
     FirebaseFirestore db;
-
     SharedPreferences sharedPreferences;
 
     @Override

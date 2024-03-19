@@ -38,13 +38,10 @@ import java.util.List;
 public class restaurant_lists_activity extends AppCompatActivity {
 
     RecyclerView ResaurantRecyclerView;
-
-    TextView back;
     restaurantListAdapter restaurantListAdapter;
+    TextView back;
     List<RestaurantListModel> restaurantListModelList;
-
     FirebaseFirestore db;
-
     SharedPreferences sharedPreferences;
 
     @Override
@@ -85,10 +82,12 @@ public class restaurant_lists_activity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+
+
                             restaurantListModelList.clear(); // Clear the list before adding new data
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 RestaurantListModel restaurantListModel = document.toObject(RestaurantListModel.class);
-                                String restau_id = document.getId(); // Retrieve document ID
+                                String restau_id = document.getId();
                                 restaurantListModel.setRestau_id(restau_id);
                                 restaurantListModelList.add(restaurantListModel);
                             }

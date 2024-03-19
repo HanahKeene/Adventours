@@ -45,7 +45,8 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         Glide.with(context).load(restaurantListModelList.get(position).getImg_url()).into(holder.catImg);
-        holder.catName.setText(restaurantListModelList.get(position).getName());
+        holder.name.setText(restaurantListModelList.get(position).getName());
+        holder.price.setText("Reservation Fee: Adult - ₱" + restaurantListModelList.get(position).getAdult_fee() + " |  Child: ₱" + restaurantListModelList.get(position).getChild_fee());
     }
 
     @Override
@@ -56,11 +57,12 @@ public class restaurantListAdapter extends RecyclerView.Adapter<restaurantListAd
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView catImg;
-        TextView catName;
+        TextView name, price;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             catImg = itemView.findViewById(R.id.pic);
-            catName = itemView.findViewById(R.id.place);
+            name = itemView.findViewById(R.id.place);
+            price = itemView.findViewById(R.id.price);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

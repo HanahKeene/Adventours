@@ -3,14 +3,19 @@ package com.example.adventours;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.adventours.ui.verify_otp;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseException;
@@ -23,6 +28,7 @@ public class verify_mobilenumber extends AppCompatActivity {
 
     TextInputEditText number;
     Button button;
+    private Dialog loadingDialog;
     private static final int REQUEST_CODE_VERIFY_OTP = 123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +47,29 @@ public class verify_mobilenumber extends AppCompatActivity {
         String bday = intent.getStringExtra("bday");
         String city = intent.getStringExtra("city");
         String password = intent.getStringExtra("password");
-        String phoneNumber = intent.getStringExtra("phoneNumber");
 
-        button.setOnClickListener(View -> openverifier(email, gname, lname, gender, age, bday, city, password, phoneNumber));
+
+        button.setOnClickListener(View -> openverifier(email, gname, lname, gender, age, bday, city, password));
 
     }
 
-    private void openverifier(String email, String gname, String lname, String gender, String age, String bday, String city, String password, String phoneNumber) {
+    private void openverifier(String email, String gname, String lname, String gender, String age, String bday, String city, String password) {
+
+        loadingDialog = new Dialog(this);
+        loadingDialog.setContentView(R.layout.prompt_loading_screen);
+        loadingDialog.setCancelable(false);
+        Window dialogWindow = loadingDialog.getWindow();
+        if (dialogWindow != null) {
+            dialogWindow.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
+        loadingDialog.show();
+
+        ImageView loadingImageView = loadingDialog.findViewById(R.id.loading);
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.loading)
+                .into(loadingImageView);
 
         if (number.getText().toString().trim().isEmpty()) {
             Toast.makeText(verify_mobilenumber.this, "Enter your mobile number", Toast.LENGTH_SHORT).show();
@@ -75,6 +97,8 @@ public class verify_mobilenumber extends AppCompatActivity {
 
                     @Override
                     public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                        loadingDialog.dismiss();
+                        String phone = number.getText().toString();
                         Intent intent = new Intent(verify_mobilenumber.this, verify_otp.class);
                         intent.putExtra("verificationId", verificationId);
                         intent.putExtra("email", email);
@@ -85,7 +109,7 @@ public class verify_mobilenumber extends AppCompatActivity {
                         intent.putExtra("bday", bday);
                         intent.putExtra("city", city);
                         intent.putExtra("password", password);
-                        intent.putExtra("phonenumber", phoneNumber);
+                        intent.putExtra("phoneNumber", phone);
                         startActivity(intent);
                         startActivityForResult(intent, REQUEST_CODE_VERIFY_OTP);
                     }

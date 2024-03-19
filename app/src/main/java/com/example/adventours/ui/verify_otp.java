@@ -4,18 +4,23 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.os.CountDownTimer;
 
+import com.bumptech.glide.Glide;
 import com.example.adventours.MainActivity;
 import com.example.adventours.R;
 import com.example.adventours.SigninActivity;
@@ -40,6 +45,7 @@ public class verify_otp extends AppCompatActivity {
     private Button verifyButton;
     private TextView countdown, resendButton;
     private CountDownTimer countDownTimer;
+    private Dialog loadingDialog;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private boolean isTimerRunning = false;
     private final long COUNTDOWN_TIME = 60000; // 60 seconds
@@ -69,7 +75,9 @@ public class verify_otp extends AppCompatActivity {
         String age = intent.getStringExtra("age");
         String bday = intent.getStringExtra("bday");
         String city = intent.getStringExtra("city");
-        String phone = intent.getStringExtra("phonenumber");
+        String phone = intent.getStringExtra("phoneNumber");
+
+        Toast.makeText(this, "Phone" + phone, Toast.LENGTH_SHORT).show();
 
         // Set up click listener for verify button
         verifyButton.setOnClickListener(view -> verifyOTP(verificationId, email, password, gname, lname, gender, age, bday, city, phone));
@@ -131,7 +139,23 @@ public class verify_otp extends AppCompatActivity {
     }
 
     private void verifyOTP(String verificationId, String email, String password, String gname, String lname, String gender, String age, String bday, String city, String phone) {
-        // Validate OTP length
+
+        loadingDialog = new Dialog(this);
+        loadingDialog.setContentView(R.layout.prompt_loading_screen);
+        loadingDialog.setCancelable(false);
+        Window dialogWindow = loadingDialog.getWindow();
+        if (dialogWindow != null) {
+            dialogWindow.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
+        loadingDialog.show();
+
+        ImageView loadingImageView = loadingDialog.findViewById(R.id.loading);
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.loading)
+                .into(loadingImageView);
+
         StringBuilder otp = new StringBuilder();
         for (EditText field : otpFields) {
             String digit = field.getText().toString().trim();
@@ -236,6 +260,8 @@ public class verify_otp extends AppCompatActivity {
                 Toast.makeText(verify_otp.this, "Error creating notifications collection: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+        loadingDialog.dismiss();
     }
 
 

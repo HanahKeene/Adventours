@@ -45,7 +45,8 @@ public class toursListAdapter extends RecyclerView.Adapter<toursListAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Glide.with(context).load(toursListModelList.get(position).getImg_url()).into(holder.catImg);
-        holder.catName.setText(toursListModelList.get(position).getName());
+        holder.name.setText(toursListModelList.get(position).getName());
+        holder.price.setText("₱" + toursListModelList.get(position).getPrice() + " per pax");
     }
 
     @Override
@@ -56,11 +57,13 @@ public class toursListAdapter extends RecyclerView.Adapter<toursListAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView catImg;
-        TextView catName;
+        TextView name, price;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             catImg = itemView.findViewById(R.id.pic);
-            catName = itemView.findViewById(R.id.place);
+            name = itemView.findViewById(R.id.place);
+            price = itemView.findViewById(R.id.price);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
