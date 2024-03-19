@@ -108,8 +108,8 @@ public class RestauConfirmationScreen extends AppCompatActivity {
 
         Intent intent = getIntent();
         String restauid = intent.getStringExtra("RestaurantID");
-        String start = intent.getStringExtra("Start Date");
-        String end = intent.getStringExtra("End Date");
+        String date = intent.getStringExtra("Date");
+        String time = intent.getStringExtra("Time");
         String adult = intent.getStringExtra("Adult");
         String child = intent.getStringExtra("Child");
         String note = intent.getStringExtra("Note");
@@ -118,8 +118,8 @@ public class RestauConfirmationScreen extends AppCompatActivity {
         maya.setOnClickListener(v -> enablemaya(restauid));
 
         guests.setText(adult + " Adults and " + child + " child");
-        checkin.setText(start);
-        checkout.setText(end);
+        checkin.setText(date);
+        checkout.setText(time);
         notefld.setText(note);
         expiration.setText(expirationDateString);
 
@@ -345,8 +345,8 @@ public class RestauConfirmationScreen extends AppCompatActivity {
         reservationData.put("Number", contact.getText().toString());
         reservationData.put("Email", emailfld.getText().toString());
         reservationData.put("RestaurantName", restauname.getText().toString());
-        reservationData.put("CheckIn", checkin.getText().toString());
-        reservationData.put("CheckOut", checkout.getText().toString());
+        reservationData.put("Date", checkin.getText().toString());
+        reservationData.put("Time", checkout.getText().toString());
         reservationData.put("Guests", guests.getText().toString());
         reservationData.put("Total Cost", totalfld.getText().toString());
         reservationData.put("Expiration", expiration.getText().toString());

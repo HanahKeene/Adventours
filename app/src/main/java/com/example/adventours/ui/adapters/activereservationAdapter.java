@@ -50,6 +50,8 @@ public class activereservationAdapter extends RecyclerView.Adapter<activereserva
         if (reservation.getHotelName() != null) {
             holder.roomname.setText(reservation.getRoomName());
             holder.restauname.setText(reservation.getHotelName());
+            holder.date.setText(reservation.getCheckIn() + " - " + reservation.getCheckOut());
+
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -59,6 +61,7 @@ public class activereservationAdapter extends RecyclerView.Adapter<activereserva
         } else if (reservation.getRestaurantName() != null) {
             holder.roomname.setText(reservation.getGuests());
             holder.restauname.setText(reservation.getRestaurantName());
+            holder.date.setText(reservation.getDate() + " " + reservation.getTime());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -68,7 +71,6 @@ public class activereservationAdapter extends RecyclerView.Adapter<activereserva
         }
 
         holder.reservationid.setText("Reservation No. " + reservation.getReservationId());
-        holder.date.setText(reservation.getCheckIn() + " - " + reservation.getCheckOut());
         holder.status.setText(reservation.getStatus());
         holder.status.setTextColor(getStatusColor(reservation.getStatus()));
     }

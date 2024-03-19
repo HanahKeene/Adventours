@@ -229,7 +229,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Check in"
+                        android:text="Date"
                         android:textStyle="bold"></TextView>
 
                     <TextView
@@ -248,7 +248,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Check out"
+                        android:text="Time"
                         android:textStyle="bold"></TextView>
 
                     <TextView

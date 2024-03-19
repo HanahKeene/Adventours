@@ -137,6 +137,11 @@ public class RoomDetails extends AppCompatActivity {
         TextView out_date = dialog.findViewById(R.id.out_date);
         TextView roomNumber = dialog.findViewById(R.id.room_num);
 
+        Calendar currentDateTime = Calendar.getInstance();
+        String currentDate = formatDateAsWords(currentDateTime.get(Calendar.YEAR), currentDateTime.get(Calendar.MONTH), currentDateTime.get(Calendar.DAY_OF_MONTH));
+        in_date.setText(currentDate);
+        out_date.setText(currentDate);
+
         Button reservearoom = dialog.findViewById(R.id.reservearoom);
 
         in_btn.setOnClickListener(new View.OnClickListener() {
@@ -281,6 +286,9 @@ public class RoomDetails extends AppCompatActivity {
                 dateTextView.setText(formattedDate);
             }
         }, year, month, day);
+
+        // Set the minimum date to the current date
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
 
         datePickerDialog.show();
     }

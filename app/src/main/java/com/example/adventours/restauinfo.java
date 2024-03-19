@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -20,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -54,19 +56,21 @@ public class restauinfo extends AppCompatActivity {
 
     Button reserveatable;
 
-    TextView in_date, out_date, childnum, adultnum;
+    TextView datefld,timefld, childnum, adultnum;
 
     EditText note;
 
     ImageView addtoitinerary;
 
-    ImageButton in_btn, out_btn, adultnumdec, adultnuminc, childnuminc, childnumdec;
+    ImageButton date_btn, time_btn, adultnumdec, adultnuminc, childnuminc, childnumdec;
     private RecyclerView photogalleryRecyclerView, delicaciesRecyclerview;
 
     private FirebaseFirestore db;
 
     int currentRoomNumber = 1;
     final int MIN_ROOM_NUMBER = 1;
+    final int adultguestcount = 1;
+    final int childguestcount = 0;
 
     final int MAX_ROOM_NUMBER = 10;
 
@@ -117,10 +121,10 @@ public class restauinfo extends AppCompatActivity {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.reserve_table);
 
-        in_date = dialog.findViewById(R.id.in_date);
-        out_date = dialog.findViewById(R.id.out_date);
-        in_btn = dialog.findViewById(R.id.in_btn);
-        out_btn = dialog.findViewById(R.id.out_btn);
+        datefld = dialog.findViewById(R.id.datefld);
+        timefld = dialog.findViewById(R.id.timefld);
+        date_btn = dialog.findViewById(R.id.date);
+        time_btn = dialog.findViewById(R.id.time);
         adultnuminc = dialog.findViewById(R.id.adultnuminc);
         adultnumdec = dialog.findViewById(R.id.adultnumdec);
         childnuminc = dialog.findViewById(R.id.childnuminc);
@@ -130,21 +134,47 @@ public class restauinfo extends AppCompatActivity {
         note = dialog.findViewById(R.id.note);
         reserveatable = dialog.findViewById(R.id.reserveatable);
 
-        in_btn.setOnClickListener(new View.OnClickListener() {
+        // Set current date and time
+        Calendar currentDateTime = Calendar.getInstance();
+        String currentDate = formatDateAsWords(currentDateTime.get(Calendar.YEAR), currentDateTime.get(Calendar.MONTH), currentDateTime.get(Calendar.DAY_OF_MONTH));
+        String currentTime = formatTime(currentDateTime.get(Calendar.HOUR_OF_DAY), currentDateTime.get(Calendar.MINUTE));
+        datefld.setText(currentDate);
+        timefld.setText(currentTime);
+
+        date_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Create a custom popup window
-                showDatePicker(in_date);
+                showDatePicker(datefld);
             }
         });
 
-        out_btn.setOnClickListener(new View.OnClickListener() {
+        time_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create a custom popup window
-                showDatePicker(out_date);
+                // Get the current time
+                Calendar currentTime = Calendar.getInstance();
+                int hour = currentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = currentTime.get(Calendar.MINUTE);
+
+                // Create a time picker dialog
+                TimePickerDialog timePickerDialog = new TimePickerDialog(restauinfo.this, R.style.DialogTheme, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
+                        // Format the time as needed (12-hour format with AM/PM)
+                        String formattedTime = formatTime(selectedHour, selectedMinute);
+
+                        // Set the formatted time to the timefld TextView
+                        timefld.setText(formattedTime);
+                    }
+                }, hour, minute, false); // false means 24-hour time format
+
+                // Show the time picker dialog
+                timePickerDialog.show();
             }
         });
+
+
 
         adultnum.setText(String.valueOf(currentRoomNumber));
         childnum.setText(String.valueOf(currentRoomNumber));
@@ -153,7 +183,7 @@ public class restauinfo extends AppCompatActivity {
         adultnumdec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentRoomNumber > MIN_ROOM_NUMBER) {
+                if (currentRoomNumber > adultguestcount) {
                     currentRoomNumber--;
                     adultnum.setText(String.valueOf(currentRoomNumber));
                 }
@@ -171,17 +201,18 @@ public class restauinfo extends AppCompatActivity {
             }
         });
 
+        childnum.setText("0");
+
         childnumdec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentRoomNumber > MIN_ROOM_NUMBER) {
+                if (currentRoomNumber > 0) { // Prevent count from going below 0
                     currentRoomNumber--;
                     childnum.setText(String.valueOf(currentRoomNumber));
                 }
             }
         });
 
-        // Increase the room number when the increment button is clicked
         childnuminc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -211,6 +242,27 @@ public class restauinfo extends AppCompatActivity {
         dialog.show();
     }
 
+    private String formatTime(int selectedHour, int selectedMinute) {
+        String amPm;
+        String hourString;
+        if (selectedHour < 12) {
+            amPm = "AM";
+            if (selectedHour == 0) {
+                hourString = "12";
+            } else {
+                hourString = String.valueOf(selectedHour);
+            }
+        } else {
+            amPm = "PM";
+            if (selectedHour == 12) {
+                hourString = "12";
+            } else {
+                hourString = String.valueOf(selectedHour - 12);
+            }
+        }
+        return String.format(Locale.getDefault(), "%s:%02d %s", hourString, selectedMinute, amPm);
+    }
+
     private void confirmreserve() {
 
         Intent intent = new Intent(this, RestauConfirmationScreen.class);
@@ -222,8 +274,8 @@ public class restauinfo extends AppCompatActivity {
 
         Toast.makeText(this, "Restaurant ID: " + restauId , Toast.LENGTH_SHORT).show();
 
-        intent.putExtra("Start Date", in_date.getText().toString());
-        intent.putExtra("End Date", out_date.getText().toString());
+        intent.putExtra("Date", datefld.getText().toString());
+        intent.putExtra("Time", timefld.getText().toString());
         intent.putExtra("Adult", adultnum.getText().toString());
         intent.putExtra("Child", childnum.getText().toString());
         intent.putExtra("Note", note.getText().toString());
@@ -248,6 +300,8 @@ public class restauinfo extends AppCompatActivity {
                 dateTextView.setText(formattedDate);
             }
         }, year, month, day);
+
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
 
         datePickerDialog.show();
     }

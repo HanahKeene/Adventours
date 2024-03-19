@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,20 +29,22 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class reservation_active extends Fragment {
 
     RecyclerView list;
-
-
     activereservationAdapter adapter;
     private List<activereservationModel> activereservationModelList;
+    private Timer timer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +53,6 @@ public class reservation_active extends Fragment {
 
         list = rootView.findViewById(R.id.reservations);
         activereservationModelList = new ArrayList<>();
-
         adapter = new activereservationAdapter(getContext(), activereservationModelList, new activereservationAdapter.OnActiveReservationListItemClickListener() {
             @Override
             public void onActiveReservationListItemClick(String reservation_id, String reservationType) {
@@ -65,6 +67,25 @@ public class reservation_active extends Fragment {
         list.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         list.setAdapter(adapter);
 
+        // Start periodic data refresh
+        startDataRefreshTask();
+
+        return rootView;
+    }
+
+    private void startDataRefreshTask() {
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                fetchDataFromFirebase();
+            }
+        }, 0, 10000); // Refresh every 5 seconds
+    }
+
+    private void fetchDataFromFirebase() {
+        activereservationModelList.clear();
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String userId = currentUser.getUid();
@@ -73,6 +94,7 @@ public class reservation_active extends Fragment {
         db.collection("Hotel Reservation")
                 .whereEqualTo("UserID", userId)
                 .whereIn("status", statusList)
+                .orderBy("Timestamp", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -80,13 +102,13 @@ public class reservation_active extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 activereservationModel reservation = document.toObject(activereservationModel.class);
-                                if (reservation.getHotelName() != null) { // Check if HotelName is not null
+                                if (reservation.getHotelName() != null) {
                                     activereservationModelList.add(reservation);
                                 }
                             }
                             adapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(getActivity(), "Error fetching hotel reservations: " + task.getException(), Toast.LENGTH_SHORT).show();
+                            Log.e("Firestore Error", "Error fetching hotel reservations: " + task.getException());
                         }
                     }
                 });
@@ -94,6 +116,7 @@ public class reservation_active extends Fragment {
         db.collection("Restaurant Reservation")
                 .whereEqualTo("UserID", userId)
                 .whereIn("status", statusList)
+                .orderBy("Timestamp", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -101,17 +124,25 @@ public class reservation_active extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 activereservationModel reservation = document.toObject(activereservationModel.class);
-                                if (reservation.getRestaurantName() != null) { // Check if RestaurantName is not null
+                                if (reservation.getRestaurantName() != null) {
                                     activereservationModelList.add(reservation);
                                 }
                             }
                             adapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(getActivity(), "Error fetching restaurant reservations: " + task.getException(), Toast.LENGTH_SHORT).show();
+                            Log.e("Firestore Error", "Error fetching restaurant reservations: " + task.getException());
                         }
                     }
                 });
+    }
 
-        return rootView;
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Stop the timer when the fragment is destroyed
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
     }
 }

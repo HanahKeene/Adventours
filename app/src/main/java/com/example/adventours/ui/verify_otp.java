@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.adventours.R;
@@ -33,10 +34,14 @@ public class verify_otp extends AppCompatActivity {
     private ProgressBar progressBar;
     private Button verifyButton;
 
+    private TextView countdown;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_otp);
+
+        countdown = findViewById(R.id.countdown);
 
         // Initialize views
         initViews();
@@ -108,7 +113,7 @@ public class verify_otp extends AppCompatActivity {
 
         // Show progress bar
         progressBar.setVisibility(View.VISIBLE);
-        verifyButton.setEnabled(false);
+        verifyButton.setVisibility(View.INVISIBLE);
 
         // Perform verification
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, otp.toString());

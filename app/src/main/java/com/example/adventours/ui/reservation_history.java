@@ -22,20 +22,21 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
 
 public class reservation_history extends Fragment {
 
     RecyclerView list;
-
-
     historyreservationAdapter adapter;
     private List<historyreservationModel> historyreservationModelList;
+    private Timer timer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,15 +50,21 @@ public class reservation_history extends Fragment {
         list.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         list.setAdapter(adapter);
 
+        startDataRefreshTask();
+        return rootView;
+    }
+
+    private void startDataRefreshTask() {
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String userId = currentUser.getUid();
         List<String> statusList = Arrays.asList("Completed", "Cancelled", "Expired", "No Show", "Rejected");
 
-
         db.collection("Hotel Reservation")
                 .whereEqualTo("UserID", userId)
                 .whereIn("status", statusList)
+                .orderBy("Timestamp", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -80,6 +87,7 @@ public class reservation_history extends Fragment {
         db.collection("Restaurant Reservation")
                 .whereEqualTo("UserID", userId)
                 .whereIn("status", statusList)
+                .orderBy("Timestamp", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -98,6 +106,16 @@ public class reservation_history extends Fragment {
                         }
                     }
                 });
-        return rootView;
     }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Stop the timer when the fragment is destroyed
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+    }
+
+
 }

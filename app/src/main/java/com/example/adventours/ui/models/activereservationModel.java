@@ -10,12 +10,14 @@ public class activereservationModel {
     String CheckIn;
     String CheckOut;
     String status;
+    String Date;
+    String Time;
 
     activereservationModel(){
 
     }
 
-    public activereservationModel(String roomName, String hotelName, String restaurantName, String reservationId, String guests, String checkIn, String checkOut, String status) {
+    public activereservationModel(String roomName, String hotelName, String restaurantName, String reservationId, String guests, String checkIn, String checkOut, String status, String date, String time) {
         this.RoomName = roomName;
         this.HotelName = hotelName;
         this.RestaurantName = restaurantName;
@@ -24,6 +26,8 @@ public class activereservationModel {
         this.CheckIn = checkIn;
         this.CheckOut = checkOut;
         this.status = status;
+        this.Date = date;
+        this.Time = time;
     }
 
     public String getRoomName() {
@@ -88,5 +92,21 @@ public class activereservationModel {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
+    }
+
+    public String getTime() {
+        return Time;
+    }
+
+    public void setTime(String time) {
+        Time = time;
     }
 }
