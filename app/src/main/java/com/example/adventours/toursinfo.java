@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class toursinfo extends AppCompatActivity {
 
     ImageView cover;
-    TextView tourname, accomodation, description, stay;
+    TextView tourname, accomodation, description, stay, pricefld;
     RecyclerView inclusionRecyclerView;
     ImageButton back;
     FirebaseFirestore db;
@@ -35,6 +35,7 @@ public class toursinfo extends AppCompatActivity {
         cover = findViewById(R.id.tour_cover);
         tourname = findViewById(R.id.tourname);
         accomodation = findViewById(R.id.guestsaccomodation);
+        pricefld = findViewById(R.id.price);
         description = findViewById(R.id.description);
         stay = findViewById(R.id.stay);
         inclusionRecyclerView = findViewById(R.id.inclusions);
@@ -63,13 +64,16 @@ public class toursinfo extends AppCompatActivity {
                 String desc = documentSnapshot.getString("desc");
                 String spotImageUrl = documentSnapshot.getString("img_url");
                 String days = documentSnapshot.getString("stay");
+                Double price1 = documentSnapshot.getDouble("price");
 
+                String priceString = price1.toString();
 
                 // Set basic spot details to the corresponding views
                 tourname.setText(name);
                 accomodation.setText(promo_start + " - " +promo_end);
                 description.setText(desc);
                 stay.setText(days);
+                pricefld.setText(priceString + " per pax");
 
                 // Load the spot image into img_spot ImageView
                 if (spotImageUrl != null) {

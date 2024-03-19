@@ -90,6 +90,16 @@
                     style="@style/TEXT"/>
 
                 <TextView
+                    android:id="@+id/price"
+                    style="@style/PRICETEXT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/peso"
+                    android:drawableTint="#FF0000"
+                    android:padding="5dp"
+                    android:text="00.00" />
+
+                <TextView
                     android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
