@@ -35,35 +35,35 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout17"
         tools:layout_editor_absoluteX="1dp">
 
-        <TextView
-            android:id="@+id/biometricsbtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:drawableRight="@drawable/baseline_navigate_next_24"
-            android:padding="20dp"
-            style="@style/TEXT"
-            android:text="Biometrics Authentication" />
+<!--        <TextView-->
+<!--            android:id="@+id/biometricsbtn"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:clickable="true"-->
+<!--            android:drawableRight="@drawable/baseline_navigate_next_24"-->
+<!--            android:padding="20dp"-->
+<!--            style="@style/TEXT"-->
+<!--            android:text="Biometrics Authentication" />-->
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#8E8B8C" />
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="2dp"-->
+<!--            android:background="#8E8B8C" />-->
 
-        <TextView
-            android:id="@+id/pushnotifbtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:drawableRight="@drawable/baseline_navigate_next_24"
-            android:padding="20dp"
-            style="@style/TEXT"
-            android:text="Push Notifications" />
+<!--        <TextView-->
+<!--            android:id="@+id/pushnotifbtn"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:clickable="true"-->
+<!--            android:drawableRight="@drawable/baseline_navigate_next_24"-->
+<!--            android:padding="20dp"-->
+<!--            style="@style/TEXT"-->
+<!--            android:text="Push Notifications" />-->
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#8E8B8C" />
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="2dp"-->
+<!--            android:background="#8E8B8C" />-->
 
         <TextView
             android:id="@+id/deleteaccntbtn"

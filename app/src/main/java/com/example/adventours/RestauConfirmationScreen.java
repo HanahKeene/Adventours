@@ -447,7 +447,7 @@ public class RestauConfirmationScreen extends AppCompatActivity {
 
         Map<String, Object> notificationData = new HashMap<>();
         notificationData.put("title", "Awaiting Confirmation for Your Reservation at " + restau);
-        notificationData.put("description", "This notification acknowledges your reservation request for" + guestsnum + " guests at " + restau + " on " + in + " at " + time + ". We are awaiting confirmation and will update you as soon as possible.");
+        notificationData.put("description", "This notification acknowledges your reservation request for " + guestsnum + " guests at " + restau + " on " + in + " at " + time + ". We are awaiting confirmation and will update you as soon as possible.");
 
         notificationRef.add(notificationData)
                 .addOnSuccessListener(documentReference -> {

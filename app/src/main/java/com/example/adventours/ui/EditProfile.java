@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.EditText;
@@ -136,21 +137,18 @@ public class EditProfile extends AppCompatActivity {
                         .addOnSuccessListener(aVoid -> {
                             // Upload and set the image
                             uploadAndSetImage(existingUser);
-                            loadingDialog.dismiss();
                         })
                         .addOnFailureListener(e -> {
-                            loadingDialog.dismiss(); // Dismiss loading dialog
                             Toast.makeText(EditProfile.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
                         });
             } else {
-                loadingDialog.dismiss(); // Dismiss loading dialog
                 Toast.makeText(EditProfile.this, "User document does not exist", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(e -> {
-            loadingDialog.dismiss(); // Dismiss loading dialog
             Toast.makeText(EditProfile.this, "Failed to fetch user data", Toast.LENGTH_SHORT).show();
         });
     }
+
 
     private void fetchUserDataAndUpdateUI() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -210,24 +208,27 @@ public class EditProfile extends AppCompatActivity {
                                 // Update the User document with the new image URL
                                 userRef.set(user)
                                         .addOnSuccessListener(aVoid -> {
-                                            loadingDialog.dismiss(); // Dismiss loading dialog
-                                            Toast.makeText(EditProfile.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+                                            loadingDialog.dismiss();
+                                            Dialog successDialog = new Dialog(this);
+                                            successDialog.setContentView(R.layout.prompt_success);
 
-                                            // Reload and display the new image
-                                            loadAndDisplayImage(newImageUrl);
+                                            successDialog.show();
+
+
+                                            new Handler().postDelayed(() -> {
+                                                        successDialog.dismiss();
+                                                 loadAndDisplayImage(newImageUrl);
+                                            }, 1000);
                                         })
                                         .addOnFailureListener(e -> {
-                                            loadingDialog.dismiss(); // Dismiss loading dialog
                                             Toast.makeText(EditProfile.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
                                         });
                             })
                             .addOnFailureListener(e -> {
-                                loadingDialog.dismiss(); // Dismiss loading dialog
                                 Toast.makeText(EditProfile.this, "Failed to get new image URL", Toast.LENGTH_SHORT).show();
                             });
                 })
                 .addOnFailureListener(e -> {
-                    loadingDialog.dismiss(); // Dismiss loading dialog
                     Toast.makeText(EditProfile.this, "Failed to upload new image", Toast.LENGTH_SHORT).show();
                 });
     }
@@ -240,6 +241,8 @@ public class EditProfile extends AppCompatActivity {
     }
 
     private void loadAndDisplayImage(String imageUrl) {
+
+
         Glide.with(this)
                 .load(imageUrl)
                 .circleCrop()
