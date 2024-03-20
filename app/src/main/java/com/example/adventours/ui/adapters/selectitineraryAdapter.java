@@ -28,18 +28,19 @@ public class selectitineraryAdapter extends RecyclerView.Adapter<selectitinerary
     private Context context;
     private List<ItineraryModel> itineraryModelList;
 
-    private String spot_id, restau_id, hotel_id, source;
+    private String spot_id, restau_id, hotel_id, events_id, source;
 
     public interface OnItineraryItemClickListener {
         void onItineraryItemClick(String Id);
     }
 
-    public selectitineraryAdapter(Context context, List<ItineraryModel> itineraryModelList, OnItineraryItemClickListener listener, String spot_id, String restau_id, String hotel_id, String source) {
+    public selectitineraryAdapter(Context context, List<ItineraryModel> itineraryModelList, OnItineraryItemClickListener listener, String spot_id, String restau_id, String hotel_id, String events_id, String source) {
         this.context = context;
         this.itineraryModelList = itineraryModelList;
         this.spot_id = spot_id;
         this.restau_id = restau_id;
         this.hotel_id = hotel_id;
+        this.events_id = events_id;
         this.source = source;
     }
 
@@ -81,6 +82,7 @@ public class selectitineraryAdapter extends RecyclerView.Adapter<selectitinerary
                         if (id != null) {
                             Intent intent = new Intent(context, selectDay.class);
                             if (source.equals("Tourist Spot")) {
+                                intent.putExtra("Source", "Tourist Spot");
                                 intent.putExtra("Spot_ID", spot_id);
                                 Toast.makeText(context, "Spot_ID" + spot_id + " Itinerary ID " + id, Toast.LENGTH_SHORT).show();
                             } else if (source.equals("Restaurant")) {
@@ -89,6 +91,10 @@ public class selectitineraryAdapter extends RecyclerView.Adapter<selectitinerary
                             } else if (source.equals("Hotel")) {
                                 intent.putExtra("Spot_ID", hotel_id);
                                 Toast.makeText(context, "Hotel_ID" + hotel_id + " Itinerary ID " + id, Toast.LENGTH_SHORT).show();
+                            } else if (source.equals("Events")) {
+                                intent.putExtra("Source", "Events");
+                                intent.putExtra("Spot_ID", events_id);
+                                Toast.makeText(context, "Events ID" + events_id + " Itinerary ID " + id, Toast.LENGTH_SHORT).show();
                             }
                             intent.putExtra("ItineraryID", id);
                             context.startActivity(intent);

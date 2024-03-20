@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.adventours.R;
 import com.example.adventours.ui.adapters.selectDayAdapter;
@@ -43,6 +44,7 @@ public class selectDay extends AppCompatActivity {
         Intent intent = getIntent();
         String spot_ID = intent.getStringExtra("Spot_ID");
         String itineraryId = intent.getStringExtra("ItineraryID");
+        String source = intent.getStringExtra("Source");
 
         daysrecylerview = findViewById(R.id.days);
 
@@ -53,8 +55,10 @@ public class selectDay extends AppCompatActivity {
             }
         };
 
+        Toast.makeText(this, "Source" + source, Toast.LENGTH_SHORT).show();
+
         selectDayModelList = new ArrayList<>();
-        selectDayAdapter = new selectDayAdapter(this, selectDayModelList, spot_ID, itineraryId, listener);
+        selectDayAdapter = new selectDayAdapter(this, selectDayModelList, spot_ID, itineraryId, source, listener);
         daysrecylerview.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         daysrecylerview.setAdapter(selectDayAdapter);
 
@@ -62,6 +66,7 @@ public class selectDay extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String userId = currentUser.getUid();
+
 
         db.collection("users").document(userId).collection("itineraries").document(itineraryId).collection("days")
                 .get()

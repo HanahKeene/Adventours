@@ -53,16 +53,18 @@ public class selectDayAdapter extends RecyclerView.Adapter<selectDayAdapter.View
     private String spot_id;
 
     private String itinerary_id;
+    private String source;
 
     public interface OnDayItemClickListener {
         void onDayItemClickListener(String Id);
     }
 
-    public selectDayAdapter(Context context, List<selectDayModel> selectDayModelList, String itinerary_id, String spot_id, OnDayItemClickListener listener) {
+    public selectDayAdapter(Context context, List<selectDayModel> selectDayModelList, String itinerary_id, String spot_id, String source, OnDayItemClickListener listener) {
         this.context = context;
         this.selectDayModelList = selectDayModelList;
         this.itinerary_id = itinerary_id;
         this.spot_id = spot_id;
+        this.source = source;
         this.onDayItemClickListener = listener;
     }
 
@@ -97,6 +99,7 @@ public class selectDayAdapter extends RecyclerView.Adapter<selectDayAdapter.View
                         String id = selectDayModelList.get(position).getId();
                         if (id != null) {
                             Intent intent = new Intent(context, select_activity.class);
+                            intent.putExtra("source", source);
                             intent.putExtra("SpotId", itinerary_id);
                             intent.putExtra("ItineraryId", spot_id);
                             intent.putExtra("Day", id);

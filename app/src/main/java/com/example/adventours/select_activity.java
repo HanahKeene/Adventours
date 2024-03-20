@@ -85,23 +85,48 @@ public class select_activity extends AppCompatActivity implements selectActivity
         // Fetch activities from Firebase
         Intent intent = getIntent();
         String spotId = intent.getStringExtra("SpotId");
+        String source = intent.getStringExtra("source");
 
+        Toast.makeText(this, "Source" + source, Toast.LENGTH_SHORT).show();
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference spotRef = db.collection("Tourist Spots").document(spotId);
+        if(source.equals("Tourist Spot")){
 
-        spotRef.collection("Activities").get().addOnSuccessListener(activitiesSnapshots -> {
-            for (QueryDocumentSnapshot document : activitiesSnapshots) {
-                String activityName = document.getString("name");
-                if (activityName != null) {
-                    selectActivityModel activityItem = new selectActivityModel(activityName);
-                    selectActivityModelList.add(activityItem);
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference spotRef = db.collection("Tourist Spot").document(spotId);
+
+            spotRef.collection("Activities").get().addOnSuccessListener(activitiesSnapshots -> {
+                for (QueryDocumentSnapshot document : activitiesSnapshots) {
+                    String activityName = document.getString("name");
+                    if (activityName != null) {
+                        selectActivityModel activityItem = new selectActivityModel(activityName);
+                        selectActivityModelList.add(activityItem);
+                    }
                 }
-            }
-            selectActivityAdapter.notifyDataSetChanged();
-        }).addOnFailureListener(e -> {
-            Toast.makeText(this, "Failed to fetch activities", Toast.LENGTH_SHORT).show();
-        });
+                selectActivityAdapter.notifyDataSetChanged();
+            }).addOnFailureListener(e -> {
+                Toast.makeText(this, "Failed to fetch activities", Toast.LENGTH_SHORT).show();
+            });
+
+        }else if (source.equals("Events")){
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference spotRef = db.collection("Events").document(spotId);
+
+            spotRef.collection("Activities").get().addOnSuccessListener(activitiesSnapshots -> {
+                for (QueryDocumentSnapshot document : activitiesSnapshots) {
+                    String activityName = document.getString("name");
+                    if (activityName != null) {
+                        selectActivityModel activityItem = new selectActivityModel(activityName);
+                        selectActivityModelList.add(activityItem);
+                    }
+                }
+                selectActivityAdapter.notifyDataSetChanged();
+            }).addOnFailureListener(e -> {
+                Toast.makeText(this, "Failed to fetch activities in Tourist Spots", Toast.LENGTH_SHORT).show();
+            });
+        }
+
+
+
     }
 
     private void savetoitinerary() {

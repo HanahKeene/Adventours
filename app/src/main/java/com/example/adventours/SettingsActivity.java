@@ -12,12 +12,16 @@
     import android.util.Log;
     import android.view.LayoutInflater;
     import android.view.View;
+    import android.view.Window;
+    import android.view.WindowManager;
     import android.widget.Button;
     import android.widget.EditText;
+    import android.widget.ImageView;
     import android.widget.Switch;
     import android.widget.TextView;
     import android.widget.Toast;
 
+    import com.bumptech.glide.Glide;
     import com.example.adventours.ui.EnableBiometrics;
     import com.google.android.gms.tasks.OnFailureListener;
     import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,6 +40,7 @@
         boolean nightMode;
         SharedPreferences sharedPreferences;
         SharedPreferences.Editor editor;
+        private Dialog loadingDialog, firstDialog, authenticationDialog;
 
         TextView back, biometrics, push_notif, delete_account;
 
@@ -85,7 +90,7 @@
         }
 
         private void deleteAccount() {
-            Dialog firstDialog = new Dialog(this);
+            firstDialog = new Dialog(this);
             firstDialog.setContentView(R.layout.prompt_delete_account);
             firstDialog.show();
 
@@ -101,6 +106,26 @@
 
         private void checkForExistingReservations() {
 
+            firstDialog.dismiss();
+
+            Log.d("Reservations", "Looking for reservations.");
+
+            loadingDialog = new Dialog(this);
+            loadingDialog.setContentView(R.layout.prompt_loading_screen);
+            loadingDialog.setCancelable(false);
+            Window dialogWindow = loadingDialog.getWindow();
+            if (dialogWindow != null) {
+                dialogWindow.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+            loadingDialog.show();
+
+            ImageView loadingImageView = loadingDialog.findViewById(R.id.loading);
+            Glide.with(this)
+                    .asGif()
+                    .load(R.drawable.loading)
+                    .into(loadingImageView);
+
 
             FirebaseFirestore db =  FirebaseFirestore.getInstance();
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -112,14 +137,18 @@
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             if (!task.getResult().isEmpty()) {
+                                loadingDialog.dismiss();
                                 showReservationWarning();
+                                Log.d("Reservations", "Hotel reservations found");
                             } else {
                                 checkOtherReservations();
+                                Log.d("Reservations", "No hotel reservations found");
                             }
                         } else {
-
+                            Log.e("Reservations", "Error fetching hotel reservations: " + task.getException().getMessage());
                         }
                     });
+
         }
 
         private void checkOtherReservations() {
@@ -134,11 +163,13 @@
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             if (!task.getResult().isEmpty()) {
-                                // User has other reservations, display warning message
+                                loadingDialog.dismiss();
                                 showReservationWarning();
+                                Log.d("Reservations", "Restaurant reservations found");
                             } else {
-
+                                loadingDialog.dismiss();
                                 showReauthenticationDialog();
+                                Log.d("Reservations", "No restaurant reservations found");
                             }
                         } else {
                             // Handle query error
@@ -148,15 +179,13 @@
 
         private void showReauthenticationDialog() {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            View dialogView = LayoutInflater.from(this).inflate(R.layout.prompt_reauthenticate, null);
-            builder.setView(dialogView);
+            authenticationDialog = new Dialog(this);
+            authenticationDialog.setContentView(R.layout.prompt_reauthenticate);
+            authenticationDialog.show();
 
-            EditText editTextEmail = dialogView.findViewById(R.id.email);
-            EditText editTextPassword = dialogView.findViewById(R.id.password);
-            Button buttonConfirm = dialogView.findViewById(R.id.confirm);
-
-            AlertDialog alertDialog = builder.create();
+            EditText editTextEmail = authenticationDialog.findViewById(R.id.email);
+            EditText editTextPassword = authenticationDialog.findViewById(R.id.password);
+            Button buttonConfirm = authenticationDialog.findViewById(R.id.confirm);
 
             buttonConfirm.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -165,8 +194,9 @@
                     String password = editTextPassword.getText().toString().trim();
 
                     if (!email.isEmpty() && !password.isEmpty()) {
+                        authenticationDialog.dismiss();
+                        loadingDialog.show();
                         reauthenticateAndDelete(email, password);
-                        alertDialog.dismiss();
                     } else {
                         Toast.makeText(SettingsActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
                     }
@@ -180,7 +210,7 @@
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        deleteUserDataFromFirestore(currentUser);
+                                        deleteUserData();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -220,14 +250,6 @@
             }
         }
 
-
-        private void navigateToSignInScreen() {
-            Intent intent = new Intent(SettingsActivity.this, SigninActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear all previous activities
-            startActivity(intent);
-            finish();
-        }
-
         private void deleteUserDataFromFirestore(String userid) {
 
             FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -235,11 +257,8 @@
             db.collection("users").document(userid)
                     .delete()
                     .addOnSuccessListener(aVoid -> {
-                        // User document deleted successfully
-                        Toast.makeText(SettingsActivity.this, "Account deleted successfully", Toast.LENGTH_SHORT).show();
-                        // Navigate back to sign-in screen
-                        startActivity(new Intent(SettingsActivity.this, SigninActivity.class));
-                        finish();
+                        loadingDialog.dismiss();
+                        navigateToSignInScreen();
                     })
                     .addOnFailureListener(e -> {
                         // Handle failure to delete user document
@@ -248,6 +267,14 @@
 
 
         }
+
+
+        private void navigateToSignInScreen() {
+            Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
 
 
         private void showReservationWarning() {

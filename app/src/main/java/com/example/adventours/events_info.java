@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.example.adventours.ui.models.RestaurantsModel;
 import com.example.adventours.ui.models.activityModel;
 import com.example.adventours.ui.models.eventModel;
 import com.example.adventours.ui.models.roomModel;
+import com.example.adventours.ui.select_itinerary;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -44,6 +46,7 @@ public class events_info extends AppCompatActivity {
     private RecyclerView eventsRecyclerview, restaurantRecyclerview, hotelRecyclerview;
 
     private FirebaseFirestore db;
+    private Button addtoitinerary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,7 @@ public class events_info extends AppCompatActivity {
         eventsRecyclerview = findViewById(R.id.eventslists);
         restaurantRecyclerview = findViewById(R.id.restaurants);
         hotelRecyclerview = findViewById(R.id.hotels);
+        addtoitinerary = findViewById(R.id.addtoitinerary);
 
 
 
@@ -85,6 +89,16 @@ public class events_info extends AppCompatActivity {
                 fetchRestauListsFromDatabase(location);
             }
         });
+        addtoitinerary.setOnClickListener(View -> openitinerary(eventsId));
+    }
+
+    private void openitinerary(String eventsId) {
+
+        Intent intent = new Intent(events_info.this, select_itinerary.class);
+        intent.putExtra("source", "Events");
+        intent.putExtra("Events_ID", eventsId);
+        startActivity(intent);
+
     }
 
     private void fetchRestauListsFromDatabase(String location) {
