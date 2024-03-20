@@ -50,42 +50,42 @@
             android:layout_height="2dp"
             android:background="#8E8B8C" />
 
-        <TextView
-            android:id="@+id/promotionsbtn"
-            style="@style/TEXT"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:padding="20dp"
-            android:text="Promotions" />
+<!--        <TextView-->
+<!--            android:id="@+id/promotionsbtn"-->
+<!--            style="@style/TEXT"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:clickable="true"-->
+<!--            android:padding="20dp"-->
+<!--            android:text="Promotions" />-->
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#8E8B8C" />
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="2dp"-->
+<!--            android:background="#8E8B8C" />-->
 
-        <TextView
-            android:id="@+id/activitiesbtn"
-            style="@style/TEXT"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:padding="20dp"
-            android:text="Activities" />
+<!--        <TextView-->
+<!--            android:id="@+id/activitiesbtn"-->
+<!--            style="@style/TEXT"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:clickable="true"-->
+<!--            android:padding="20dp"-->
+<!--            android:text="Activities" />-->
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#8E8B8C" />
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="2dp"-->
+<!--            android:background="#8E8B8C" />-->
 
-        <TextView
-            android:id="@+id/travel_advisorybtn"
-            style="@style/TEXT"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:padding="20dp"
-            android:text="Travel Advisory" />
+<!--        <TextView-->
+<!--            android:id="@+id/travel_advisorybtn"-->
+<!--            style="@style/TEXT"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:clickable="true"-->
+<!--            android:padding="20dp"-->
+<!--            android:text="Travel Advisory" />-->
     </LinearLayout>
 
     <LinearLayout

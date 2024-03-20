@@ -75,15 +75,15 @@ public class NotificationsFragment extends Fragment {
         }
 
         systemupdate = root.findViewById(com.example.adventours.R.id.system_updatebtn);
-        promotions = root.findViewById(com.example.adventours.R.id.promotionsbtn);
-        activities = root.findViewById(com.example.adventours.R.id.activitiesbtn);
-        travel_advisory = root.findViewById(com.example.adventours.R.id.travel_advisorybtn);
+//        promotions = root.findViewById(com.example.adventours.R.id.promotionsbtn);
+//        activities = root.findViewById(com.example.adventours.R.id.activitiesbtn);
+//        travel_advisory = root.findViewById(com.example.adventours.R.id.travel_advisorybtn);
         notification_recyclerview = root.findViewById(com.example.adventours.R.id.notification_recyclerview);
 
         systemupdate.setOnClickListener(View -> systemupdate());
-        promotions.setOnClickListener(View -> promotions());
-        activities.setOnClickListener(View -> activities());
-        travel_advisory.setOnClickListener(View -> travel_advisory());
+//        promotions.setOnClickListener(View -> promotions());
+//        activities.setOnClickListener(View -> activities());
+//        travel_advisory.setOnClickListener(View -> travel_advisory());
 
         notificationAdapter = new notificationAdapter(getContext(), notificationModelList, new notificationAdapter.OnNotificationListItemClickListener() {
             @Override

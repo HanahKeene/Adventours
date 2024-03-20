@@ -197,7 +197,7 @@ public class ProfileFragment extends Fragment {
 
 
                     textView.setText(firstName + " " + lastName);
-                    usernumber.setText(number);
+                    usernumber.setText("+63"+number);
 
                     // Load and display the image using Glide
                     if (imageUrl != null && !imageUrl.isEmpty()) {

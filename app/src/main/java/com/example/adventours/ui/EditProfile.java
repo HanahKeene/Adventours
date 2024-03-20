@@ -67,7 +67,6 @@ public class EditProfile extends AppCompatActivity {
         dp = findViewById(R.id.dp);
         fnametxtfld = findViewById(R.id.fname);
         lnametxtfld = findViewById(R.id.lname);
-        unametxtfld = findViewById(R.id.username);
         bdaytxtfld = findViewById(R.id.bday);
         citytxtfld = findViewById(R.id.city);
         emailtxtfld = findViewById(R.id.email);
@@ -111,10 +110,9 @@ public class EditProfile extends AppCompatActivity {
         String firstName = fnametxtfld.getText().toString();
         String lastName = lnametxtfld.getText().toString();
         String city = citytxtfld.getText().toString();
-        String number = numbertxtfld.getText().toString().substring(4);
+        String number = numbertxtfld.getText().toString();
         String bday = bdaytxtfld.getText().toString();
         String email = emailtxtfld.getText().toString();
-        String username = unametxtfld.getText().toString();
 
         // Fetch the existing user data
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -132,7 +130,6 @@ public class EditProfile extends AppCompatActivity {
                 if (number != null) existingUser.setPhone(number);
                 if (bday != null) existingUser.setBirthday(bday);
                 if (email != null) existingUser.setEmail(email);
-                if (username != null) existingUser.setUsername(username);
 
                 // Update the document in Firestore with the modified user object
                 userRef.set(existingUser)

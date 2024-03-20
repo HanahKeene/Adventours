@@ -153,11 +153,13 @@
 
         <Button
             android:id="@+id/addtoitinerary"
+            style="@style/BUTTON"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/BUTTON"
-            android:text="RESERVE A SLOT"
-            android:textColor="#FFFFFF"/>
+            android:background="#918F8F"
+            android:enabled="false"
+            android:text="RESERVING NOT AVAILABLE"
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 </RelativeLayout>

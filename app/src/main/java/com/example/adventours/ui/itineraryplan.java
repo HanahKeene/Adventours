@@ -57,6 +57,9 @@ public class itineraryplan extends AppCompatActivity {
         dayRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         dayRecyclerView.setAdapter(adapter);
 
+        itineraryname = findViewById(R.id.ItineraryName);
+        itineraryname.setOnClickListener(View -> finish());
+
         Intent intent = getIntent();
         String id = intent.getStringExtra("ItineraryID");
 
