@@ -181,6 +181,38 @@ public class individualItineraryactivityAdapter extends RecyclerView.Adapter<ind
                                     .into(imageView);
                         } else {
                             // Handle case where image URL is not available
+                           loadEventsImage(placeName, imageView);
+                        }
+                    } else {
+                        // Handle case where place is not found in Restaurants collection
+                        loadEventsImage(placeName, imageView);// Set default image
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // Failed to fetch image from Restaurants collection
+                    loadEventsImage(placeName, imageView); // Set default image
+                });
+    }
+
+    private void loadEventsImage(String placeName, ImageView imageView) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Load image from Restaurants collection using placeName
+        db.collection("Events").whereEqualTo("name", placeName)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        // Retrieve the image URL from Firestore and load it into the ImageView using a library like Glide or Picasso
+                        String imageUrl = queryDocumentSnapshots.getDocuments().get(0).getString("img_url");
+                        if (imageUrl != null && !imageUrl.isEmpty()) {
+                            // Use Glide or Picasso to load the image into the ImageView
+                            Glide.with(context)
+                                    .load(imageUrl)
+                                    .placeholder(R.drawable.placeholder) // Placeholder image while loading
+                                    .error(R.drawable.error_image) // Error image if loading fails
+                                    .into(imageView);
+                        } else {
+                            // Handle case where image URL is not available
                             imageView.setImageResource(R.drawable.placeholder); // Set default image
                         }
                     } else {

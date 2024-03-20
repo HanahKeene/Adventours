@@ -148,7 +148,6 @@ public class select_activity extends AppCompatActivity implements selectActivity
             String dayId = intent.getStringExtra("Day");
             String spotId = intent.getStringExtra("SpotId");
 
-            // Fetch spotName from TouristSpot collection using spotId
             db.collection("Tourist Spots").document(spotId)
                     .get()
                     .addOnSuccessListener(documentSnapshot -> {
@@ -156,8 +155,6 @@ public class select_activity extends AppCompatActivity implements selectActivity
                             String spotName = documentSnapshot.getString("name");
                             saveActivitiesToFirestore(db, user, itineraryId, dayId, spotName, checkedItems);
                         } else {
-                            // If the document does not exist in the "Tourist Spots" collection,
-                            // try fetching spotName from the "Hotels" collection
                             db.collection("Hotels").document(spotId)
                                     .get()
                                     .addOnSuccessListener(hotelSnapshot -> {
@@ -165,8 +162,6 @@ public class select_activity extends AppCompatActivity implements selectActivity
                                             String spotName = hotelSnapshot.getString("name");
                                             saveActivitiesToFirestore(db, user, itineraryId, dayId, spotName, checkedItems);
                                         } else {
-                                            // If the document does not exist in the "Hotels" collection,
-                                            // try fetching spotName from the "Restaurants" collection
                                             db.collection("Restaurants").document(spotId)
                                                     .get()
                                                     .addOnSuccessListener(restaurantSnapshot -> {
@@ -174,8 +169,23 @@ public class select_activity extends AppCompatActivity implements selectActivity
                                                             String spotName = restaurantSnapshot.getString("name");
                                                             saveActivitiesToFirestore(db, user, itineraryId, dayId, spotName, checkedItems);
                                                         } else {
-                                                            Log.e("Firestore", "Document does not exist for spotId: " + spotId);
-                                                            dismissSavingDialog(); // Dismiss dialog in case of error
+                                                            db.collection("Events").document(spotId)
+                                                                    .get()
+                                                                    .addOnSuccessListener(eventsSnapshot -> {
+                                                                        if (eventsSnapshot.exists()) {
+                                                                            String spotName = eventsSnapshot.getString("name");
+                                                                            saveActivitiesToFirestore(db, user, itineraryId, dayId, spotName, checkedItems);
+                                                                        } else {
+                                                                            Log.e("Firestore", "Document does not exist for spotId: " + spotId);
+                                                                            dismissSavingDialog();
+
+                                                                        }
+                                                                    })
+                                                                    .addOnFailureListener(e -> {
+                                                                        // Failed to fetch spotName from Restaurants collection
+                                                                        Log.e("Firestore", "Error fetching spotName from Restaurants collection", e);
+                                                                        dismissSavingDialog(); // Dismiss dialog in case of error
+                                                                    });
                                                         }
                                                     })
                                                     .addOnFailureListener(e -> {
