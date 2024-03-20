@@ -82,7 +82,7 @@ public class toursinfo extends AppCompatActivity {
     private void openDialog() {
 
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.reserve_details);
+        dialog.setContentView(R.layout.reserve_tour);
 
         in_date = findViewById(R.id.in_date);
         out_date = findViewById(R.id.out_date);
@@ -150,74 +150,76 @@ public class toursinfo extends AppCompatActivity {
             }
         });
 
-        reservearoom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(toursinfo.this, ConfirmationScreen.class);
-
-                // Add any data you want to pass to the ConfirmationScreen activity
-                // For example, you can use putExtra to pass room details
-                Intent intent1 = getIntent();
-                String hotelId = intent1.getStringExtra("HotelId");
-                String roomId = intent1.getStringExtra("RoomId");
-
-                intent.putExtra("HotelId", hotelId);
-                intent.putExtra("Room ID", roomId);
-
-                Toast.makeText(toursinfo.this, "Hotel ID: " + hotelId + " ROOM ID: " + roomId, Toast.LENGTH_SHORT).show();
-
-                intent.putExtra("RoomQuantity", roomNumber.getText().toString());
-                intent.putExtra("RoomName", roomName.getText().toString());
-                intent.putExtra("Price", priceTxtView.getText().toString());
-                intent.putExtra("CheckIn", in_date.getText().toString());
-                intent.putExtra("CheckOut", out_date.getText().toString());
-
-                // Add more data as needed
-
-                startActivity(intent);
-
-                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-                if (currentUser != null) {
-                    String userId = currentUser.getUid();
-
-                    // Fetch user details from Firestore using the obtained userId
-                    DocumentReference userRef = db.collection("Users").document(userId);
-
-                    userRef.get().addOnSuccessListener(documentSnapshot -> {
-                        if (documentSnapshot.exists()) {
-                            // Retrieve user details
-                            String firstName = documentSnapshot.getString("firstName");
-                            String lastName = documentSnapshot.getString("lastName");
-                            String city = documentSnapshot.getString("city");
-                            String phone = documentSnapshot.getString("phone");
-
-                            // Pass user details to the ConfirmationScreen activity
-                            intent.putExtra("FirstName", firstName);
-                            intent.putExtra("LastName", lastName);
-                            intent.putExtra("City", city);
-                            intent.putExtra("Phone", phone);
-                            intent.putExtra("UserID", userId);
-
-
-                            Toast.makeText(toursinfo.this, "User:" + userId, Toast.LENGTH_SHORT).show();
-                            // Start the ConfirmationScreen activity
-//                            startActivity(intent);
-                        } else {
-                            // Handle the case where the user document does not exist
-                            Toast.makeText(toursinfo.this, "User details not found", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(e -> {
-                        // Handle errors that occurred while fetching user details
-                        Toast.makeText(toursinfo.this, "Error fetching user details", Toast.LENGTH_SHORT).show();
-                    });
-                } else {
-                    // Handle the case where the user is not authenticated
-                    Toast.makeText(toursinfo.this, "User not authenticated", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//        reservearoom.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//
+//
+//                Intent intent = new Intent(toursinfo.this, ConfirmationScreen.class);
+//
+//                // Add any data you want to pass to the ConfirmationScreen activity
+//                // For example, you can use putExtra to pass room details
+//                Intent intent1 = getIntent();
+//                String hotelId = intent1.getStringExtra("HotelId");
+//                String roomId = intent1.getStringExtra("RoomId");
+//
+//                intent.putExtra("HotelId", hotelId);
+//                intent.putExtra("Room ID", roomId);
+//
+//                Toast.makeText(toursinfo.this, "Hotel ID: " + hotelId + " ROOM ID: " + roomId, Toast.LENGTH_SHORT).show();
+//
+//                intent.putExtra("RoomQuantity", roomNumber.getText().toString());
+//                intent.putExtra("RoomName", roomName.getText().toString());
+//                intent.putExtra("Price", priceTxtView.getText().toString());
+//                intent.putExtra("CheckIn", in_date.getText().toString());
+//                intent.putExtra("CheckOut", out_date.getText().toString());
+//
+//                // Add more data as needed
+//
+//                startActivity(intent);
+//
+//                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//
+//                if (currentUser != null) {
+//                    String userId = currentUser.getUid();
+//
+//                    // Fetch user details from Firestore using the obtained userId
+//                    DocumentReference userRef = db.collection("Users").document(userId);
+//
+//                    userRef.get().addOnSuccessListener(documentSnapshot -> {
+//                        if (documentSnapshot.exists()) {
+//                            // Retrieve user details
+//                            String firstName = documentSnapshot.getString("firstName");
+//                            String lastName = documentSnapshot.getString("lastName");
+//                            String city = documentSnapshot.getString("city");
+//                            String phone = documentSnapshot.getString("phone");
+//
+//                            // Pass user details to the ConfirmationScreen activity
+//                            intent.putExtra("FirstName", firstName);
+//                            intent.putExtra("LastName", lastName);
+//                            intent.putExtra("City", city);
+//                            intent.putExtra("Phone", phone);
+//                            intent.putExtra("UserID", userId);
+//
+//
+//                            Toast.makeText(toursinfo.this, "User:" + userId, Toast.LENGTH_SHORT).show();
+//                            // Start the ConfirmationScreen activity
+////                            startActivity(intent);
+//                        } else {
+//                            // Handle the case where the user document does not exist
+//                            Toast.makeText(toursinfo.this, "User details not found", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }).addOnFailureListener(e -> {
+//                        // Handle errors that occurred while fetching user details
+//                        Toast.makeText(toursinfo.this, "Error fetching user details", Toast.LENGTH_SHORT).show();
+//                    });
+//                } else {
+//                    // Handle the case where the user is not authenticated
+//                    Toast.makeText(toursinfo.this, "User not authenticated", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
         Window window = dialog.getWindow();
         if (window != null) {

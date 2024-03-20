@@ -355,7 +355,7 @@ public class restauinfo extends AppCompatActivity {
 
                     // Set up the RecyclerView with the image URLs using photogalleryAdapter
                     photogalleryAdapter adapter = new photogalleryAdapter(this, imageUrls);
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                     photogalleryRecyclerView.setLayoutManager(layoutManager);
                     photogalleryRecyclerView.setAdapter(adapter);
 
