@@ -96,7 +96,6 @@ public class WeatherFragment extends Fragment {
         temperatureTV = root.findViewById(R.id.idTVTemperature);
         conditionTV = root.findViewById(R.id.idTVCondition);
         backIV = root.findViewById(R.id.IdIVBack);
-        iconIV = root.findViewById(R.id.idIVIcon);
         windTV = root.findViewById(R.id.idTVWindTextMetric);
         cloudTV = root.findViewById(R.id.idTVCloudTextMetric);
         humidityTV = root.findViewById(R.id.idTVCHumidTextMetric);
@@ -135,62 +134,9 @@ public class WeatherFragment extends Fragment {
                     error.printStackTrace();
                 });
 
-//        JsonObjectRequest weeklyWeatherRequest = new JsonObjectRequest(Request.Method.GET, weeklyForecastUrl, null,
-//                response -> {
-//                    try {
-//                        // Extract and update UI with weather information from the response
-//                        updateWeeklyWeatherUI(response);
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                },
-//                error -> {
-//                    Toast.makeText(requireContext(), "Error fetching weather data", Toast.LENGTH_SHORT).show();
-//                    error.printStackTrace();
-//                });
-
 
         requestQueue.add(currentWeatherRequest);
-//        requestQueue.add(weeklyWeatherRequest);
-//        requestQueue.add(hourlyWeatherRequest);
     }
-
-//    private void updateWeeklyWeatherUI(JSONObject response) throws JSONException {
-//
-//        List<WeeklyForecast> weeklyForecastList = new ArrayList<>();
-//
-//        JSONArray forecastArray = response.getJSONArray("list");
-//        for (int i = 0; i < forecastArray.length(); i++) {
-//            JSONObject forecastObj = forecastArray.getJSONObject(i);
-//            long timestamp = forecastObj.getLong("dt") * 1000; // Convert to milliseconds
-//            Date date = new Date(timestamp);
-//            SimpleDateFormat sdf = new SimpleDateFormat("EEE", Locale.getDefault()); // Get day of the week (e.g., Mon, Tue, etc.)
-//            String dayOfWeek = sdf.format(date);
-//
-//            JSONObject mainObj = forecastObj.getJSONObject("temp");
-//            double minTemp = mainObj.getDouble("min");
-//            double maxTemp = mainObj.getDouble("max");
-//
-//            JSONArray weatherArray = forecastObj.getJSONArray("weather");
-//            JSONObject weatherObj = weatherArray.getJSONObject(0);
-//            String conditionIcon = weatherObj.getString("icon");
-//
-//            // Create WeeklyForecast object
-//            WeeklyForecast weeklyForecast = new WeeklyForecast(dayOfWeek, String.valueOf((int) minTemp) + "°C", String.valueOf((int) maxTemp) + "°C", "https://openweathermap.org/img/w/" + conditionIcon + ".png");
-//            weeklyForecast.setDay(dayOfWeek);
-//            weeklyForecast.setMinTemperature(String.valueOf((int) minTemp) + "°C");
-//            weeklyForecast.setMaxTemperature(String.valueOf((int) maxTemp) + "°C");
-//            weeklyForecast.setConditionIconUrl("https://openweathermap.org/img/w/" + conditionIcon + ".png");
-//
-//            weeklyForecastList.add(weeklyForecast);
-//        }
-//
-//        // Now you have a list of WeeklyForecast objects containing the parsed data
-//        // You can update your RecyclerView adapter with this data
-//        // For example:
-//        WeeklyForecastAdapter adapter = new WeeklyForecastAdapter(weeklyForecastList);
-//        weekly.setAdapter(adapter);
-//    }
 
 
     private void checkAndRequestLocationPermission() {
@@ -273,8 +219,6 @@ public class WeatherFragment extends Fragment {
 
             String iconCode = weatherObject.getString("icon");
             String iconUrl = "https://openweathermap.org/img/w/" + iconCode + ".png";
-            Log.d("WeatherLog", "iconUrl: " + iconUrl);
-            Picasso.get().load(iconUrl).into(iconIV);
             int dayImage = R.drawable.day;
             int sunny = R.drawable.sunny;
             int fewCloudsDay = R.drawable.fewclouds;

@@ -247,6 +247,7 @@
 
                 <TableRow>
                     <TextView
+                        android:id="@+id/checkinlbl"
                         style="@style/TEXT"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -265,6 +266,7 @@
                 <TableRow>
 
                     <TextView
+                        android:id="@+id/checkoutlbl"
                         style="@style/TEXT"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -317,18 +319,11 @@
                 android:textColor="#FF0000"></TextView>
 
             <Button
-                android:id="@+id/changeroom"
-                style="@style/BUTTON"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="Change Room Reservation " />
-            <Button
                 android:id="@+id/cancelbutton"
-                android:background="@drawable/textfld"
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/textfld"
                 android:text="Cancel Reservation " />
 
         </LinearLayout>

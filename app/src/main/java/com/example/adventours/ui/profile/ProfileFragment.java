@@ -43,7 +43,7 @@ public class ProfileFragment extends Fragment {
     private Button logoutbtn;
     private TextView textView, usernumber;
 
-    TextView myitinerarybtn, myreservationsbtn, settingsbtn, helpcenterbtn, aboutusbtn, rateusbtn;
+    TextView myitinerarybtn, myreservationsbtn, settingsbtn, helpcenterbtn, aboutusbtn;
 
     ImageButton editprofile;
 
@@ -51,7 +51,6 @@ public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
 
-    private Dialog rateDialog;
     private Dialog logoutDialog;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -76,7 +75,6 @@ public class ProfileFragment extends Fragment {
         settingsbtn = root.findViewById(R.id.settings);
         helpcenterbtn = root.findViewById(R.id.helpcenter);
         aboutusbtn = root.findViewById(R.id.aboutus);
-        rateusbtn = root.findViewById(R.id.rateus);
         editprofile = root.findViewById(R.id.displaypicture);
 
         auth = FirebaseAuth.getInstance();
@@ -128,27 +126,6 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-        rateusbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rateDialog = new Dialog(getActivity());
-                rateDialog.setContentView(R.layout.activity_rate_us);
-                rateDialog.show();
-
-                Button insideDialogBtn = rateDialog.findViewById(R.id.submitrate);
-                insideDialogBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        rateDialog.dismiss();
-                        // Your code for the second dialog
-                    }
-                });
-            }
-        });
-
-
-
         helpcenterbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -227,9 +204,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (rateDialog != null && rateDialog.isShowing()) {
-            rateDialog.dismiss();
-        }
         if (logoutDialog != null && logoutDialog.isShowing()) {
             logoutDialog.dismiss();
         }

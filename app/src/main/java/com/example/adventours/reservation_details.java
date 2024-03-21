@@ -23,9 +23,9 @@ import java.util.concurrent.TimeUnit;
 
 public class reservation_details extends AppCompatActivity {
 
-    Button changeroom, cancelbutton;
+    Button cancelbutton;
 
-    TextView place, name, address, number, email, roomlabel, guestslabel, quantitylabel, reservationnumber, reservationDate, quantityvalue, roomvalue, checkin, checkout, expiration ;
+    TextView place, name, address, number, email, roomlabel, guestslabel, quantitylabel, reservationnumber, reservationDate, quantityvalue, roomvalue, checkinlbl, checkoutlbl, checkin, checkout, expiration ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,18 +43,18 @@ public class reservation_details extends AppCompatActivity {
         roomvalue = findViewById(R.id.roomvalue);
         quantitylabel = findViewById(R.id.quantitylabel);
         quantityvalue = findViewById(R.id.quantityvalue);
+        checkinlbl = findViewById(R.id.checkinlbl);
+        checkoutlbl = findViewById(R.id.checkoutlbl);
         checkin = findViewById(R.id.checkinfield);
         checkout = findViewById(R.id.checkoutfield);
         expiration = findViewById(R.id.expiration);
 
-        changeroom = findViewById(R.id.changeroom);
         cancelbutton = findViewById(R.id.cancelbutton);
 
         Intent intent = getIntent();
         String reservationid = intent.getStringExtra("reservation_id");
         String reservationType = intent.getStringExtra("reservationType");
 
-        changeroom.setOnClickListener(View -> confirmchangeroom());
         cancelbutton.setOnClickListener(View -> confirmcancelreservation(reservationType));
 
         if ("Hotel Reservation".equals(reservationType)) {
@@ -66,6 +66,7 @@ public class reservation_details extends AppCompatActivity {
             roomlabel.setVisibility(View.GONE);
             roomvalue.setVisibility(View.GONE);
             quantitylabel.setText("Guests");
+
             fetchrestaurantreservationDetails(reservationid);
 
         } else {
@@ -87,8 +88,8 @@ public class reservation_details extends AppCompatActivity {
                 String emailText = documentSnapshot.getString("Email");
                 String reservation = documentSnapshot.getString("reservationId");
                 String guests = documentSnapshot.getString("Guests");
-                String out = documentSnapshot.getString("CheckOut");
-                String in = documentSnapshot.getString("CheckOut");
+                String out = documentSnapshot.getString("Time");
+                String in = documentSnapshot.getString("Date");
                 String expirationdate =  documentSnapshot.getString("Expiration");
 
                 place.setText(placeText);
@@ -101,6 +102,8 @@ public class reservation_details extends AppCompatActivity {
                 checkin.setText(in);
                 checkout.setText(out);
                 expiration.setText(expirationdate);
+                checkinlbl.setText("Date");
+                checkoutlbl.setText("Time");
 
                 com.google.firebase.Timestamp timestamp = documentSnapshot.getTimestamp("Timestamp");
                 if (timestamp != null) {
@@ -228,17 +231,6 @@ public class reservation_details extends AppCompatActivity {
             e.printStackTrace();
             return null;
         }
-    }
-
-
-    private void confirmchangeroom() {
-
-        Dialog firstDialog = new Dialog(this);
-        firstDialog.setContentView(R.layout.prompt_change_room);
-        firstDialog.show();
-
-        Button insideDialogBtn = firstDialog.findViewById(R.id.confirm);
-        insideDialogBtn.setOnClickListener(View -> showavailableroomlist());
     }
 
     private void showavailableroomlist(){

@@ -196,11 +196,11 @@
             <TableRow>
 
                 <TextView
+                    style="@style/TEXT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Check in"
-                    style="@style/TEXT"
+                    android:text="Time"
                     android:textStyle="bold"></TextView>
                 <TextView
                     android:id="@+id/checkin"

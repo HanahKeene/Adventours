@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -180,10 +179,7 @@ public class register extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        // Determine the theme based on the system theme
-        int themeResId = isDarkModeEnabled() ? R.style.Base_Theme_DarkAdventours : R.style.Base_Theme_Adventours    ;
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, themeResId, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 // Format the date as words (e.g., "June 12, 2023")
@@ -209,13 +205,6 @@ public class register extends AppCompatActivity {
 
         datePickerDialog.show();
     }
-
-    // Function to check if dark mode is enabled
-    private boolean isDarkModeEnabled() {
-        int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
-    }
-
 
     private void showconfirmpassword() {
 

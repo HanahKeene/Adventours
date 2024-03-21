@@ -45,7 +45,7 @@
                 style="@style/TEXT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Thank you fir reservation! \n Here are the details of your stay."
+                android:text="Thank you for reservation! \n Here are the details of your stay."
                 android:textAlignment="center"
                 android:textSize="16dp" />
 
