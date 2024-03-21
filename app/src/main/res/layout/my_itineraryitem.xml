@@ -14,19 +14,17 @@
         android:layout_height="match_parent"
         android:background="@color/cyan">
 
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="15dp"
-                android:layout_gravity="left"
-                android:gravity="center"
-                android:textSize="14dp"
-                android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="1"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
 
             <View
@@ -35,15 +33,15 @@
                 android:background="@color/white"/>
 
 
-            <TextView
-                android:id="@+id/activityname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Activity Name"
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"
-                android:padding="20dp"
-                android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/activityname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:text="Activity Name"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

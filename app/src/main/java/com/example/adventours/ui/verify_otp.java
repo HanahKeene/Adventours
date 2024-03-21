@@ -56,9 +56,8 @@ public class verify_otp extends AppCompatActivity {
         setContentView(R.layout.activity_verify_otp);
 
         countdown = findViewById(R.id.countdown);
-        resendButton = findViewById(R.id.resend);
 
-        // Start countdown timer
+
         startCountdown();
 
         // Initialize views

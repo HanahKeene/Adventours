@@ -46,38 +46,6 @@
             android:padding="20dp"
             android:textStyle="bold" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout25"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/textView45"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView10">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Time Left">
-
-            </TextView>
-
-            <TextView
-                android:id="@+id/countdown"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/login_padding"
-                android:padding="10dp"
-                android:text="00:00"
-                android:textColor="#FFFFFF" />
-
-        </LinearLayout>
 
         <TextView
             android:id="@+id/textView45"
@@ -233,14 +201,14 @@
 
     </FrameLayout>
 
-
     <TextView
-        android:id="@+id/resend"
-        android:layout_width="match_parent"
+        android:id="@+id/countdown"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Resend OTP"
-        android:textAlignment="center"
-        android:textColor="#FF0000"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:text="00:00"
+        android:textColor="#000000"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout"
         tools:layout_editor_absoluteX="167dp" />
 
