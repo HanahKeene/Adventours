@@ -63,7 +63,7 @@ public class restauinfo extends AppCompatActivity {
     ImageView addtoitinerary;
 
     ImageButton date_btn, time_btn, adultnumdec, adultnuminc, childnuminc, childnumdec;
-    private RecyclerView photogalleryRecyclerView, delicaciesRecyclerview;
+    private RecyclerView photogalleryRecyclerView;
 
     private FirebaseFirestore db;
 
@@ -85,7 +85,6 @@ public class restauinfo extends AppCompatActivity {
         locationTextView = findViewById(R.id.spot_location);
         descriptionTextView = findViewById(R.id.spot_desc);
         photogalleryRecyclerView = findViewById(R.id.galleryRecyclerview);
-        delicaciesRecyclerview = findViewById(R.id.delicaciesrecyclerview);
         reserve = findViewById(R.id.reservetable);
         addtoitinerary = findViewById(R.id.addtoitinerary);
 

@@ -134,25 +134,14 @@
                 android:drawableRight="@drawable/baseline_navigate_next_24"
                 android:padding="20dp"/>
 
-            <TextView
-                android:id="@+id/rateus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                style="@style/TEXT"
-                android:text="Rate Us"
-                android:textSize="16sp"
-                android:drawableRight="@drawable/baseline_navigate_next_24"
-                android:padding="20dp"/>
-
-            <Button
-                android:id="@+id/logout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/BUTTON"
-                android:text="LOG OUT"
-                android:textColor="#FFFFFF"
-                android:padding="20dp"
-                android:layout_margin="20dp"/>
+        <Button
+            android:id="@+id/logout"
+            style="@style/BUTTON"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:padding="20dp"
+            android:text="LOG OUT"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

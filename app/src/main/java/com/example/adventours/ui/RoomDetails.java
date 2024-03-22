@@ -81,8 +81,6 @@ public class RoomDetails extends AppCompatActivity {
 
         back.setOnClickListener(View -> finish());
 
-        Toast.makeText(this, "Hotel ID: " + hotelId + " ROOM ID: " + roomId, Toast.LENGTH_SHORT).show();
-
         db = FirebaseFirestore.getInstance();
 
         room_img = findViewById(R.id.room_img);
@@ -199,8 +197,6 @@ public class RoomDetails extends AppCompatActivity {
                 intent.putExtra("HotelId", hotelId);
                 intent.putExtra("Room ID", roomId);
 
-                Toast.makeText(RoomDetails.this, "Hotel ID: " + hotelId + " ROOM ID: " + roomId, Toast.LENGTH_SHORT).show();
-
                 intent.putExtra("RoomQuantity", roomNumber.getText().toString());
                 intent.putExtra("RoomName", roomName.getText().toString());
                 intent.putExtra("Price", priceTxtView.getText().toString());
@@ -234,8 +230,6 @@ public class RoomDetails extends AppCompatActivity {
                             intent.putExtra("Phone", phone);
                             intent.putExtra("UserID", userId);
 
-
-                            Toast.makeText(RoomDetails.this, "User:" + userId, Toast.LENGTH_SHORT).show();
                             // Start the ConfirmationScreen activity
 //                            startActivity(intent);
                         } else {

@@ -89,10 +89,10 @@ public class select_activity extends AppCompatActivity implements selectActivity
 
         Toast.makeText(this, "Source" + source, Toast.LENGTH_SHORT).show();
 
-        if(source.equals("Tourist Spot")){
+        if(source.equals("Hotel")){
 
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            DocumentReference spotRef = db.collection("Tourist Spot").document(spotId);
+            DocumentReference spotRef = db.collection("Hotels").document(spotId);
 
             spotRef.collection("Activities").get().addOnSuccessListener(activitiesSnapshots -> {
                 for (QueryDocumentSnapshot document : activitiesSnapshots) {
@@ -107,7 +107,23 @@ public class select_activity extends AppCompatActivity implements selectActivity
                 Toast.makeText(this, "Failed to fetch activities", Toast.LENGTH_SHORT).show();
             });
 
-        }else if (source.equals("Events")){
+        }else if (source.equals("Tourist Spot")){
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference spotRef = db.collection("Tourist Spots").document(spotId);
+
+            spotRef.collection("Activities").get().addOnSuccessListener(activitiesSnapshots -> {
+                for (QueryDocumentSnapshot document : activitiesSnapshots) {
+                    String activityName = document.getString("name");
+                    if (activityName != null) {
+                        selectActivityModel activityItem = new selectActivityModel(activityName);
+                        selectActivityModelList.add(activityItem);
+                    }
+                }
+                selectActivityAdapter.notifyDataSetChanged();
+            }).addOnFailureListener(e -> {
+                Toast.makeText(this, "Failed to fetch activities in Tourist Spots", Toast.LENGTH_SHORT).show();
+            });
+        } else if (source.equals("Events")) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             DocumentReference spotRef = db.collection("Events").document(spotId);
 
@@ -123,9 +139,25 @@ public class select_activity extends AppCompatActivity implements selectActivity
             }).addOnFailureListener(e -> {
                 Toast.makeText(this, "Failed to fetch activities in Tourist Spots", Toast.LENGTH_SHORT).show();
             });
+        } else if (source.equals("Restaurant")) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference spotRef = db.collection("Restaurants").document(spotId);
+
+            spotRef.collection("Activities").get().addOnSuccessListener(activitiesSnapshots -> {
+                for (QueryDocumentSnapshot document : activitiesSnapshots) {
+                    String activityName = document.getString("name");
+                    if (activityName != null) {
+                        selectActivityModel activityItem = new selectActivityModel(activityName);
+                        selectActivityModelList.add(activityItem);
+                    }
+                }
+                selectActivityAdapter.notifyDataSetChanged();
+            }).addOnFailureListener(e -> {
+                Toast.makeText(this, "Failed to fetch activities in Tourist Spots", Toast.LENGTH_SHORT).show();
+            });
+
+
         }
-
-
 
     }
 

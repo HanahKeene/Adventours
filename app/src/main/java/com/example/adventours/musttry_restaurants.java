@@ -16,7 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.adventours.ui.adapters.hotelListAdapter;
+import com.example.adventours.ui.adapters.restaurantListAdapter;
+import com.example.adventours.ui.lists.restaurant_lists_activity;
 import com.example.adventours.ui.models.HotelListModel;
+import com.example.adventours.ui.models.RestaurantListModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,9 +31,9 @@ import java.util.List;
 
 public class musttry_restaurants extends Fragment {
 
-    RecyclerView hotelRecyclerView;
-    hotelListAdapter hotelListAdapter;
-    List<HotelListModel> hotelListModelList;
+    RecyclerView  ResaurantRecyclerView;
+    restaurantListAdapter restaurantListAdapter;
+    List<RestaurantListModel> restaurantListModelList;
     FirebaseFirestore db;
 
     SharedPreferences sharedPreferences;
@@ -40,25 +43,22 @@ public class musttry_restaurants extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_musttry_restaurants, container, false);
 
-        hotelRecyclerView = rootView.findViewById(R.id.restaurantrecyclerview);
+        ResaurantRecyclerView = rootView.findViewById(R.id.restaurantrecyclerview);
 
         db = FirebaseFirestore.getInstance();
 
-        hotelListModelList = new ArrayList<>();
-
-        hotelListAdapter = new hotelListAdapter(getContext(), hotelListModelList, new hotelListAdapter.OnHotelListItemClickListener() {
+        restaurantListModelList = new ArrayList<>();
+        restaurantListAdapter = new restaurantListAdapter(getActivity(), restaurantListModelList, new restaurantListAdapter.OnRestaurantItemClickListener() {
             @Override
-            public void onHotelListItemClick(String hotelId) {
-                // Handle the click event here
-//                Toast.makeText(hotel_lists_Activity.this, "Clicked Hotel ID: " + hotelId, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getContext(), hotelinfo.class);
-                intent.putExtra("hotel_id", hotelId);
+            public void onRestaurantItemClick(String restau_id) {
+                Intent intent = new Intent(getActivity(), restauinfo.class);
+                intent.putExtra("restau_id", restau_id);
                 startActivity(intent);
             }
         });
+        ResaurantRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+        ResaurantRecyclerView.setAdapter(restaurantListAdapter);
 
-        hotelRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        hotelRecyclerView.setAdapter(hotelListAdapter);
 
         db.collection("Restaurants")
                 .get()
@@ -66,17 +66,19 @@ public class musttry_restaurants extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            hotelListModelList.clear(); // Clear the list before adding new data
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                HotelListModel hotelListModel = document.toObject(HotelListModel.class);
-                                String hotel_id = document.getId(); // Retrieve document ID
-                                hotelListModel.setHotel_id(hotel_id);
-                                hotelListModelList.add(hotelListModel);
-                            }
 
-                            hotelListAdapter.notifyDataSetChanged(); // Notify adapter after adding new data
+
+                            restaurantListModelList.clear(); // Clear the list before adding new data
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                RestaurantListModel restaurantListModel = document.toObject(RestaurantListModel.class);
+                                String restau_id = document.getId();
+                                restaurantListModel.setRestau_id(restau_id);
+                                restaurantListModelList.add(restaurantListModel);
+                            }
+                            restaurantListAdapter.notifyDataSetChanged(); // Notify adapter after adding new data
                         } else {
-                            Toast.makeText(getContext(), "Error fetching hotels: " + task.getException(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Error fetching hotels: " + task.getException(), Toast.LENGTH_SHORT).show();
+//                            Log.e("FirestoreError", "Error fetching hotels", task.getException());
                         }
                     }
                 });

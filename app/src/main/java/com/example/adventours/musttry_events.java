@@ -15,7 +15,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.adventours.ui.adapters.eventsListAdapter;
 import com.example.adventours.ui.adapters.hotelListAdapter;
+import com.example.adventours.ui.lists.events_lists_Activity;
+import com.example.adventours.ui.models.EventsListModel;
 import com.example.adventours.ui.models.HotelListModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,11 +31,11 @@ import java.util.List;
 
 public class musttry_events extends Fragment {
 
-    RecyclerView toursRecyclerView;
-    com.example.adventours.ui.adapters.hotelListAdapter hotelListAdapter;
+    RecyclerView eventsRecyclerView;
+    eventsListAdapter eventsListAdapter;
 
     TextView back;
-    List<HotelListModel> hotelListModelList;
+    List<EventsListModel> eventsListModelList;
     FirebaseFirestore db;
 
     SharedPreferences sharedPreferences;
@@ -43,23 +46,26 @@ public class musttry_events extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_musttry_events, container, false);
 
-        toursRecyclerView = rootView.findViewById(R.id.eventsrecyclerview);
+        eventsRecyclerView = rootView.findViewById(R.id.events);
 
         db = FirebaseFirestore.getInstance();
 
-        hotelListModelList = new ArrayList<>();
+        eventsListModelList = new ArrayList<>();
 
-        hotelListAdapter = new hotelListAdapter(getContext(), hotelListModelList, new hotelListAdapter.OnHotelListItemClickListener() {
+        eventsListAdapter = new eventsListAdapter(getActivity(), eventsListModelList, new eventsListAdapter.OnEventListItemClickListener() {
             @Override
-            public void onHotelListItemClick(String hotelId) {
-                Intent intent = new Intent(getContext(), hotelinfo.class);
-                intent.putExtra("hotel_id", hotelId);
+            public void onEventListItemClickListener(String event_id) {
+
+                Intent intent = new Intent(getActivity(), events_info.class);
+                intent.putExtra("events_id", event_id);
                 startActivity(intent);
+
             }
+
         });
 
-        toursRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        toursRecyclerView.setAdapter(hotelListAdapter);
+        eventsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+        eventsRecyclerView.setAdapter(eventsListAdapter);
 
         db.collection("Events")
                 .get()
@@ -67,21 +73,20 @@ public class musttry_events extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            hotelListModelList.clear(); // Clear the list before adding new data
+                            eventsListModelList.clear();
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                HotelListModel hotelListModel = document.toObject(HotelListModel.class);
-                                String hotel_id = document.getId(); // Retrieve document ID
-                                hotelListModel.setHotel_id(hotel_id);
-                                hotelListModelList.add(hotelListModel);
+                                EventsListModel eventsListModel = document.toObject(EventsListModel.class);
+                                String event_id = document.getId();
+                                eventsListModel.setEvents_id(event_id);
+                                eventsListModelList.add(eventsListModel);
                             }
 
-                            hotelListAdapter.notifyDataSetChanged(); // Notify adapter after adding new data
+                            eventsListAdapter.notifyDataSetChanged(); // Notify adapter after adding new data
                         } else {
-                            Toast.makeText(getContext(), "Error fetching hotels: " + task.getException(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Error fetching hotels: " + task.getException(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-
         return rootView;
     }
 }

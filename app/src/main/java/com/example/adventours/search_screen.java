@@ -110,7 +110,6 @@ public class search_screen extends AppCompatActivity implements searchAdapter.On
                             }
                         } else {
                             Log.e("search_screen", "Error fetching Tourist Spots: " + task.getException());
-                            showToast("Error fetching Tourist Spots");
                         }
                     }
                 });
@@ -129,7 +128,6 @@ public class search_screen extends AppCompatActivity implements searchAdapter.On
                             }
                         } else {
                             Log.e("search_screen", "Error fetching Hotels: " + task.getException());
-                            showToast("Error fetching Hotels");
                         }
                     }
                 });
@@ -148,7 +146,6 @@ public class search_screen extends AppCompatActivity implements searchAdapter.On
                             }
                         } else {
                             Log.e("search_screen", "Error fetching Restaurants: " + task.getException());
-                            showToast("Error fetching Restaurants");
                         }
                     }
                 });
@@ -163,7 +160,6 @@ public class search_screen extends AppCompatActivity implements searchAdapter.On
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
-                            Toast.makeText(this, "Found in Hotels" + itemId, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(search_screen.this, hotelinfo.class);
                             intent.putExtra("hotel_id", hotelid);
                             startActivity(intent);
@@ -174,7 +170,6 @@ public class search_screen extends AppCompatActivity implements searchAdapter.On
                                         if (task1.isSuccessful()) {
                                             DocumentSnapshot document1 = task1.getResult();
                                             if (document1.exists()) {
-                                                Toast.makeText(this, "Found in Restaurants" + itemId, Toast.LENGTH_SHORT).show();
                                                 Intent intent = new Intent(search_screen.this, restauinfo.class);
                                                 intent.putExtra("restau_id", restauid);
                                                 startActivity(intent);
@@ -185,17 +180,14 @@ public class search_screen extends AppCompatActivity implements searchAdapter.On
                                                             if (task2.isSuccessful()) {
                                                                 DocumentSnapshot document2 = task2.getResult();
                                                                 if (document2.exists()) {
-                                                                    Toast.makeText(this, "Found in Tourist Spot" + itemId, Toast.LENGTH_SHORT).show();
                                                                     Intent intent = new Intent(search_screen.this, touristspotinfo.class);
                                                                     intent.putExtra("spot_id", itemId);
                                                                     startActivity(intent);
                                                                 } else {
-                                                                    // If the item ID doesn't exist in any collection
                                                                     showToast("Item ID not found");
                                                                 }
                                                             } else {
                                                                 Log.e("search_screen", "Error fetching Tourist Spots document: " + task2.getException());
-                                                                showToast("Error fetching Tourist Spots document");
                                                             }
                                                         });
                                             }
@@ -207,7 +199,6 @@ public class search_screen extends AppCompatActivity implements searchAdapter.On
                         }
                     } else {
                         Log.e("search_screen", "Error fetching Hotels document: " + task.getException());
-                        showToast("Error fetching Hotels document");
                     }
                 });
     }

@@ -86,9 +86,11 @@ public class selectitineraryAdapter extends RecyclerView.Adapter<selectitinerary
                                 intent.putExtra("Spot_ID", spot_id);
                                 Toast.makeText(context, "Spot_ID" + spot_id + " Itinerary ID " + id, Toast.LENGTH_SHORT).show();
                             } else if (source.equals("Restaurant")) {
+                                intent.putExtra("Source", "Restaurant");
                                 intent.putExtra("Spot_ID", restau_id);
                                 Toast.makeText(context, "Restaurant ID" + restau_id + " Itinerary ID " + id, Toast.LENGTH_SHORT).show();
                             } else if (source.equals("Hotel")) {
+                                intent.putExtra("Source", "Hotel");
                                 intent.putExtra("Spot_ID", hotel_id);
                                 Toast.makeText(context, "Hotel_ID" + hotel_id + " Itinerary ID " + id, Toast.LENGTH_SHORT).show();
                             } else if (source.equals("Events")) {

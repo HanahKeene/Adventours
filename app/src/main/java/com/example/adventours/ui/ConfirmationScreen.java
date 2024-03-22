@@ -49,7 +49,7 @@ import java.util.Map;
 public class ConfirmationScreen extends AppCompatActivity {
 
     private FirebaseFirestore db;
-    TextView roomtypeName, checkin, checkout, name, add, numbertxtfld, emailtxtfld, hotelnametxtfld, qtytxtfld, expirationtxtfld, reserveNumberm, total, dppayment, account_name, accountnumber, filename;
+    TextView back, roomtypeName, checkin, checkout, name, add, numbertxtfld, emailtxtfld, hotelnametxtfld, qtytxtfld, expirationtxtfld, reserveNumberm, total, dppayment, account_name, accountnumber, filename;
     ImageButton gcash, maya;
     Button submit, choosefile;
     SharedPreferences sharedPreferences;
@@ -77,6 +77,9 @@ public class ConfirmationScreen extends AppCompatActivity {
         // Add three months to the current date
         Calendar expirationDate = (Calendar) currentDate.clone();
         expirationDate.add(Calendar.MONTH, 3);
+
+        back = findViewById(R.id.back);
+        back.setOnClickListener(View -> finish());
 
         // Format the dates for display
         SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault());

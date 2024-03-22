@@ -55,8 +55,6 @@ public class selectDay extends AppCompatActivity {
             }
         };
 
-        Toast.makeText(this, "Source" + source, Toast.LENGTH_SHORT).show();
-
         selectDayModelList = new ArrayList<>();
         selectDayAdapter = new selectDayAdapter(this, selectDayModelList, spot_ID, itineraryId, source, listener);
         daysrecylerview.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));

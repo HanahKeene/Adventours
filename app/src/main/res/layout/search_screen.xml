@@ -48,24 +48,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Popular Search"
-            style="@style/TEXT"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Recent Search"
-            style="@style/TEXT"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Recently Viewed"
-            style="@style/TEXT"/>
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

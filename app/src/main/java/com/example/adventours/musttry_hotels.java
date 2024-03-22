@@ -21,12 +21,15 @@ import com.example.adventours.ui.adapters.hotelListAdapter;
 import com.example.adventours.ui.lists.hotel_lists_Activity;
 import com.example.adventours.ui.models.HotelListModel;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class musttry_hotels extends Fragment {
@@ -45,18 +48,16 @@ public class musttry_hotels extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_musttry_hotels, container, false);
 
 
-        hotelRecyclerView = rootView.findViewById(R.id.hotelrecyclerview);
+        hotelRecyclerView = rootView.findViewById(R.id.hotel);
 
         db = FirebaseFirestore.getInstance();
 
         hotelListModelList = new ArrayList<>();
 
-        hotelListAdapter = new hotelListAdapter(getContext(), hotelListModelList, new hotelListAdapter.OnHotelListItemClickListener() {
+        hotelListAdapter = new hotelListAdapter(getActivity(), hotelListModelList, new hotelListAdapter.OnHotelListItemClickListener() {
             @Override
             public void onHotelListItemClick(String hotelId) {
-                // Handle the click event here
-//                Toast.makeText(hotel_lists_Activity.this, "Clicked Hotel ID: " + hotelId, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getContext(), hotelinfo.class);
+                Intent intent = new Intent(getActivity(), hotelinfo.class);
                 intent.putExtra("hotel_id", hotelId);
                 startActivity(intent);
             }
@@ -71,20 +72,65 @@ public class musttry_hotels extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            hotelListModelList.clear(); // Clear the list before adding new data
+                            List<Task<QuerySnapshot>> roomTasks = new ArrayList<>(); // Keep track of room fetch tasks
+
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 HotelListModel hotelListModel = document.toObject(HotelListModel.class);
                                 String hotel_id = document.getId(); // Retrieve document ID
                                 hotelListModel.setHotel_id(hotel_id);
-                                hotelListModelList.add(hotelListModel);
+
+                                // Query the subcollection "rooms" for each hotel
+                                Task<QuerySnapshot> roomTask = db.collection("Hotels").document(hotel_id).collection("Rooms")
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> roomTask) {
+                                                if (roomTask.isSuccessful()) {
+                                                    List<Double> roomPrices = new ArrayList<>();
+                                                    for (QueryDocumentSnapshot roomDocument : roomTask.getResult()) {
+                                                        // Retrieve room prices and add them to the list
+                                                        double price = roomDocument.getDouble("price");
+                                                        roomPrices.add(price);
+                                                    }
+
+                                                    // Calculate the lowest and highest prices
+                                                    double minPrice = roomPrices.isEmpty() ? 0.0 : Collections.min(roomPrices);
+                                                    double maxPrice = roomPrices.isEmpty() ? 0.0 : Collections.max(roomPrices);
+
+                                                    // Set the lowest and highest prices in HotelListModel
+                                                    hotelListModel.setLowestPrice(minPrice);
+                                                    hotelListModel.setHighestPrice(maxPrice);
+
+                                                    // Add the hotel to the list
+                                                    hotelListModelList.add(hotelListModel);
+
+                                                    // Notify adapter after adding new data
+                                                    hotelListAdapter.notifyDataSetChanged();
+                                                } else {
+                                                    Toast.makeText(getActivity(), "Error fetching rooms: " + roomTask.getException(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+
+                                roomTasks.add(roomTask); // Add room fetch task to the list
                             }
 
-                            hotelListAdapter.notifyDataSetChanged(); // Notify adapter after adding new data
+                            // Combine all room fetch tasks into a single task
+                            Task<Void> combinedTask = Tasks.whenAll(roomTasks);
+                            combinedTask.addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // Handle failure of combined task, if needed
+                                    Toast.makeText(getActivity(), "Error fetching rooms: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         } else {
                             Toast.makeText(getContext(), "Error fetching hotels: " + task.getException(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
+
     return rootView;
     }
 }
