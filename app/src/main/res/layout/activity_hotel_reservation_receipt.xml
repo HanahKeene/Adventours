@@ -413,7 +413,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="SAVE AS PNG " />
+                android:text="DOWNLOAD" />
             <Button
                 android:id="@+id/home"
                 android:background="@drawable/textfld"

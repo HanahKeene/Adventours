@@ -20,7 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Adventours"
-        tools:targetApi="30">
+        tools:overrideLibrary="com.android.car.ui">
         <activity
             android:name=".changeroom_details"
             android:exported="false" />
