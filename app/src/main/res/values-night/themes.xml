@@ -62,4 +62,13 @@
     <style name="NAVBAR">
         <item name="android:background">#1D636C</item>
     </style>
+
+    <style name="tabColor">
+        <item name="tabTextColor">@color/white</item>
+    </style>
+
+    <style name="mini_button">
+        <item name="tint">@color/cyan</item>
+        <item name="backgroundTint">@color/cyan</item>
+    </style>
 </resources>

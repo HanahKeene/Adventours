@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#30AFBF"
+    style="@style/ACTION"
     tools:context=".ui.tutorial">
 
     <Button
@@ -14,6 +14,7 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/interestbtn"
         android:contentDescription="@string/next"
+        style="@style/BUTTON"
         android:gravity="center_horizontal"
         android:padding="10dp"
         android:textColor="#FFFFFF"
@@ -28,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:text="SKIP"
+        style="@style/TEXT"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/onboardingViewPager"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +44,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="60dp"
-        android:background="#FFFFFF"
+        style="@style/SCREEN"
         tools:layout_editor_absoluteY="68dp" />
 
     <LinearLayout

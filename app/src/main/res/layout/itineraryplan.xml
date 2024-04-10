@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.itineraryplan">
+    tools:context=".ui.itineraryplan"
+    style="@style/SCREEN">
 
     <LinearLayout
         android:id="@+id/linearLayout17"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/cyan"
+        style="@style/ACTION"
         android:orientation="horizontal"
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
@@ -61,9 +62,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView android:text="Start Date" />
+                <TextView
+                    style="@style/TEXT"
+                    android:text="Start Date"
+                    />
 
                 <TextView
+                    style="@style/TEXT"
                     android:id="@+id/startdate"
                     android:text="Start Date" />
             </TableRow>
@@ -72,9 +77,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView android:text="End Date" />
+                <TextView
+                    style="@style/TEXT"
+                    android:text="End Date" />
 
                 <TextView
+                    style="@style/TEXT"
                     android:id="@+id/enddate"
                     android:text="End Date" />
             </TableRow>

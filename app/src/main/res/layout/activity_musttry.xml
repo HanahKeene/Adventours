@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout17"
         tools:layout_editor_absoluteX="1dp"
-        style="@style/TEXT">
+        style="@style/tabColor">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

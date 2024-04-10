@@ -49,6 +49,7 @@
         android:layout_height="wrap_content"
         android:numColumns="7"
         android:padding="20dp"
+        style="@style/TEXT"
         android:stretchMode="columnWidth"
         android:horizontalSpacing="1dp"
         android:verticalSpacing="1dp"/>

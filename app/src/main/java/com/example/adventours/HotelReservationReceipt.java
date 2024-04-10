@@ -1,10 +1,13 @@
 package com.example.adventours;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,11 +37,26 @@ HotelReservationReceipt extends AppCompatActivity {
     Button backtohomepage, saveas;
 
     ImageView back;
+    ImageView logo, logo2;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_reservation_receipt);
+
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        boolean nightMode = sharedPreferences.getBoolean("night", false);
+
+        logo = findViewById(R.id.logo);
+
+        if (nightMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            logo.setImageResource(R.drawable.logowithwhitetext);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            logo.setImageResource(R.drawable.logowtext);
+        }
 
         namefield = findViewById(R.id.name);
         addfield = findViewById(R.id.add);

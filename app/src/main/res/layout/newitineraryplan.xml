@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.newitineraryplan">
+    tools:context=".ui.newitineraryplan"
+    style="@style/SCREEN">
 
     <LinearLayout
         android:id="@+id/linearLayout17"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/cyan"
+        style="@style/ACTION"
         android:orientation="horizontal"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,6 +57,7 @@
         android:layout_marginLeft="45dp"
         android:layout_marginTop="45dp"
         android:padding="10dp"
+        style="@style/TEXT"
         tools:ignore="TouchTargetSizeCheck" />
 
     <LinearLayout
@@ -74,6 +76,7 @@
             android:inputType="date"
             android:padding="10dp"
             tools:ignore="TouchTargetSizeCheck"
+            style="@style/TEXT"
             android:layout_weight="1"/>
 
         <ImageButton
@@ -101,6 +104,7 @@
             android:inputType="date"
             android:padding="10dp"
             tools:ignore="TouchTargetSizeCheck"
+            style="@style/TEXT"
             android:layout_weight="1"/>
 
         <ImageButton
@@ -122,6 +126,6 @@
         android:layout_marginTop="60dp"
         android:layout_marginRight="45dp"
         android:layout_marginLeft="45dp"
-        android:textColor="@color/white"/>
+       style="@style/BUTTON"/>
 
 </LinearLayout>

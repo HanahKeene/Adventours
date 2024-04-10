@@ -30,7 +30,8 @@
                 android:id="@+id/activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CheckBox" />
+                android:text="CheckBox"
+                style="@style/TEXT"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

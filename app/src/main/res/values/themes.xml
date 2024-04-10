@@ -62,5 +62,14 @@
      <style name="NAVBAR">
          <item name="android:background">@color/dark_blue</item>
      </style>
+
+     <style name="tabColor">
+         <item name="tabTextColor">@color/black</item>
+     </style>
+     
+     <style name="mini_button">
+         <item name="tint">@color/black</item>
+         <item name="backgroundTint">@color/black</item>
+     </style>
 </resources>
 
