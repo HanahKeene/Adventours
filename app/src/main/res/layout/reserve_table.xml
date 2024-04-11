@@ -257,14 +257,15 @@
 
         <EditText
             android:id="@+id/note"
+            style="@style/TEXT"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:background="@drawable/textfld"
             android:gravity="start|top"
             android:hint="Input your note here."
             android:inputType="textMultiLine"
-            style="@style/TEXT"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:textColorHint="#ACABAB" />
 
         <Button
             android:id="@+id/reserveatable"

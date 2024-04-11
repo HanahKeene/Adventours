@@ -10,7 +10,26 @@
     </style>
 
     <style name="DialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog">
-        <item name="colorAccent">@color/black</item>
+        <item name="colorAccent">@color/cyan</item>
+    </style>
+
+    <!-- Night Mode Dialog Theme -->
+    <style name="DialogTheme.Dark" parent="Theme.MaterialComponents.Dialog">
+        <item name="colorAccent">@color/cyan</item>
+        <!-- Adjust background and text colors -->
+        <item name="android:background">@color/black</item> <!-- Set background color -->
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+
+    <style name="Clock" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="colorAccent">@color/cyan</item>
+    </style>
+
+    <style name="Clock.Dark" parent="Theme.MaterialComponents.Dialog">
+        <item name="colorAccent">@color/cyan</item>
+        <item name="android:background">#585454</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
     </style>
     
 

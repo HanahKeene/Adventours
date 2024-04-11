@@ -1,13 +1,16 @@
 package com.example.adventours;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -73,11 +76,19 @@ public class restauinfo extends AppCompatActivity {
     final int childguestcount = 0;
 
     final int MAX_ROOM_NUMBER = 10;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restauinfo);
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        boolean nightMode = sharedPreferences.getBoolean("night", false);
+        if (nightMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
 
         back = findViewById(R.id.backbtn);
         img_spot = findViewById(R.id.spot_img);
@@ -156,8 +167,18 @@ public class restauinfo extends AppCompatActivity {
                 int hour = currentTime.get(Calendar.HOUR_OF_DAY);
                 int minute = currentTime.get(Calendar.MINUTE);
 
+                sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+                boolean nightMode = sharedPreferences.getBoolean("night", false);
+
+                int dialogTheme;
+                if (nightMode) {
+                    dialogTheme = R.style.Clock_Dark; // Use night mode theme
+                } else {
+                    dialogTheme = R.style.Clock; // Use day mode theme
+                }
+
                 // Create a time picker dialog
-                TimePickerDialog timePickerDialog = new TimePickerDialog(restauinfo.this, R.style.DialogTheme, new TimePickerDialog.OnTimeSetListener() {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(restauinfo.this, dialogTheme, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
                         // Format the time as needed (12-hour format with AM/PM)
@@ -289,7 +310,17 @@ public class restauinfo extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        boolean nightMode = sharedPreferences.getBoolean("night", false);
+
+        int dialogTheme;
+        if (nightMode) {
+            dialogTheme = R.style.DialogTheme_Dark; // Use night mode theme
+        } else {
+            dialogTheme = R.style.DialogTheme; // Use day mode theme
+        }
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, dialogTheme, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 // Format the date as words (e.g., "June 12, 2023")

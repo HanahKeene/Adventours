@@ -2,6 +2,8 @@ package com.example.adventours.ui;
 
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -9,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -62,11 +65,20 @@ public class RoomDetails extends AppCompatActivity {
     int currentRoomNumber = 1;
     final int MIN_ROOM_NUMBER = 1;
     final int MAX_ROOM_NUMBER = 10;
+    SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_details);
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        boolean nightMode = sharedPreferences.getBoolean("night", false);
+        if (nightMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
 
         auth = FirebaseAuth.getInstance();
 
@@ -270,22 +282,32 @@ public class RoomDetails extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                // Format the date as words (e.g., "June 12, 2023")
-                String formattedDate = formatDateAsWords(year, month, day);
+        // Get shared preferences
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        boolean nightMode = sharedPreferences.getBoolean("night", false);
 
-                // Set the formatted date to the TextView
-                dateTextView.setText(formattedDate);
-            }
-        }, year, month, day);
+        int dialogTheme;
+        if (nightMode) {
+            dialogTheme = R.style.DialogTheme_Dark; // Use night mode theme
+        } else {
+            dialogTheme = R.style.DialogTheme; // Use day mode theme
+        }
+
+        // Create DatePickerDialog with the appropriate theme
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, dialogTheme,
+                (view, year1, monthOfYear, dayOfMonth) -> {
+                    // Format the date as words (e.g., "June 12, 2023")
+                    String formattedDate = formatDateAsWords(year1, monthOfYear, dayOfMonth);
+                    // Set the formatted date to the TextView
+                    dateTextView.setText(formattedDate);
+                }, year, month, day);
 
         // Set the minimum date to the current date
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
 
         datePickerDialog.show();
     }
+
 
     private String formatDateAsWords(int year, int month, int day) {
         Calendar calendar = Calendar.getInstance();
