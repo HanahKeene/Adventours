@@ -12,6 +12,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="50dp"
+        style="@style/CARD"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="Are you sure you want to logout?"
             android:textAlignment="center"
-            android:textColor="#000000"
+            style="@style/TEXT"
             android:textSize="20sp" />
 
         <Button
@@ -40,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/cancel_btn"
-            android:text="No" />
+            android:text="No"
+            style="@style/TEXT" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

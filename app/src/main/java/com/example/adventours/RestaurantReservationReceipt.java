@@ -1,10 +1,13 @@
 package com.example.adventours;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,12 +35,26 @@ public class RestaurantReservationReceipt extends AppCompatActivity {
     TextView timestampfld, namefld, addressfld, contactfld, emailfld, restaunamefld, reservenumfld, guestfld, checkinfld, checkoutfld, notefld, expirationfld, MOP, totalcostfld;
 
     Button home, saveasimage;
+    ImageView logo;
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_reservation_receipt);
 
-//        timestampfld = findViewById(R.id.timestamp);
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        boolean nightMode = sharedPreferences.getBoolean("night", false);
+
+        logo = findViewById(R.id.logo);
+
+        if (nightMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            logo.setImageResource(R.drawable.logowithwhitetext);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            logo.setImageResource(R.drawable.logowtext);
+        }
+
         namefld = findViewById(R.id.customername);
         addressfld = findViewById(R.id.address);
         contactfld = findViewById(R.id.contact);

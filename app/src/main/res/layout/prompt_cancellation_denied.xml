@@ -12,6 +12,7 @@
         android:padding="30dp"
         android:orientation="vertical"
         android:gravity="center"
+        style="@style/CARD"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -27,6 +28,7 @@
             android:text="Cancellation Denied"
             android:textAlignment="center"
             android:textSize="16sp"
+            style="@style/TEXT"
             android:textStyle="bold" />
 
 
@@ -34,6 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
+            style="@style/TEXT"
             android:text="Cannot cancel reservation 3 days before the check in date." />
 
 

@@ -43,17 +43,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Hello users!"
+            style="@style/TEXT"
             android:paddingBottom="20dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/TEXT"
             android:text="We're pleased to inform you that our mobile app has received a new update." />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
+            style="@style/TEXT"
             android:text="What's New:"
             android:textStyle="bold" />
 
@@ -61,18 +64,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
+            style="@style/TEXT"
             android:text="Enhanced functionality for quicker." />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
+            style="@style/TEXT"
             android:text="Enhancements to Stability and bug fixes." />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
+            style="@style/TEXT"
             android:text="Please update your program to the most recent version right away to take advantage of the newest improvements and bug fixes. We appreciate you as one of our users." />
 
 

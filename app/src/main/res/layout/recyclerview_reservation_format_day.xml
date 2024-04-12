@@ -26,12 +26,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Day"
+                    style="@style/TEXT"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=" : "
+                    style="@style/TEXT"
                     android:textStyle="bold" />
 
                 <TextView
@@ -39,6 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Day"
+                    style="@style/TEXT"
                     android:textStyle="bold" />
             </TableRow>
         </TableLayout>

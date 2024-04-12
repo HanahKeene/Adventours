@@ -1,12 +1,16 @@
 package com.example.adventours;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.adventours.ui.check_reservation;
@@ -26,11 +30,25 @@ public class reservation_details extends AppCompatActivity {
     Button cancelbutton;
 
     TextView place, name, address, number, email, roomlabel, guestslabel, quantitylabel, reservationnumber, reservationDate, quantityvalue, roomvalue, checkinlbl, checkoutlbl, checkin, checkout, expiration ;
-
+    ImageView logo;
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reservation_details);
+
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        boolean nightMode = sharedPreferences.getBoolean("night", false);
+
+        logo = findViewById(R.id.logo);
+
+        if (nightMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            logo.setImageResource(R.drawable.logowithwhitetext);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            logo.setImageResource(R.drawable.logowtext);
+        }
 
         place = findViewById(R.id.place);
         name = findViewById(R.id.name);

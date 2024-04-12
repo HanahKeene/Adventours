@@ -15,6 +15,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="20dp"
+        style="@style/CARD"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -29,6 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Loading.."
+            style="@style/TEXT"
             android:textAlignment="center" />
 
 

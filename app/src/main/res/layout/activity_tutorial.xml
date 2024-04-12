@@ -41,10 +41,10 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/onboardingViewPager"
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="60dp"
-        style="@style/SCREEN"
         tools:layout_editor_absoluteY="68dp" />
 
     <LinearLayout

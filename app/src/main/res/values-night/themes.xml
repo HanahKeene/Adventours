@@ -19,6 +19,7 @@
 
     <style name="PRICETEXT">
         <item name="android:textColor">#B3B7BD</item>
+        <item name="drawableTint">@color/cyan</item>
     </style>
 
     <style name="CARD">
@@ -70,5 +71,9 @@
     <style name="mini_button">
         <item name="tint">@color/cyan</item>
         <item name="backgroundTint">@color/cyan</item>
+    </style>
+
+    <style name="calendar">
+        <item name="tint">@color/cyan</item>
     </style>
 </resources>

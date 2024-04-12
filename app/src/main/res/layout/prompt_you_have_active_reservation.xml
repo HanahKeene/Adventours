@@ -12,6 +12,7 @@
         android:padding="30dp"
         android:orientation="vertical"
         android:gravity="center"
+        style="@style/CARD"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -26,12 +27,14 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textStyle="bold"
+            style="@style/TEXT"
             android:text="Cannot delete account"/>
 
         <TextView
             android:id="@+id/textView33"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/TEXT"
             android:text="You have an active Reservation"
             android:textAlignment="center" />
 
