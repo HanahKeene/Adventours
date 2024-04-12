@@ -157,6 +157,7 @@ public class MyIterinaryFragment extends Fragment {
                         Toast.makeText(getContext(), "Failed to fetch reservations", Toast.LENGTH_SHORT).show();
                     }
                 });
+
     }
 
     private void updateRecyclerView(List<MyItineraryCalendarModel> reservations) {

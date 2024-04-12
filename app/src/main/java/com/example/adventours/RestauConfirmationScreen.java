@@ -117,7 +117,7 @@ public class RestauConfirmationScreen extends AppCompatActivity {
         gcash.setOnClickListener(v -> enablegcash(restauid));
         maya.setOnClickListener(v -> enablemaya(restauid));
 
-        guests.setText(adult + " Adults and " + child + " child");
+        guests.setText(adult + " Adult/s and " + child + " child");
         checkin.setText(date);
         checkout.setText(time);
         notefld.setText(note);

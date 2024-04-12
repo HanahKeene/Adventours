@@ -1,6 +1,7 @@
 package com.example.adventours.ui.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ public class CustomCalendarAdapter extends BaseAdapter {
     private final ArrayList<String> days;
     private final LayoutInflater inflater;
     private final int currentDay;
+
+    SharedPreferences sharedPreferences;
     public CustomCalendarAdapter(Context context, ArrayList<String> days) {
         this.context = context;
         this.days = days;
@@ -63,7 +66,6 @@ public class CustomCalendarAdapter extends BaseAdapter {
         } else {
             // Reset the background color or apply default styling for other days
             convertView.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
-            dayTextView.setTextColor(ContextCompat.getColor(context, R.color.black)); // Reset text color to black
         }
 
         return convertView;
